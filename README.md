@@ -11,6 +11,9 @@ About Us
 ========
 
 Daniel Quinteros - Jefe de proyecto
+
 Felipe Piñeiro - Documentador
+
 Adolfo Dìaz - Programador
+
 Mauricio Oyarzùn - Analista 
