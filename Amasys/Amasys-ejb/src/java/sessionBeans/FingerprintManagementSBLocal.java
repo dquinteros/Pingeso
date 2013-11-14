@@ -4,6 +4,7 @@
  */
 package sessionBeans;
 
+import entity.User;
 import javax.ejb.Local;
 
 /**

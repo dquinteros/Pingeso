@@ -6,6 +6,7 @@ package sessionBeans;
 
 import entity.User;
 import javax.ejb.Stateless;
+import com.digitalpersona.uareu.*;
 
 /**
  *
