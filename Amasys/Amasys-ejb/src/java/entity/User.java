@@ -33,6 +33,7 @@ public class User implements Serializable {
     private String homePhone;
     private String cellPhone;
     private int rut;
+    private String fingerPrint;
     @ManyToOne
     public UserType userType;
 
@@ -99,6 +100,14 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getFingerPrint() {
+        return fingerPrint;
+    }
+
+    public void setFingerPrint(String fingerPrint) {
+        this.fingerPrint = fingerPrint;
     }
 
     @Override
