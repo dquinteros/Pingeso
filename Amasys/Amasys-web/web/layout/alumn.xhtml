@@ -9,7 +9,7 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Profesor - Amasys</title>
+                <title>Alumno - Amasys</title>
             </f:facet>
         </h:head>
 
@@ -27,10 +27,10 @@
 
                 <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
                     <p:menu>
-                        <p:submenu label="Resources">
-                            <p:menuitem value="inicio" url="../home.xhtml" />
-                            <p:menuitem value="Profesores" url="homeTeacher.xhtml" />
-                            <p:menuitem value="Alumnos" url="homeAlumn.xhtml" />
+                        <p:submenu label="Navegación">
+                            <p:menuitem value="Inicio" url="../home.xhtml" />
+                            <p:menuitem value="Profesores" url="teacher.xhtml" />
+                            <p:menuitem value="Alumnos" url="alumn.xhtml" />
 
                         </p:submenu>
 
@@ -38,7 +38,7 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                    Inicio de profesores.
+                    <ui:insert name="content">Alumno.</ui:insert>
                 </p:layoutUnit>
 
             </p:layout>
