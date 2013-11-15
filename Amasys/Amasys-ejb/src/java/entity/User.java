@@ -19,8 +19,8 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries( {
-    @NamedQuery(name="User.findByRut", query="SELECT u FROM User u WHERE u.rut = :rut")
-    
+    @NamedQuery(name="User.findByRut", query="SELECT u FROM User u WHERE u.rut = :rut"),
+    @NamedQuery(name="User.selectAllFingerprint", query="SELECT u.fingerPrint FROM User")
 })
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -33,18 +33,18 @@ public class User implements Serializable {
     private String homePhone;
     private String cellPhone;
     private int rut;
-    private String fingerPrint;
+    private byte[] fingerPrint;    
     @ManyToOne
     public UserType userType;
 
-    public UserType getUserType() {
-        return userType;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
-    }    
-    
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -92,23 +92,22 @@ public class User implements Serializable {
     public void setRut(int rut) {
         this.rut = rut;
     }
-            
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFingerPrint() {
+    public byte[] getFingerPrint() {
         return fingerPrint;
     }
 
-    public void setFingerPrint(String fingerPrint) {
+    public void setFingerPrint(byte[] fingerPrint) {
         this.fingerPrint = fingerPrint;
     }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }    
 
     @Override
     public int hashCode() {
