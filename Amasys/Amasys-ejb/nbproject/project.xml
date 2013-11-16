@@ -6,6 +6,7 @@
             <name>Amasys-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">file.reference.dpuareu.jar</included-library>
+            <included-library dirs="200">file.reference.dpuareu.jar-1</included-library>
             <source-roots>
                 <root id="src.dir" name="Source Packages"/>
             </source-roots>

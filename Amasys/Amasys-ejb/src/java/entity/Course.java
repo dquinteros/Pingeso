@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -18,6 +20,9 @@ import javax.persistence.OneToMany;
  * @author Pingeso
  */
 @Entity
+@NamedQueries( {
+    @NamedQuery(name="Course.getAllStudentsOfCourse", query="SELECT e FROM Student e")    
+})
 public class Course implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
