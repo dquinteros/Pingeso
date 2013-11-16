@@ -6,6 +6,8 @@ package sessionBeans;
 
 import entity.User;
 import javax.ejb.Local;
+import com.digitalpersona.uareu.*;
+import java.util.List;
 
 /**
  *
@@ -15,5 +17,7 @@ import javax.ejb.Local;
 public interface FingerprintManagementSBLocal {
 
     User validateFingerprintBM();
+
+    List<Fmd> selectAllFingerprints();
     
 }
