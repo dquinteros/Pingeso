@@ -21,21 +21,28 @@ import javax.persistence.Query;
  */
 @Stateless
 public class FingerprintManagementSB implements FingerprintManagementSBLocal {
-    @PersistenceContext(unitName = "Amasys-ejbPU")
-    private EntityManager em;
-
-    
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     
+    @PersistenceContext(unitName = "Amasys-ejbPU")
+    private EntityManager em;
+    
+    
     @Override
-    public User validateFingerprintBM() {
+    public User validateFingerprintBM(Fmd fmd1) { 
         
-        Fmd fmd1 = null;int view_index1 = 0;Fmd[] fmds = null;int threshold_score = 0;int candidates_requested = 0;
         
-        Engine eng = UareUGlobal.GetEngine();        
+        int view_index1 = 0;
+        Fmd[] fmds = this.selectAllFingerprints();
+        int threshold_score = Engine.PROBABILITY_ONE / 10000;
+        int candidates_requested = 1;
+        
+        Engine eng = UareUGlobal.GetEngine();
+        
         try {
-            eng.Identify(fmd1, view_index1, fmds,threshold_score,candidates_requested);
+            Engine.Candidate[] ec = eng.Identify(fmd1, view_index1, fmds,threshold_score,candidates_requested);
+            Fmd r = fmds[ec[0].fmd_index];
+            
         } catch (UareUException ex) {
             Logger.getLogger(FingerprintManagementSB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -44,22 +51,23 @@ public class FingerprintManagementSB implements FingerprintManagementSBLocal {
     }    
     
     @Override
-    public List<Fmd> selectAllFingerprints() {
+    public Fmd[] selectAllFingerprints() {
         Query q = this.em.createNamedQuery("User.selectAllFingerprint");
         List<byte[]> r = q.getResultList();
         if(r.isEmpty()){
             return null;
         }else{
-          List<Fmd> fmds = null;
-          for (byte[] s : r){
-              Fmd f;
+          Fmd[] fmds = new Fmd[r.size()+1];
+          int i = 0;
+          for (byte[] s : r){ 
               try {
-                  f = UareUGlobal.GetImporter().ImportFmd(s, Fmd.Format.ANSI_378_2004, Fmd.Format.ANSI_378_2004);
-                   fmds.add(f);
+                  Fmd f;
+                  f = UareUGlobal.GetImporter().ImportFmd(s, Fmd.Format.ANSI_378_2004, Fmd.Format.ANSI_378_2004); 
+                  fmds[i] = f;
               } catch (UareUException ex) {
                   Logger.getLogger(FingerprintManagementSB.class.getName()).log(Level.SEVERE, null, ex);
-              }
-             
+              }              
+           i++;   
           }
           return fmds; 
         }
