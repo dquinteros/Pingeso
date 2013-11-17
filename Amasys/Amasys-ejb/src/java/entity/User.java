@@ -20,7 +20,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries( {
     @NamedQuery(name="User.findByRut", query="SELECT u FROM User u WHERE u.rut = :rut"),
-    @NamedQuery(name="User.selectAllFingerprint", query="SELECT u.fingerPrint FROM User")
+    @NamedQuery(name="User.selectAllFingerprint", query="SELECT u.fingerPrint FROM User u")
 })
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;

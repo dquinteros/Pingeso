@@ -1,0 +1,1 @@
+manageBeans.takeAttendanceMB
