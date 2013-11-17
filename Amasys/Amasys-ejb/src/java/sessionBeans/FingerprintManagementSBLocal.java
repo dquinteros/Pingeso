@@ -16,7 +16,7 @@ import java.util.List;
 @Local
 public interface FingerprintManagementSBLocal {
 
-    User validateFingerprintBM(Fmd fmd1);
+    Fmd validateFingerprintBM(Fmd fmd1);
 
     Fmd[] selectAllFingerprints();
     

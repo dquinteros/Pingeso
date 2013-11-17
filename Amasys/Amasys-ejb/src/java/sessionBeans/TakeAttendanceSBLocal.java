@@ -4,10 +4,8 @@
  */
 package sessionBeans;
 
-import entity.Student;
 import entity.User;
 import java.util.ArrayList;
-import java.util.Collection;
 import javax.ejb.Local;
 
 /**
