@@ -25,10 +25,14 @@ public class FingerprintManagementSB implements FingerprintManagementSBLocal {
     @PersistenceContext(unitName = "Amasys-ejbPU")
     private EntityManager em;
 
+    /**
+     * Validating that a Fmd exists in the database
+     * 
+     * @param fmd1 Corresponde al valos Fmd en formato ANSI de lal huella digital
+     * @return El valor Fmd del registro de la huella en la BD
+     */
     @Override
     public Fmd validateFingerprintBM(Fmd fmd1) {
-
-
         int view_index1 = 0;
         Fmd[] fmds = this.selectAllFingerprints();
         int threshold_score = Engine.PROBABILITY_ONE / 10000;
@@ -44,7 +48,13 @@ public class FingerprintManagementSB implements FingerprintManagementSBLocal {
         }
         return r;
     }
-
+    
+    
+    /**
+     * Get every fingerprint record from the users in the DB
+     * 
+     * @return All fingerprint records
+     */
     @Override
     public Fmd[] selectAllFingerprints() {
         Query q = this.em.createNamedQuery("User.selectAllFingerprint");
