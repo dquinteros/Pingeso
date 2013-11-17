@@ -4,15 +4,18 @@
  */
 package entity;
 
+
 import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-
 /**
  *
  * @author Pingeso
@@ -24,16 +27,17 @@ import javax.persistence.NamedQuery;
 })
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id        
+    @GeneratedValue(strategy = GenerationType.AUTO)    
     private Long id;
     private String firstName;
     private String lastName;
     private String email;
     private String homePhone;
     private String cellPhone;
-    private int rut;
-    private byte[] fingerPrint;    
+    private int rut;   
+    @Lob
+    private String fingerPrint;    
     @ManyToOne
     public UserType userType;
 
@@ -93,11 +97,11 @@ public class User implements Serializable {
         this.rut = rut;
     }
 
-    public byte[] getFingerPrint() {
+    public String getFingerPrint() {
         return fingerPrint;
     }
 
-    public void setFingerPrint(byte[] fingerPrint) {
+    public void setFingerPrint(String fingerPrint) {
         this.fingerPrint = fingerPrint;
     }
 

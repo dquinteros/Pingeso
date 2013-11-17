@@ -4,10 +4,8 @@
  */
 package sessionBeans;
 
-import entity.User;
 import javax.ejb.Local;
 import com.digitalpersona.uareu.*;
-import java.util.List;
 
 /**
  *
@@ -19,5 +17,7 @@ public interface FingerprintManagementSBLocal {
     Fmd validateFingerprintBM(Fmd fmd1);
 
     Fmd[] selectAllFingerprints();
+
+    byte[] hexStringToByteArray(String s);
     
 }

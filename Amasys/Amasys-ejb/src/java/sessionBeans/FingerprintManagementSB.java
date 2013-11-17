@@ -21,15 +21,16 @@ import javax.persistence.Query;
 public class FingerprintManagementSB implements FingerprintManagementSBLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-
     @PersistenceContext(unitName = "Amasys-ejbPU")
     private EntityManager em;
+    
+    
 
     /**
      * Validating that a Fmd exists in the database
      * 
-     * @param fmd1 Corresponde al valos Fmd en formato ANSI de lal huella digital
-     * @return El valor Fmd del registro de la huella en la BD
+     * @param fmd1 The ANSI format Fmd value of the fingerprint
+     * @return The value log Fmd fingerprint in the database
      */
     @Override
     public Fmd validateFingerprintBM(Fmd fmd1) {
@@ -58,17 +59,16 @@ public class FingerprintManagementSB implements FingerprintManagementSBLocal {
     @Override
     public Fmd[] selectAllFingerprints() {
         Query q = this.em.createNamedQuery("User.selectAllFingerprint");
-        List<byte[]> r = q.getResultList();
+        List<String> r = q.getResultList();
         if (r.isEmpty()) {
             return null;
         } else {
             Fmd[] fmds = new Fmd[r.size() + 1];
             int i = 0;
-            for (byte[] s : r) {
+            for (String s : r) {
                 try {
-                    Fmd f;
-                    f = UareUGlobal.GetImporter().ImportFmd(s, Fmd.Format.ANSI_378_2004, Fmd.Format.ANSI_378_2004);
-                    fmds[i] = f;
+                    Importer imp = UareUGlobal.GetImporter();
+                    fmds[i] =  imp.ImportFmd(this.hexStringToByteArray(s), Fmd.Format.ANSI_378_2004, Fmd.Format.ANSI_378_2004);
                 } catch (UareUException ex) {
                     Logger.getLogger(FingerprintManagementSB.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -77,8 +77,26 @@ public class FingerprintManagementSB implements FingerprintManagementSBLocal {
             return fmds;
         }
     }
+    
+    /**
+     * Convert string in to byte array
+     * 
+     * @param s  
+     * @return value in byte[] of the string 
+     */
+    @Override
+    public byte[] hexStringToByteArray(String s) {
+        int len = s.length();
+	    byte[] data = new byte[len / 2];
+	    for (int i = 0; i < len; i += 2) {
+	        data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+	                             + Character.digit(s.charAt(i+1), 16));
+	    }
+	    return data;
+    }   
 
     public void persist(Object object) {
         em.persist(object);
     }
+    
 }
