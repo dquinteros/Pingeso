@@ -21,14 +21,16 @@ import javax.persistence.Query;
 public class FingerprintManagementSB implements FingerprintManagementSBLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+
     @PersistenceContext(unitName = "Amasys-ejbPU")
     private EntityManager em;
-    
-    
 
+    public void persist(Object object) {
+        em.persist(object);
+    }
     /**
      * Validating that a Fmd exists in the database
-     * 
+     *
      * @param fmd1 The ANSI format Fmd value of the fingerprint
      * @return The value log Fmd fingerprint in the database
      */
@@ -49,11 +51,10 @@ public class FingerprintManagementSB implements FingerprintManagementSBLocal {
         }
         return r;
     }
-    
-    
+
     /**
      * Get every fingerprint record from the users in the DB
-     * 
+     *
      * @return All fingerprint records
      */
     @Override
@@ -68,7 +69,7 @@ public class FingerprintManagementSB implements FingerprintManagementSBLocal {
             for (String s : r) {
                 try {
                     Importer imp = UareUGlobal.GetImporter();
-                    fmds[i] =  imp.ImportFmd(this.hexStringToByteArray(s), Fmd.Format.ANSI_378_2004, Fmd.Format.ANSI_378_2004);
+                    fmds[i] = imp.ImportFmd(this.hexStringToByteArray(s), Fmd.Format.ANSI_378_2004, Fmd.Format.ANSI_378_2004);
                 } catch (UareUException ex) {
                     Logger.getLogger(FingerprintManagementSB.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -77,26 +78,21 @@ public class FingerprintManagementSB implements FingerprintManagementSBLocal {
             return fmds;
         }
     }
-    
+
     /**
      * Convert string in to byte array
-     * 
-     * @param s  
-     * @return value in byte[] of the string 
+     *
+     * @param s
+     * @return value in byte[] of the string
      */
     @Override
     public byte[] hexStringToByteArray(String s) {
         int len = s.length();
-	    byte[] data = new byte[len / 2];
-	    for (int i = 0; i < len; i += 2) {
-	        data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-	                             + Character.digit(s.charAt(i+1), 16));
-	    }
-	    return data;
-    }   
-
-    public void persist(Object object) {
-        em.persist(object);
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+                    + Character.digit(s.charAt(i + 1), 16));
+        }
+        return data;
     }
-    
 }
