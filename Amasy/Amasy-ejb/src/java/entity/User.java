@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries( {
     @NamedQuery(name="User.findByRut", query="SELECT u FROM User u WHERE u.rut = :rut"),
+    @NamedQuery(name="User.findByUserName", query="SELECT u.userType.name FROM User u WHERE u.userName = :username"),
     @NamedQuery(name="User.selectAllFingerprint", query="SELECT u.fingerPrint FROM User u"),
     @NamedQuery(name="User.findByFingerprint", query="SELECT u FROM User u WHERE u.fingerPrint = :fingerprint")
 })
@@ -29,9 +30,9 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id;    
     private String userName;
-    private String pass;
+    private String password;
     private String firstName;
     private String lastName;
     private String email;
@@ -42,7 +43,6 @@ public class User implements Serializable {
     private String fingerPrint;    
     @ManyToOne
     private UserType userType;
-   
     
     public Long getId() {
         return id;
@@ -64,12 +64,12 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     

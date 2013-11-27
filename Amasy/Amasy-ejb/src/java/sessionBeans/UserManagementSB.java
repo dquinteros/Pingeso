@@ -60,12 +60,28 @@ public class UserManagementSB implements UserManagementSBLocal {
         try {
             res = (User) q.getSingleResult();
         } catch (NoResultException e) {
-            System.out.println(e.getMessage());
+            System.out.println("error(UserManagementSB-findUserByRut): "+e.getMessage());
         }
         return res;
     }    
+    
+    
 
     @Override
     public void getAllUser() {
+    }
+
+    @Override
+    public String findUserTypeByUserName(String userName) {
+        String response = null;
+        Query q = this.em.createNamedQuery("User.findByUserName", User.class);
+        q.setParameter("username", userName);
+        System.out.println(userName);
+        try {
+            response = (String)q.getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println("error(UserManagementSB-findUserTypeUserName): "+e.getMessage());
+        }                
+        return response;
     }
 }

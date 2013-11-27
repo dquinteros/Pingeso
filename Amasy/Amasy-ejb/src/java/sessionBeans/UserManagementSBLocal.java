@@ -20,6 +20,8 @@ public interface UserManagementSBLocal {
    public void getAllUser();
 
     public User findUserByRut(int rut);
+
+    String findUserTypeByUserName(String userName);
      
     
 }

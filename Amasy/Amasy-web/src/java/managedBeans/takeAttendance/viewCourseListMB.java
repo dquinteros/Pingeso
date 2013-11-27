@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package manageBeans.takeAttendance;
+package managedBeans.takeAttendance;
 
 import entity.Course;
 import javax.inject.Named;
@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import manageBeans.utilitiesMB;
+import managedBeans.utilitiesMB;
 import sessionBeans.CoursesDataSBLocal;
 
 /**
@@ -22,7 +22,7 @@ import sessionBeans.CoursesDataSBLocal;
 @ManagedBean
 @Named(value = "viewListOfCourseMB")
 @RequestScoped
-public class viewCourseListMB extends utilitiesMB {
+public class viewCourseListMB{
 
     @EJB 
     private CoursesDataSBLocal CoursesDataSB;
@@ -42,9 +42,8 @@ public class viewCourseListMB extends utilitiesMB {
 
     public void courseRedirect(long idCourse){   
         this.takeAttendanceConversation.beginConversation();
-        this.takeAttendanceConversation.setIdClass(idCourse);        
-        //para redireccionar
-        this.redirection("/faces/teacher/takeAttendance/takeAttendance.xhtml?cid=".concat(this.takeAttendanceConversation.getConversation().getId().toString()));               
+        this.takeAttendanceConversation.setIdClass(idCourse);   
+        utilitiesMB.redirection("/faces/teacher/takeAttendance/takeAttendance.xhtml?cid=".concat(this.takeAttendanceConversation.getConversation().getId().toString()));
     }
     
     public CoursesDataSBLocal getCoursesDataSB() {

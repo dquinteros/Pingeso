@@ -23,7 +23,8 @@ import javax.persistence.Temporal;
  * @author Pingeso
  */
 @NamedQueries( {
-    @NamedQuery(name = "Student.findByIdUser", query = "SELECT a FROM Student a WHERE a.user.id = :idUser")
+    @NamedQuery(name = "Student.findByIdUser", query = "SELECT a FROM Student a WHERE a.user.id = :idUser"),
+    @NamedQuery(name="Student.getAllStudentUserInfo", query="SELECT u.user FROM Student u")
 })
 @Entity
 public class Student implements Serializable {
@@ -38,11 +39,10 @@ public class Student implements Serializable {
 
     @OneToMany(mappedBy = "student")
     private List<Assistance> listAssistance;
-    
+        
     @OneToOne
     private User user;
-    
-    
+   
     
     public List<Course> getListCourse() {
         return listCourse;

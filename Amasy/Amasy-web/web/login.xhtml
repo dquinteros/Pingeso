@@ -12,25 +12,25 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <h2>Hello, please log in:</h2>
-        <form method="post" action="j_security_check">
+        <h:form>
             <table columns="2" role="presentation"> 
                 <tr>
-                    <td><h:outputLabel for="j_username" 
+                    <td><h:outputLabel for="username" 
                                        value="Please type your user name:"/></td>
-                    <td><h:inputText id="j_username" autocomplete="off" 
-                                     size="20" /></td>
+                    <td><h:inputText id="username" autocomplete="off" 
+                                     size="20" value="#{loginMB.userName}" /></td>
                 </tr>
                 <tr>
-                    <td><h:outputLabel for="j_password" 
+                    <td><h:outputLabel for="password" 
                                        value="Please type your password:"/></td>
-                    <td><h:inputSecret id="j_password" autocomplete="off" 
-                                       size="20"/></td>
+                    <td><h:inputSecret id="password" autocomplete="off" 
+                                       size="20" value="#{loginMB.password}"/></td>
                 </tr>
             </table>
             <p>
-                <h:commandButton type="submit" value="Submit"/>
+                <h:commandButton type="submit" value="Submit" action="#{loginMB.login()}"/>
                 <h:commandButton type="reset" value="Reset"/>
             </p>
-        </form>
+        </h:form>
     </h:body>
 </html>

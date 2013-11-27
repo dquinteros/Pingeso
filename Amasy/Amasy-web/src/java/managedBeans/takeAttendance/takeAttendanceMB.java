@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package manageBeans.takeAttendance;
+package managedBeans.takeAttendance;
 
 import entity.BlockClass;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import manageBeans.utilitiesMB;
+import managedBeans.utilitiesMB;
 import DTOs.TakeAttendanceDataUserDTO;
 import sessionBeans.TakeAttendanceSBLocal;
 
@@ -21,7 +21,7 @@ import sessionBeans.TakeAttendanceSBLocal;
  */
 @Named(value = "takeAttendanceMB")
 @RequestScoped
-public class takeAttendanceMB extends utilitiesMB{
+public class takeAttendanceMB{
 
     @EJB
     private TakeAttendanceSBLocal TakeAttendanceSB;
@@ -45,10 +45,10 @@ public class takeAttendanceMB extends utilitiesMB{
                 System.out.println(blockClass.getDate());
                 listStudents = TakeAttendanceSB.listOfStudentsPerCourseList(this.takeAttendanceConversation.getIdClass(), blockClass.getId());            
             }else{
-                this.redirection("/faces/teacher/takeAttendance/viewCourseList.xhtml"); 
+                utilitiesMB.redirection("/faces/teacher/takeAttendance/viewCourseList.xhtml");
             }            
         }else{
-            this.redirection("/faces/teacher/takeAttendance/viewCourseList.xhtml"); 
+            utilitiesMB.redirection("/faces/teacher/takeAttendance/viewCourseList.xhtml");
         }        
     }
 

@@ -1,4 +1,4 @@
-package manageBeans;
+package managedBeans;
 
 /*
  * To change this template, choose Tools | Templates
@@ -25,7 +25,7 @@ public class utilitiesMB {
     public utilitiesMB() {
     }
     
-    public void redirection(String url){
+    public static void redirection(String url){
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         try {
            externalContext.redirect(externalContext.getRequestContextPath() + url);
