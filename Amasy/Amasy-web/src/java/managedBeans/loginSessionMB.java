@@ -52,8 +52,6 @@ public class loginSessionMB extends utilitiesMB implements Serializable{
         ExternalContext externalContext = context.getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
         try {
-//            System.out.println("1            "+request.getRemoteUser());
-  //          System.out.println(userName + "  " + pass);
             if (request.getRemoteUser() == null) {
                 request.login(userName, pass);  
                 this.userName = userName;
