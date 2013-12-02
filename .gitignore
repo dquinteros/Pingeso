@@ -1,6 +1,5 @@
 # Package Files #
 *.class
-*.jar
 *.war
 *.ear
 /Amasy/dist/
