@@ -10,7 +10,7 @@ El software corresponde al desarrollo de un proyecto para la asignatura de proye
 About Us
 ========
 
-Daniel Quinteros - Jefe de proyecto
+Daniel Quinteros - Scrum Master
 
 Felipe Piñeiro - Documentador
 
