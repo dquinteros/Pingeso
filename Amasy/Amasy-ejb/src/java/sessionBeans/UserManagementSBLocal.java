@@ -4,8 +4,7 @@
  */
 package sessionBeans;
 
-import entity.User;
-import entity.UserType;
+import DTOs.UserDTO;
 import javax.ejb.Local;
 
 /**
@@ -14,14 +13,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface UserManagementSBLocal {
+    public UserDTO findUserByRut(int rut);
 
-    public void newUser(Long id, String firstName, String lastName, String email, String homePhone, String cellPhone, int rut, String userTypeName);
-
-   public void getAllUser();
-
-    public User findUserByRut(int rut);
-
-    String findUserTypeByUserName(String userName);
-     
-    
+    public UserDTO findUserByUserName(String username);
 }

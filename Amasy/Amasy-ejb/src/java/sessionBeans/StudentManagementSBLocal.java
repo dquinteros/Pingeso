@@ -4,7 +4,7 @@
  */
 package sessionBeans;
 
-import DTOs.StudentDTO;
+import DTOs.UserDTO;
 import java.util.LinkedList;
 import javax.ejb.Local;
 
@@ -15,6 +15,6 @@ import javax.ejb.Local;
 @Local
 public interface StudentManagementSBLocal {
 
-    LinkedList<StudentDTO> getAllStudent();
+    LinkedList<UserDTO> getAllStudent();
     
 }

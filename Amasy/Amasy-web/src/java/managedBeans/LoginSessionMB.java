@@ -4,11 +4,10 @@
  */
 package managedBeans;
 
-import com.sun.corba.se.impl.orbutil.closure.Constant;
+import DTOs.UserDTO;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -22,12 +21,12 @@ import sessionBeans.UserManagementSBLocal;
  */
 @Named(value = "loginSessionMB")
 @SessionScoped
-public class loginSessionMB extends utilitiesMB implements Serializable{        
+public class LoginSessionMB extends UtilitiesMB implements Serializable{        
 
     /**
-     * Creates a new instance of loginSessionMB
+     * Creates a new instance of LoginSessionMB
      */
-    private String userName;
+    private UserDTO user;
     private String startPage;
     
     @EJB
@@ -44,7 +43,7 @@ public class loginSessionMB extends utilitiesMB implements Serializable{
         }
     }        
     
-    public loginSessionMB() {
+    public LoginSessionMB() {
     }
     
     public void login(String userName, String pass){
@@ -53,8 +52,10 @@ public class loginSessionMB extends utilitiesMB implements Serializable{
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
         try {
             if (request.getRemoteUser() == null) {
+                System.out.println("entro: "+ request.toString());
                 request.login(userName, pass);  
-                this.userName = userName;
+                System.out.println("entro2");
+                user = userManagementSB.findUserByUserName(userName);
                 defineStartPage();
                 redirectStartPage();
             }
@@ -67,10 +68,8 @@ public class loginSessionMB extends utilitiesMB implements Serializable{
         }
     }
     
-    private void defineStartPage(){
-        String tipeUser = userManagementSB.findUserTypeByUserName(userName);
-        System.out.println(tipeUser);        
-        switch(tipeUser){
+    private void defineStartPage(){      
+        switch(user.getUserType().getName()){
             case "Profesor": startPage = "/faces/teacher/index.xhtml";
                 break;
             case "Administrador":;
@@ -81,7 +80,7 @@ public class loginSessionMB extends utilitiesMB implements Serializable{
     }
     
     private void redirectStartPage(){
-        loginSessionMB.redirection(startPage);
+        LoginSessionMB.redirection(startPage);
     }
    
     public String getStartPage() {
@@ -90,14 +89,6 @@ public class loginSessionMB extends utilitiesMB implements Serializable{
 
     public void setStartPage(String startPage) {
         this.startPage = startPage;
-    }
-    
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
     
 }

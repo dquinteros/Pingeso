@@ -30,7 +30,8 @@ public class Course implements Serializable {
     private Long id;
     private String name;
     private int level;
-    @OneToMany
+
+    @OneToMany(mappedBy = "course")
     private List<BlockClass> listBlockClass;    
     @ManyToMany
     private List<Student> listStudent;    

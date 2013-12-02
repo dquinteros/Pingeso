@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import managedBeans.utilitiesMB;
+import managedBeans.UtilitiesMB;
 import sessionBeans.CoursesDataSBLocal;
 
 /**
@@ -22,17 +22,17 @@ import sessionBeans.CoursesDataSBLocal;
 @ManagedBean
 @Named(value = "viewListOfCourseMB")
 @RequestScoped
-public class viewCourseListMB{
+public class ViewCourseListMB{
 
     @EJB 
     private CoursesDataSBLocal CoursesDataSB;
     
     @Inject 
-    private takeAttendanceConversationMB takeAttendanceConversation;
+    private TakeAttendanceConversationMB takeAttendanceConversation;
         
     private ArrayList<Course> listCourse;
     
-    public viewCourseListMB() {
+    public ViewCourseListMB() {
     }
     
     @PostConstruct
@@ -43,7 +43,7 @@ public class viewCourseListMB{
     public void courseRedirect(long idCourse){   
         this.takeAttendanceConversation.beginConversation();
         this.takeAttendanceConversation.setIdClass(idCourse);   
-        utilitiesMB.redirection("/faces/teacher/takeAttendance/takeAttendance.xhtml?cid=".concat(this.takeAttendanceConversation.getConversation().getId().toString()));
+        UtilitiesMB.redirection("/faces/teacher/takeAttendance/takeAttendance.xhtml?cid=".concat(this.takeAttendanceConversation.getConversation().getId().toString()));
     }
     
     public CoursesDataSBLocal getCoursesDataSB() {

@@ -5,8 +5,6 @@
 package DTOs;
 
 import entity.User;
-import java.awt.List;
-import java.util.ArrayList;
 import java.util.Date;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
@@ -18,7 +16,7 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class CourseAssistanceInformation {
+public class CourseAssistanceInformationDTO {
     private User user;
     //private ArrayList<boolean> listAssistance;    
     

@@ -4,7 +4,7 @@
  */
 package sessionBeans;
 
-import DTOs.StudentDTO;
+import DTOs.UserDTO;
 import entity.User;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -34,15 +34,15 @@ public class StudentManagementSB implements StudentManagementSBLocal {
 
     @Override
     @SuppressWarnings("empty-statement")
-    public LinkedList<StudentDTO> getAllStudent() {        
+    public LinkedList<UserDTO> getAllStudent() {        
         Collection<User> result;
-        LinkedList<StudentDTO> exitResult = new LinkedList<StudentDTO>();
-        StudentDTO studentDTOTemp;
+        LinkedList<UserDTO> exitResult = new LinkedList<UserDTO>();
+        UserDTO studentDTOTemp;
         Query q = this.em.createNamedQuery("Student.getAllStudentUserInfo");
         try {
             result = (Collection<User>)q.getResultList();
             for (User iter : result) { 
-                studentDTOTemp = new StudentDTO();
+                studentDTOTemp = new UserDTO();
                 studentDTOTemp.setCellPhone(iter.getCellPhone());
                 studentDTOTemp.setEmail(iter.getEmail());
                 studentDTOTemp.setFirstName(iter.getFirstName());

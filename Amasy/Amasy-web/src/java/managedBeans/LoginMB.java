@@ -17,7 +17,7 @@ import javax.servlet.ServletException;
 @Named(value = "loginMB")
 @RequestScoped
 public class LoginMB {
-    @Inject loginSessionMB varSession;
+    @Inject LoginSessionMB varSession;
     /**
      * Creates a new instance of LoginMB
      */

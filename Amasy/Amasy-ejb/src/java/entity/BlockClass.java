@@ -11,6 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -19,10 +22,14 @@ import javax.persistence.Temporal;
  *
  * @author Pingeso
  */
+@NamedQueries( {
+    @NamedQuery(name = "BlockClass.findStudentByBlockClass", query = "SELECT b.course.listStudent FROM BlockClass b WHERE b.id = :idBlockClass")
+
+})
 @Entity
 public class BlockClass implements Serializable {
-    @OneToOne(mappedBy = "blockClass")
-    private Assistance assistance;
+    @ManyToOne
+    private Course course;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,8 +40,8 @@ public class BlockClass implements Serializable {
     private boolean done;
     private String comment;      
 
-    @OneToMany(mappedBy = "blockClass")
-    private List<Assistance> listAssistance;
+    @OneToOne(mappedBy = "blockClass")
+    private Assistance assistance;
 
     public Date getDate() {
         return date;
@@ -60,13 +67,15 @@ public class BlockClass implements Serializable {
         this.comment = comment;
     }
 
-    public List<Assistance> getListAssistance() {
-        return listAssistance;
+    public Assistance getAssistance() {
+        return assistance;
     }
 
-    public void setListAssistance(List<Assistance> listAssistance) {
-        this.listAssistance = listAssistance;
-    }        
+    public void setAssistance(Assistance assistance) {
+        this.assistance = assistance;
+    }
+
+ 
     
     public Long getId() {
         return id;
@@ -76,14 +85,14 @@ public class BlockClass implements Serializable {
         this.id = id;
     }
 
-    public Assistance getAssistance() {
-        return assistance;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setAssistance(Assistance assistance) {
-        this.assistance = assistance;
-    }
-
+    public void setCourse(Course course) {
+        this.course = course;
+    }   
+    
     @Override
     public int hashCode() {
         int hash = 0;

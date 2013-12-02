@@ -4,13 +4,10 @@
  */
 package sessionBeans;
 
-import DTOs.TakeAttendanceDataUserDTO;
+import DTOs.ResponseAssistanceDTO;
+import DTOs.UserAssistantBlockClassDTO;
 import entity.BlockClass;
-import entity.Course;
-import entity.Student;
-import entity.User;
 import java.util.ArrayList;
-import java.util.Collection;
 import javax.ejb.Local;
 
 /**
@@ -20,8 +17,10 @@ import javax.ejb.Local;
 @Local
 public interface TakeAttendanceSBLocal {
 
-    public ArrayList<TakeAttendanceDataUserDTO> listOfStudentsPerCourseList(long course, long blockClass);
+    public ArrayList<UserAssistantBlockClassDTO> listOfStudentsPerCourseList(long course, long blockClass);
 
     public BlockClass getIdBloackClassForTakeAttendance(Long course);
+    
+    public ResponseAssistanceDTO validateFingerprintBM(String fingerprint, BlockClass blockClass);
     
 }

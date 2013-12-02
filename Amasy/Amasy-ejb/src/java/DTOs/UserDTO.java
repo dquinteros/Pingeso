@@ -4,6 +4,8 @@
  */
 package DTOs;
 
+import entity.User;
+import entity.UserType;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -13,8 +15,9 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class StudentDTO {
-         
+public class UserDTO {
+    
+    private Long id;    
     private String userName;
     private String firstName;
     private String lastName;
@@ -22,10 +25,30 @@ public class StudentDTO {
     private String homePhone;
     private String cellPhone;
     private int rut;
+    private UserType userType;
     
-    
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    public UserDTO() {
+    }
+
+    public UserDTO(User user) {
+        this.id = user.getId();    
+        this.userName = user.getUserName();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.homePhone = user.getHomePhone();
+        this.cellPhone = user.getCellPhone();
+        this.rut = user.getRut();
+        this.userType = user.getUserType();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUserName() {
         return userName;
@@ -82,5 +105,15 @@ public class StudentDTO {
     public void setRut(int rut) {
         this.rut = rut;
     }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+    
+    
 
 }

@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
@@ -37,8 +36,8 @@ public class Student implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date incomeYear;    
 
-    @OneToMany(mappedBy = "student")
-    private List<Assistance> listAssistance;
+    @OneToOne(mappedBy = "student")
+    private Assistance assistance;
         
     @OneToOne
     private User user;
@@ -60,15 +59,15 @@ public class Student implements Serializable {
         this.user = user;
     }
 
-    
-    
-    public List<Assistance> getListAssistance() {
-        return listAssistance;
+    public Assistance getAssistance() {
+        return assistance;
     }
 
-    public void setListAssistance(List<Assistance> listAssistance) {
-        this.listAssistance = listAssistance;
-    }   
+    public void setAssistance(Assistance assistance) {
+        this.assistance = assistance;
+    }
+
+     
     
     public Date getIncomeYear() {
         return incomeYear;

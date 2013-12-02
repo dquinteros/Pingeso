@@ -4,8 +4,8 @@
  */
 package managedBeans.takeAttendance;
 
+import DTOs.ResponseAssistanceDTO;
 import entity.BlockClass;
-import entity.User;
 import javax.inject.Named;
 import javax.enterprise.context.ConversationScoped;
 import java.io.Serializable;
@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.inject.Inject;
-import sessionBeans.fingerPrint.FingerprintManagementSBLocal;
+import sessionBeans.TakeAttendanceSBLocal;
 
 /**
  *
@@ -21,28 +21,23 @@ import sessionBeans.fingerPrint.FingerprintManagementSBLocal;
  */
 @Named(value = "takeAttendanceConversationMB")
 @ConversationScoped
-public class takeAttendanceConversationMB implements Serializable {
+public class TakeAttendanceConversationMB implements Serializable {
 
     @EJB
-    private FingerprintManagementSBLocal fingerprintManagementSB;
+    private TakeAttendanceSBLocal TakeAttendanceSB;
     @Inject
     Conversation conversation;
     private long idClass;
-    private String fingerprint;
     private BlockClass blockClass;
 
-    public takeAttendanceConversationMB() {
+    public TakeAttendanceConversationMB() {
     }
 
     @PostConstruct
     public void init() {
         this.idClass = -1;
     }
-
-    public void sendFingerprint() {
-        User nada = fingerprintManagementSB.validateFingerprintBM(fingerprint, blockClass);
-       // this.redirection("/faces/teacher/takeAttendance/takeAttendance.xhtml?cid=".concat(this.takeAttendanceConversation.getConversation().getId().toString()));               
-    }
+    
 
     public void beginConversation() {
         if (conversation.isTransient()) {
@@ -66,14 +61,6 @@ public class takeAttendanceConversationMB implements Serializable {
 
     public void setIdClass(long idClass) {
         this.idClass = idClass;
-    }
-
-    public String getFingerprint() {
-        return fingerprint;
-    }
-
-    public void setFingerprint(String fingerprint) {
-        this.fingerprint = fingerprint;
     }
 
     public BlockClass getBlockClass() {

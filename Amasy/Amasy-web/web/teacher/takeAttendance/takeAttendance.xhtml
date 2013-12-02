@@ -1,32 +1,36 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../../template/teacher.xhtml"
+  
+<ui:composition template="./../../template/teacher.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                 xmlns="http://www.w3.org/1999/xhtml">
 
-    <ui:define name="content">        
-        <p:dataTable value="#{takeAttendanceMB.listStudents}" var="student"
-                         emptyMessage="No hay usuarios en el sistema" >               
-            <p:column id="rut" headerText="Rut" filterMatchMode="contains" >
-                <h:outputText value="#{student.user.rut}" />
-            </p:column>
-            <p:column id="nombre" headerText="nombre" filterMatchMode="contains" >
-                <h:outputText value="#{student.user.firstName}" />                                
-            </p:column>
-            <p:column id="apellido" headerText="apellido" filterMatchMode="contains" >
-                <h:outputText value="#{student.user.lastName}" />                                
-            </p:column>
-            <p:column id="asistencia" headerText="asistencia" filterMatchMode="contains" >
-                <h:selectBooleanCheckbox disabled="true" value="#{student.present}"/>
-            </p:column>
-        </p:dataTable> 
-        <div id="contentFingerprint">
-            <h:form id="form">
-                <p:inputText id="fingerPrint" value="#{takeAttendanceConversationMB.fingerprint}"></p:inputText>
-                <p:commandButton value="Guardar" ajax="false" action="#{takeAttendanceConversationMB.sendFingerprint()}"/>
+    <ui:define name="content">                                              
+        <div id="contentFingerprint" showDetail="true" sticky="true">
+            <h:form>  
+                <p:growl id="growl" showDetail="true" sticky="true"/> 
+                <p:inputText value="#{takeAttendanceMB.fingerprint}" required="true" label="Name" style="display: none"/>  
+                <p:commandButton value="Save" actionListener="#{takeAttendanceMB.sendFingerprint(actionEvent)}" update="tableAssistance,growl" style="display: none"/>                  
+                <p:dataTable  id="tableAssistance" value="#{takeAttendanceMB.listStudents}" var="student"
+                                 emptyMessage="No hay usuarios en el curso" >               
+                    <p:column id="rut" headerText="Rut" filterMatchMode="contains" >
+                        <h:outputText value="#{student.user.rut}" />
+                    </p:column>
+                    <p:column id="nombre" headerText="nombre" filterMatchMode="contains" >
+                        <h:outputText value="#{student.user.firstName}" />                                
+                    </p:column>
+                    <p:column id="apellido" headerText="apellido" filterMatchMode="contains" >
+                        <h:outputText value="#{student.user.lastName}" />                                
+                    </p:column>
+                    <p:column id="asistencia" headerText="asistencia" filterMatchMode="contains" >
+                        <h:selectBooleanCheckbox disabled="true" value="#{student.present}"/>
+                    </p:column>
+                </p:dataTable>                  
             </h:form>  
-        </div>                        
+        </div> 
+                
         <script type="text/javascript">
             function onLoad() {
                 document.loginForm.radioDP.checked = "true";
@@ -42,8 +46,8 @@
             function onEnrollmentFailureHandler() {
             }
             function onFMDHandler( hexFMD ) {
-                document.getElementById('form:fingerPrint').value = hexFMD;                           
-                document.getElementById("contentFingerprint").childNodes[1].childNodes[4].click();
+                document.getElementById("contentFingerprint").childNodes[1].childNodes[4].value = hexFMD;                           
+                document.getElementById("contentFingerprint").childNodes[1].childNodes[5].click();
             }
             if (_app == 'Netscape') 
             {

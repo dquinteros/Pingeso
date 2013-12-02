@@ -8,7 +8,7 @@
     <ui:define name="content">        
         <h:form>
             <p:dataTable value="#{viewListOfCourseMB.listCourse}" var="course" emptyMessage="No hay usuarios en el sistema">               
-                <p:column id="nomColumn" headerText="Nombre" >
+                <p:column id="nomCurso" headerText="Curso" >
                     <p:commandLink value="#{course.name}" action="#{viewListOfCourseMB.courseRedirect(course.id)}">
                     </p:commandLink>
                 </p:column>                       

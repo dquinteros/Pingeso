@@ -17,12 +17,12 @@ import javax.faces.context.FacesContext;
  */
 @Named(value = "utilitiesMB")
 @RequestScoped
-public class utilitiesMB {
+public class UtilitiesMB {
 
     /**
-     * Creates a new instance of utilitiesMB
+     * Creates a new instance of UtilitiesMB
      */
-    public utilitiesMB() {
+    public UtilitiesMB() {
     }
     
     public static void redirection(String url){

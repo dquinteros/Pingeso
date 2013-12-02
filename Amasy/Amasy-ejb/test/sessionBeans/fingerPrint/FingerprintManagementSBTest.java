@@ -4,125 +4,45 @@
  */
 package sessionBeans.fingerPrint;
 
-import com.digitalpersona.uareu.Fmd;
-import entity.BlockClass;
-import entity.User;
-import javax.ejb.EJB;
-/*import org.junit.After;
-import org.junit.AfterClass;
+import java.util.LinkedList;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;*/
+import static org.junit.Assert.*;
 
 /**
  *
  * @author Pingeso
  */
 public class FingerprintManagementSBTest {
-
-    @EJB
-    private FingerprintManagementSB fpmsb = new FingerprintManagementSB();
-
-    public FingerprintManagementSBTest() {
-    }
-
-  //  @BeforeClass
-    public static void setUpClass() {
-    }
-
-  //  @AfterClass
-    public static void tearDownClass() {
-    }
-
- //   @Before
-    public void setUp() {
-    }
-
-//    @After
-    public void tearDown() {
-    }
-
+    String wantedFinger;
+    LinkedList<String> listFinger;
+    LinkedList<Integer> idUser;
     
-    /**
-     * Test of validateFingerprintBM method, of class FingerprintManagementSB.
-     */
- //   @Test
-    public void testValidateFingerprintBM_String_BlockClass() throws Exception {
-        System.out.println("validateFingerprintBM");
-        String s = "";
-        BlockClass blockClass = null;
-        User expResult = null;
-        User result = fpmsb.validateFingerprintBM(s, blockClass);
-    //    assertEquals(expResult, result);
+    @Before
+    public void setUp() {
+        listFinger = new LinkedList<>();
+        idUser = new LinkedList<>();
+        wantedFinger = "464d52002032300000c20000000000000165018800c400c401000000561b403601158f5e40fa01208b5b80d90146895b4094006d565a40d600dd3b5740e400e7915640a90135835680cc00ee8c56405200bf6d5540ea00d2955540ca00c89554409901028c53407901567a53405c01172f514067011a7c51407f0068b050804200b0695040db0136324f408100bba04f405f00d0024f405c00fc894d80350138a04c805c01233147807100e49143406100f38942404b013f4538006300ec8d280000";
+        listFinger.add("464d52002032300000f80033000000000165018800c400c401000000562440ad012e556040b6010a4f5d40d601250a5c40650032735a404b005f835980d100723858407f0068965680c000863a56808101234a54405500a9915340a200bca25240b800b1b0528071004d815180b0005f415180db00e40e5180ef0111655040d600209b5040770079945040e50082875040eb0042944e8068008d914d410a00b17a4940970130564940e500a7714840f601070d46408800569e4140db00a9253b8083005e9938402100a4903840c600903a3780ea00b46a3600bb01466335010e00888934010e00dd143300c5009a443100830051a52e0000");
+        idUser.add(12);//Felipe
+        listFinger.add("464d52002032300000da0033000000000165018800c400c401000000561f409c00e4876440d3009392624042006e6e5f8034005c6a5e80720067a05d40c400893d5c404400275e5b4082001a505a402900bf8f57409a012a795780f100c68f57408900b48c55804c00d2275440b600749753806c0122725340d7007f975280bd009a9051806e01057151404c00ab855140a2013b235180ec0022435040720015ad4f404f0080024e404b00c52d4d805f009590484044010e5f4740cf00ec893c403c00ec3e39004500dd3330010300a9992d0052009d8f2c0000");
+        idUser.add(23);//Daniel
+        listFinger.add("464d52002032300001b80033000000000165018800c400c401000000564440d3008a3d6240ed002d4d5c805000cd795a40610075695840c001142058805f0037625640820053a75680a900d87e5680cb006e975240aa00829452803600a4775140c0012b1650808100745f4e80cc00cc8b4e80bb0111244e409300a34b4c804b00bb754c40630057024b40e10027a44a80a4004fa049803f00e81d48808300d13448804b00f27c4780db01111d47806800e7294740e001037847406b014b624640bf000e4c45806b00f6244580f200539645809200ff2144409301077244806d00d18143405701142f43405c00c583424046011e3742405500d37841805c00ee8241804800bf7540408e00de7c4040fa005e9e3f80f20095993f406600cc243e80f4005f983e807e00b78d3e807300c2853d40fb0093253c40ec00a7963c80e00139113c402a00da7b3b803700ad193b808c00d7833b4045010f333a406c00bd823a808600f47b3a809200ec223940f8009a3938408900ab3f38404200bf7638405a00e8823840460108323840d00135133740a501421237808300e02536409e01491136806d00ad8336803400fb2c368045011735360000");
+        idUser.add(518);//Mauricio
+        listFinger.add("464d52002032300001b80033000000000165018800c400c4010000005644408f0114475b409200c28c5840ef00939454406d01234852407700a77c51407b0151525140c500e32b4f80d100c0384e80b001525f4d80bf00e12b4d40c600799e4c804c00c2834c40650085754b80d6009a924b407f0107a24a40a00089a94980d7009e8f4940cb00954448808e01244b4880d700e17f4740d100e77846808f013b4f46809d0142564640e500d18146803a00dd7c4580ae012e5c458086012aaf4580ea0053a444803600f887444108010377448044010e334440dd005fa04280e400b58c4280a200bd944180ef00c4874180b900fc5a4180dd00cc2b4140d700ed7a4040fe0067a53f410e00b5383f405000f9393f40a4009a6a3e80a40085653d40b8012b5f3d40b001595f3d40be00ab463d409900af893d406700c4243d40eb00e67e3c40bf011a083c40d90059513b80d4006f543b80e500bf8b3b810000a98f3b80eb00de7d3b40fa00ee2d3940be0128673940b0015f0a39807900ad7a3980e000dd7f37406800af7d37806c00c52737805a011a4b3740c401246b37404b0086733640b200dd3836803a00ec2936804500f428360000");
+        idUser.add(50);//Adolfo
     }
-
-    /**
-     * Test of findUserByFingerprint method, of class FingerprintManagementSB.
-     */
-  //  @Test
-    public void testFindUserByFingerprint() throws Exception {
-        System.out.println("findUserByFingerprint");
-        String fingerPrint = "";
-        User expResult = null;
-        User result = fpmsb.findUserByFingerprint(fingerPrint);
-  //      assertEquals(expResult, result);
+    
+    @Test
+    public void testUserIdentify() {
+        System.out.println("userIdentify");        
+        FingerprintManagementSB instance = new FingerprintManagementSB();
+        int expResult = 23;
+        int result = instance.userIdentify(wantedFinger, listFinger, idUser);
+        assertEquals(expResult, result);
     }
+    
+    
+    
 
-    /**
-     * Test of selectAllFingerprints method, of class FingerprintManagementSB.
-     */
-  //  @Test
-    public void testSelectAllFingerprints() throws Exception {
-        System.out.println("selectAllFingerprints");
-    }
-
-    /**
-     * Test of hexStringToByteArray method, of class FingerprintManagementSB.
-     */
-   // @Test
-    public void testHexStringToByteArray() throws Exception {
-        System.out.println("hexStringToByteArray");
-        byte[] a200 = new byte[2];
-        a200[0] = (byte) (((byte) 10 << 4) + (byte) 2);
-        a200[1] = (byte) (((byte) 12 << 4) + (byte) 3);
-
-        byte[] result = fpmsb.hexStringToByteArray("a2c3");
-   //     assertArrayEquals(a200, result);
-    }
-
-    /**
-     * Test of fmdToString method, of class FingerprintManagementSB.
-     */
-  //  @Test
-    public void testFmdToString() throws Exception {
-        System.out.println("fmdToString");
-        Fmd f = null;
-        String expResult = "";
-        String result = fpmsb.fmdToString(f);
-  //      assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of byteArrayToHexString method, of class FingerprintManagementSB.
-     */
-  //  @Test
-    public void testByteArrayToHexString() throws Exception {
-        System.out.println("byteArrayToHexString");
-        byte[] a200 = new byte[2];
-        a200[0] = (byte) (((byte) 10 << 4) + (byte) 2);
-        a200[1] = (byte) (((byte) 12 << 4) + (byte) 3);
-        String expResult = "a2c3";
-        String result = fpmsb.byteArrayToHexString(a200);
-  //      assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of stringToFmd method, of class FingerprintManagementSB.
-     */
- //   @Test
-    public void testStringToFmd() throws Exception {
-        System.out.println("stringToFmd");
-      
-    }
 }
