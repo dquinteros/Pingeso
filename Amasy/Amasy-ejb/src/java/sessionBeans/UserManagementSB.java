@@ -49,7 +49,7 @@ public class UserManagementSB implements UserManagementSBLocal {
         try {
             res = new UserDTO((User) q.getSingleResult());
         } catch (NoResultException e) {
-            System.out.println("error(UserManagementSB-findUserByRut): "+e.getMessage());
+            System.out.println("error(UserManagementSB-findByUserName): "+e.getMessage());
         }
         return res;
     }

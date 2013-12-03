@@ -3,7 +3,6 @@
  * and open the template in the editor.
  */
 package DTOs;
-
 import entity.User;
 import entity.UserType;
 import javax.ejb.Stateless;
@@ -29,19 +28,7 @@ public class UserDTO {
     
     public UserDTO() {
     }
-
-    public UserDTO(Long id, String userName, String firstName, String lastName, String email, String homePhone, String cellPhone, int rut, UserType userType) {
-        this.id = id;
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.homePhone = homePhone;
-        this.cellPhone = cellPhone;
-        this.rut = rut;
-        this.userType = userType;
-    }    
-    
+     
     public UserDTO(User user) {
         this.id = user.getId();    
         this.userName = user.getUserName();

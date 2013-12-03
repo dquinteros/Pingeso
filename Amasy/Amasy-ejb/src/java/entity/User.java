@@ -21,7 +21,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries( {
     @NamedQuery(name="User.findByRut", query="SELECT u FROM User u WHERE u.rut = :rut"),
-    @NamedQuery(name="User.findByUserName", query="SELECT u.userType.name FROM User u WHERE u.userName = :username"),
+    @NamedQuery(name="User.findByUserName", query="SELECT u FROM User u WHERE u.userName = :username"),
     @NamedQuery(name="User.selectAllFingerprint", query="SELECT u.fingerPrint FROM User u"),
     @NamedQuery(name="User.findByFingerprint", query="SELECT u FROM User u WHERE u.fingerPrint = :fingerprint")
 })
