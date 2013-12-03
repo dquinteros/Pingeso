@@ -5,6 +5,7 @@
 package sessionBeans.studentManagement;
 
 import DTOs.UserDTO;
+import entity.Student;
 import entity.User;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -60,15 +61,27 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         }
         return exitResult;
     }
-    
-     @Override
-     public boolean insertNewStudent(UserDTO user){
-         
-         
-         
+
+    @Override
+    public boolean insertNewStudent(User user) {
+
+        User u = em.find(User.class, user.getRut());
+        if (u != null) {
+            return false;
+        }
+
+        Student newStudent = new Student();
+
+        newStudent.setUser(user);
+        newStudent.setId(null);
+        newStudent.setListCourse(null);
+        newStudent.setIncomeYear(null);
+
+        em.getTransaction().begin();
+        persist(newStudent);
+        em.getTransaction().commit();
+        em.close();
+
         return false;
-     
-     }
-    
-    
+    }
 }
