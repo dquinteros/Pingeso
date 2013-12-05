@@ -9,40 +9,29 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Profesor - Amasy</title>
+                <ui:insert name="title">
+                    <title>Default - Amasy</title>
+                </ui:insert>    
             </f:facet>
         </h:head>
         <h:body>
             <h:outputStylesheet library="css" name="cssLayout.css" />
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100">
-              
-               
-                </p:layoutUnit>
+                <p:layoutUnit position="north" size="100"></p:layoutUnit>
+                
                 <p:layoutUnit position="south" size="50" closable="false" collapsible="false">
-               
                         <div id="footer-text-container">
                             <p id="footer-text">&copy;2013 Made of Data . All Rights Reserved.</p>
                         </div>
-
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Menú" collapsible="true">
-                    <!--<p:menu style="max-width:93%">
-                        <p:submenu label="Navegación">
-                            <p:menuitem value="Inicio" url="/faces/teacher/index.xhtml" />
-                        </p:submenu>
-                        
-                        <p:submenu label="Herramientas">                           
-                            <p:menuitem value="Asistencia" url="/faces/teacher/takeAttendance/viewCourseList.xhtml" />
-                        </p:submenu>
-                    </p:menu>-->
-                    <ui:insert name="west">Profesor.</ui:insert>
+                <p:layoutUnit position="west" size="175" header="Menú" collapsible="true">                
+                    <ui:insert name="west">Menú.</ui:insert>                    
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                    <ui:insert name="content">Profesor.</ui:insert>
+                    <ui:insert name="content">Contenido.</ui:insert>
                 </p:layoutUnit>
 
             </p:layout>
@@ -51,4 +40,3 @@
 
     </f:view>
 </html>
-

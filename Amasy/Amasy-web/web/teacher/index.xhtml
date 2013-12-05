@@ -1,9 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../template/teacher/index.xhtml"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core">
-    <ui:define name="content">        
-        Inicio
+                template="./../template/default.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">
+        <title>Profesor - Amasy</title>
     </ui:define>
+    
+    <ui:define name="west">
+        <p:menu style="max-width:93%">
+            <p:submenu label="Navegación">
+                <p:menuitem value="Inicio" url="/faces/teacher/index.xhtml" />
+            </p:submenu>
+            <p:submenu label="Herramientas">                           
+                <p:menuitem value="Asistencia" url="/faces/teacher/takeAttendance/viewCourseList.xhtml" />
+            </p:submenu>
+        </p:menu>
+    </ui:define>
+    
+    <ui:define name="center">
+        <ui:insert name="center">
+            Profesor.
+        </ui:insert>    
+    </ui:define>
+    
+
 </ui:composition>
