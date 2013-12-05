@@ -34,7 +34,7 @@ public class Student implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date incomeYear;    
+    private Date enrollYear;    
 
     @OneToOne(mappedBy = "student")
     private Assistance assistance;
@@ -70,11 +70,11 @@ public class Student implements Serializable {
      
     
     public Date getIncomeYear() {
-        return incomeYear;
+        return enrollYear;
     }
 
     public void setIncomeYear(Date incomeYear) {
-        this.incomeYear = incomeYear;
+        this.enrollYear = incomeYear;
     }        
 
     public Long getId() {

@@ -5,8 +5,6 @@
 package managedBeans.takeAttendance;
 
 import DTOs.NewUserDTO;
-import entity.User;
-import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -19,14 +17,14 @@ import sessionBeans.studentManagement.StudentManagementSBLocal;
  */
 @Named(value = "addStudentMB")
 @RequestScoped
-public class addStudentMB {
+public class AddStudentMB {
     @EJB
     private StudentManagementSBLocal studentManagementSB;
-    private NewUserDTO newStudent;
+    private NewUserDTO newStudent;    
     /**
      * Creates a new instance of addStudentMB
      */
-    public addStudentMB() {
+    public AddStudentMB() {
     }
     
     @PostConstruct
@@ -35,8 +33,20 @@ public class addStudentMB {
     }
     
     public boolean insertNewStudent(){
-    //    return studentManagementSB.insertNewStudent(u, incomeYear);
+        
+        studentManagementSB.insertNewStudent(newStudent, null);
+    //    return studentManagementSB.insertNewStudent(u, enrollYear);
         return false;
     }
+
+    public NewUserDTO getNewStudent() {
+        return newStudent;
+    }
+
+    public void setNewStudent(NewUserDTO newStudent) {
+        this.newStudent = newStudent;
+    }
+    
+    
     
 }

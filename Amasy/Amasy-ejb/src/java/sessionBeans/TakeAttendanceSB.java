@@ -52,7 +52,7 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
         em.persist(object);
     }
     
-    private boolean persistAjax(Object object){
+    private boolean persistInsert(Object object, EntityManager em, UserTransaction ut){
         try {
             ut.begin(); // Start a new transaction
             try {
@@ -157,7 +157,7 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
             assistance.setStudent(student);
             assistance.setDate(date);
             System.out.println("student: "+student.getId() +"  blockClass: "+blockClass.getId());
-            this.persistAjax(assistance);
+            persistInsert(assistance, em, ut);
             return true;
         }else{
             return false;

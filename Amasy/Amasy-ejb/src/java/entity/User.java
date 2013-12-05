@@ -24,13 +24,16 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name="User.findByUserName", query="SELECT u FROM User u WHERE u.userName = :username"),
     @NamedQuery(name="User.selectAllFingerprint", query="SELECT u.fingerPrint FROM User u"),
     @NamedQuery(name="User.findByFingerprint", query="SELECT u FROM User u WHERE u.fingerPrint = :fingerprint"),
-    @NamedQuery(name="User.findByEmail", query="SELECT u FROM User u WHERE u.email = :email")
+    @NamedQuery(name="User.findByEmail", query="SELECT u FROM User u WHERE u.email = :email"),
+    @NamedQuery(name="User.countUserByRut", query="SELECT COUNT(u) FROM User u WHERE u.rut = :rut"),
+    @NamedQuery(name="User.countUserByEmail", query="SELECT COUNT(u) FROM User u WHERE u.email = :email"),
+    @NamedQuery(name="User.countUserByUserName", query="SELECT COUNT(u) FROM User u WHERE u.userName = :username")
 })
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;    
     private String userName;
     private String password;

@@ -6,6 +6,7 @@ package sessionBeans.studentManagement;
 
 import DTOs.NewUserDTO;
 import DTOs.UserDTO;
+import DTOs.AnswerDTO;
 import entity.Student;
 import entity.User;
 import entity.UserType;
@@ -68,42 +69,57 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     }
 
     @Override
-    public boolean insertNewStudent(NewUserDTO userDTO, Date incomeYear) {
-                
-        if (userDTO == null) {
-            return false;
-        }
+    public AnswerDTO insertNewStudent(NewUserDTO userDTO, Date enrollYear) {           
+        AnswerDTO existEmailUserNameRut = validateStudentRegistry(userDTO);
+        if(!existEmailUserNameRut.isValid()){
+            return existEmailUserNameRut;
+        }        
         String password = newPass(userDTO.getFingerprint());
-        User user = newUser(userDTO, password);
-        User u = null;
-        try{
-        Query q = this.em.createNamedQuery("User.findByRut", User.class);
-            q.setParameter("rut", user.getRut());
-            u = (User) q.getSingleResult();
-        }catch(NullPointerException e){
-            e.printStackTrace();
-        }       
-        if (u != null) {
-            return false;
-        }
+        User user = newUser(userDTO, password);        
         Student newStudent = new Student();
         newStudent.setUser(user);
-        newStudent.setIncomeYear(incomeYear);
-        getEm().getTransaction().begin();
-        persist(newStudent);
-        getEm().getTransaction().commit();
-        getEm().close();
+        newStudent.setIncomeYear(enrollYear);
         
+        //em.getTransaction().begin();
+        em.persist(user);
+        em.persist(newStudent);
+        //em.getTransaction().commit();
+        //em.close();        
         //correo
-        return true;
+        return new AnswerDTO("000");
     }
 
+    private AnswerDTO validateStudentRegistry(NewUserDTO userDTO){
+        if (userDTO == null) {
+            return new AnswerDTO("109");
+        }
+        boolean existEmail = existEmail(userDTO.getEmail());
+        boolean existUserName = existUserName(userDTO.getUserName());
+        boolean existRut = existRut(userDTO.getRut());
+        if(existEmail&&existUserName&&existRut){
+            return new AnswerDTO("101");
+        }else if(existEmail&&existUserName){
+            return new AnswerDTO("102");
+        }else if(existUserName&&existRut){            
+            return new AnswerDTO("103");
+        }else if(existEmail&&existRut){
+            return new AnswerDTO("104");
+        }else if(existEmail){            
+            return new AnswerDTO("105");
+        }else if(existUserName){
+            return new AnswerDTO("106");
+        }else if(existRut){
+            return new AnswerDTO("107");
+        }
+        return new AnswerDTO("000");
+    }
+    
     private boolean existEmail(String email){
-        User userTemp;
-        Query q = em.createNamedQuery("User.findByEmail", User.class);
+        Long count;
+        Query q = em.createNamedQuery("User.countUserByEmail", User.class);
         q.setParameter("email", email);
-        userTemp = (User)q.getSingleResult();
-        if(userTemp==null){
+        count = (Long)q.getSingleResult();
+        if(count==0){
             return false;
         }else{
             return true;
@@ -111,23 +127,23 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     }
     
     private boolean existUserName(String username){
-        User userTemp;
-        Query q = em.createNamedQuery("User.findByUserName", User.class);
+        Long count;
+        Query q = em.createNamedQuery("User.countUserByUserName", User.class);
         q.setParameter("username", username);
-        userTemp = (User)q.getSingleResult();
-        if(userTemp==null){
+        count = (Long)q.getSingleResult();
+        if(count==0){
             return false;
         }else{
             return true;
         }        
     }
     
-    private boolean existRut(String rut){
-        User userTemp;
-        Query q = em.createNamedQuery("User.findByRut", User.class);
+    private boolean existRut(int rut){
+        Long count;
+        Query q = em.createNamedQuery("User.countUserByRut", User.class);
         q.setParameter("rut", rut);
-        userTemp = (User)q.getSingleResult();
-        if(userTemp==null){
+        count = (Long)q.getSingleResult();
+        if(count==0){
             return false;
         }else{
             return true;

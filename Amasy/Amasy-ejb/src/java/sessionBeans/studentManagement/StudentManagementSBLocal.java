@@ -4,6 +4,7 @@
  */
 package sessionBeans.studentManagement;
 
+import DTOs.AnswerDTO;
 import DTOs.NewUserDTO;
 import DTOs.UserDTO;
 import java.util.Date;
@@ -19,5 +20,5 @@ public interface StudentManagementSBLocal {
 
     LinkedList<UserDTO> getAllStudent();
 
-    public boolean insertNewStudent(NewUserDTO user, Date incomeYear);
-}
+    public AnswerDTO insertNewStudent(NewUserDTO user, Date enrollYear);
+    }

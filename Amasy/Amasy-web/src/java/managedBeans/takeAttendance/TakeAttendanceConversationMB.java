@@ -4,7 +4,6 @@
  */
 package managedBeans.takeAttendance;
 
-import DTOs.ResponseAssistanceDTO;
 import entity.BlockClass;
 import javax.inject.Named;
 import javax.enterprise.context.ConversationScoped;

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../template/admin.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        
+        <h3>Agregar nuevo estudiante</h3>  
+        <h:form id="form">  
+            <h:panelGrid id="grid" columns="3" cellpadding="4">  
+                <h:outputText value="Nombre: *" />  
+                <p:inputText id="default" required="true" value="#{addStudentMB.newStudent.firstName}"/>  
+                <p:message for="default" />  
+
+                <h:outputText value="Apellido: *" />  
+                <p:inputText id="defaults" required="true" value="#{addStudentMB.newStudent.lastName}"/>  
+                <p:message for="defaults" />  
+                
+                <h:outputText value="Celular *" />  
+                <p:inputText id="defaultd" required="true" value="#{addStudentMB.newStudent.cellPhone}"/>  
+                <p:message for="defaultd" />  
+                
+                <h:outputText value="correo: *" />  
+                <p:inputText id="defaultf" required="true" value="#{addStudentMB.newStudent.email}"/>  
+                <p:message for="defaultf" />  
+                
+                <h:outputText value="teléfono de casa: *" />  
+                <p:inputText id="defaultg" required="true" value="#{addStudentMB.newStudent.homePhone}"/>  
+                <p:message for="defaultg" />  
+                
+                <h:outputText value="rut: *" />  
+                <p:inputText id="defaulth" required="true" value="#{addStudentMB.newStudent.rut}"/>  
+                <p:message for="defaulth" />  
+                
+                <h:outputText value="nombre de usuario: *" />  
+                <p:inputText id="defaultj" required="true" value="#{addStudentMB.newStudent.userName}"/>  
+                <p:message for="defaultj" />  
+                
+                <h:outputText value="userType: *" />  
+                <p:inputText id="defaultk" required="true" value="#{addStudentMB.newStudent.userType}"/>  
+                <p:message for="defaultk" />  
+                
+                <h:outputText value="huella: *" />  
+                <p:inputText id="defaulty" required="true" value="#{addStudentMB.newStudent.fingerprint}"/>  
+                <p:message for="defaulty" />  
+                
+      
+                
+                
+                
+            </h:panelGrid>  
+
+            <p:commandButton id="submitButton" value="Submit" update="grid" action="#{addStudentMB.insertNewStudent()}"/>  
+        </h:form>  
+    </ui:define>
+
+</ui:composition>
