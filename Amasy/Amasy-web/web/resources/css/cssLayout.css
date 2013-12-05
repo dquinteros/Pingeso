@@ -1,13 +1,31 @@
 
-#footer-text-container{
-    display:inline-block;
-    margin-left: 10px;
+#top {
+    position: relative;
+    background-color: #036fab;
+    color: white;
+    padding: 5px;
+    margin: 0px 0px 10px 0px;
 }
 
-#footer-text{
-    color:#ffffff; 
-    text-shadow: 1px 0 black; 
-    font-size: 0.5em
+#bottom {
+    position: relative;
+    background-color: #c2dfef;
+    padding: 5px;
+    margin: 10px 0px 0px 0px;
+}
+
+#left {
+    float: left;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+
+#right {
+    float: right;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
 }
 
 .center_content {
@@ -40,17 +58,4 @@
   text-decoration : underline;
 }
 
-.ui-layout-unit-content{
-    background-color: transparent;
-}
 
-.ui-layout-north {
-    background: url('../../resources/img/amasy_logo.png') left no-repeat;
-    background-size: auto 70px;
-    background-position: 10px;
-    background-color: black !important;
-}
-
-.ui-layout-south {
-    background-color: black !important;
-}
