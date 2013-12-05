@@ -23,7 +23,8 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name="User.findByRut", query="SELECT u FROM User u WHERE u.rut = :rut"),
     @NamedQuery(name="User.findByUserName", query="SELECT u FROM User u WHERE u.userName = :username"),
     @NamedQuery(name="User.selectAllFingerprint", query="SELECT u.fingerPrint FROM User u"),
-    @NamedQuery(name="User.findByFingerprint", query="SELECT u FROM User u WHERE u.fingerPrint = :fingerprint")
+    @NamedQuery(name="User.findByFingerprint", query="SELECT u FROM User u WHERE u.fingerPrint = :fingerprint"),
+    @NamedQuery(name="User.findByEmail", query="SELECT u FROM User u WHERE u.email = :email")
 })
 public class User implements Serializable {
 

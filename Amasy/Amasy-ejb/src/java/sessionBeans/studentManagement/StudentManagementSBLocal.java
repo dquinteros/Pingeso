@@ -4,8 +4,8 @@
  */
 package sessionBeans.studentManagement;
 
+import DTOs.NewUserDTO;
 import DTOs.UserDTO;
-import entity.User;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.ejb.Local;
@@ -17,8 +17,7 @@ import javax.ejb.Local;
 @Local
 public interface StudentManagementSBLocal {
 
-    LinkedList<UserDTO> getAllStudent();  
+    LinkedList<UserDTO> getAllStudent();
 
-    public boolean insertNewStudent(User user, Date incomeYear);
-    
+    public boolean insertNewStudent(NewUserDTO user, Date incomeYear);
 }
