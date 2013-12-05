@@ -14,28 +14,28 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class AnswerDTO {
-    private String idError;
+    private int idError;
 
     public AnswerDTO() {
     }
     
-    public AnswerDTO(String idError){
+    public AnswerDTO(int idError){
         this.idError = idError;
     }
     
     public boolean isValid(){
-        if("000".equals(idError)){
+        if(idError==0){
             return true;
         }else{
             return false;
         }
     }
     
-    public String getIdError() {
+    public int getIdError() {
         return idError;
     }
 
-    public void setIdError(String idError) {
+    public void setIdError(int idError) {
         this.idError = idError;
     }               
     

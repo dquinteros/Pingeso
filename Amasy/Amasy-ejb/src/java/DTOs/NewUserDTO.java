@@ -21,7 +21,7 @@ public class NewUserDTO {
     private String homePhone;
     private String cellPhone;
     private String fingerprint;
-    private int rut;
+    private String rut;
     private String userType;    
     
 
@@ -81,11 +81,11 @@ public class NewUserDTO {
         this.fingerprint = fingerprint;
     }
 
-    public int getRut() {
+    public String getRut() {
         return rut;
     }
 
-    public void setRut(int rut) {
+    public void setRut(String rut) {
         this.rut = rut;
     }
 

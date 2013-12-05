@@ -3,56 +3,54 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./../../admin/index.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:define name="content">
-        
+    <ui:define name="content">        
         <h3>Agregar nuevo estudiante</h3>  
-        <h:form id="form">  
+        <h:form id="form">
             <h:panelGrid id="grid" columns="3" cellpadding="4">  
                 <h:outputText value="Nombre: *" />  
-                <p:inputText id="default" required="true" value="#{addStudentMB.newStudent.firstName}"/>  
-                <p:message for="default" />  
-
+                <p:inputText id="default" required="true" value="#{addStudentMB.newStudent.firstName}" requiredMessage="Nombre obligatorio">                    
+                </p:inputText>
+                <p:message for="default" display="text" id="asdf"/>                               
+                
                 <h:outputText value="Apellido: *" />  
-                <p:inputText id="defaults" required="true" value="#{addStudentMB.newStudent.lastName}"/>  
-                <p:message for="defaults" />  
+                <p:inputText id="defaults" required="true" value="#{addStudentMB.newStudent.lastName}" requiredMessage="Apellido obligatorio"/>  
+                <p:message for="defaults" display="text"/>  
                 
                 <h:outputText value="Celular *" />  
-                <p:inputText id="defaultd" required="true" value="#{addStudentMB.newStudent.cellPhone}"/>  
-                <p:message for="defaultd" />  
+                <p:inputText id="defaultd" required="true" value="#{addStudentMB.newStudent.cellPhone}" requiredMessage="Celular obligatorio" validatorMessage="El número de teléfono solo puede ser numérico">
+                    <f:validateRegex for="defaultd" pattern="^[0-9]"/>                    
+                </p:inputText>  
+                <p:message for="defaultd" display="text"/>  
                 
                 <h:outputText value="correo: *" />  
-                <p:inputText id="defaultf" required="true" value="#{addStudentMB.newStudent.email}"/>  
-                <p:message for="defaultf" />  
+                <p:inputText id="defaultf" required="true" value="#{addStudentMB.newStudent.email}" requiredMessage="Correo obligatorio" validatorMessage="Email no es valido" >
+                    <f:validateRegex for="defaultf" pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />                    
+                </p:inputText>
+                <p:message for="defaultf" display="text"/>
                 
                 <h:outputText value="teléfono de casa: *" />  
-                <p:inputText id="defaultg" required="true" value="#{addStudentMB.newStudent.homePhone}"/>  
-                <p:message for="defaultg" />  
+                <p:inputText id="defaultg" required="true" value="#{addStudentMB.newStudent.homePhone}" requiredMessage="Telefono obligatorio"/>  
+                <p:message for="defaultg" display="text" />  
                 
                 <h:outputText value="rut: *" />  
-                <p:inputText id="defaulth" required="true" value="#{addStudentMB.newStudent.rut}"/>  
-                <p:message for="defaulth" />  
+                <p:inputText id="defaulth" required="true" value="#{addStudentMB.newStudent.rut}" requiredMessage="Rut obligatorio"/>  
+                <p:message for="defaulth" display="text"/>  
                 
                 <h:outputText value="nombre de usuario: *" />  
-                <p:inputText id="defaultj" required="true" value="#{addStudentMB.newStudent.userName}"/>  
-                <p:message for="defaultj" />  
-                
-                <h:outputText value="userType: *" />  
-                <p:inputText id="defaultk" required="true" value="#{addStudentMB.newStudent.userType}"/>  
-                <p:message for="defaultk" />  
+                <p:inputText id="defaultj" required="true" value="#{addStudentMB.newStudent.userName}" requiredMessage="Nombre de usuario obligatorio">
+                    
+                </p:inputText>
+                <p:message for="defaultj" display="text"/>   
                 
                 <h:outputText value="huella: *" />  
-                <p:inputText id="defaulty" required="true" value="#{addStudentMB.newStudent.fingerprint}"/>  
-                <p:message for="defaulty" />  
-                
-      
-                
-                
-                
+                <p:inputText id="defaulty" required="true" value="#{addStudentMB.newStudent.fingerprint}" requiredMessage="Huella digital obligatoria"/>  
+                <p:message for="defaulty" display="text"/>                                                                        
             </h:panelGrid>  
 
-            <p:commandButton id="submitButton" value="Submit" update="grid" action="#{addStudentMB.insertNewStudent()}"/>  
+            <p:commandButton id="submitButton" value="Crear estudiante" update="grid" action="#{addStudentMB.insertNewStudent()}"/>  
         </h:form>  
     </ui:define>
 

@@ -52,23 +52,24 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
         em.persist(object);
     }
     
-    private boolean persistInsert(Object object, EntityManager em, UserTransaction ut){
-        try {
-            ut.begin(); // Start a new transaction
-            try {
-               em.persist(object);
-               ut.commit(); // Commit the transaction
-               return true;
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)  
+    public boolean persistInsert(Object object){
+         try {
+             ut.begin(); // Start a new transaction
+             try {
+                em.persist(object);
+                ut.commit(); // Commit the transaction
+                return true;
 
-            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
-               ut.rollback(); // Rollback the transaction
-               return false;
-            }
-        } catch (NotSupportedException | SystemException ex) {
-            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
-            return false;
-        }
-    }
+             } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
+                ut.rollback(); // Rollback the transaction
+                return false;
+             }
+         } catch (NotSupportedException | SystemException ex) {
+             Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
+             return false;
+         }
+     }
 
     @Override
     public ArrayList<UserAssistantBlockClassDTO> listOfStudentsPerCourseList(long course, long blockClass) {          
@@ -156,15 +157,14 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
             assistance.setBlockClass(blockClass);
             assistance.setStudent(student);
             assistance.setDate(date);
-            System.out.println("student: "+student.getId() +"  blockClass: "+blockClass.getId());
-            persistInsert(assistance, em, ut);
+            persistInsert(assistance);
             return true;
         }else{
             return false;
         }        
     }
     
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)    
+      
     private boolean existAssistance(Student student, BlockClass blockClass){
         Long response;
         Query q = this.em.createNamedQuery("Assistance.findStudentAssistance");        

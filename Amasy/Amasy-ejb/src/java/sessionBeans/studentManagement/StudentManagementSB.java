@@ -15,26 +15,63 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
+import sessionBeans.TakeAttendanceSB;
+
 
 /**
  *
  * @author Pingeso
  */
 @Stateless
+@TransactionManagement(TransactionManagementType.BEAN)
 public class StudentManagementSB implements StudentManagementSBLocal {
 
     @PersistenceContext(unitName = "Amasy-ejbPU")
     private EntityManager em;
+    @Resource
+    UserTransaction ut;
+    
     private static final int PASSWORD_LENGTH=10;
     public void persist(Object object) {
         em.persist(object);
     }
-
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)  
+    public boolean persistInsert(Object object){
+         try {
+             ut.begin(); // Start a new transaction
+             try {
+                em.persist(object);
+                ut.commit(); // Commit the transaction
+                return true;
+             } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
+                ut.rollback(); // Rollback the transaction
+                return false;
+             }
+         } catch (NotSupportedException | SystemException ex) {
+             Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
+             return false;
+         }
+     }
+    
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     @Override
@@ -75,43 +112,39 @@ public class StudentManagementSB implements StudentManagementSBLocal {
             return existEmailUserNameRut;
         }        
         String password = newPass(userDTO.getFingerprint());
-        User user = newUser(userDTO, password);        
+        String roll = "Alumno";
+        User user = newUser(userDTO, password, roll);        
         Student newStudent = new Student();
         newStudent.setUser(user);
         newStudent.setIncomeYear(enrollYear);
-        
-        //em.getTransaction().begin();
-        em.persist(user);
-        em.persist(newStudent);
-        //em.getTransaction().commit();
-        //em.close();        
-        //correo
-        return new AnswerDTO("000");
+        persistInsert(user);
+        persistInsert(newStudent);
+        return new AnswerDTO(0);
     }
 
     private AnswerDTO validateStudentRegistry(NewUserDTO userDTO){
         if (userDTO == null) {
-            return new AnswerDTO("109");
+            return new AnswerDTO(109);
         }
         boolean existEmail = existEmail(userDTO.getEmail());
         boolean existUserName = existUserName(userDTO.getUserName());
-        boolean existRut = existRut(userDTO.getRut());
+        boolean existRut = existRut(Integer.parseInt(userDTO.getRut()));
         if(existEmail&&existUserName&&existRut){
-            return new AnswerDTO("101");
+            return new AnswerDTO(101);
         }else if(existEmail&&existUserName){
-            return new AnswerDTO("102");
+            return new AnswerDTO(102);
         }else if(existUserName&&existRut){            
-            return new AnswerDTO("103");
+            return new AnswerDTO(103);
         }else if(existEmail&&existRut){
-            return new AnswerDTO("104");
+            return new AnswerDTO(104);
         }else if(existEmail){            
-            return new AnswerDTO("105");
+            return new AnswerDTO(105);
         }else if(existUserName){
-            return new AnswerDTO("106");
+            return new AnswerDTO(106);
         }else if(existRut){
-            return new AnswerDTO("107");
+            return new AnswerDTO(107);
         }
-        return new AnswerDTO("000");
+        return new AnswerDTO(000);
     }
     
     private boolean existEmail(String email){
@@ -151,8 +184,8 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     }
     
     
-    
-    private User newUser(NewUserDTO userDTO, String password){        
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)  
+    private User newUser(NewUserDTO userDTO, String password, String roll){        
         User newUser = new User();
         newUser.setCellPhone(userDTO.getCellPhone());
         newUser.setEmail(userDTO.getEmail());
@@ -160,11 +193,11 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         newUser.setFirstName(userDTO.getFirstName());
         newUser.setHomePhone(userDTO.getHomePhone());
         newUser.setLastName(userDTO.getLastName());
-        newUser.setRut(userDTO.getRut());
+        newUser.setRut(Integer.parseInt(userDTO.getRut()));
         newUser.setUserName(userDTO.getUserName());    
         
         UserType ut = new UserType();
-        ut.setName(userDTO.getUserType());
+        ut.setName(roll);
                 
         newUser.setPassword(MD5(password));
         
