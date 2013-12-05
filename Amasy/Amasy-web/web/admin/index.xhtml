@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template/default.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">
+        <title>Administrador - Amasy</title>
+    </ui:define>
+    
+    <ui:define name="west">
+        <p:menu style="max-width:93%">
+            <p:submenu label="Navegación">
+                <p:menuitem value="Inicio" url="/faces/admin/index.xhtml" />
+            </p:submenu>
+            <p:submenu label="Herramientas">                           
+                <p:menuitem value="Nuevo Estudiante" url="/faces/admin/studentMantainer/addStudent.xhtml" />
+            </p:submenu>
+        </p:menu>
+    </ui:define>
+    
+    <ui:define name="center">
+        <ui:insert name="center">
+            Administrador.
+        </ui:insert>    
+    </ui:define>
+    
+
+</ui:composition>
