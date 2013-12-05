@@ -13,30 +13,23 @@
             </f:facet>
         </h:head>
         <h:body>
+            <h:outputStylesheet library="css" name="cssLayout.css" />
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100" resizable="false" closable="false" collapsible="false">
-                    <div id="container" style="background-color: #0c54a9; border-radius: 5px 5px 5px 5px">
-                        <div id="text" style="display:inline-block; margin-left: 3%;">
-                            <h2 style="color:#ffffff; text-shadow: 1px 0 black;"> Amasy
-                            </h2>
-                        </div>
-                        <div id="logo" style="float:right; margin-right: 3%;">
-                            <img src="../../resources/img/student_hand_raised_400_clr.png" height="80" />
-                        </div>
-                    </div>
+                <p:layoutUnit position="north" size="100">
+              
+               
                 </p:layoutUnit>
-
-                <p:layoutUnit position="south" size="100" closable="false" collapsible="false">
-                    <div id="container" style="background-color: #0c54a9; border-radius: 5px 5px 5px 5px">
-                        <div id="text" style="display:inline-block; margin-left: 1%;">
-                            <p style="color:#ffffff; text-shadow: 1px 0 black; text-size: 0.1em">&copy;2013 Made of Data . All Rights Reserved.</p>
+                <p:layoutUnit position="south" size="50" closable="false" collapsible="false">
+               
+                        <div id="footer-text-container">
+                            <p id="footer-text">&copy;2013 Made of Data . All Rights Reserved.</p>
                         </div>
-                    </div>
+
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="175" header="Menú" collapsible="true">
-                    <p:menu style="max-width:93%">
+                    <!--<p:menu style="max-width:93%">
                         <p:submenu label="Navegación">
                             <p:menuitem value="Inicio" url="/faces/teacher/index.xhtml" />
                         </p:submenu>
@@ -44,7 +37,8 @@
                         <p:submenu label="Herramientas">                           
                             <p:menuitem value="Asistencia" url="/faces/teacher/takeAttendance/viewCourseList.xhtml" />
                         </p:submenu>
-                    </p:menu>
+                    </p:menu>-->
+                    <ui:insert name="west">Profesor.</ui:insert>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
