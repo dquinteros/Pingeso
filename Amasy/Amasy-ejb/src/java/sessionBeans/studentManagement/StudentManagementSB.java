@@ -8,6 +8,7 @@ import DTOs.UserDTO;
 import entity.Student;
 import entity.User;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -63,9 +64,19 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     }
 
     @Override
-    public boolean insertNewStudent(User user) {
+    public boolean insertNewStudent(User user, Date incomeYear) {
 
-        User u = em.find(User.class, user.getRut());
+        if (user == null) {
+            return false;
+        }
+        User u = null;
+        try{
+        Query q = this.em.createNamedQuery("User.findByRut", User.class);
+         q.setParameter("rut", user.getRut());
+         u = (User) q.getSingleResult();
+        }catch(NullPointerException e){
+         e.printStackTrace();
+        }       
         if (u != null) {
             return false;
         }
@@ -73,15 +84,23 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         Student newStudent = new Student();
 
         newStudent.setUser(user);
-        newStudent.setId(null);
-        newStudent.setListCourse(null);
-        newStudent.setIncomeYear(null);
+        newStudent.setIncomeYear(incomeYear);
 
-        em.getTransaction().begin();
+        getEm().getTransaction().begin();
         persist(newStudent);
-        em.getTransaction().commit();
-        em.close();
+        getEm().getTransaction().commit();
+        getEm().close();
 
-        return false;
+        return true;
     }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+    
+    
 }

@@ -3,8 +3,8 @@
  * and open the template in the editor.
  */
 package DTOs;
+
 import entity.User;
-import entity.UserType;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -15,8 +15,8 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class UserDTO {
-    
-    private Long id;    
+
+    private Long id;
     private String userName;
     private String firstName;
     private String lastName;
@@ -24,13 +24,13 @@ public class UserDTO {
     private String homePhone;
     private String cellPhone;
     private int rut;
-    private UserType userType; //Adolfo Cambia esto por un string!!
-    
+    private String userType; //Adolfo Cambia esto por un string!!
+
     public UserDTO() {
     }
-     
+
     public UserDTO(User user) {
-        this.id = user.getId();    
+        this.id = user.getId();
         this.userName = user.getUserName();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
@@ -38,7 +38,7 @@ public class UserDTO {
         this.homePhone = user.getHomePhone();
         this.cellPhone = user.getCellPhone();
         this.rut = user.getRut();
-        this.userType = user.getUserType();
+        this.userType = user.getUserType().getName();
     }
 
     public Long getId() {
@@ -105,14 +105,11 @@ public class UserDTO {
         this.rut = rut;
     }
 
-    public UserType getUserType() {
+    public String getUserType() {
         return userType;
     }
 
-    public void setUserType(UserType userType) {
+    public void setUserType(String userType) {
         this.userType = userType;
     }
-    
-    
-
 }

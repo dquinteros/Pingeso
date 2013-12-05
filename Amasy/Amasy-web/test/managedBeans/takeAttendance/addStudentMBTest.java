@@ -2,14 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sessionBeans.studentManagement;
+package managedBeans.takeAttendance;
 
 import entity.User;
 import entity.UserType;
 import java.util.Date;
 import javax.ejb.EJB;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,32 +19,27 @@ import static org.junit.Assert.*;
  *
  * @author Pingeso
  */
-public class StudentManagementSBTest {
-
-    @PersistenceContext(unitName = "Amasy-ejbPU")
-    private EntityManager em;
-    @EJB
-    StudentManagementSB smsb;
+public class addStudentMBTest {
+    
     @EJB
     User user;
     @EJB
     UserType ut;
-
-    public StudentManagementSBTest() {
+    
+    public addStudentMBTest() {
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
     }
-
+    
     @Before
     public void setUp() {
-        smsb = new StudentManagementSB();
-        user = new User();
+         user = new User();
         ut = new UserType();
         user.setCellPhone("82622385");
         user.setEmail("mail@gmail.com");
@@ -60,33 +53,24 @@ public class StudentManagementSBTest {
         ut.setName("Alumno");
         user.setUserType(ut);
 
-
-
     }
-
+    
     @After
     public void tearDown() {
     }
 
     /**
-     * Test of getAllStudent method, of class StudentManagementSB.
-     */
-//    @Test
-//    public void testGetAllStudent() throws Exception {
-//        System.out.println("getAllStudent");
-//   
-//    }
-    /**
-     * Test of insertNewStudent method, of class StudentManagementSB.
+     * Test of insertNewStudent method, of class addStudentMB.
      */
     @Test
-    public void testInsertNewStudent() throws Exception {
+    public void testInsertNewStudent() {
         System.out.println("insertNewStudent");
-        boolean result = smsb.insertNewStudent(user, new Date()); 
-        assertEquals(true, result);
-        result = smsb.insertNewStudent(user, new Date());
-        assertEquals(false, result);
-        result = smsb.insertNewStudent(null, null);
-        assertEquals(false, result);
+        User u = null;
+        Date incomeYear = null;
+        addStudentMB instance = new addStudentMB();
+        boolean expResult = false;
+        boolean result = instance.insertNewStudent(u, incomeYear);
+        assertEquals(expResult, result);
+   
     }
 }
