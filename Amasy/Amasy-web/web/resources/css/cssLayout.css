@@ -10,8 +10,10 @@
     font-size: 0.5em
 }
 
-.ui-layout-unit-content{
+.ui-layout-unit, .ui-layout-unit-content{
     background-color: transparent;
+    overflow: hidden !important;
+    max-height: 100%;
 }
 
 .ui-layout-north {
@@ -23,4 +25,43 @@
 
 .ui-layout-south {
     background-color: black !important;
+}
+
+.ui-megamenu {
+    margin-left: 290px; 
+    position: absolute; 
+    bottom: 0px;
+    margin-bottom: 5px;
+    padding-top: 0px;
+}
+
+.ui-widget-content {
+    border: 0px;
+}
+
+.ui-menu, .ui-widget-header, .ui-layout-header-unit {
+    background-color: black;
+}
+
+.ui-widget-header{
+    color: #ffffff;
+    background: #000000;
+    text-shadow: 0px 0px 0px #000000;
+}
+
+.ui-menu {
+    background: #000000;
+}
+
+.ui-menuitem-text {
+    color: #ffffff;
+}
+
+.ui-megamenu .ui-menuitem-link {
+    margin: 0em 0.3em !important;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+background: #BB7C42 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0)));    
+box-shadow: 0px 0px 3px #BB7C42;
 }

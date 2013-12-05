@@ -18,7 +18,9 @@
             <h:outputStylesheet library="css" name="cssLayout.css" />
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100"></p:layoutUnit>
+                <p:layoutUnit position="north" size="100">
+                    <ui:insert name="north">Menú</ui:insert>
+                </p:layoutUnit>
                 
                 <p:layoutUnit position="south" size="50" closable="false" collapsible="false">
                         <div id="footer-text-container">
@@ -26,7 +28,7 @@
                         </div>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Menú" collapsible="true">                
+                <p:layoutUnit position="west" size="175" header="Menú">                
                     <ui:insert name="west">Menú.</ui:insert>                    
                 </p:layoutUnit>
 
