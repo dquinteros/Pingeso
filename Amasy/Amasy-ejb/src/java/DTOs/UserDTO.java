@@ -24,7 +24,7 @@ public class UserDTO {
     private String homePhone;
     private String cellPhone;
     private int rut;
-    private String userType; //Adolfo Cambia esto por un string!!
+    private String userType;
 
     public UserDTO() {
     }

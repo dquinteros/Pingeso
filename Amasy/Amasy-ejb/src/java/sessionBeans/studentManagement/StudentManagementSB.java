@@ -224,7 +224,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     }
     
     //http://stackoverflow.com/questions/415953/generate-md5-hash-in-java
-    //
+    
     private String MD5(String md5) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
