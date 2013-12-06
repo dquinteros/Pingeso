@@ -6,14 +6,25 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Login Form</title>
+        <h:outputStylesheet library="css" name="login.css" />
     </h:head>
     <h:body>
-        <h2>Hello, please log in:</h2>
-        <h:form>
-            <table columns="2" role="presentation"> 
+        <h:form class="prueba">
+            <p:fieldset legend="Amasy">  
+                <h:panelGrid columns="2" cellpadding="10">  
+                    <h:outputLabel for="username" value="Usuario:"/>
+                    <p:inputText value="#{loginMB.userName}" id="username"/>  
+                    <h:outputLabel for="password" value="Contraseña:"/>
+                    <p:password id="password" value="#{loginMB.password}" feedback="false"/>  
+                    <p:commandButton type="submit" value="Iniciar sesión" action="#{loginMB.login()}"/>
+                </h:panelGrid>  
+            </p:fieldset> 
+            
+            <!--<table columns="2" role="presentation"> 
                 <tr>
                     <td><h:outputLabel for="username" 
                                        value="Please type your user name:"/></td>
@@ -30,7 +41,7 @@ and open the template in the editor.
             <p>
                 <h:commandButton type="submit" value="Submit" action="#{loginMB.login()}"/>
                 <h:commandButton type="reset" value="Reset"/>
-            </p>
+            </p>-->
         </h:form>
     </h:body>
 </html>

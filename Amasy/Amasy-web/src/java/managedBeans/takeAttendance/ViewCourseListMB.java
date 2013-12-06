@@ -37,7 +37,7 @@ public class ViewCourseListMB{
     
     @PostConstruct
     public void init() {
-        this.listCourse = CoursesDataSB.teacherCourses(0);          
+        this.listCourse = CoursesDataSB.teacherCourses(1);          
     }
 
     public void courseRedirect(long idCourse){   

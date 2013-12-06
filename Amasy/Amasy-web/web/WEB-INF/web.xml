@@ -26,11 +26,23 @@
         <web-resource-collection>
             <web-resource-name>web teacher</web-resource-name>
             <description/>
-            <url-pattern>/faces/teacher/student/*</url-pattern>
+            <url-pattern>/faces/teacher/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
             <role-name>Profesor</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Only Admin</display-name>
+        <web-resource-collection>
+            <web-resource-name>web admin</web-resource-name>
+            <description/>
+            <url-pattern>/faces/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>Administrador</role-name>
         </auth-constraint>
     </security-constraint>
     <login-config>

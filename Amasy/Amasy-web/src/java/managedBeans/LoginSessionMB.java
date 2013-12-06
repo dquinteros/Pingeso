@@ -72,7 +72,7 @@ public class LoginSessionMB extends UtilitiesMB implements Serializable{
         switch(user.getUserType()){
             case "Profesor": startPage = "/faces/teacher/index.xhtml";
                 break;
-            case "Administrador":;
+            case "Administrador": startPage = "/faces/admin/index.xhtml";
                 break;
             case "Alumno":;
                 break;

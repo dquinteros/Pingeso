@@ -28,9 +28,7 @@ public class UserType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     
-    private String name;
-    
-
+    private String name;    
 
     public String getName() {
         return name;

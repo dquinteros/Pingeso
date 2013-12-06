@@ -36,6 +36,7 @@ import javax.transaction.UserTransaction;
 import sessionBeans.TakeAttendanceSB;
 
 
+
 /**
  *
  * @author Pingeso
@@ -52,7 +53,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     private static final int PASSWORD_LENGTH=10;
     public void persist(Object object) {
         em.persist(object);
-    }
+    }     
     
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)  
     public boolean persistInsert(Object object){
