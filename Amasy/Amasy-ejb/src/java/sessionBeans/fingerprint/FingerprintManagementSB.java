@@ -26,7 +26,7 @@ public class FingerprintManagementSB {
         }
         return data;
     }
-    
+
     private Fmd stringToFmd(String s) {
         byte[] b = FingerprintManagementSB.hexStringToByteArray(s);
         Fmd f = null;
@@ -63,7 +63,7 @@ public class FingerprintManagementSB {
         return r;
     }
 
-    private static Long fingerprintIdentify(Fmd f, Fmd[] fa, int fc, Long[] idUser) {        
+    private static Long fingerprintIdentify(Fmd f, Fmd[] fa, int fc, Long[] idUser) {
         Engine engine = UareUGlobal.GetEngine();
         int falsepositive_rate = Engine.PROBABILITY_ONE / 100000;
         Engine.Candidate[] vCandidates = null;
@@ -85,6 +85,4 @@ public class FingerprintManagementSB {
         }
         return -2L;//vCandidates null
     }
-        
-    
 }
