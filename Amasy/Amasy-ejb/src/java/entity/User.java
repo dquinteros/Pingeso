@@ -19,22 +19,22 @@ import javax.persistence.NamedQuery;
  * @author Pingeso
  */
 @Entity
-@NamedQueries( {
-    @NamedQuery(name="User.findByRut", query="SELECT u FROM User u WHERE u.rut = :rut"),
-    @NamedQuery(name="User.findByUserName", query="SELECT u FROM User u WHERE u.userName = :username"),
-    @NamedQuery(name="User.selectAllFingerprint", query="SELECT u.fingerPrint FROM User u"),
-    @NamedQuery(name="User.findByFingerprint", query="SELECT u FROM User u WHERE u.fingerPrint = :fingerprint"),
-    @NamedQuery(name="User.findByEmail", query="SELECT u FROM User u WHERE u.email = :email"),
-    @NamedQuery(name="User.countUserByRut", query="SELECT COUNT(u) FROM User u WHERE u.rut = :rut"),
-    @NamedQuery(name="User.countUserByEmail", query="SELECT COUNT(u) FROM User u WHERE u.email = :email"),
-    @NamedQuery(name="User.countUserByUserName", query="SELECT COUNT(u) FROM User u WHERE u.userName = :username")
+@NamedQueries({
+    @NamedQuery(name = "User.findByRut", query = "SELECT u FROM User u WHERE u.rut = :rut"),
+    @NamedQuery(name = "User.findByUserName", query = "SELECT u FROM User u WHERE u.userName = :username"),
+    @NamedQuery(name = "User.selectAllFingerprint", query = "SELECT u.fingerPrint FROM User u"),
+    @NamedQuery(name = "User.findByFingerprint", query = "SELECT u FROM User u WHERE u.fingerPrint = :fingerprint"),
+    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
+    @NamedQuery(name = "User.countUserByRut", query = "SELECT COUNT(u) FROM User u WHERE u.rut = :rut"),
+    @NamedQuery(name = "User.countUserByEmail", query = "SELECT COUNT(u) FROM User u WHERE u.email = :email"),
+    @NamedQuery(name = "User.countUserByUserName", query = "SELECT COUNT(u) FROM User u WHERE u.userName = :username")
 })
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;    
+    private Long id;
     private String userName;
     private String password;
     private String firstName;
@@ -43,21 +43,18 @@ public class User implements Serializable {
     private String homePhone;
     private String cellPhone;
     private int rut;
+    private boolean userStatus = true; //true activo; false inactivo;
     @Lob
-    private String fingerPrint;    
+    private String fingerPrint;
     @ManyToOne
     private UserType userType;
-    
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    } 
-    
-    public String getFirstName() {
-        return firstName;
     }
 
     public String getUserName() {
@@ -76,8 +73,10 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    
-    
+    public String getFirstName() {
+        return firstName;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -122,6 +121,14 @@ public class User implements Serializable {
         this.rut = rut;
     }
 
+    public boolean isUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(boolean userStatus) {
+        this.userStatus = userStatus;
+    }
+
     public String getFingerPrint() {
         return fingerPrint;
     }
@@ -136,9 +143,8 @@ public class User implements Serializable {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
-    }    
+    }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -163,5 +169,4 @@ public class User implements Serializable {
     public String toString() {
         return "entity.user[ id=" + id + " ]";
     }
-    
 }

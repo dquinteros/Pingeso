@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../admin/index.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <h:form prependId="false">  
+            <p:dataTable id="dataTable" var="student" value="#{viewAllStudentMB.userListDTO.listUser}"  
+                         paginator="true" rows="#{viewAllStudentMB.userListDTO.studentsPerPage}">  
+                <f:facet name="header">  
+                    Ajax Pagination  
+                </f:facet>  
+                <p:column>  
+                    <f:facet name="header">  
+                        <h:outputText value="Nombre" />  
+                    </f:facet>  
+                    <h:outputText value="#{student.firstName}" />  
+                </p:column>  
+                <p:column>  
+                    <f:facet name="header">  
+                        <h:outputText value="Apeliido" />  
+                    </f:facet>  
+                    <h:outputText value="#{student.lastName}" />  
+                </p:column> 
+                <p:column>  
+                    <f:facet name="header">  
+                        <h:outputText value="RUT" />  
+                    </f:facet>  
+                    <h:outputText value="#{student.rut}" />  
+                </p:column> 
+
+                <p:column>  
+                    <f:facet name="header">  
+                        <h:outputText value="Email" />  
+                    </f:facet>  
+                    <h:outputText value="#{student.email}" />  
+                </p:column>             
+                <p:column>  
+                    <f:facet name="header">  
+                        <h:outputText value="Celular" />  
+                    </f:facet>  
+                    <h:outputText value="#{student.cellPhone}" />  
+                </p:column>                         
+            </p:dataTable>  
+        </h:form>
+    </ui:define>
+</ui:composition>

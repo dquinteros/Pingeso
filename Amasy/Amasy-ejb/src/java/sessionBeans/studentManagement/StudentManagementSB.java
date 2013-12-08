@@ -7,6 +7,7 @@ package sessionBeans.studentManagement;
 import DTOs.NewUserDTO;
 import DTOs.UserDTO;
 import DTOs.AnswerDTO;
+import DTOs.UserListDTO;
 import entity.Student;
 import entity.User;
 import entity.UserType;
@@ -35,8 +36,6 @@ import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import sessionBeans.TakeAttendanceSB;
 
-
-
 /**
  *
  * @author Pingeso
@@ -49,30 +48,47 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     private EntityManager em;
     @Resource
     UserTransaction ut;
-    
-    private static final int PASSWORD_LENGTH=10;
+    private static final int PASSWORD_LENGTH = 10;
+
     public void persist(Object object) {
         em.persist(object);
-    }     
-    
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)  
-    public boolean persistInsert(Object object){
-         try {
-             ut.begin(); // Start a new transaction
-             try {
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public boolean persistInsert(Object object) {
+        try {
+            ut.begin(); // Start a new transaction
+            try {
                 em.persist(object);
                 ut.commit(); // Commit the transaction
                 return true;
-             } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
+            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
                 ut.rollback(); // Rollback the transaction
                 return false;
-             }
-         } catch (NotSupportedException | SystemException ex) {
-             Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
-             return false;
-         }
-     }
-    
+            }
+        } catch (NotSupportedException | SystemException ex) {
+            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
+            return false;
+        }
+    }
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public boolean persistUpdate(Object object) {
+        try {
+            ut.begin(); // Start a new transaction
+            try {
+                em.merge(object);
+                ut.commit(); // Commit the transaction
+                return true;
+            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
+                ut.rollback(); // Rollback the transaction
+                return false;
+            }
+        } catch (NotSupportedException | SystemException ex) {
+            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
+            return false;
+        }
+    }
+
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     @Override
@@ -107,14 +123,14 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     }
 
     @Override
-    public AnswerDTO insertNewStudent(NewUserDTO userDTO, Date enrollYear) {           
+    public AnswerDTO insertNewStudent(NewUserDTO userDTO, Date enrollYear) {
         AnswerDTO existEmailUserNameRut = validateStudentRegistry(userDTO);
-        if(!existEmailUserNameRut.isValid()){
+        if (!existEmailUserNameRut.isValid()) {
             return existEmailUserNameRut;
-        }        
+        }
         String password = newPass(userDTO.getFingerprint());
         String roll = "Alumno";
-        User user = newUser(userDTO, password, roll);        
+        User user = newUser(userDTO, password, roll);
         Student newStudent = new Student();
         newStudent.setUser(user);
         newStudent.setIncomeYear(enrollYear);
@@ -123,70 +139,69 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         return new AnswerDTO(0);
     }
 
-    private AnswerDTO validateStudentRegistry(NewUserDTO userDTO){
+    private AnswerDTO validateStudentRegistry(NewUserDTO userDTO) {
         if (userDTO == null) {
             return new AnswerDTO(109);
         }
         boolean existEmail = existEmail(userDTO.getEmail());
         boolean existUserName = existUserName(userDTO.getUserName());
         boolean existRut = existRut(Integer.parseInt(userDTO.getRut()));
-        if(existEmail&&existUserName&&existRut){
+        if (existEmail && existUserName && existRut) {
             return new AnswerDTO(101);
-        }else if(existEmail&&existUserName){
+        } else if (existEmail && existUserName) {
             return new AnswerDTO(102);
-        }else if(existUserName&&existRut){            
+        } else if (existUserName && existRut) {
             return new AnswerDTO(103);
-        }else if(existEmail&&existRut){
+        } else if (existEmail && existRut) {
             return new AnswerDTO(104);
-        }else if(existEmail){            
+        } else if (existEmail) {
             return new AnswerDTO(105);
-        }else if(existUserName){
+        } else if (existUserName) {
             return new AnswerDTO(106);
-        }else if(existRut){
+        } else if (existRut) {
             return new AnswerDTO(107);
         }
         return new AnswerDTO(000);
     }
-    
-    private boolean existEmail(String email){
+
+    private boolean existEmail(String email) {
         Long count;
         Query q = em.createNamedQuery("User.countUserByEmail", User.class);
         q.setParameter("email", email);
-        count = (Long)q.getSingleResult();
-        if(count==0){
+        count = (Long) q.getSingleResult();
+        if (count == 0) {
             return false;
-        }else{
+        } else {
             return true;
-        }        
+        }
     }
-    
-    private boolean existUserName(String username){
+
+    private boolean existUserName(String username) {
         Long count;
         Query q = em.createNamedQuery("User.countUserByUserName", User.class);
         q.setParameter("username", username);
-        count = (Long)q.getSingleResult();
-        if(count==0){
+        count = (Long) q.getSingleResult();
+        if (count == 0) {
             return false;
-        }else{
+        } else {
             return true;
-        }        
+        }
     }
-    
-    private boolean existRut(int rut){
+
+    private boolean existRut(int rut) {
         Long count;
         Query q = em.createNamedQuery("User.countUserByRut", User.class);
         q.setParameter("rut", rut);
-        count = (Long)q.getSingleResult();
-        if(count==0){
+        count = (Long) q.getSingleResult();
+        if (count == 0) {
             return false;
-        }else{
+        } else {
             return true;
-        }        
+        }
     }
-    
-    
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)  
-    private User newUser(NewUserDTO userDTO, String password, String roll){        
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    private User newUser(NewUserDTO userDTO, String password, String roll) {
         User newUser = new User();
         newUser.setCellPhone(userDTO.getCellPhone());
         newUser.setEmail(userDTO.getEmail());
@@ -195,36 +210,50 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         newUser.setHomePhone(userDTO.getHomePhone());
         newUser.setLastName(userDTO.getLastName());
         newUser.setRut(Integer.parseInt(userDTO.getRut()));
-        newUser.setUserName(userDTO.getUserName());    
-        
+        newUser.setUserName(userDTO.getUserName());
+
         UserType ut = new UserType();
         ut.setName(roll);
-                
+
         newUser.setPassword(MD5(password));
-        
-        newUser.setUserType(ut);        
+
+        newUser.setUserType(ut);
         return newUser;
     }
-    
-    private String newPass(String fingerprint){        
+
+    private String newPass(String fingerprint) {
         String password = null;
         int fingerprintLength = fingerprint.length();
-        String halfFingerprint = fingerprint.substring(fingerprintLength/4, fingerprintLength/2);//revisar en caso de error                
-        if(halfFingerprint.length()>PASSWORD_LENGTH){
-            int random = (int)Math.random()*(halfFingerprint.length()-(PASSWORD_LENGTH+1));
-            password = halfFingerprint.substring(random,random+PASSWORD_LENGTH);                
-        }else{
-            while(halfFingerprint.length()<=PASSWORD_LENGTH){
+        String halfFingerprint = fingerprint.substring(fingerprintLength / 4, fingerprintLength / 2);//revisar en caso de error                
+        if (halfFingerprint.length() > PASSWORD_LENGTH) {
+            int random = (int) Math.random() * (halfFingerprint.length() - (PASSWORD_LENGTH + 1));
+            password = halfFingerprint.substring(random, random + PASSWORD_LENGTH);
+        } else {
+            while (halfFingerprint.length() <= PASSWORD_LENGTH) {
                 halfFingerprint += halfFingerprint;
             }
-            int random = (int)Math.random()*(halfFingerprint.length()-(PASSWORD_LENGTH+1));
-            password = halfFingerprint.substring(random,random+PASSWORD_LENGTH);
-        }    
+            int random = (int) Math.random() * (halfFingerprint.length() - (PASSWORD_LENGTH + 1));
+            password = halfFingerprint.substring(random, random + PASSWORD_LENGTH);
+        }
         return password;
     }
-    
+
+    @Override
+    public AnswerDTO deleteStudent(int id) {
+
+        User u = em.find(User.class, id);
+        if (u != null) {
+            return new AnswerDTO(111);
+        } else if (!u.isUserStatus()) {
+            return new AnswerDTO(112);
+        } else {
+            u.setUserStatus(false);
+            persistUpdate(u);
+        }
+        return new AnswerDTO(000);
+    }
+
     //http://stackoverflow.com/questions/415953/generate-md5-hash-in-java
-    
     private String MD5(String md5) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -239,6 +268,74 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         return null;
     }
     
+    
+    @Override
+    public UserListDTO getUsersPerTable(String rut, String firstName, String lastName, int page, int studentsPerPage){
+        UserListDTO response = new UserListDTO();
+        LinkedList<UserDTO> listStudent = getListStudent(rut, firstName, lastName, page, studentsPerPage);
+        Long totalPageNumber = getCountStudent(rut, firstName, lastName, page, studentsPerPage);
+        response.setListUser(listStudent);
+        response.setTotalPageNumber(totalPageNumber);
+        response.setCurrentPage(page);
+        response.setStudentsPerPage(studentsPerPage);
+        return response;
+    }
+    
+    
+    private LinkedList<UserDTO> getListStudent(String rut, String firstName, String lastName, int page, int studentsPerPage){
+        rut = regExFix(rut);
+        firstName = regExFix(firstName);
+        lastName = regExFix(lastName);
+        int firstResult = (page-1)*studentsPerPage;        
+        Collection<User> result;
+        LinkedList<UserDTO> exitResult = new LinkedList<UserDTO>();
+        Query q = this.em.createNamedQuery("Student.getStudentsForStudentList");
+        q.setParameter("firstName", firstName);
+        q.setParameter("lastName", lastName);
+        q.setParameter("rut", rut);
+        q.setMaxResults(studentsPerPage);
+        q.setFirstResult(firstResult);
+        try {
+            result = (Collection<User>) q.getResultList();
+            return sqlResultToUserList(result, exitResult);
+        } catch (NoResultException nre) {
+            System.out.println(nre);
+            return null;
+        }      
+    }
+    
+    private Long getCountStudent(String rut, String firstName, String lastName, int page, int studentsPerPage){
+        rut = regExFix(rut);
+        firstName = regExFix(firstName);
+        lastName = regExFix(lastName);
+        int firstResult = (page-1)*studentsPerPage;        
+        Long result;
+        LinkedList<UserDTO> exitResult = new LinkedList<UserDTO>();
+        Query q = this.em.createNamedQuery("Student.getCountStudentsForStudentList");
+        q.setParameter("firstName", firstName);
+        q.setParameter("lastName", lastName);
+        q.setParameter("rut", rut);
+        try {
+            result = (Long) q.getSingleResult();
+            return result;
+        } catch (NoResultException nre) {
+            System.out.println(nre);
+            return 0L;
+        }      
+    }
+    
+    
+    
+    private String regExFix(String ex){
+        if("".equals(ex)){
+            ex="%";
+        }else{
+            ex = ("%".concat(ex)).concat("%");
+        }
+        System.out.println(ex);
+        return ex;
+    }
+            
     public EntityManager getEm() {
         return em;
     }
@@ -246,6 +343,8 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     public void setEm(EntityManager em) {
         this.em = em;
     }
+
+    
     
     
 }
