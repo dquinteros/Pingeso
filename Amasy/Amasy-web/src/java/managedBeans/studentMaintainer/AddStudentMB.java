@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package managedBeans.takeAttendance;
+package managedBeans.studentMaintainer;
 
 import DTOs.AnswerDTO;
 import DTOs.NewUserDTO;
@@ -11,7 +11,6 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import managedBeans.UtilitiesMB;
-import org.primefaces.context.RequestContext;
 import sessionBeans.studentManagement.StudentManagementSBLocal;
 
 /**
@@ -38,7 +37,6 @@ public class AddStudentMB {
     
     public void insertNewStudent(){
         AnswerDTO r = new AnswerDTO();
-        int type = 0;
         newStudent.setRut(parseRut(newStudent.getRut()));
         if(validateRut(newStudent.getRut())){
             if(newStudent.getRut().contains("K")) newStudent.setRut(newStudent.getRut().replace("K",""));

@@ -138,7 +138,20 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         persistInsert(newStudent);
         return new AnswerDTO(0);
     }
+    
+    @Override
+    public AnswerDTO updateStudent(NewUserDTO newStudent, int studentId){
+        //persistUpdate();
+        return null;
+    }
 
+    @Override
+    public NewUserDTO getStudentById(long userId){
+        User user = em.find(User.class, userId);
+        NewUserDTO newUser = new NewUserDTO(user);
+        return newUser;
+    }
+    
     private AnswerDTO validateStudentRegistry(NewUserDTO userDTO) {
         if (userDTO == null) {
             return new AnswerDTO(109);
@@ -324,8 +337,6 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         }      
     }
     
-    
-    
     private String regExFix(String ex){
         if("".equals(ex)){
             ex="%";
@@ -342,9 +353,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
 
     public void setEm(EntityManager em) {
         this.em = em;
-    }
+    }    
 
-    
-    
     
 }

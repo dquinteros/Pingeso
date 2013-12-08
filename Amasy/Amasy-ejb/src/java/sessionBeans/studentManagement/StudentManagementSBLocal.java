@@ -28,4 +28,8 @@ public interface StudentManagementSBLocal {
 
     public AnswerDTO deleteStudent(int id);
 
+    public AnswerDTO updateStudent(NewUserDTO newStudent, int studentId);
+
+    public NewUserDTO getStudentById(long userId);
+
 }
