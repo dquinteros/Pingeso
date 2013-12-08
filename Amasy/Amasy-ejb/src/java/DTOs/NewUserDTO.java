@@ -4,6 +4,7 @@
  */
 package DTOs;
 
+import entity.User;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -22,7 +23,21 @@ public class NewUserDTO {
     private String cellPhone;
     private String fingerprint;
     private String rut;
-    private String userType;    
+    private String userType;
+    
+    public NewUserDTO(){
+        
+    }
+    
+    public NewUserDTO(User user){
+        rut=String.valueOf(user.getRut());
+        userName=user.getUserName();
+        email=user.getEmail();
+        firstName=user.getFirstName();
+        lastName=user.getLastName();
+        cellPhone=user.getCellPhone();
+        homePhone=user.getHomePhone();
+    }
     
 
     public String getUserName() {
