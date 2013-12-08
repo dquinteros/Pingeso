@@ -42,7 +42,7 @@ public class ViewCourseListMB{
 
     public void courseRedirect(long idCourse){   
         this.takeAttendanceConversation.beginConversation();
-        this.takeAttendanceConversation.setIdClass(idCourse);   
+        this.takeAttendanceConversation.setIdClass(idCourse);
         UtilitiesMB.redirection("/faces/teacher/takeAttendance/takeAttendance.xhtml?cid=".concat(this.takeAttendanceConversation.getConversation().getId().toString()));
     }
     

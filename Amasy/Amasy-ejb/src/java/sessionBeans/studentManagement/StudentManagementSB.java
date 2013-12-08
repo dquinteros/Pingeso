@@ -7,6 +7,7 @@ package sessionBeans.studentManagement;
 import DTOs.NewUserDTO;
 import DTOs.UserDTO;
 import DTOs.AnswerDTO;
+import DTOs.UserListDTO;
 import entity.Student;
 import entity.User;
 import entity.UserType;
@@ -182,8 +183,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         }else{
             return true;
         }        
-    }
-    
+    }    
     
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)  
     private User newUser(NewUserDTO userDTO, String password, String roll){        
@@ -223,8 +223,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         return password;
     }
     
-    //http://stackoverflow.com/questions/415953/generate-md5-hash-in-java
-    
+    //http://stackoverflow.com/questions/415953/generate-md5-hash-in-java    
     private String MD5(String md5) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -239,6 +238,74 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         return null;
     }
     
+    
+    @Override
+    public UserListDTO getUsersPerTable(String rut, String firstName, String lastName, int page, int studentsPerPage){
+        UserListDTO response = new UserListDTO();
+        LinkedList<UserDTO> listStudent = getListStudent(rut, firstName, lastName, page, studentsPerPage);
+        Long totalPageNumber = getCountStudent(rut, firstName, lastName, page, studentsPerPage);
+        response.setListUser(listStudent);
+        response.setTotalPageNumber(totalPageNumber);
+        response.setCurrentPage(page);
+        response.setStudentsPerPage(studentsPerPage);
+        return response;
+    }
+    
+    
+    private LinkedList<UserDTO> getListStudent(String rut, String firstName, String lastName, int page, int studentsPerPage){
+        rut = regExFix(rut);
+        firstName = regExFix(firstName);
+        lastName = regExFix(lastName);
+        int firstResult = (page-1)*studentsPerPage;        
+        Collection<User> result;
+        LinkedList<UserDTO> exitResult = new LinkedList<UserDTO>();
+        Query q = this.em.createNamedQuery("Student.getStudentsForStudentList");
+        q.setParameter("firstName", firstName);
+        q.setParameter("lastName", lastName);
+        q.setParameter("rut", rut);
+        q.setMaxResults(studentsPerPage);
+        q.setFirstResult(firstResult);
+        try {
+            result = (Collection<User>) q.getResultList();
+            return sqlResultToUserList(result, exitResult);
+        } catch (NoResultException nre) {
+            System.out.println(nre);
+            return null;
+        }      
+    }
+    
+    private Long getCountStudent(String rut, String firstName, String lastName, int page, int studentsPerPage){
+        rut = regExFix(rut);
+        firstName = regExFix(firstName);
+        lastName = regExFix(lastName);
+        int firstResult = (page-1)*studentsPerPage;        
+        Long result;
+        LinkedList<UserDTO> exitResult = new LinkedList<UserDTO>();
+        Query q = this.em.createNamedQuery("Student.getCountStudentsForStudentList");
+        q.setParameter("firstName", firstName);
+        q.setParameter("lastName", lastName);
+        q.setParameter("rut", rut);
+        try {
+            result = (Long) q.getSingleResult();
+            return result;
+        } catch (NoResultException nre) {
+            System.out.println(nre);
+            return 0L;
+        }      
+    }
+    
+    
+    
+    private String regExFix(String ex){
+        if("".equals(ex)){
+            ex="%";
+        }else{
+            ex = ("%".concat(ex)).concat("%");
+        }
+        System.out.println(ex);
+        return ex;
+    }
+            
     public EntityManager getEm() {
         return em;
     }
@@ -246,6 +313,8 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     public void setEm(EntityManager em) {
         this.em = em;
     }
+
+    
     
     
 }
