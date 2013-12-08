@@ -7,44 +7,58 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-        <h:form prependId="false">  
-            <p:dataTable id="dataTable" var="student" value="#{viewAllStudentMB.userListDTO.listUser}"  
-                         paginator="true" rows="#{viewAllStudentMB.userListDTO.studentsPerPage}">  
-                <f:facet name="header">  
-                    Ajax Pagination  
-                </f:facet>  
-                <p:column>  
-                    <f:facet name="header">  
-                        <h:outputText value="Nombre" />  
-                    </f:facet>  
-                    <h:outputText value="#{student.firstName}" />  
-                </p:column>  
-                <p:column>  
-                    <f:facet name="header">  
-                        <h:outputText value="Apeliido" />  
-                    </f:facet>  
-                    <h:outputText value="#{student.lastName}" />  
-                </p:column> 
-                <p:column>  
-                    <f:facet name="header">  
-                        <h:outputText value="RUT" />  
-                    </f:facet>  
-                    <h:outputText value="#{student.rut}" />  
-                </p:column> 
+        <h:form id="form">  
 
-                <p:column>  
-                    <f:facet name="header">  
-                        <h:outputText value="Email" />  
-                    </f:facet>  
-                    <h:outputText value="#{student.email}" />  
-                </p:column>             
-                <p:column>  
-                    <f:facet name="header">  
-                        <h:outputText value="Celular" />  
-                    </f:facet>  
-                    <h:outputText value="#{student.cellPhone}" />  
-                </p:column>                         
+            <p:dataTable var="userDTO" value="#{viewAllStudentMB.userList}" rowKey="#{userDTO.firstName}" paginator="true" rows="10"  
+                         selection="#{viewAllStudentMB.selectedStudent}" selectionMode="single" filteredValue="#{viewAllStudentMB.filteredStudents}" id="userDTOTable">  
+
+                <p:ajax event="rowSelect" update=":form:display" oncomplete="" />  
+
+                <f:facet name="header">  
+                    Lista de alumnos
+                </f:facet>  
+
+                <p:column headerText="Nombre" sortBy="firstName" filterBy="firstName" id="firstName">  
+                  <h:outputText value="#{userDTO.firstName}"/>
+                </p:column>  
+
+                <p:column headerText="Apellido" sortBy="lastName" filterBy="lastName" id="lastName">  
+                    #{userDTO.lastName}  
+                </p:column>  
+
+                <p:column headerText="Rut" sortBy="rut" filterBy="rut" id="rut">  
+                    #{userDTO.rut}  
+                </p:column>  
+
+                <p:column headerText="Email" sortBy="email" filterBy="email" id="email">  
+                    #{userDTO.email}  
+                </p:column>  
+
             </p:dataTable>  
-        </h:form>
+
+            <p:dialog header="Datos estudiante" widgetVar="" resizable="false"  
+                      width="200" showEffect="explode" hideEffect="explode">  
+
+                <h:panelGrid id="display" columns="2" cellpadding="4">  
+
+                    <f:facet name="header">  
+                        <p:outputLabel value="Aqui va la foto"/>  
+                    </f:facet>  
+
+                    <h:outputText value="Nombre:" />  
+                    <h:outputText value="#{viewAllStudentMB.selectedStudent.firstName}" id="firstName"/>  
+
+                    <h:outputText value="Apellido:" />  
+                    <h:outputText value="#{viewAllStudentMB.selectedStudent.lastName}" id="lastName"/>  
+
+                    <h:outputText value="Rut:" />  
+                    <h:outputText value="#{viewAllStudentMB.selectedStudent.rut}" id="rut"/>  
+
+                    <h:outputText value="Email:" />  
+                    <h:outputText value="#{viewAllStudentMB.selectedStudent.email}" id="email"/>  
+                </h:panelGrid>  
+            </p:dialog>  
+
+        </h:form>  
     </ui:define>
 </ui:composition>

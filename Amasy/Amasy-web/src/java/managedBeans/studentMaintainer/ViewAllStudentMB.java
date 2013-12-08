@@ -4,7 +4,9 @@
  */
 package managedBeans.studentMaintainer;
 
-import DTOs.UserListDTO;
+import DTOs.UserDTO;
+import java.util.LinkedList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -21,17 +23,18 @@ public class ViewAllStudentMB {
     @EJB
     private StudentManagementSBLocal studentManagementSB;
     
-    private UserListDTO userListDTO;
+    private LinkedList<UserDTO> userList;
     private String rut;
     private String firstName;
     private String lastName;
     private int page;
     private int studentsPerPage;
+    private UserDTO selectedStudent;
+    private List<UserDTO> filteredStudents;
     
     /**
      * Creates a new instance of ViewAllStudent
-     */
-    
+     */        
     
     public ViewAllStudentMB() {
     }
@@ -47,21 +50,18 @@ public class ViewAllStudentMB {
         lastName="";
         page=1;
         studentsPerPage=10;
-        userListDTO = studentManagementSB.getUsersPerTable(rut, firstName, lastName, page, studentsPerPage);
-        System.out.println(userListDTO.getTotalPageNumber());
+        userList = studentManagementSB.getAllStudent();
+        //System.out.println(userListDTO.getTotalPageNumber());
     }
 
+    public LinkedList<UserDTO> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(LinkedList<UserDTO> userList) {
+        this.userList = userList;
+    }
     
-    public UserListDTO getUserListDTO() {
-        return userListDTO;
-    }
-
-    public void setUserListDTO(UserListDTO userListDTO) {
-        this.userListDTO = userListDTO;
-    }
-
-    
-
     public int getStudentsPerPage() {
         return studentsPerPage;
     }
@@ -101,4 +101,21 @@ public class ViewAllStudentMB {
     public void setPage(int page) {
         this.page = page;
     }
+
+    public UserDTO getSelectedStudent() {
+        return selectedStudent;
+    }
+
+    public void setSelectedStudent(UserDTO selectedStudent) {
+        this.selectedStudent = selectedStudent;
+    }
+
+    public List<UserDTO> getFilteredStudents() {
+        return filteredStudents;
+    }
+
+    public void setFilteredStudents(List<UserDTO> filteredStudents) {
+        this.filteredStudents = filteredStudents;
+    }    
+    
 }
