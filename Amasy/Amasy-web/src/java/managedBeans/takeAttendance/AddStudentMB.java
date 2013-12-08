@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import managedBeans.UtilitiesMB;
+import org.primefaces.context.RequestContext;
 import sessionBeans.studentManagement.StudentManagementSBLocal;
 
 /**

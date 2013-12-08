@@ -76,9 +76,9 @@ public class UtilitiesMB {
         String typeMessage = getTypeMessage(answer);
         FacesContext context = FacesContext.getCurrentInstance();
         switch(typeMessage){
-            case "success": context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"", message)); break;
-            case "error": context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"", message)); break;
-            default: context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"", "Error"));
+            case "success": context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_INFO, message,"")); break;
+            case "error": context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_ERROR,message,"")); break;
+            default: context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error",""));
         }
     }
     
