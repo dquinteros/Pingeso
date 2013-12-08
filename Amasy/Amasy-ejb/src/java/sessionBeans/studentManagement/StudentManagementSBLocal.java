@@ -21,4 +21,6 @@ public interface StudentManagementSBLocal {
     LinkedList<UserDTO> getAllStudent();
 
     public AnswerDTO insertNewStudent(NewUserDTO user, Date enrollYear);
-    }
+
+    public AnswerDTO deleteStudent(int id);
+}
