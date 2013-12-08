@@ -24,9 +24,11 @@ public interface StudentManagementSBLocal {
 
     public AnswerDTO insertNewStudent(NewUserDTO user, Date enrollYear);
 
-    public UserListDTO getUsersPerTable(String rut, String firstName, String lastName, int page, int studentsPerPage);
+//    public UserListDTO getUsersPerTable(String rut, String firstName, String lastName, int page, int studentsPerPage);
 
     public AnswerDTO deleteStudent(int id);
+    
+    public LinkedList<UserDTO> getListStudent(String rut, String firstName, String lastName, int page, int studentsPerPage);
 
     public AnswerDTO updateStudent(NewUserDTO newStudent, int studentId);
 
