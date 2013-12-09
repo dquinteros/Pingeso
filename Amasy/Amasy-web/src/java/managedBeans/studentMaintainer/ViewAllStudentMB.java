@@ -4,6 +4,7 @@
  */
 package managedBeans.studentMaintainer;
 
+import DTOs.AnswerDTO;
 import DTOs.UserDTO;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,6 +66,11 @@ public class ViewAllStudentMB {
         this.studentMaintainerConversation.setIdUser(idUser);
         UtilitiesMB.redirection("/faces/admin/studentMaintainer/editStudent.xhtml?cid=".concat(this.studentMaintainerConversation.getConversation().getId().toString()));
     }
+    public void deleteStudent(Long idUser){
+         System.out.println(idUser);
+        AnswerDTO ans = studentManagementSB.deleteStudent(idUser);
+        UtilitiesMB.showFeedback(ans);
+   }
     
     public LinkedList<UserDTO> getUserList() {
         return userList;

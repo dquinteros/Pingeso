@@ -8,15 +8,15 @@
 
     <ui:define name="content">
         <h:form id="form">  
-            <p:growl for="growl" life="3000"/>
-            <p:dataTable var="userDTO" value="#{viewAllStudentMB.userList}" rowKey="#{userDTO.firstName}" paginator="true" rows="10"  
-                          filteredValue="#{viewAllStudentMB.filteredStudents}" id="userDTOTable">  
+            <p:dataTable  var="userDTO" value="#{viewAllStudentMB.userList}" rowKey="#{userDTO.firstName}" paginator="true" rows="10"  
+                         filteredValue="#{viewAllStudentMB.filteredStudents}" id="userDTOTable">
+                <p:growl for="growl" life="3000"/>
                 <p:ajax event="rowSelect" update=":form:display" oncomplete="" />  
                 <f:facet name="header">  
                     Lista de alumnos
                 </f:facet>  
                 <p:column headerText="Nombre" sortBy="firstName" filterBy="firstName" id="firstName">  
-                  <h:outputText value="#{userDTO.firstName}"/>
+                    <h:outputText value="#{userDTO.firstName}"/>
                 </p:column>  
                 <p:column headerText="Apellido" sortBy="lastName" filterBy="lastName" id="lastName">  
                     #{userDTO.lastName}  
@@ -28,8 +28,10 @@
                     #{userDTO.email}  
                 </p:column>                      
                 <p:column headerText="Acción">
+                    <p:commandButton id="submitButton" icon="ui-icon-closethick" update="userDTOTable" action="#{viewAllStudentMB.deleteStudent(userDTO.id)}"/>  
                     <p:commandButton icon="ui-icon-pencil" title="Editar" action="#{viewAllStudentMB.editStudent(userDTO.id)}"/>
                 </p:column>
+
             </p:dataTable>  
             <p:dialog header="Datos estudiante" widgetVar="" resizable="false"  
                       width="200" showEffect="explode" hideEffect="explode">  

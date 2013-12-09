@@ -256,14 +256,17 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     }
 
     @Override
-    public AnswerDTO deleteStudent(int id) {
-
+    public AnswerDTO deleteStudent(Long id) {
+        System.out.println(id);
         User u = em.find(User.class, id);
-        if (u != null) {
+        if (u == null) {
+            System.out.println("nulo");
             return new AnswerDTO(111);
-        } else if (!u.isUserStatus()) {
+        } else if (u.isUserStatus() == false) {
+            System.out.println("ya cambiado");
             return new AnswerDTO(112);
         } else {
+            System.out.println("Bien");
             u.setUserStatus(false);
             persistUpdate(u);
         }
