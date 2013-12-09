@@ -30,7 +30,7 @@ public interface StudentManagementSBLocal {
     
     public LinkedList<UserDTO> getListStudent(String rut, String firstName, String lastName, int page, int studentsPerPage);
 
-    public AnswerDTO updateStudent(NewUserDTO newStudent, int studentId);
+    public AnswerDTO updateStudent(NewUserDTO newStudent, Long studentId);
 
     public NewUserDTO getStudentById(long userId);
 

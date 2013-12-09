@@ -7,7 +7,6 @@ package sessionBeans.studentManagement;
 import DTOs.NewUserDTO;
 import DTOs.UserDTO;
 import DTOs.AnswerDTO;
-import DTOs.UserListDTO;
 import entity.Student;
 import entity.User;
 import entity.UserType;
@@ -71,6 +70,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
             return false;
         }
     }
+    
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public boolean persistUpdate(Object object) {
         try {
@@ -109,14 +109,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     private LinkedList<UserDTO> sqlResultToUserList(Collection<User> result, LinkedList<UserDTO> exitResult) {
         UserDTO studentDTOTemp;
         for (User iter : result) {
-            studentDTOTemp = new UserDTO();
-            studentDTOTemp.setCellPhone(iter.getCellPhone());
-            studentDTOTemp.setEmail(iter.getEmail());
-            studentDTOTemp.setFirstName(iter.getFirstName());
-            studentDTOTemp.setHomePhone(iter.getHomePhone());
-            studentDTOTemp.setLastName(iter.getLastName());
-            studentDTOTemp.setRut(iter.getRut());
-            studentDTOTemp.setUserName(iter.getUserName());
+            studentDTOTemp = new UserDTO(iter);            
             exitResult.add(studentDTOTemp);
         }
         return exitResult;
@@ -140,9 +133,20 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     }
     
     @Override
-    public AnswerDTO updateStudent(NewUserDTO newStudent, int studentId){
-        //persistUpdate();
-        return null;
+    public AnswerDTO updateStudent(NewUserDTO newStudent, Long studentId){
+        User user = em.find(User.class, studentId);
+        user.setFirstName(newStudent.getFirstName());
+        user.setLastName(newStudent.getLastName());
+        user.setCellPhone(newStudent.getCellPhone());
+        user.setHomePhone(newStudent.getHomePhone());
+        if(!"".equals(newStudent.getFingerprint())){
+            user.setFingerPrint(newStudent.getFingerprint());
+        }
+        if(persistUpdate(user)){
+            return new AnswerDTO(0);
+        }else{
+            return null;
+        }       
     }
 
     @Override

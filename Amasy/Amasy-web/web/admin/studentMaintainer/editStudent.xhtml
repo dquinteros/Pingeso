@@ -49,8 +49,7 @@
                 <p:inputText id="defaulty" required="true" value="null" requiredMessage="Huella digital obligatoria"/>  
                 <p:message for="defaulty" display="text"/>
             </h:panelGrid>
-            <p:commandButton id="submitButton" value="Editar estudiante" update="form"/>  
+            <p:commandButton id="submitButton" value="Guardar cambios" update="form" action="#{editStudentMB.editCurrentStudent()}"/>  
         </h:form>  
     </ui:define>
-
 </ui:composition>

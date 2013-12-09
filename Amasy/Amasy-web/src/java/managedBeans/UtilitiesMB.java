@@ -50,6 +50,9 @@ public class UtilitiesMB {
             case 108: return "Usuario o contraseña no válido";
             case 109: return "Error con el registro de estudiante";
             case 110: return "Rut no válido";
+            case 111: return "Error al eliminar un estudiante";
+            case 112: return "El estudiante ya se encontraba eliminado";
+            case 113: return "No se pudo actualizar los datos del estudiante";                
             default: return  "Error";
         }        
     }
@@ -57,16 +60,6 @@ public class UtilitiesMB {
     private static String getTypeMessage(AnswerDTO r){
         switch(r.getIdError()){
             case 0: return   "success";
-            case 101: return "error";
-            case 102: return "error";
-            case 103: return "error";
-            case 104: return "error";
-            case 105: return "error";
-            case 106: return "error";
-            case 107: return "error";
-            case 108: return "error";
-            case 109: return "error";
-            case 110: return "error";
             default: return  "error";
         } 
     }

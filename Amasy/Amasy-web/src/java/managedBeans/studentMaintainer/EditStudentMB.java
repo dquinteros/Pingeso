@@ -6,28 +6,34 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import managedBeans.UtilitiesMB;
 import sessionBeans.studentManagement.StudentManagementSBLocal;
 
 @Named(value = "editStudentMB")
 @RequestScoped
-public class EditStudentMB {
-    private NewUserDTO newUserDTO;    
-    private AnswerDTO r;
+public class EditStudentMB {    
     @EJB
     private StudentManagementSBLocal studentManagementSB;    
-    private Long id;
+    @Inject
+    private StudentMaintainerConversationalMB studentMaintainerConversation;
+    private NewUserDTO newUserDTO;    
+    private AnswerDTO r;
+    private Long studentId;
     
     public EditStudentMB(){
     }
     
     @PostConstruct
     public void init() {
-        id = 3L;
-        newUserDTO=studentManagementSB.getStudentById(id);
+        System.out.println(studentMaintainerConversation.getIdUser());
+        studentId = studentMaintainerConversation.getIdUser();
+        newUserDTO=studentManagementSB.getStudentById(studentId);
     }
     
-    public void editCurrentStudent(int studentId){
+    public void editCurrentStudent(){
         r = studentManagementSB.updateStudent(newUserDTO, studentId);
+        UtilitiesMB.showFeedback(r);        
     }
 
     public NewUserDTO getNewUserDTO() {
