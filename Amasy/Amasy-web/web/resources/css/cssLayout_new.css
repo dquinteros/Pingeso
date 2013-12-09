@@ -1,0 +1,56 @@
+.ui-layout-unit .ui-layout-unit-content{
+    background-color: transparent;
+    max-height: 100%;
+}
+
+.ui-layout-unit {
+    border: 0px !important;
+}
+
+
+#header{
+    background: url('../../resources/img/amasy_logo.png') left no-repeat;
+    background-size: auto 70px;
+    background-position: 10px;
+    background-color: black !important;
+}
+
+#footer {
+    background-color: #000000 !important;
+}
+
+#footer-text-container{
+    display:inline-block;
+    margin-left: 10px;
+}
+
+#footer-text{
+    color:#ffffff; 
+    text-shadow: 1px 0 black; 
+    font-size: 0.5em
+}
+
+.ui-login {
+    width: 550px;
+    position: absolute;
+    top:70px;
+}
+
+.ui-login-greeting {
+    float: left;
+    left: 50px;
+}
+
+.ui-login-form{
+    float: right;
+    right: 50px;
+}
+
+#login-img {
+    position:absolute;
+    float: right;
+    right: 2%;
+    top: 30%;
+    height: 30%;
+    width: 30%;
+}
