@@ -67,6 +67,6 @@
     </security-role>
     <context-param>  
         <param-name>primefaces.THEME</param-name>  
-        <param-value>amasy</param-value>  
+        <param-value>rocket</param-value>  
     </context-param>
 </web-app>
