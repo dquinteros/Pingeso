@@ -9,9 +9,9 @@
     </ui:define>
     
     <ui:define name="north">
-        <p:megaMenu autoDisplay="false">
-            <p:menuitem value="Tomar Asistencia" url="/faces/teacher/takeAttendance/takeAttendance.xhtml" /> 
-            <p:menuitem value="Asistentes" url="/faces/teacher/takeAttendance/viewCourseList.xhtml" /> 
+        <p:megaMenu>
+            <p:menuitem value="Tomar Asistencia" styleClass="megamenu-button" url="/faces/teacher/takeAttendance/takeAttendance.xhtml" /> 
+            <p:menuitem value="Asistentes" styleClass="megamenu-button" url="/faces/teacher/takeAttendance/viewCourseList.xhtml" /> 
         </p:megaMenu>
     </ui:define>
     
@@ -20,9 +20,6 @@
             <p:submenu label="Navegación">
                 <p:menuitem value="Inicio" url="/faces/teacher/index.xhtml" />
             </p:submenu>
-            <!-- <p:submenu label="Herramientas">                           
-                <p:menuitem value="Asistencia" url="/faces/teacher/takeAttendance/viewCourseList.xhtml" />
-            </p:submenu> -->
         </p:menu>
     </ui:define>
     
