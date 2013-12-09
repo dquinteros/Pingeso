@@ -145,7 +145,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         if(persistUpdate(user)){
             return new AnswerDTO(0);
         }else{
-            return null;
+            return new AnswerDTO(113);
         }       
     }
 

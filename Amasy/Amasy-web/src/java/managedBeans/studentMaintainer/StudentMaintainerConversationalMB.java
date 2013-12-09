@@ -8,7 +8,6 @@ import DTOs.AnswerDTO;
 import javax.inject.Named;
 import javax.enterprise.context.ConversationScoped;
 import java.io.Serializable;
-import javassist.bytecode.analysis.Analyzer;
 import javax.enterprise.context.Conversation;
 import javax.inject.Inject;
 
@@ -21,7 +20,6 @@ import javax.inject.Inject;
 public class StudentMaintainerConversationalMB implements Serializable {
     @Inject
     Conversation conversation;
-    AnswerDTO mensajeEntreVistas;
     
     private Long idUser;
     
@@ -51,13 +49,5 @@ public class StudentMaintainerConversationalMB implements Serializable {
     public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
-
-    public AnswerDTO getMensajeEntreVistas() {
-        return mensajeEntreVistas;
-    }
-
-    public void setMensajeEntreVistas(AnswerDTO mensajeEntreVistas) {
-        this.mensajeEntreVistas = mensajeEntreVistas;
-    }        
     
 }

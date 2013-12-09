@@ -33,7 +33,11 @@ public class EditStudentMB {
     
     public void editCurrentStudent(){
         r = studentManagementSB.updateStudent(newUserDTO, studentId);
-        UtilitiesMB.showFeedback(r);        
+        if(r.getIdError()==0){
+            UtilitiesMB.showFeedback(r);        
+        }else{
+            UtilitiesMB.showFeedback(r);        
+        }        
     }
 
     public NewUserDTO getNewUserDTO() {
