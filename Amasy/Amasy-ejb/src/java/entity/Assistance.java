@@ -20,7 +20,7 @@ import javax.persistence.Temporal;
  */
 
 @NamedQueries( {
-    @NamedQuery(name = "Assistance.findStudentAssistance", query = "SELECT COUNT(a) FROM Assistance a WHERE a.blockClass.id = :idBlockClass AND a.student.id = :idStudent")
+    @NamedQuery(name = "Assistance.findStudentAssistance", query = "SELECT COUNT(a) FROM Assistance a WHERE a.blockClass.id = :idBlockClass AND a.student.id = :idStudent AND a.student.user.userStatus = true")
 })
 
 @Entity

@@ -129,7 +129,7 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
     
     private AnswerDTO validateTeacherRegistry(NewUserDTO userDTO) {
         if (userDTO == null) {
-            return new AnswerDTO(109);
+            return new AnswerDTO(118);
         }
         boolean existEmail = existEmail(userDTO.getEmail());
         boolean existUserName = existUserName(userDTO.getUserName());
@@ -261,7 +261,7 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         if(persistUpdate(user)){
             return new AnswerDTO(0);
         }else{
-            return new AnswerDTO(113);
+            return new AnswerDTO(119);
         }       
     }
     
@@ -271,10 +271,10 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         User u = em.find(User.class, id);
         if (u == null) {
             System.out.println("nulo");
-            return new AnswerDTO(111);
+            return new AnswerDTO(120);
         } else if (u.isUserStatus() == false) {
             System.out.println("ya cambiado");
-            return new AnswerDTO(112);
+            return new AnswerDTO(121);
         } else {
             System.out.println("Bien");
             u.setUserStatus(false);
