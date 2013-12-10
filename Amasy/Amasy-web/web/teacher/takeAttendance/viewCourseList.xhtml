@@ -7,7 +7,7 @@
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">        
         <h:form>
-            <p:dataTable value="#{viewListOfCourseMB.listCourse}" var="course" emptyMessage="No hay usuarios en el sistema">               
+            <p:dataTable value="#{viewListOfCourseMB.listCourse}" var="course" emptyMessage="No existen cursos disponible para este horario">               
                 <p:column id="nomCurso" headerText="Curso" >
                     <p:commandLink value="#{course.name}" action="#{viewListOfCourseMB.courseRedirect(course.id)}">
                     </p:commandLink>

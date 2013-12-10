@@ -20,9 +20,9 @@ public class MenuLogicMB {
      */
     public MenuLogicMB() {
     }
-    
-    public String isIndex(String view){
-        if("/admin/index.xhtml".equals(view)){
+
+    public String isIndex(String view) {
+        if ("/admin/index.xhtml".equals(view)) {
             return "on-hover";
         } else {
             return "";
@@ -41,7 +41,7 @@ public class MenuLogicMB {
                 return "";
         }
     }
-    
+
     public String isNotStudentView(String view) {
         switch (view) {
             case "/admin/studentMaintainer/viewAllStudent.xhtml":
@@ -54,8 +54,6 @@ public class MenuLogicMB {
                 return "hidden";
         }
     }
-    
-    
 
     public String isViewStudent(String view) {
         if ("/admin/studentMaintainer/viewAllStudent.xhtml".equals(view)) {
@@ -125,6 +123,40 @@ public class MenuLogicMB {
 
     public String isEditTeacher(String view) {
         if ("/admin/teacherMaintainer/edirTeacher.xhtml".equals(view)) {
+            return "on-hover";
+        } else {
+            return "";
+        }
+    }
+
+    public String isCouseListTeacher(String view) {
+        if ("/teacher/takeAttendance/viewCourseList.xhtml".equals(view)) {
+            return "on-hover";
+        } else {
+            return "";
+        }
+    }
+
+    public String isNotCourseViewTeacher(String view) {
+        switch (view) {
+            default:
+                return "hidden";
+        }
+    }
+    
+       public String isNotTakeAttendanceTeacher(String view) {
+        switch (view) {
+            case "/teacher/takeAttendance/takeAttendance.xhtml":
+               return "";
+            case "/faces/teacher/takeAttendance/viewCourseList.xhtml":
+                return "";
+            default:
+                return "hidden";
+        }
+    }
+
+    public String isTakeAttendanceTeacher(String view) {
+        if ("/teacher/takeAttendance/takeAttendance.xhtml".equals(view)) {
             return "on-hover";
         } else {
             return "";

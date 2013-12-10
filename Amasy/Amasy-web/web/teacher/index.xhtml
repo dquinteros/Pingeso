@@ -5,32 +5,34 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
-        <title>Profesor - Amasy</title>
+        Profesor - Amasy
     </ui:define>
-    
+
     <ui:define name="north">
-        <p:megaMenu>
-            <p:menuitem value="Tomar Asistencia" styleClass="megamenu-button" url="/faces/teacher/takeAttendance/takeAttendance.xhtml" /> 
-            <p:menuitem value="Asistentes" styleClass="megamenu-button" url="/faces/teacher/takeAttendance/viewCourseList.xhtml" /> 
-        </p:megaMenu>
+        <p:menubar id="menuPrincipal">
+            <p:menuitem value="Inicio"  url="/faces/teacher/index.xhtml" /> 
+            <p:menuitem value="Cursos" url="#" /> 
+            <p:menuitem value="Tomar asistencia" url="/faces/teacher/takeAttendance/viewCourseList.xhtml" /> 
+        </p:menubar>
     </ui:define>
-    
+
     <ui:define name="west">
-        <p:menu style="max-width:93%">
-            <p:submenu label="Navegación">
-                <p:menuitem value="Inicio" url="/faces/teacher/index.xhtml" />
+        <p:menu styleClass="#{menuLogicMB.isNotCourseViewTeacher(view.viewId)} menuLateral" >
+            <p:submenu label="Cursos">               
             </p:submenu>
-            <p:submenu label="Herramientas">                           
-                <p:menuitem value="Tomar Asistencia" url="/faces/teacher/takeAttendance/takeAttendance.xhtml" /> 
-                <p:menuitem value="Asistentes" url="/faces/teacher/takeAttendance/viewCourseList.xhtml" /> 
+        </p:menu>
+        <p:menu styleClass="#{menuLogicMB.isNotTakeAttendanceTeacher(view)} menuLateral">
+            <p:submenu  label="Asistencia">
+                <p:menuitem value="Volver" styleClass="#{menuLogicMB.isTakeAttendanceTeacher(view.viewId)}" outcome="/teacher/takeAttendance/viewCourseList.xhtml"/>             
             </p:submenu>
         </p:menu>
     </ui:define>
-    
+
+
     <ui:define name="center">
         <ui:insert name="center">
         </ui:insert>    
     </ui:define>
-    
+
 
 </ui:composition>
