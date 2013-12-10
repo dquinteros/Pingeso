@@ -7,56 +7,58 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-        <h3>Agregar nuevo estudiante</h3>
+        
+        
         <h:form id="form">
+            <h3>Agregar nuevo estudiante</h3>
             <p:growl for="growl" life="3000"/>
             <h:panelGrid id="grid" columns="3" cellpadding="4">
                 <h:outputText value="Nombre: *" />  
-                <p:inputText id="default" required="true" value="#{addStudentMB.newStudent.firstName}" requiredMessage="Nombre obligatorio">                    
+                <p:inputText id="firstName" required="true" value="#{addStudentMB.newStudent.firstName}" requiredMessage="Nombre obligatorio">                    
                 </p:inputText>
-                <p:message for="default" display="text" id="asdf"/>                               
+                <p:message for="firstName" display="text" id="asdf"/>                               
                 
                 <h:outputText value="Apellido: *" />  
-                <p:inputText id="defaults" required="true" value="#{addStudentMB.newStudent.lastName}" requiredMessage="Apellido obligatorio"/>  
-                <p:message for="defaults" display="text"/>  
+                <p:inputText id="lastName" required="true" value="#{addStudentMB.newStudent.lastName}" requiredMessage="Apellido obligatorio"/>  
+                <p:message for="lastName" display="text"/>  
                 
                 <h:outputText value="Celular *" />  
-                <p:inputText id="defaultd" required="true" value="#{addStudentMB.newStudent.cellPhone}" requiredMessage="Celular obligatorio" validatorMessage="El número de teléfono celular solo puede ser numérico">
-                    <f:validateRegex for="defaultd" pattern="[0-9]*"/>
+                <p:inputText id="cellPhone" required="true" value="#{addStudentMB.newStudent.cellPhone}" requiredMessage="Celular obligatorio" validatorMessage="El número de teléfono celular solo puede ser numérico">
+                    <f:validateRegex for="cellPhone" pattern="[0-9]*"/>
                 </p:inputText>  
-                <p:message for="defaultd" display="text"/>  
+                <p:message for="cellPhone" display="text"/>  
                 
                 <h:outputText value="Correo electronico: *" />  
-                <p:inputText id="defaultf" required="true" value="#{addStudentMB.newStudent.email}" requiredMessage="Correo obligatorio" validatorMessage="Email no es valido" >
-                    <f:validateRegex for="defaultf" pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />                    
+                <p:inputText id="email" required="true" value="#{addStudentMB.newStudent.email}" requiredMessage="Correo obligatorio" validatorMessage="Email no es valido" >
+                    <f:validateRegex for="email" pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />                    
                 </p:inputText>
-                <p:message for="defaultf" display="text"/>
+                <p:message for="email" display="text"/>
                 
                 <h:outputText value="Teléfono de casa: *" />  
-                <p:inputText id="defaultg" required="true" value="#{addStudentMB.newStudent.homePhone}" requiredMessage="Telefono obligatorio" validatorMessage="El número de teléfono del hogar solo puede ser numérico">
-                    <f:validateRegex for="defaultd" pattern="[0-9]*"/>
+                <p:inputText id="homePhone" required="true" value="#{addStudentMB.newStudent.homePhone}" requiredMessage="Telefono obligatorio" validatorMessage="El número de teléfono del hogar solo puede ser numérico">
+                    <f:validateRegex for="homePhone" pattern="[0-9]*"/>
                 </p:inputText>
-                <p:message for="defaultg" display="text" />  
+                <p:message for="homePhone" display="text" />  
                 
                 <h:outputText value="Rut: *" />  
-                <p:inputText id="defaulth" required="true" value="#{addStudentMB.newStudent.rut}" requiredMessage="Rut obligatorio" validatorMessage="El rut debe tener el siguiente formato: 12345678-X" maxlength="14">
-                    <f:validateRegex for="defaulth" pattern="^0*(\d{1,3}(\.?\d{3})*)\-?([\dkK])$"/> <!--\b\d{1,8}\-[K|k|0-9]-->
+                <p:inputText id="rut" required="true" value="#{addStudentMB.newStudent.rut}" requiredMessage="Rut obligatorio" validatorMessage="El rut debe tener el siguiente formato: 12345678-X" maxlength="14">
+                    <f:validateRegex for="rut" pattern="^0*(\d{1,3}(\.?\d{3})*)\-?([\dkK])$"/> <!--\b\d{1,8}\-[K|k|0-9]-->
                 </p:inputText>
-                <p:message for="defaulth" display="text"/>
+                <p:message for="rut" display="text"/>
                 
                 <h:outputText value="Nombre de usuario: *" />  
-                <p:inputText id="defaultj" required="true" value="#{addStudentMB.newStudent.userName}" requiredMessage="Nombre de usuario obligatorio">
+                <p:inputText id="userName" required="true" value="#{addStudentMB.newStudent.userName}" requiredMessage="Nombre de usuario obligatorio">
                 </p:inputText>
-                <p:message for="defaultj" display="text"/>
+                <p:message for="userName" display="text"/>
                 
                 <h:outputText value="Huella digital: *" />  
                 <p:inputText disabled="true" id="attemptCounter"/>
-                <p:message for="defaulty" display="text"/>
-                <p:inputText style="display: none" id="defaulty" required="true" value="#{addStudentMB.newStudent.fingerprint}" requiredMessage="Huella digital obligatoria"/>                                                                  
+                <p:message for="fingerprint" display="text"/>
+                <p:inputText style="display: none" id="fingerprint" required="true" value="#{addStudentMB.newStudent.fingerprint}" requiredMessage="Huella digital obligatoria"/>                                                                  
             </h:panelGrid>  
             <p:commandButton id="submitButton" value="Crear estudiante" update="form" action="#{addStudentMB.insertNewStudent()}"/>  
         </h:form>  
-        <div id="prueba"></div>
+        
         <script type="text/javascript">  
             var _app = navigator.appName;
             var pressCount = 0;
@@ -84,13 +86,13 @@
             }
 
             function onEnrollmentFailureHandler() {
-                document.getElementById("form:defaulty").value = null;
+                document.getElementById("form:fingerprint").value = null;
                 document.getElementById("form:attemptCounter").value = "error: repita la operación";
                 pressCount = 0;
             }
 
             function onFMDHandler( hexFMD ) {
-                document.getElementById("form:defaulty").value = hexFMD;   
+                document.getElementById("form:fingerprint").value = hexFMD;   
                 document.getElementById("form:attemptCounter").value = "huella capturada";
                 pressCount = 0;        
             }            

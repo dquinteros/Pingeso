@@ -15,15 +15,14 @@ import javax.ejb.LocalBean;
 @LocalBean
 public class ResponseAssistanceDTO {
     private UserDTO userDTO;
-    private boolean operationValidates;
+    private AnswerDTO answer;
 
     public ResponseAssistanceDTO() {
     }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    public ResponseAssistanceDTO(UserDTO userDTO, boolean operationValidates){
+    public ResponseAssistanceDTO(UserDTO userDTO){
         this.userDTO = userDTO;
-        this.operationValidates = operationValidates;
     }
 
     public UserDTO getUserDTO() {
@@ -34,12 +33,12 @@ public class ResponseAssistanceDTO {
         this.userDTO = userDTO;
     }
 
-    public boolean isOperationValidates() {
-        return operationValidates;
+    public AnswerDTO getAnswer() {
+        return answer;
     }
 
-    public void setResponse(boolean operationValidates) {
-        this.operationValidates = operationValidates;
+    public void setAnswer(AnswerDTO answer) {
+        this.answer = answer;
     }
     
     
