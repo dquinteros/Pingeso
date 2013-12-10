@@ -15,13 +15,13 @@
         </p:menubar>
     </ui:define>
     <ui:define name="west">
-        <p:menu styleClass="#{menuLogicMB.isNotStudentView(view.viewId)}" id="menuLateral">
+        <p:menu styleClass="#{menuLogicMB.isNotStudentView(view.viewId)} menuLateral">
             <p:submenu label="Mantendor">
                 <p:menuitem value="Ver Alumnos" styleClass="#{menuLogicMB.isViewStudent(view.viewId)}" outcome="/faces/admin/studentMaintainer/viewAllStudent.xhtml"/> 
                 <p:menuitem value="Agregar alumno" styleClass="#{menuLogicMB.isAddStudent(view.viewId)}" outcome="/faces/admin/studentMaintainer/addStudent.xhtml"/>                
             </p:submenu>
         </p:menu>
-        <p:menu styleClass="#{menuLogicMB.isNotTeacherView(view.viewId)}" id="menuLateral">
+        <p:menu styleClass="#{menuLogicMB.isNotTeacherView(view.viewId)} menuLateral">
             <p:submenu  label="Mantenedor">
                 <p:menuitem value="Ver Profesores" styleClass="#{menuLogicMB.isViewTeacher(view.viewId)}" outcome="/faces/admin/teacherMaintainer/viewAllTeacher.xhtml"/> 
                 <p:menuitem value="Agregar Profesores" styleClass="#{menuLogicMB.isAddTeacher(view.viewId)}" outcome="/faces/admin/teacherMaintainer/addTeacher.xhtml"/>                

@@ -46,7 +46,7 @@
 #menuPrincipal ul li a:hover{  
     color: white; 
 }
-#menuLateral{
+.menuLateral{
     width: 93%;
 }
 
