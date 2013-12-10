@@ -3,7 +3,7 @@
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>
-    </context-param>  
+    </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -49,8 +49,8 @@
         <auth-method>FORM</auth-method>
         <realm-name>amasyRealm</realm-name>
         <form-login-config>
-            <form-login-page>/login.xhtml</form-login-page>
-            <form-error-page>/login.xhtml</form-error-page>
+            <form-login-page>/faces/login.xhtml</form-login-page>
+            <form-error-page>/faces/login.xhtml</form-error-page>
         </form-login-config>
     </login-config>
     <security-role>
@@ -65,8 +65,8 @@
         <description/>
         <role-name>Alumno</role-name>
     </security-role>
-    <context-param>  
-        <param-name>primefaces.THEME</param-name>  
-        <param-value>rocket</param-value>  
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>rocket</param-value>
     </context-param>
 </web-app>

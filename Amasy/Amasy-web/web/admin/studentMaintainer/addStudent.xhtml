@@ -50,12 +50,65 @@
                 <p:message for="defaultj" display="text"/>
                 
                 <h:outputText value="Huella digital: *" />  
-                <p:inputText id="defaulty" required="true" value="#{addStudentMB.newStudent.fingerprint}" requiredMessage="Huella digital obligatoria"/>  
+                <p:inputText disabled="true" id="attemptCounter"/>
+                <p:inputText style="display: none" id="defaulty" required="true" value="#{addStudentMB.newStudent.fingerprint}" requiredMessage="Huella digital obligatoria"/>                                                  
                 <p:message for="defaulty" display="text"/>
             </h:panelGrid>  
-
             <p:commandButton id="submitButton" value="Crear estudiante" update="form" action="#{addStudentMB.insertNewStudent()}"/>  
         </h:form>  
+        <html>
+        <div id="prueba"></div>
+        <script type="text/javascript">  
+            var _app = navigator.appName;
+            var pressCount = 0;
+            //Fired during internal error
+            function onErrorHandler(code) {
+                alert("Error:" + code);
+            }
+
+            function onLoadHandler() 
+                {
+                        //do nothing
+                }
+
+            function onDisconnectedHandler() {
+                
+            }
+
+            function onConnectedHandler() {
+                
+            }
+
+            function onCaptureHandler() {
+                pressCount += 1;
+                console.log((4 -pressCount));
+            }
+
+            function onEnrollmentFailureHandler() {
+                alert("Enrollment failed.  Please be sure to use the same finger for each of the 4 presses or try to register a different finger.");
+            }
+
+
+            function onFMDHandler( hexFMD ) {
+                document.getElementById("form:defaulty").value = hexFMD;
+                pressCount = 0;        
+            }            
+    
+    
+            
+            if (_app == 'Netscape') {
+                document.write('<object classid="java:UareUApplet.class" type="application/x-java-applet" name="UareUApplet" width="1" height="0" pluginspage="http://java.sun.com/javase/downloads" archive="UareUApplet.jar, dpuareu.jar" onFMDAcquiredScript="onFMDHandler" onEnrollmentFailureScript="onEnrollmentFailureHandler" onImageCapturedScript="onCaptureHandler" onDisconnectedScript="onDisconnectedHandler" onConnectedScript="onConnectedHandler" onErrorScript="onErrorHandler" onLoadScript="onLoadHandler" bRegistrationMode="true" bDebug="true" bExclusivePriority="true" scriptable="true" mayscript="true" separate_jvm="true"> </object>');
+                document.UareUApplet.SelectFormatANSI();
+            }
+            else if(_app=='Microsoft Internet Explorer'){
+                document.write( '<object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93" codebase="http://java.sun.com/update/1.6.0/jinstall-1_6-windows-i586.cab#Version=1,6,0,32" height="0" width="0" name="UareUApplet"> <param name="type" value="application/x-java-applet;version=1.6" /> <param name="code" value="UareUApplet"/> <param name="scriptable" value="true" /> <param name="archive" value="UareUApplet.jar, dpuareu.jar"/> <param name="onFMDAcquiredScript" value="onFMDHandler" /> <param name="onImageCapturedScript" value="onCaptureHandler" /> <param name="onEnrollmentFailureScript" value="onEnrollmentFailureHandler"/> <param name="onDisconnectedScript" value="onDisconnectedHandler"/> <param name="onConnectedScript" value="onConnectedHandler"/> <param name="onLoadScript" value="onLoadHandler"/> <param name="bDebug" value="true" /> <param name="bRegistrationMode" value="true" /> <param name="onErrorScript" value="onErrorHandler" /> <param name="bExclusivePriority" value="false"/> <param name="separate_jvm" value="true" /> </object>');
+                document.UareUApplet.SelectFormatANSI(); 
+            }
+        </script>
+        
+        
+        
+        
     </ui:define>
 
 </ui:composition>

@@ -30,56 +30,17 @@
     border-radius: 0;
 }
 #footer div, #footer{
-     border-radius: 0;
-    background-color: black !important;
+    border-radius: 0;
+    background: #000000;
     overflow: hidden;
-    color:white;
-    font-size: .9em;
-}/*
-
-.ui-megamenu {
-    margin-left: 290px; 
-    position: absolute; 
-    bottom: 0px;
-    margin-bottom: 5px;
-    padding-top: 0px;
-    border: 0px;
-}
-
-.ui-megamenu .ui-menuitem-link {
-    margin: 0em 0.3em !important;
-}
-
-.ui-layout-unit {
-    border: 0px !important;
-}
-
-.ui-fieldset-content {
-    border: 1px;
-}
-
-.ui-menu, .ui-widget-header, .ui-layout-header-unit {
-    background-color: #000000;
-}
-
-.ui-widget-header{
     color: #ffffff;
-    background: #000000;
-    text-shadow: 0px 0px 0px #000000;
+    font-size: 0.9em;
+    bottom: 7px;
 }
 
-.ui-menu {
-    background: #000000;
+#footer {
+    left: 15px;
 }
-
-.ui-menuitem-text {
-    color: #ffffff;
-}
-
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-    background: #BB7C42 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0)));    
-    box-shadow: 0px 0px 3px #BB7C42;
-}*/
 
 .ui-login {
     width: 550px;
@@ -104,8 +65,4 @@
     top: 30%;
     height: 50%;
     width: 50%;
-}
-
-.ui-layout-center{
-    overflow:auto !important;
 }
