@@ -8,15 +8,15 @@
 
     <ui:define name="content">
         <h:form id="form">  
-            <p:dataTable  var="userDTO" value="#{viewAllTeacherMB.userList}" rowKey="#{userDTO.firstName}" paginator="true" rows="10"  
-                         filteredValue="#{viewAllTeacherMB.filteredTeachers}" id="userDTOTable">
+            <p:dataTable  var="userDTO" value="#{viewAllTeacherMB.userList}" rowKey="#{userDTO.rut}" paginator="true" rows="10"  
+                          filteredValue="#{viewAllTeacherMB.filteredTeachers}" id="userDTOTable" selection="#{viewAllTeacherMB.selectedTeacher}" selectionMode="single">
                 <p:growl for="growl" life="3000"/>
-                <p:ajax event="rowSelect" update=":form:display" oncomplete="" />  
+                <p:ajax event="rowSelect" update=":form:display" oncomplete="teacherDialog.show()" />  
                 <f:facet name="header">  
                     Lista de profesores
                 </f:facet>  
-                <p:column headerText="Nombre" sortBy="firstName" filterBy="firstName" id="firstName">  
-                    <h:outputText value="#{userDTO.firstName}"/>
+                <p:column headerText="Nombre" sortBy="firstName" filterBy="firstName" id="firstName" >  
+                    #{userDTO.firstName}
                 </p:column>  
                 <p:column headerText="Apellido" sortBy="lastName" filterBy="lastName" id="lastName">  
                     #{userDTO.lastName}  
@@ -34,7 +34,7 @@
                 </p:column>
 
             </p:dataTable>  
-            <p:dialog header="Datos profesor" widgetVar="" resizable="false"  
+            <p:dialog header="Datos profesor" widgetVar="teacherDialog" resizable="false"  
                       width="200" showEffect="explode" hideEffect="explode">  
                 <h:panelGrid id="display" columns="2" cellpadding="4">  
                     <f:facet name="header">  
