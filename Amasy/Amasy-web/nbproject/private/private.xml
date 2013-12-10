@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/C:/Users/Pingeso/Documents/GitHub/Pingeso/Amasy/Amasy-web/src/java/managedBeans/UtilitiesMB.java</file>
-        <file>file:/C:/Users/Pingeso/Documents/GitHub/Pingeso/Amasy/Amasy-web/src/java/managedBeans/LoginSessionMB.java</file>
-        <file>file:/C:/Users/Pingeso/Documents/GitHub/Pingeso/Amasy/Amasy-web/web/template/default.xhtml</file>
-        <file>file:/C:/Users/Pingeso/Documents/GitHub/Pingeso/Amasy/Amasy-web/web/admin/index.xhtml</file>
-        <file>file:/C:/Users/Pingeso/Documents/GitHub/Pingeso/Amasy/Amasy-web/web/login.xhtml</file>
-        <file>file:/C:/Users/Pingeso/Documents/GitHub/Pingeso/Amasy/Amasy-web/web/admin/studentMaintainer/addStudent.xhtml</file>
-        <file>file:/C:/Users/Pingeso/Documents/GitHub/Pingeso/Amasy/Amasy-web/src/java/managedBeans/studentMaintainer/EditStudentMB.java</file>
-        <file>file:/C:/Users/Pingeso/Documents/GitHub/Pingeso/Amasy/Amasy-web/src/java/managedBeans/teacherMaintainer/EditTeacherMB.java</file>
-        <file>file:/C:/Users/Pingeso/Documents/GitHub/Pingeso/Amasy/Amasy-web/web/teacher/takeAttendance/takeAttendance.xhtml</file>
-    </open-files>
 </project-private>
