@@ -13,15 +13,15 @@
 
     <ui:define name="content">
         <h:form id="form">  
-            <p:dataTable  var="userDTO" value="#{viewAllStudentMB.userList}" rowKey="#{userDTO.firstName}" paginator="true" rows="10"  
-                          filteredValue="#{viewAllStudentMB.filteredStudents}" id="userDTOTable">
+            <p:dataTable  var="userDTO" value="#{viewAllStudentMB.userList}" rowKey="#{userDTO.rut}" paginator="true" rows="10"  
+                          filteredValue="#{viewAllStudentMB.filteredStudents}" id="userDTOTable" selection="#{viewAllStudentMB.selectedStudent}" selectionMode="single">
                 <p:growl for="growl" life="3000"/>
-                <p:ajax event="rowSelect" update=":form:display" oncomplete="" />  
+                <p:ajax event="rowSelect" update=":form:display" oncomplete="studentDialog.show()" />  
                 <f:facet name="header">  
                     Lista de alumnos
                 </f:facet>  
                 <p:column headerText="Nombre" sortBy="firstName" filterBy="firstName" id="firstName">  
-                    <h:outputText value="#{userDTO.firstName}"/>
+                    #{userDTO.firstName}
                 </p:column>  
                 <p:column headerText="Apellido" sortBy="lastName" filterBy="lastName" id="lastName">  
                     #{userDTO.lastName}  
@@ -37,21 +37,27 @@
                     <p:commandButton icon="ui-icon-pencil" title="Editar" action="#{viewAllStudentMB.editStudent(userDTO.id)}"/>
                 </p:column>
 
-            </p:dataTable>  
-            <p:dialog header="Datos estudiante" widgetVar="" resizable="false"  
-                      width="200" showEffect="explode" hideEffect="explode">  
+            </p:dataTable>
+            <p:dialog header="Datos estudiante" widgetVar="studentDialog" resizable="false"  
+                      showEffect="explode" hideEffect="explode" styleClass="headerDialog">  
                 <h:panelGrid id="display" columns="2" cellpadding="4">  
                     <f:facet name="header">  
-                        <p:outputLabel value="Aqui va la foto"/>  
+                        <p:outputLabel value=""/>  
                     </f:facet>  
+                    <h:outputText value="Rut:" />  
+                    <h:outputText value="#{viewAllStudentMB.selectedStudent.rut}" id="rut"/>
                     <h:outputText value="Nombre:" />  
                     <h:outputText value="#{viewAllStudentMB.selectedStudent.firstName}" id="firstName"/>  
                     <h:outputText value="Apellido:" />  
                     <h:outputText value="#{viewAllStudentMB.selectedStudent.lastName}" id="lastName"/>  
-                    <h:outputText value="Rut:" />  
-                    <h:outputText value="#{viewAllStudentMB.selectedStudent.rut}" id="rut"/>  
+                    <h:outputText value="Nombre de usuario:" />  
+                    <h:outputText value="#{viewAllStudentMB.selectedStudent.userName}" id="userName"/>
                     <h:outputText value="Email:" />  
-                    <h:outputText value="#{viewAllStudentMB.selectedStudent.email}" id="email"/>  
+                    <h:outputText value="#{viewAllStudentMB.selectedStudent.email}" id="email"/>
+                    <h:outputText value="Telefono:" />  
+                    <h:outputText value="#{viewAllStudentMB.selectedStudent.homePhone}" id="homePhone"/>
+                    <h:outputText value="Celular:" />  
+                    <h:outputText value="#{viewAllStudentMB.selectedStudent.cellPhone}" id="cellPhone"/>  
                 </h:panelGrid>  
             </p:dialog>
             <h:outputText value="#{view.viewId}" />

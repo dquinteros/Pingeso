@@ -35,19 +35,25 @@
 
             </p:dataTable>  
             <p:dialog header="Datos profesor" widgetVar="teacherDialog" resizable="false"  
-                      width="200" showEffect="explode" hideEffect="explode">  
+                      showEffect="explode" hideEffect="explode"  styleClass="headerDialog">  
                 <h:panelGrid id="display" columns="2" cellpadding="4">  
                     <f:facet name="header">  
-                        <p:outputLabel value="Aqui va la foto"/>  
+                        <p:outputLabel value=""/>  
                     </f:facet>  
+                    <h:outputText value="Rut:" />  
+                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.rut}" id="rut"/>
                     <h:outputText value="Nombre:" />  
                     <h:outputText value="#{viewAllTeacherMB.selectedTeacher.firstName}" id="firstName"/>  
                     <h:outputText value="Apellido:" />  
                     <h:outputText value="#{viewAllTeacherMB.selectedTeacher.lastName}" id="lastName"/>  
-                    <h:outputText value="Rut:" />  
-                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.rut}" id="rut"/>  
+                    <h:outputText value="Nombre de usuario:" />  
+                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.userName}" id="userName"/>
                     <h:outputText value="Email:" />  
-                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.email}" id="email"/>  
+                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.email}" id="email"/>
+                    <h:outputText value="Telefono:" />  
+                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.homePhone}" id="homePhone"/>
+                    <h:outputText value="Celular:" />  
+                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.cellPhone}" id="cellPhone"/>
                 </h:panelGrid>  
             </p:dialog>  
         </h:form> 
