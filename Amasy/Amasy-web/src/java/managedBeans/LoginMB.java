@@ -8,6 +8,8 @@ import DTOs.AnswerDTO;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 
@@ -37,6 +39,13 @@ public class LoginMB {
         AnswerDTO res = varSession.login(userName, password);
         UtilitiesMB.showFeedback(res);
     }
+   
+    public void logout(){
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        externalContext.invalidateSession();
+        varSession.setStartPage("");
+        varSession.setUser(null);
+    }
     
     public String getUserName() {
         return userName;
@@ -54,6 +63,6 @@ public class LoginMB {
         this.password = password;
     }
     
-    
+   
     
 }

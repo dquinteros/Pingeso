@@ -18,7 +18,9 @@
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="100" id="header">
-                    <p:commandButton value="Cerrar Sesión" style="float:right; margin: 15px 15px 0px 0px; z-index:1000" action="#{loginSessionMB.logout()}"/>
+                    <h:form id="logout">
+                        <p:commandButton value="Cerrar Sesión" style="float:right; margin: 15px 15px 0px 0px; z-index:1000" action="#{loginMB.logout()}"/>                        
+                    </h:form>
                     <ui:insert name="north"></ui:insert>
                 </p:layoutUnit>
 

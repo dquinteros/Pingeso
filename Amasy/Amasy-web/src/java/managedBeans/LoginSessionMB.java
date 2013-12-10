@@ -79,10 +79,10 @@ public class LoginSessionMB extends UtilitiesMB implements Serializable{
     }
     
     public void logout() {
-        System.out.println("entro");
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.invalidateSession();
         startPage = null;
+        user = null;
         UtilitiesMB.redirection("/faces/login.xhtml");
     }
     
