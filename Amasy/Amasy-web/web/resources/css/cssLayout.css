@@ -1,25 +1,21 @@
-/*#footer-text-container{
-    display:inline-block;
-    margin-left: 10px;
-}
-
-#footer-text{
-    color:#ffffff; 
-    text-shadow: 1px 0 black; 
-    font-size: 0.5em
-}
-
-.ui-layout-north, .ui-layout-unit-content .ui-widget-content{
-    overflow: hidden !important;
-}
-
-
-*/
 .ui-layout-unit{
-    border:0;
+    border:0px transparent;
 }
+
 #header div{
-  display:none;
+  background: transparent;
+  border: 0px;
+  padding-left: 160px;
+  padding-top: 25px;
+}
+
+.megamenu-button .ui-menuitem-text{
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.megamenu-button{
+    margin-left: 10px;
 }
 
 #header{

@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../admin/index.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="form">  
+            <p:dataTable  var="userDTO" value="#{viewAllTeacherMB.userList}" rowKey="#{userDTO.firstName}" paginator="true" rows="10"  
+                         filteredValue="#{viewAllTeacherMB.filteredTeachers}" id="userDTOTable">
+                <p:growl for="growl" life="3000"/>
+                <p:ajax event="rowSelect" update=":form:display" oncomplete="" />  
+                <f:facet name="header">  
+                    Lista de profesores
+                </f:facet>  
+                <p:column headerText="Nombre" sortBy="firstName" filterBy="firstName" id="firstName">  
+                    <h:outputText value="#{userDTO.firstName}"/>
+                </p:column>  
+                <p:column headerText="Apellido" sortBy="lastName" filterBy="lastName" id="lastName">  
+                    #{userDTO.lastName}  
+                </p:column>  
+                <p:column headerText="Rut" sortBy="rut" filterBy="rut" id="rut">  
+                    #{userDTO.rut}  
+                </p:column>  
+                <p:column headerText="Email" sortBy="email" filterBy="email" id="email">  
+                    #{userDTO.email}  
+                </p:column>                      
+                <p:column headerText="Acción">
+                    <p:commandButton id="submitButton" icon="ui-icon-closethick" update="userDTOTable"/>  
+                    <p:commandButton icon="ui-icon-pencil" title="Editar" action="#{viewAllTeacherMB.editTeacher(userDTO.id)}"/>
+                </p:column>
+
+            </p:dataTable>  
+            <p:dialog header="Datos profesor" widgetVar="" resizable="false"  
+                      width="200" showEffect="explode" hideEffect="explode">  
+                <h:panelGrid id="display" columns="2" cellpadding="4">  
+                    <f:facet name="header">  
+                        <p:outputLabel value="Aqui va la foto"/>  
+                    </f:facet>  
+                    <h:outputText value="Nombre:" />  
+                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.firstName}" id="firstName"/>  
+                    <h:outputText value="Apellido:" />  
+                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.lastName}" id="lastName"/>  
+                    <h:outputText value="Rut:" />  
+                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.rut}" id="rut"/>  
+                    <h:outputText value="Email:" />  
+                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.email}" id="email"/>  
+                </h:panelGrid>  
+            </p:dialog>  
+        </h:form> 
+        <p:button value="Agregar profesor" href="/faces/admin/teacherMaintainer/addTeacher.xhtml"/>
+    </ui:define>
+</ui:composition>
