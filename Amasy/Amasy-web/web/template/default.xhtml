@@ -9,9 +9,7 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <ui:insert name="title">
-                    <title>Default - Amasy</title>
-                </ui:insert>    
+                <title><ui:insert name="title"></ui:insert></title>
             </f:facet>
         </h:head>
         <h:body>
@@ -21,11 +19,9 @@
                 <p:layoutUnit position="north" size="100" id="header">
                     <ui:insert name="north"></ui:insert>
                 </p:layoutUnit>
-                
+
                 <p:layoutUnit position="south" size="30" id="footer">
-                        <div id="footer-text-container">
-                            <p id="footer-text">&copy;2013 Made of Data . All Rights Reserved.</p>
-                        </div>
+                    <h:outputText id="footer-text-container" value ="&#169; 2013 Made of Data. All Rights Reserved."/>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="175">                

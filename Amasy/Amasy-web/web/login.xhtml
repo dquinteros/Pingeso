@@ -5,11 +5,11 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
-    
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+
     <f:view contentType="text/html">
         <h:head>
             <title>Bienvenido a Amasy</title>
@@ -18,7 +18,9 @@ and open the template in the editor.
         <h:body>
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" size="100" id="header"></p:layoutUnit>
-                <p:layoutUnit position="south" size="30" id="footer"></p:layoutUnit>
+                <p:layoutUnit position="south" size="30" id="footer">
+                    <h:outputText id="footer-text-container" value =" &#169; 2013 Made of Data. All Rights Reserved."/>
+                </p:layoutUnit>
                 <p:layoutUnit position="west" size="50"></p:layoutUnit>
                 <p:layoutUnit position="east" size="50"></p:layoutUnit>
 
@@ -35,7 +37,7 @@ and open the template in the editor.
                                 <br/>
                                 <h:outputText value="Aplicación actualmente en construcción." />
 
-                                </h:panelGrid>  
+                            </h:panelGrid>  
                         </p:fieldset>
 
                     </h:form>
@@ -51,7 +53,7 @@ and open the template in the editor.
                             </h:panelGrid>  
                         </p:fieldset> 
                     </h:form>
-                    </p:layoutUnit>
+                </p:layoutUnit>
             </p:layout>
         </h:body>
     </f:view>

@@ -24,10 +24,10 @@
                 <p:column headerText="Rut" sortBy="rut" filterBy="rut" id="rut">  
                     #{userDTO.rut}  
                 </p:column>  
-                <p:column headerText="Email" sortBy="email" filterBy="email" id="email">  
+                <p:column  headerText="Email" sortBy="email" filterBy="email" id="email">  
                     #{userDTO.email}  
                 </p:column>                      
-                <p:column headerText="Acción">
+                <p:column styleClass="center" headerText="Eliminar/Editar">
                     <p:commandButton id="submitButton" icon="ui-icon-closethick" update="userDTOTable"/>  
                     <p:commandButton icon="ui-icon-pencil" title="Editar" action="#{viewAllTeacherMB.editTeacher(userDTO.id)}"/>
                 </p:column>

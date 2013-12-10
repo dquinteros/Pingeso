@@ -2,29 +2,39 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./../template/default.xhtml"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html">
 
-    <ui:define name="title">
-        <title>Administrador - Amasy</title>
+    <ui:define name="title">Administrador - Amasy</ui:define>
+
+    <ui:define name="north">
+        <p:menubar id="menuPrincipal">
+            <p:menuitem value="Inicio" styleClass="#{menuLogicMB.isIndex(view.viewId)}" url="/faces/admin/index.xhtml" />
+            <p:menuitem value="Estudiantes" styleClass="#{menuLogicMB.isStudentView(view.viewId)}"  url="/faces/admin/studentMaintainer/viewAllStudent.xhtml"/>
+            <p:menuitem value="Profesores" styleClass="#{menuLogicMB.isTeacherView(view.viewId)}" url="/faces/admin/teacherMaintainer/viewAllTeacher.xhtml" />
+        </p:menubar>
     </ui:define>
-    
     <ui:define name="west">
-        <p:menu style="max-width:93%">
-            <p:submenu label="Navegación">
-                <p:menuitem value="Inicio" url="/faces/admin/index.xhtml" />
+        <p:menu styleClass="#{menuLogicMB.isNotStudentView(view.viewId)}" id="menuLateral">
+            <p:submenu label="Mantendor">
+                <p:menuitem value="Ver Alumnos" styleClass="#{menuLogicMB.isViewStudent(view.viewId)}" outcome="/faces/admin/studentMaintainer/viewAllStudent.xhtml"/> 
+                <p:menuitem value="Agregar alumno" styleClass="#{menuLogicMB.isAddStudent(view.viewId)}" outcome="/faces/admin/studentMaintainer/addStudent.xhtml"/>                
             </p:submenu>
-            <p:submenu label="Herramientas">                           
-                <p:menuitem value="Mantenedor estudiante" url="/faces/admin/studentMaintainer/viewAllStudent.xhtml" />
-                <p:menuitem value="Mantenedor profesores" url="/faces/admin/teacherMaintainer/viewAllTeacher.xhtml" />
+        </p:menu>
+        <p:menu styleClass="#{menuLogicMB.isNotTeacherView(view.viewId)}" id="menuLateral">
+            <p:submenu  label="Mantenedor">
+                <p:menuitem value="Ver Profesores" styleClass="#{menuLogicMB.isViewTeacher(view.viewId)}" outcome="/faces/admin/teacherMaintainer/viewAllTeacher.xhtml"/> 
+                <p:menuitem value="Agregar Profesores" styleClass="#{menuLogicMB.isAddTeacher(view.viewId)}" outcome="/faces/admin/teacherMaintainer/addTeacher.xhtml"/>                
             </p:submenu>
         </p:menu>
     </ui:define>
-    
+
+
+
     <ui:define name="center">
-        <ui:insert name="center">
-            Administrador.
+        <ui:insert name="center">            
         </ui:insert>    
     </ui:define>
-    
+
 
 </ui:composition>

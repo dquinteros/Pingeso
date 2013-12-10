@@ -4,12 +4,17 @@
                 template="./../../admin/index.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+  
+
+
 
     <ui:define name="content">
         <h:form id="form">  
             <p:dataTable  var="userDTO" value="#{viewAllStudentMB.userList}" rowKey="#{userDTO.firstName}" paginator="true" rows="10"  
-                         filteredValue="#{viewAllStudentMB.filteredStudents}" id="userDTOTable">
+                          filteredValue="#{viewAllStudentMB.filteredStudents}" id="userDTOTable">
                 <p:growl for="growl" life="3000"/>
                 <p:ajax event="rowSelect" update=":form:display" oncomplete="" />  
                 <f:facet name="header">  
@@ -27,7 +32,7 @@
                 <p:column headerText="Email" sortBy="email" filterBy="email" id="email">  
                     #{userDTO.email}  
                 </p:column>                      
-                <p:column headerText="Acción">
+                <p:column styleClass="center" headerText="Eliminar/Editar">
                     <p:commandButton id="submitButton" icon="ui-icon-closethick" update="userDTOTable" action="#{viewAllStudentMB.deleteStudent(userDTO.id)}"/>  
                     <p:commandButton icon="ui-icon-pencil" title="Editar" action="#{viewAllStudentMB.editStudent(userDTO.id)}"/>
                 </p:column>
@@ -48,8 +53,8 @@
                     <h:outputText value="Email:" />  
                     <h:outputText value="#{viewAllStudentMB.selectedStudent.email}" id="email"/>  
                 </h:panelGrid>  
-            </p:dialog>  
-        </h:form> 
-        <p:button value="Agregar alumno" href="/faces/admin/studentMaintainer/addStudent.xhtml"/>
+            </p:dialog>
+            <h:outputText value="#{view.viewId}" />
+        </h:form>         
     </ui:define>
 </ui:composition>
