@@ -4,6 +4,7 @@
  */
 package managedBeans;
 
+import DTOs.AnswerDTO;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -33,7 +34,8 @@ public class LoginMB {
     }   
 
     public void login(){
-        varSession.login(userName, password);
+        AnswerDTO res = varSession.login(userName, password);
+        UtilitiesMB.showFeedback(res);
     }
     
     public String getUserName() {

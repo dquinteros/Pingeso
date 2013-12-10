@@ -4,6 +4,7 @@
  */
 package managedBeans;
 
+import DTOs.AnswerDTO;
 import DTOs.UserDTO;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -46,29 +47,39 @@ public class LoginSessionMB extends UtilitiesMB implements Serializable{
     public LoginSessionMB() {
     }
     
-    public void login(String userName, String pass){
+    public AnswerDTO login(String userName, String pass){
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
         try {
             if (request.getRemoteUser() == null) {//no esta conectado
-                System.out.println("entro: "+ request.toString());
                 request.login(userName, pass);  
-                System.out.println("entro2");
                 user = userManagementSB.findUserByUserName(userName);
+                if(user==null){
+                    logout();
+                    return new AnswerDTO(122);
+                }
                 defineStartPage();
                 redirectStartPage();
+                return new AnswerDTO(0);
             }
-            else {
+            else {   
+                if(user==null){
+                    logout();
+                    return new AnswerDTO(122);
+                }
                 redirectStartPage();
+                return new AnswerDTO(0);
             }
         }
-        catch (Exception e) {
+        catch (Exception e) {            
             System.out.println("error(loginMB-login): "+e.getMessage());
+            return new AnswerDTO(123);
         }
     }
     
     public void logout() {
+        System.out.println("entro");
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.invalidateSession();
         startPage = null;

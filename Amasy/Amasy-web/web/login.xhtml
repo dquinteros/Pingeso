@@ -36,19 +36,19 @@ and open the template in the editor.
                                 <br/>
                                 <br/>
                                 <h:outputText value="Aplicación actualmente en construcción." />
-
                             </h:panelGrid>  
                         </p:fieldset>
 
                     </h:form>
-                    <h:form class="ui-login ui-login-form">
+                    <h:form id="form" class="ui-login ui-login-form" >
+                        <p:growl for="growl" life="3000"/>
                         <p:fieldset legend="Ingreso">  
                             <h:panelGrid columns="1" cellpadding="10">
                                 <h:outputLabel for="username" value="Usuario:"/>
                                 <p:inputText value="#{loginMB.userName}" id="username"/>  
                                 <h:outputLabel for="password" value="Contraseña:"/>
                                 <p:password id="password" value="#{loginMB.password}" feedback="false"/>  
-                                <p:commandButton type="submit" value="Iniciar sesión" action="#{loginMB.login()}"/>
+                                <p:commandButton type="submit" value="Iniciar sesión" action="#{loginMB.login()}" update="form"/>
                                 <h:graphicImage class="login-img" library="img" name="student_hand_raised.png"/>
                             </h:panelGrid>  
                         </p:fieldset> 

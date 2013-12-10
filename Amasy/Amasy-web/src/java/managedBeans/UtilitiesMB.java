@@ -71,6 +71,20 @@ public class UtilitiesMB {
                 return "Se ha marcado como presente a";
             case 116:
                 return "Ya se encontraba presente el alumno";
+            case 117:
+                return "Clase sin alumnos inscritos";
+            case 118:
+                return "Error con el registro de profesor";
+            case 119:;
+                return "No se pudo actualizar los datos del profesor";
+            case 120:
+                return "Error al eliminar un profesor.";
+            case 121:
+                return "El profesor ya se encontraba eliminado.";
+            case 122:
+                return "Error al intentar iniciar sesión. Inténtelo nuevamente.";
+            case 123:
+                return "Nombre de usuario o contraseña incorrecto.";           
             default:
                 return "Error";
         }
@@ -84,8 +98,13 @@ public class UtilitiesMB {
                 return "success";
             case 116:
                 return "warning";
+            case 117:
+                return "warning";
+            case 123:
+                return "warning";
             default:
                 return "error";
+             
         }
     }
 
