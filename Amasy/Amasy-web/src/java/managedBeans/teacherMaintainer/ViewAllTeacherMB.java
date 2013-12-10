@@ -7,6 +7,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import managedBeans.UtilitiesMB;
 import sessionBeans.teacherManagement.TeacherManagementSBLocal;
 
 @Named(value = "viewAllTeacherMB")
@@ -14,6 +16,9 @@ import sessionBeans.teacherManagement.TeacherManagementSBLocal;
 public class ViewAllTeacherMB {
     @EJB
     private TeacherManagementSBLocal teacherManagementSB;
+    
+    @Inject 
+    private TeacherMaintainerConversationalMB teacherMaintainerConversation;
     
     private LinkedList<UserDTO> userList;
     private String rut;
@@ -40,6 +45,13 @@ public class ViewAllTeacherMB {
         teachersPerPage=10;
         userList = teacherManagementSB.getAllTeacher();
         //System.out.println(userListDTO.getTotalPageNumber());
+    }
+    
+    public void editTeacher(Long idUser){
+        System.out.println(idUser);
+        this.teacherMaintainerConversation.beginConversation();
+        this.teacherMaintainerConversation.setIdUser(idUser);
+        UtilitiesMB.redirection("/faces/admin/studentMaintainer/editStudent.xhtml?cid=".concat(this.teacherMaintainerConversation.getConversation().getId().toString()));
     }
 
     public LinkedList<UserDTO> getUserList() {

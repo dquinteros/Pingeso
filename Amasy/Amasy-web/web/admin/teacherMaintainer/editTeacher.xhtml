@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../admin/index.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <h3>Editar estudiante</h3>
+        <h:form id="form">
+            <p:growl for="growl" life="3000"/>
+            <h:panelGrid id="grid" columns="3" cellpadding="4">
+                
+                <h:outputText value="Rut: *" />  
+                <p:inputText id="defaulth" value="#{editTeacherMB.newUserDTO.rut}" disabled="true"/>
+                <p:message for="defaulth"/>
+                
+                <h:outputText value="Nombre de usuario: *" />  
+                <p:inputText id="defaultj" value="#{editTeacherMB.newUserDTO.userName}" disabled="true"/>
+                <p:message for="defaultj"/>
+                
+                <h:outputText value="Correo electronico: *" />  
+                <p:inputText id="defaultf" value="#{editTeacherMB.newUserDTO.email}" disabled="true" />
+                <p:message for="defaultf"/>
+                
+                <h:outputText value="Nombre: *" />  
+                <p:inputText id="default" required="true" value="#{editTeacherMB.newUserDTO.firstName}" requiredMessage="Nombre obligatorio">                    
+                </p:inputText>
+                <p:message for="default" display="text" id="asdf"/>                               
+                
+                <h:outputText value="Apellido: *" />  
+                <p:inputText id="defaults" required="true" value="#{editTeacherMB.newUserDTO.lastName}" requiredMessage="Apellido obligatorio"/>  
+                <p:message for="defaults" display="text"/>  
+                
+                <h:outputText value="Celular *" />  
+                <p:inputText id="defaultd" required="true" value="#{editTeacherMB.newUserDTO.cellPhone}" requiredMessage="Celular obligatorio" validatorMessage="El número de teléfono celular solo puede ser numérico">
+                    <f:validateRegex for="defaultd" pattern="[0-9]*"/>
+                </p:inputText>  
+                <p:message for="defaultd" display="text"/>  
+                
+                <h:outputText value="Teléfono de casa: *" />  
+                <p:inputText id="defaultg" required="true" value="#{editTeacherMB.newUserDTO.homePhone}" requiredMessage="Telefono obligatorio" validatorMessage="El número de teléfono del hogar solo puede ser numérico">
+                    <f:validateRegex for="defaultd" pattern="[0-9]*"/>
+                </p:inputText>
+                <p:message for="defaultg" display="text" />  
+                
+                <h:outputText value="Huella digital: *" />
+                <p:inputText id="defaulty" required="true" value="null" requiredMessage="Huella digital obligatoria"/>  
+                <p:message for="defaulty" display="text"/>
+            </h:panelGrid>
+            <p:commandButton id="submitButton" value="Guardar cambios" update="form" action="#{editTeacherMB.editCurrentTeacher()}"/>  
+        </h:form>  
+    </ui:define>
+</ui:composition>

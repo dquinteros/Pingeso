@@ -24,4 +24,8 @@ public interface TeacherManagementSBLocal {
     
     AnswerDTO insertNewTeacher(NewUserDTO userDTO);
     
+    NewUserDTO getTeacherById(long userId);
+    
+    AnswerDTO updateTeacher(NewUserDTO newTeacher, Long studentId);
+    
 }

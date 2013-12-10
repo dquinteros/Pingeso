@@ -241,4 +241,28 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         return null;
     }
     
+    @Override
+    public NewUserDTO getTeacherById(long userId){
+        User user = em.find(User.class, userId);
+        NewUserDTO newUser = new NewUserDTO(user);
+        return newUser;
+    }
+    
+    @Override
+    public AnswerDTO updateTeacher(NewUserDTO newTeacher, Long teacherId){
+        User user = em.find(User.class, teacherId);
+        user.setFirstName(newTeacher.getFirstName());
+        user.setLastName(newTeacher.getLastName());
+        user.setCellPhone(newTeacher.getCellPhone());
+        user.setHomePhone(newTeacher.getHomePhone());
+        if(!"".equals(newTeacher.getFingerprint())){
+            user.setFingerPrint(newTeacher.getFingerprint());
+        }
+        if(persistUpdate(user)){
+            return new AnswerDTO(0);
+        }else{
+            return new AnswerDTO(113);
+        }       
+    }
+    
 }

@@ -29,11 +29,11 @@
                 </p:column>                      
                 <p:column headerText="Acción">
                     <p:commandButton id="submitButton" icon="ui-icon-closethick" update="userDTOTable"/>  
-                    <p:commandButton icon="ui-icon-pencil" title="Editar"/>
+                    <p:commandButton icon="ui-icon-pencil" title="Editar" action="#{viewAllTeacherMB.editTeacher(userDTO.id)}"/>
                 </p:column>
 
             </p:dataTable>  
-            <p:dialog header="Datos estudiante" widgetVar="" resizable="false"  
+            <p:dialog header="Datos profesor" widgetVar="" resizable="false"  
                       width="200" showEffect="explode" hideEffect="explode">  
                 <h:panelGrid id="display" columns="2" cellpadding="4">  
                     <f:facet name="header">  
