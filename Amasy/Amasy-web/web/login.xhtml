@@ -4,64 +4,54 @@ To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html lang="en"
+<html
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Login Form</title>
-        <h:outputStylesheet library="css" name="cssLayout.css" />
-    </h:head>
-    <h:body>
-        <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="100" id="header"></p:layoutUnit>
-            <p:layoutUnit position="south" size="50" id="footer"></p:layoutUnit>
-            <p:layoutUnit position="west" size="50"></p:layoutUnit>
-            <p:layoutUnit position="east" size="50"></p:layoutUnit>
-            
-            <p:layoutUnit position="center" id="center">
-                
-                <h:form class="ui-login ui-login-greeting">
-                    <p:fieldset legend="Bienvenido a Amasy">  
-                        <h:panelGrid columns="2" cellpadding="10">  
-                            <h:outputText  
-                            value="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />  
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+    <f:view contentType="text/html">
+        <h:head>
+            <title>Bienvenido a Amasy</title>
+            <h:outputStylesheet library="css" name="cssLayout.css" />
+        </h:head>
+        <h:body>
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" size="100" id="header"></p:layoutUnit>
+                <p:layoutUnit position="south" size="30" id="footer"></p:layoutUnit>
+                <p:layoutUnit position="west" size="50"></p:layoutUnit>
+                <p:layoutUnit position="east" size="50"></p:layoutUnit>
+
+                <p:layoutUnit position="center" id="center">
+
+                    <h:form class="ui-login ui-login-greeting">
+                        <p:fieldset legend="Bienvenido a Amasy">  
+                            <h:panelGrid columns="2" cellpadding="10">  
+                                <h:outputText value="Amasy, Attendance Management System, es un poderoso sistema de registro de asistencia, que implementa tecnología de identificación biométrica para asegurar la identificación precisa de alumnos asistentes a una clase, de forma rápida y sin interrumpir el flujo de la clase." />
+                                <br/>
+                                <h:outputText value="Amasy permite la consulta de asistencias a la clase actual, tanto como el historial de asistencias a clases tanto por asignatura como por alumno." />
+                                <br/>
+                                <br/>
+                                <h:outputText value="Aplicación actualmente en construcción." />
+
+                                </h:panelGrid>  
+                        </p:fieldset>
+
+                    </h:form>
+                    <h:form class="ui-login ui-login-form">
+                        <p:fieldset legend="Ingreso">  
+                            <h:panelGrid columns="1" cellpadding="10">
+                                <h:outputLabel for="username" value="Usuario:"/>
+                                <p:inputText value="#{loginMB.userName}" id="username"/>  
+                                <h:outputLabel for="password" value="Contraseña:"/>
+                                <p:password id="password" value="#{loginMB.password}" feedback="false"/>  
+                                <p:commandButton type="submit" value="Iniciar sesión" action="#{loginMB.login()}"/>
+                                <img class="login-img" src="./resources/img/student_hand_raised.png" />
                             </h:panelGrid>  
-                    </p:fieldset>
-
-                </h:form>
-                <h:form class="ui-login ui-login-form">
-                    <p:fieldset legend="Ingreso">  
-                        <h:panelGrid columns="1" cellpadding="10">
-                            <h:outputLabel for="username" value="Usuario:"/>
-                            <p:inputText value="#{loginMB.userName}" id="username"/>  
-                            <h:outputLabel for="password" value="Contraseña:"/>
-                            <p:password id="password" value="#{loginMB.password}" feedback="false"/>  
-                            <p:commandButton type="submit" value="Iniciar sesión" action="#{loginMB.login()}"/>
-                            <img class="login-img" src="./resources/img/student_hand_raised.png" />
-                        </h:panelGrid>  
-                    </p:fieldset> 
-
-                    <!--<table columns="2" role="presentation"> 
-                        <tr>
-                            <td><h:outputLabel for="username" 
-                                               value="Please type your user name:"/></td>
-                            <td><h:inputText id="username" autocomplete="off" 
-                                             size="20" value="#{loginMB.userName}" /></td>
-                        </tr>
-                        <tr>
-                            <td><h:outputLabel for="password" 
-                                               value="Please type your password:"/></td>
-                            <td><h:inputSecret id="password" autocomplete="off" 
-                                               size="20" value="#{loginMB.password}"/></td>
-                        </tr>
-                    </table>
-                    <p>
-                        <h:commandButton type="submit" value="Submit" action="#{loginMB.login()}"/>
-                        <h:commandButton type="reset" value="Reset"/>
-                    </p>-->
-                </h:form>
-                </p:layoutUnit>
-        </p:layout>
-    </h:body>
+                        </p:fieldset> 
+                    </h:form>
+                    </p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </f:view>
 </html>
