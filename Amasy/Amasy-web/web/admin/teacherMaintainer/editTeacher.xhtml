@@ -13,41 +13,38 @@
             <h:panelGrid id="grid" columns="3" cellpadding="4">
                 
                 <h:outputText value="Rut: *" />  
-                <p:inputText id="defaulth" value="#{editTeacherMB.newUserDTO.rut}" disabled="true"/>
-                <p:message for="defaulth"/>
+                <p:inputText id="rut" value="#{editTeacherMB.newUserDTO.rut}" disabled="true"/>
+                <p:message for="rut"/>
                 
                 <h:outputText value="Nombre de usuario: *" />  
-                <p:inputText id="defaultj" value="#{editTeacherMB.newUserDTO.userName}" disabled="true"/>
-                <p:message for="defaultj"/>
+                <p:inputText id="userName" value="#{editTeacherMB.newUserDTO.userName}" disabled="true"/>
+                <p:message for="userName"/>
                 
                 <h:outputText value="Correo electronico: *" />  
-                <p:inputText id="defaultf" value="#{editTeacherMB.newUserDTO.email}" disabled="true" />
-                <p:message for="defaultf"/>
+                <p:inputText id="email" value="#{editTeacherMB.newUserDTO.email}" disabled="true" />
+                <p:message for="email"/>
                 
                 <h:outputText value="Nombre: *" />  
-                <p:inputText id="default" required="true" value="#{editTeacherMB.newUserDTO.firstName}" requiredMessage="Nombre obligatorio">                    
+                <p:inputText id="firstName" required="true" value="#{editTeacherMB.newUserDTO.firstName}" requiredMessage="Nombre obligatorio">                    
                 </p:inputText>
-                <p:message for="default" display="text" id="asdf"/>                               
+                <p:message for="firstName" display="text" id="asdf"/>                               
                 
                 <h:outputText value="Apellido: *" />  
-                <p:inputText id="defaults" required="true" value="#{editTeacherMB.newUserDTO.lastName}" requiredMessage="Apellido obligatorio"/>  
-                <p:message for="defaults" display="text"/>  
+                <p:inputText id="lastName" required="true" value="#{editTeacherMB.newUserDTO.lastName}" requiredMessage="Apellido obligatorio"/>  
+                <p:message for="lastName" display="text"/>  
                 
                 <h:outputText value="Celular *" />  
-                <p:inputText id="defaultd" required="true" value="#{editTeacherMB.newUserDTO.cellPhone}" requiredMessage="Celular obligatorio" validatorMessage="El número de teléfono celular solo puede ser numérico">
-                    <f:validateRegex for="defaultd" pattern="[0-9]*"/>
+                <p:inputText id="cellPhone" required="true" value="#{editTeacherMB.newUserDTO.cellPhone}" requiredMessage="Celular obligatorio" validatorMessage="El número de teléfono celular solo puede ser numérico">
+                    <f:validateRegex for="cellPhone" pattern="[0-9]*"/>
                 </p:inputText>  
-                <p:message for="defaultd" display="text"/>  
+                <p:message for="cellPhone" display="text"/>  
                 
                 <h:outputText value="Teléfono de casa: *" />  
-                <p:inputText id="defaultg" required="true" value="#{editTeacherMB.newUserDTO.homePhone}" requiredMessage="Telefono obligatorio" validatorMessage="El número de teléfono del hogar solo puede ser numérico">
-                    <f:validateRegex for="defaultd" pattern="[0-9]*"/>
+                <p:inputText id="homePhone" required="true" value="#{editTeacherMB.newUserDTO.homePhone}" requiredMessage="Telefono obligatorio" validatorMessage="El número de teléfono del hogar solo puede ser numérico">
+                    <f:validateRegex for="homePhone" pattern="[0-9]*"/>
                 </p:inputText>
-                <p:message for="defaultg" display="text" />  
+                <p:message for="homePhone" display="text" />  
                 
-                <h:outputText value="Huella digital: *" />
-                <p:inputText id="defaulty" required="true" value="null" requiredMessage="Huella digital obligatoria"/>  
-                <p:message for="defaulty" display="text"/>
             </h:panelGrid>
             <p:commandButton id="submitButton" value="Guardar cambios" update="form" action="#{editTeacherMB.editCurrentTeacher()}"/>  
         </h:form>  

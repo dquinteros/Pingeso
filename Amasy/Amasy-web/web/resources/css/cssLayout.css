@@ -3,10 +3,15 @@
 }
 
 #header div{
-  background: transparent;
-  border: 0px;
-  padding-left: 160px;
-  padding-top: 25px;
+    background: transparent;
+    border: 0px;
+    padding-left: 160px;
+    padding-top: 25px;
+    overflow: hidden;
+}
+
+.center{
+    text-align: center;
 }
 
 .megamenu-button .ui-menuitem-text{
@@ -17,6 +22,34 @@
 .megamenu-button{
     margin-left: 10px;
 }
+#menuPrincipal{
+    overflow: hidden;
+}
+#menuPrincipal ul li {
+    height: 40px;
+}
+
+.on-hover{    
+    color: white ! important ; 
+    background-color: #ff9317; 
+}
+
+.hidden{
+    display:none;
+}
+#menuPrincipal ul li a{
+    height: 50px;
+    border-radius:0;   
+    color: #ff9317;
+    font-size: 1.2em;
+}
+#menuPrincipal ul li a:hover{  
+    color: white; 
+}
+#menuLateral{
+    width: 93%;
+}
+
 
 #header{
     background: url('../../resources/img/amasy_logo.png') left no-repeat;
@@ -36,6 +69,13 @@
 
 #footer {
     left: 15px;
+    position: relative;
+    text-align: center;
+}
+
+#footer-text-container{
+    top: 10px;    
+    position: relative;
 }
 
 .ui-login {

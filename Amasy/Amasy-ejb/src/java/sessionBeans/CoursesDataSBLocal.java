@@ -14,7 +14,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface CoursesDataSBLocal {
-
+    
     public ArrayList<Course> teacherCourses(long profesorActual);
     
 }

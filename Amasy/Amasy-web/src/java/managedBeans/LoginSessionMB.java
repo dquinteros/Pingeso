@@ -68,6 +68,13 @@ public class LoginSessionMB extends UtilitiesMB implements Serializable{
         }
     }
     
+    public void logout() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        externalContext.invalidateSession();
+        startPage = null;
+        UtilitiesMB.redirection("/faces/login.xhtml");
+    }
+    
     private void defineStartPage(){      
         switch(user.getUserType()){
             case "Profesor": startPage = "/faces/teacher/index.xhtml";
@@ -90,5 +97,15 @@ public class LoginSessionMB extends UtilitiesMB implements Serializable{
     public void setStartPage(String startPage) {
         this.startPage = startPage;
     }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+    
+    
     
 }

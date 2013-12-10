@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import managedBeans.LoginSessionMB;
 import managedBeans.UtilitiesMB;
 import sessionBeans.CoursesDataSBLocal;
 
@@ -29,7 +30,8 @@ public class ViewCourseListMB{
     
     @Inject 
     private TakeAttendanceConversationMB takeAttendanceConversation;
-        
+    @Inject
+    private LoginSessionMB session;
     private ArrayList<Course> listCourse;
     
     public ViewCourseListMB() {
@@ -37,7 +39,7 @@ public class ViewCourseListMB{
     
     @PostConstruct
     public void init() {
-        this.listCourse = CoursesDataSB.teacherCourses(1);          
+        this.listCourse = CoursesDataSB.teacherCourses(session.getUser().getId());          
     }
 
     public void courseRedirect(long idCourse){   
