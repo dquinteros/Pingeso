@@ -267,6 +267,17 @@ public class StudentManagementSB implements StudentManagementSBLocal {
             return new AnswerDTO(112);
         } else {
             System.out.println("Bien");
+            Query q = em.createNamedQuery("Student.findByIdUser");
+            q.setParameter("idUser", id);
+            Student student = (Student) q.getSingleResult();
+            Long idStudent = student.getId();
+            System.out.println("Listos pa la segunda query");
+            Query q2 = em.createNamedQuery("Course.deleteStudentById");
+            System.out.println("Lista la query");
+            q2.setParameter("idStudent", idStudent);
+            System.out.println("Listo el parametro");
+            q2.executeUpdate(); //Se esta cayendo aca !!!
+            System.out.println("PASO TODO");
             u.setUserStatus(false);
             persistUpdate(u);
         }
