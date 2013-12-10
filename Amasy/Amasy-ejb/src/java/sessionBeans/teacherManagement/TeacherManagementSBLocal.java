@@ -28,4 +28,6 @@ public interface TeacherManagementSBLocal {
     
     AnswerDTO updateTeacher(NewUserDTO newTeacher, Long studentId);
     
+    AnswerDTO deleteTeacher(Long id);
+    
 }

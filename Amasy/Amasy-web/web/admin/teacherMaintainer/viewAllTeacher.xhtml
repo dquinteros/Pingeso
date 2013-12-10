@@ -28,7 +28,7 @@
                     #{userDTO.email}  
                 </p:column>                      
                 <p:column headerText="Acción">
-                    <p:commandButton id="submitButton" icon="ui-icon-closethick" update="userDTOTable"/>  
+                    <p:commandButton id="submitButton" icon="ui-icon-closethick" update="userDTOTable" action="#{viewAllTeacherMB.deleteTeacher(userDTO.id)}"/>  
                     <p:commandButton icon="ui-icon-pencil" title="Editar" action="#{viewAllTeacherMB.editTeacher(userDTO.id)}"/>
                 </p:column>
 

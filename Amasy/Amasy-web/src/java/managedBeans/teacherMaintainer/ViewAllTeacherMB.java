@@ -1,5 +1,6 @@
 package managedBeans.teacherMaintainer;
 
+import DTOs.AnswerDTO;
 import DTOs.UserDTO;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,8 +52,14 @@ public class ViewAllTeacherMB {
         System.out.println(idUser);
         this.teacherMaintainerConversation.beginConversation();
         this.teacherMaintainerConversation.setIdUser(idUser);
-        UtilitiesMB.redirection("/faces/admin/studentMaintainer/editStudent.xhtml?cid=".concat(this.teacherMaintainerConversation.getConversation().getId().toString()));
+        UtilitiesMB.redirection("/faces/admin/teacherMaintainer/editTeacher.xhtml?cid=".concat(this.teacherMaintainerConversation.getConversation().getId().toString()));
     }
+    
+    public void deleteTeacher(Long idUser){
+        System.out.println(idUser);
+        AnswerDTO ans = teacherManagementSB.deleteTeacher(idUser);
+        UtilitiesMB.showFeedback(ans);
+   }
 
     public LinkedList<UserDTO> getUserList() {
         return userList;
