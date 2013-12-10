@@ -102,3 +102,7 @@
     height: 50%;
     width: 50%;
 }
+
+.headerDialog{
+    width: 300px !important;
+}
