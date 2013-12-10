@@ -15,8 +15,6 @@ import javax.inject.Inject;
 import managedBeans.UtilitiesMB;
 import DTOs.UserAssistantBlockClassDTO;
 import javax.faces.event.ActionEvent;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import sessionBeans.TakeAttendanceSBLocal;
 
 
@@ -60,17 +58,17 @@ public class TakeAttendanceMB{
     
     public void sendFingerprint(ActionEvent actionEvent) {        
         ResponseAssistanceDTO responseAssistance = TakeAttendanceSB.validateFingerprintBM(fingerprint, blockClass);
-        FacesContext context = FacesContext.getCurrentInstance();  
-        if(responseAssistance==null){            
-            context.addMessage(null, new FacesMessage("error al reconocer la huella", "En caso de pertenecer al curso y su huella este registrada repita la operacion"));  
-        }else{
-            if(responseAssistance.isOperationValidates()){
+        String message="";
+        switch(responseAssistance.getAnswer().getIdError()){
+            case 115:
                 updateAssistance(responseAssistance);
-                context.addMessage(null, new FacesMessage("Alumno marcado como presente", "el alumno :"+ responseAssistance.getUserDTO().getFirstName() +" " +responseAssistance.getUserDTO().getLastName() +" fue marcado como presente"));  
-            }else{
-                context.addMessage(null, new FacesMessage("Alumno ya se encontraba presente", "el alumno :"+ responseAssistance.getUserDTO().getFirstName() +" ya se encuentra presente"));  
-            }            
-        }
+                message = responseAssistance.getUserDTO().getFirstName() + responseAssistance.getUserDTO().getLastName();
+            break;
+            case 116:
+                message = responseAssistance.getUserDTO().getFirstName() + responseAssistance.getUserDTO().getLastName();
+            break;
+        }       
+        UtilitiesMB.showFeedback(responseAssistance.getAnswer(),message);
     }
 
     private void updateAssistance(ResponseAssistanceDTO responseAssistance){

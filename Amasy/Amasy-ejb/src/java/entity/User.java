@@ -20,14 +20,14 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "User.findByRut", query = "SELECT u FROM User u WHERE u.rut = :rut"),
-    @NamedQuery(name = "User.findByUserName", query = "SELECT u FROM User u WHERE u.userName = :username"),
-    @NamedQuery(name = "User.selectAllFingerprint", query = "SELECT u.fingerPrint FROM User u"),
-    @NamedQuery(name = "User.findByFingerprint", query = "SELECT u FROM User u WHERE u.fingerPrint = :fingerprint"),
-    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
-    @NamedQuery(name = "User.countUserByRut", query = "SELECT COUNT(u) FROM User u WHERE u.rut = :rut"),
-    @NamedQuery(name = "User.countUserByEmail", query = "SELECT COUNT(u) FROM User u WHERE u.email = :email"),
-    @NamedQuery(name = "User.countUserByUserName", query = "SELECT COUNT(u) FROM User u WHERE u.userName = :username")
+    @NamedQuery(name = "User.findByRut", query = "SELECT u FROM User u WHERE u.rut = :rut AND u.userStatus = true"),
+    @NamedQuery(name = "User.findByUserName", query = "SELECT u FROM User u WHERE u.userName = :username AND u.userStatus = true"),
+    @NamedQuery(name = "User.selectAllFingerprint", query = "SELECT u.fingerPrint FROM User u WHERE u.userStatus = true"),
+    @NamedQuery(name = "User.findByFingerprint", query = "SELECT u FROM User u WHERE u.fingerPrint = :fingerprint AND u.userStatus = true"),
+    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email AND u.userStatus = true"),
+    @NamedQuery(name = "User.countUserByRut", query = "SELECT COUNT(u) FROM User u WHERE u.rut = :rut AND u.userStatus = true"),
+    @NamedQuery(name = "User.countUserByEmail", query = "SELECT COUNT(u) FROM User u WHERE u.email = :email AND u.userStatus = true"),
+    @NamedQuery(name = "User.countUserByUserName", query = "SELECT COUNT(u) FROM User u WHERE u.userName = :username AND u.userStatus = true")
 })
 public class User implements Serializable {
 

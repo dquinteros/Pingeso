@@ -12,7 +12,9 @@ import entity.User;
 import entity.UserType;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +24,12 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -42,6 +50,8 @@ import sessionBeans.TakeAttendanceSB;
 @TransactionManagement(TransactionManagementType.BEAN)
 public class TeacherManagementSB implements TeacherManagementSBLocal {
     
+    @Resource(name="mail/AmasyDB")
+    private Session session;
     @PersistenceContext(unitName = "Amasy-ejbPU")
     private EntityManager em;
     @Resource
@@ -117,7 +127,7 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         if (!existEmailUserNameRut.isValid()) {
             return existEmailUserNameRut;
         }
-        String password = newPass(userDTO.getFingerprint());
+        String password = newPass(userDTO.getEmail()+userDTO.getRut());
         String roll = "Profesor";
         User user = newUser(userDTO, password, roll);
         Teacher newTeacher = new Teacher();
@@ -129,7 +139,7 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
     
     private AnswerDTO validateTeacherRegistry(NewUserDTO userDTO) {
         if (userDTO == null) {
-            return new AnswerDTO(109);
+            return new AnswerDTO(118);
         }
         boolean existEmail = existEmail(userDTO.getEmail());
         boolean existUserName = existUserName(userDTO.getUserName());
@@ -206,13 +216,50 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         newUser.setPassword(MD5(password));
 
         newUser.setUserType(ut);
+        
+        senEmail(newUser.getEmail(), newUser.getUserName() ,password);
+        
         return newUser;
     }
 
-    private String newPass(String fingerprint) {
+    private boolean senEmail(String recipient, String userName, String password){
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom();
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient, false));
+            message.setSubject("Registro Amasy");
+            DateFormat dateFormatter = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT);
+            Date timeStamp = new Date();
+            String text="";
+            text += "Estimado profesor.";
+            text += "\n\n";
+            text += "Usted ha sido registrado exitosamente en el sistema Amasy.";
+            text += "\n";
+            text += "Sus datos de ingreso son: ";
+            text += "\n";
+            text += "Nombre de usuario: "+userName;
+            text += "\n";
+            text += "Contraseña: "+password;
+            String messageText = text;
+            message.setText(messageText);
+            message.setHeader("X-Mailer", "amasys@usach.cl");
+            message.setSentDate(timeStamp);
+            // Send message
+            Transport.send(message);
+            System.out.println("Mail sent to " + recipient + ".");
+        } catch (MessagingException ex) {
+            ex.printStackTrace();
+            System.out.println("Error in ConfirmerBean for " + recipient);
+        }
+        return false;
+
+    }
+    
+    private String newPass(String emailRut) {
+        emailRut = MD5(emailRut+MD5(emailRut));
         String password = null;
-        int fingerprintLength = fingerprint.length();
-        String halfFingerprint = fingerprint.substring(fingerprintLength / 4, fingerprintLength / 2);//revisar en caso de error                
+        int fingerprintLength = emailRut.length();
+        String halfFingerprint = emailRut.substring(fingerprintLength / 4, fingerprintLength / 2);//revisar en caso de error                
         if (halfFingerprint.length() > PASSWORD_LENGTH) {
             int random = (int) Math.random() * (halfFingerprint.length() - (PASSWORD_LENGTH + 1));
             password = halfFingerprint.substring(random, random + PASSWORD_LENGTH);
@@ -225,6 +272,7 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         }
         return password;
     }
+        
     
     //http://stackoverflow.com/questions/415953/generate-md5-hash-in-java
     private String MD5(String md5) {
@@ -261,7 +309,7 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         if(persistUpdate(user)){
             return new AnswerDTO(0);
         }else{
-            return new AnswerDTO(113);
+            return new AnswerDTO(119);
         }       
     }
     
@@ -271,10 +319,10 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         User u = em.find(User.class, id);
         if (u == null) {
             System.out.println("nulo");
-            return new AnswerDTO(111);
+            return new AnswerDTO(120);
         } else if (u.isUserStatus() == false) {
             System.out.println("ya cambiado");
-            return new AnswerDTO(112);
+            return new AnswerDTO(121);
         } else {
             System.out.println("Bien");
             u.setUserStatus(false);

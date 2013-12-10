@@ -9,10 +9,10 @@
 
     <ui:define name="content">                                              
         <div id="contentFingerprint" showDetail="true" sticky="true">
-            <h:form>  
+            <h:form id="form">  
                 <p:growl id="growl" showDetail="true" sticky="true"/> 
-                <p:inputText value="#{takeAttendanceMB.fingerprint}" required="true" label="Name" style="display: none"/>  
-                <p:commandButton value="Save" actionListener="#{takeAttendanceMB.sendFingerprint(actionEvent)}" update="tableAssistance,growl" style="display: none"/>                  
+                <p:inputText id="fingerprint" value="#{takeAttendanceMB.fingerprint}" required="true" label="Name" style="display: none"/>  
+                <p:commandButton value="Save" actionListener="#{takeAttendanceMB.sendFingerprint(actionEvent)}" update="tableAssistance,growl" style="display: none" id="sendFingerprint"/>
                 <p:dataTable  id="tableAssistance" value="#{takeAttendanceMB.listStudents}" var="student"
                                  emptyMessage="No hay usuarios en el curso" >               
                     <p:column id="rut" headerText="Rut" filterMatchMode="contains" >
@@ -46,8 +46,8 @@
             function onEnrollmentFailureHandler() {
             }
             function onFMDHandler( hexFMD ) {
-                document.getElementById("contentFingerprint").childNodes[1].childNodes[4].value = hexFMD;                           
-                document.getElementById("contentFingerprint").childNodes[1].childNodes[5].click();
+                document.getElementById("form:fingerprint").value = hexFMD;                           
+                document.getElementById("form:sendFingerprint").click();
             }
             if (_app == 'Netscape') 
             {

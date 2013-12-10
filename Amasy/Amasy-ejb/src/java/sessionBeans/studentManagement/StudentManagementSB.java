@@ -267,17 +267,6 @@ public class StudentManagementSB implements StudentManagementSBLocal {
             return new AnswerDTO(112);
         } else {
             System.out.println("Bien");
-            Query q = em.createNamedQuery("Student.findByIdUser");
-            q.setParameter("idUser", id);
-            Student student = (Student) q.getSingleResult();
-            Long idStudent = student.getId();
-            System.out.println("Listos pa la segunda query");
-            Query q2 = em.createNamedQuery("Course.deleteStudentById");
-            System.out.println("Lista la query");
-            q2.setParameter("idStudent", idStudent);
-            System.out.println("Listo el parametro");
-            q2.executeUpdate(); //Se esta cayendo aca !!!
-            System.out.println("PASO TODO");
             u.setUserStatus(false);
             persistUpdate(u);
         }
@@ -299,61 +288,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         return null;
     }
     
-    
-//    @Override
-//    public UserListDTO getUsersPerTable(String rut, String firstName, String lastName, int page, int studentsPerPage){
-//        UserListDTO response = new UserListDTO();
-//        LinkedList<UserDTO> listStudent = getListStudent(rut, firstName, lastName, page, studentsPerPage);
-//        Long totalPageNumber = getCountStudent(rut, firstName, lastName, page, studentsPerPage);
-//        response.setListUser(listStudent);
-//        response.setTotalPageNumber(totalPageNumber);
-//        response.setCurrentPage(page);
-//        response.setStudentsPerPage(studentsPerPage);
-//        return response;
-//    }
-    
-    @Override
-    public LinkedList<UserDTO> getListStudent(String rut, String firstName, String lastName, int page, int studentsPerPage){
-        rut = regExFix(rut);
-        firstName = regExFix(firstName);
-        lastName = regExFix(lastName);
-        int firstResult = (page-1)*studentsPerPage;        
-        Collection<User> result;
-        LinkedList<UserDTO> exitResult = new LinkedList<UserDTO>();
-        Query q = this.em.createNamedQuery("Student.getStudentsForStudentList");
-        q.setParameter("firstName", firstName);
-        q.setParameter("lastName", lastName);
-        q.setParameter("rut", rut);
-        q.setMaxResults(studentsPerPage);
-        q.setFirstResult(firstResult);
-        try {
-            result = (Collection<User>) q.getResultList();
-            return sqlResultToUserList(result, exitResult);
-        } catch (NoResultException nre) {
-            System.out.println(nre);
-            return null;
-        }      
-    }
-    
-//    private Long getCountStudent(String rut, String firstName, String lastName, int page, int studentsPerPage){
-//        rut = regExFix(rut);
-//        firstName = regExFix(firstName);
-//        lastName = regExFix(lastName);
-//        int firstResult = (page-1)*studentsPerPage;        
-//        Long result;
-//        LinkedList<UserDTO> exitResult = new LinkedList<UserDTO>();
-//        Query q = this.em.createNamedQuery("Student.getCountStudentsForStudentList");
-//        q.setParameter("firstName", firstName);
-//        q.setParameter("lastName", lastName);
-//        q.setParameter("rut", rut);
-//        try {
-//            result = (Long) q.getSingleResult();
-//            return result;
-//        } catch (NoResultException nre) {
-//            System.out.println(nre);
-//            return 0L;
-//        }      
-//    }
+
     
     private String regExFix(String ex){
         if("".equals(ex)){

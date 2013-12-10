@@ -21,7 +21,7 @@ import javax.persistence.OneToOne;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name="Teacher.getAllTeacherUserInfo", query="SELECT u.user FROM Teacher u")
+    @NamedQuery(name="Teacher.getAllTeacherUserInfo", query="SELECT u.user FROM Teacher u WHERE u.user.userStatus = true")
 })
 public class Teacher implements Serializable {
     private static final long serialVersionUID = 1L;

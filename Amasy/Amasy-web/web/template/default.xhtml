@@ -5,8 +5,9 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
+    
     <f:view contentType="text/html">
-        <h:head>
+        <h:head>            
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title><ui:insert name="title"></ui:insert></title>
@@ -17,6 +18,7 @@
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="100" id="header">
+                    <p:commandButton value="Cerrar Sesión" style="float:right; margin: 15px 15px 0px 0px; z-index:1000" action="#{loginSessionMB.logout()}"/>
                     <ui:insert name="north"></ui:insert>
                 </p:layoutUnit>
 
