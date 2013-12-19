@@ -47,7 +47,7 @@ public class AddStudentMB {
             //Aqui hay que hacer que diga que el rut no es valido, en la vista
         }
         System.out.println(r.getIdError());
-        UtilitiesMB.showFeedback(r);
+        UtilitiesMB.showFeedback(r);        
         //FacesContext fc = FacesContext.getCurrentInstance();
         //FacesContext.getCurrentInstance().getMessages("asdf")
         //fc.addMessage(, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Hola"," Hubo un error"));

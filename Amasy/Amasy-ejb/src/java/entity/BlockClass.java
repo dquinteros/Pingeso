@@ -23,7 +23,7 @@ import javax.persistence.Temporal;
  * @author Pingeso
  */
 @NamedQueries( {
-    @NamedQuery(name = "BlockClass.findStudentByBlockClass", query = "SELECT b.course.listStudent FROM BlockClass b WHERE b.id = :idBlockClass AND b.assistance.student.user.userStatus = true")
+    @NamedQuery(name = "BlockClass.findStudentByBlockClass", query = "SELECT b.course.listStudent FROM BlockClass b WHERE b.id = :idBlockClass")
 
 })
 @Entity

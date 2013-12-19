@@ -155,12 +155,14 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
         LinkedList<String> listFingerprint = new LinkedList<>();
         LinkedList<Long> listIdUser = new LinkedList<>();
 
-        for(User it: listUser){
+        for(User it: listUser){            
             if(it.getFingerPrint()!=null){
                 listFingerprint.add(it.getFingerPrint());
                 listIdUser.add(it.getId());          
+                System.out.println("id usuario: "+it.getId()+" fingerprint user: "+it.getFingerPrint());                                
             }            
         }
+        System.out.println("fingerprint buscado: "+fingerprint);
         response = FingerprintManagementSB.userIdentify(fingerprint, listFingerprint, listIdUser);
         return response;
     }

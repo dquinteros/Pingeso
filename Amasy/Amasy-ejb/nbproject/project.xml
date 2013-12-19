@@ -6,7 +6,6 @@
             <name>Amasy-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">file.reference.dpuareu.jar</included-library>
-            <included-library dirs="200">file.reference.primefaces-4.0.jar</included-library>
             <source-roots>
                 <root id="src.dir" name="Source Packages"/>
             </source-roots>

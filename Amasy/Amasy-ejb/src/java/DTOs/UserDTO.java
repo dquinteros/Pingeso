@@ -6,11 +6,9 @@ package DTOs;
 
 import entity.User;
 import java.io.Serializable;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import org.primefaces.model.SelectableDataModel;  
 import sessionBeans.UserManagementSBLocal;
 
 /**
@@ -19,7 +17,7 @@ import sessionBeans.UserManagementSBLocal;
  */
 @Stateless
 @LocalBean
-public class UserDTO implements SelectableDataModel<UserDTO>, Serializable{
+public class UserDTO implements Serializable{
     @EJB
     private UserManagementSBLocal userManagementSB;
 
@@ -120,12 +118,12 @@ public class UserDTO implements SelectableDataModel<UserDTO>, Serializable{
         this.userType = userType;
     }
     
-    @Override
+ 
     public Object getRowKey(UserDTO user) {  
         return user.getRut();
     } 
 
-    @Override
+    
     public UserDTO getRowData(String string) {
         return userManagementSB.findUserByRut(Integer.parseInt(string));
     }
