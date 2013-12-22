@@ -144,7 +144,7 @@ public class MenuLogicMB {
         }
     }
     
-       public String isNotTakeAttendanceTeacher(String view) {
+    public String isNotTakeAttendanceTeacher(String view) {
         switch (view) {
             case "/teacher/takeAttendance/takeAttendance.xhtml":
                return "";
@@ -160,6 +160,48 @@ public class MenuLogicMB {
             return "on-hover";
         } else {
             return "";
+        }
+    }
+    
+    public String isCourseViewAdmin(String view) {
+        switch (view) {
+            case "/admin/courseMaintainer/viewAllCourse.xhtml":
+                return "on-hover";
+            case "/admin/courseMaintainer/addCourse.xhtml":
+                return "on-hover";
+            case "/admin/courseMaintainer/edirCourse.xhtml":
+                return "on-hover";
+            default:
+                return "";
+        }
+    }
+    
+    public String isViewCourseAdmin(String view) {
+        if ("/admin/courseMaintainer/viewAllCourse.xhtml".equals(view)) {
+            return "on-hover";
+        } else {
+            return "";
+        }
+    }
+
+    public String isAddCourseAdmin(String view) {
+        if ("/admin/courseMaintainer/addCourse.xhtml".equals(view)) {
+            return "on-hover";
+        } else {
+            return "";
+        }
+    }
+    
+    public String isNotCourseViewAdmin(String view) {
+        switch (view) {
+            case "/admin/courseMaintainer/viewAllCourse.xhtml":
+                return "";
+            case "/admin/courseMaintainer/addCourse.xhtml":
+                return "";
+            case "/admin/courseMaintainer/edirCourse.xhtml":
+                return "";
+            default:
+                return "hidden";
         }
     }
 }

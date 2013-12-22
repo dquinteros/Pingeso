@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../admin/index.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+  
+
+
+
+    <ui:define name="content">
+        <h:form id="form">  
+            <p:dataTable  var="courseDTO" value="#{viewAllCourseMB.courseList}" rowKey="#{courseDTO.name}" paginator="true" rows="10"  
+                          filteredValue="#{viewAllCourseMB.filteredCourses}" id="courseDTOTable" selection="#{viewAllCourseMB.selectedCourse}" selectionMode="single">
+                <p:growl for="growl" life="3000"/>
+                <!-- <p:ajax event="rowSelect" update=":form:display" oncomplete="" />  -->
+                <f:facet name="header">  
+                    Lista de cursos
+                </f:facet>  
+                <p:column headerText="Curso" sortBy="name" filterBy="name" id="name">  
+                    #{courseDTO.name}
+                </p:column>  
+                <p:column headerText="Nivel" sortBy="level" filterBy="level" id="level">  
+                    #{courseDTO.level}  
+                </p:column>                    
+                <p:column styleClass="center" headerText="Eliminar/Editar">
+                    <p:commandButton id="submitButton" icon="ui-icon-closethick" update="courseDTOTable"/>  
+                    <p:commandButton icon="ui-icon-pencil" title="Editar"/>
+                </p:column>
+
+            </p:dataTable>
+            <!-- <p:dialog header="Datos estudiante" widgetVar="courseDialog" resizable="false"  
+                      showEffect="explode" hideEffect="explode" styleClass="headerDialog">  
+                <h:panelGrid id="display" columns="2" cellpadding="4">  
+                    <f:facet name="header">  
+                        <p:outputLabel value=""/>  
+                    </f:facet>  
+                    <h:outputText value="Rut:" />  
+                    <h:outputText value="#{viewAllCourseMB.selectedCourse.rut}" id="rut"/>
+                    <h:outputText value="Nombre:" />  
+                    <h:outputText value="#{viewAllCourseMB.selectedCourse.firstName}" id="firstName"/>  
+                    <h:outputText value="Apellido:" />  
+                    <h:outputText value="#{viewAllCourseMB.selectedCourse.lastName}" id="lastName"/>  
+                    <h:outputText value="Nombre de usuario:" />  
+                    <h:outputText value="#{viewAllCourseMB.selectedCourse.userName}" id="userName"/>
+                    <h:outputText value="Email:" />  
+                    <h:outputText value="#{viewAllCourseMB.selectedCourse.email}" id="email"/>
+                    <h:outputText value="Telefono:" />  
+                    <h:outputText value="#{viewAllCourseMB.selectedCourse.homePhone}" id="homePhone"/>
+                    <h:outputText value="Celular:" />  
+                    <h:outputText value="#{viewAllCourseMB.selectedCourse.cellPhone}" id="cellPhone"/>  
+                </h:panelGrid>  
+            </p:dialog> -->
+        </h:form>         
+    </ui:define>
+</ui:composition>

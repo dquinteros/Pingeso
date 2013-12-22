@@ -12,6 +12,7 @@
             <p:menuitem value="Inicio" styleClass="#{menuLogicMB.isIndex(view.viewId)}" url="/faces/admin/index.xhtml" />
             <p:menuitem value="Estudiantes" styleClass="#{menuLogicMB.isStudentView(view.viewId)}"  url="/faces/admin/studentMaintainer/viewAllStudent.xhtml"/>
             <p:menuitem value="Profesores" styleClass="#{menuLogicMB.isTeacherView(view.viewId)}" url="/faces/admin/teacherMaintainer/viewAllTeacher.xhtml" />
+            <p:menuitem value="Cursos" styleClass="#{menuLogicMB.isCourseViewAdmin(view.viewId)}" url="/faces/admin/courseMaintainer/viewAllCourse.xhtml" />
         </p:menubar>
     </ui:define>
     <ui:define name="west">
@@ -27,8 +28,13 @@
                 <p:menuitem value="Agregar Profesores" styleClass="#{menuLogicMB.isAddTeacher(view.viewId)}" outcome="/faces/admin/teacherMaintainer/addTeacher.xhtml"/>                
             </p:submenu>
         </p:menu>
+            <p:menu styleClass="#{menuLogicMB.isNotCourseViewAdmin(view.viewId)} menuLateral">
+            <p:submenu  label="Mantenedor">
+                <p:menuitem value="Ver Cursos" styleClass="#{menuLogicMB.isViewCourseAdmin(view.viewId)}" outcome="/faces/admin/courseMaintainer/viewAllCourse.xhtml"/> 
+            </p:submenu>
+        </p:menu>
     </ui:define>
-
+    <!-- Falta agregar boton "Agregar Curso" -->
 
 
     <ui:define name="center">
