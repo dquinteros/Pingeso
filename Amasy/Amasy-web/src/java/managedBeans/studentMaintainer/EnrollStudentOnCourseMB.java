@@ -4,6 +4,7 @@
  */
 package managedBeans.studentMaintainer;
 
+import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
 import entity.Course;
 import java.util.LinkedList;
@@ -12,27 +13,27 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import sessionBeans.courseManagement.CourseManagementSBLocal;
 import sessionBeans.studentManagement.StudentManagementSBLocal;
 
-/**
- *
- * @author Pingeso
- */
 @Named(value = "enrollStudentOnCourseMB")
 @RequestScoped
 public class EnrollStudentOnCourseMB {
+    @EJB
+    private CourseManagementSBLocal courseManagementSB;
 
-    /**
-     * Creates a new instance of EnrollStudentOnCourseMB
-     */
     @EJB
     private StudentManagementSBLocal studentManagementSB;
+    
     @Inject
     private StudentMaintainerConversationalMB studentMaintainerConversation;
     private LinkedList<Course> listCourseFromStudent;
     private Long userId;
-    private LinkedList<Course> listCourse;
+    private LinkedList<CourseDTO> listCourse;
     private String selectedCourse;
+    
+    private Course selectedCourseFromStudent;
+    private LinkedList<Course> filteredListCourseFromStudent;
     
     public EnrollStudentOnCourseMB() {
     }
@@ -47,8 +48,8 @@ public class EnrollStudentOnCourseMB {
         ListCourseDTO listCourseDTO = studentManagementSB.getCoursesFromStudent(userId); 
         listCourseFromStudent = new LinkedList<>(listCourseDTO.getListCourse());
 
-        //listCourseDTO = studentManagementSB.getCoursesNotFromStudent(userId);
-        listCourse  = new LinkedList<>(listCourseDTO.getListCourse());
+        //listCourseDTO = courseManagementSB.getAllCourse();
+        listCourse  = courseManagementSB.getAllCourse();
         
         ////////////////////////////////////
     }
@@ -61,13 +62,13 @@ public class EnrollStudentOnCourseMB {
         this.listCourseFromStudent = listCourseFromStudent;
     }
 
-    public LinkedList<Course> getListCourse() {
+    public LinkedList<CourseDTO> getListCourse() {
         return listCourse;
     }
 
-    public void setListCourse(LinkedList<Course> listCourse) {
+    public void setListCourse(LinkedList<CourseDTO> listCourse) {
         this.listCourse = listCourse;
-    }      
+    }    
 
     public String getSelectedCourse() {
         return selectedCourse;
@@ -76,5 +77,23 @@ public class EnrollStudentOnCourseMB {
     public void setSelectedCourse(String selectedCourse) {
         this.selectedCourse = selectedCourse;
     }        
+
+    public LinkedList<Course> getFilteredListCourseFromStudent() {
+        return filteredListCourseFromStudent;
+    }
+
+    public void setFilteredListCourseFromStudent(LinkedList<Course> filteredListCourseFromStudent) {
+        this.filteredListCourseFromStudent = filteredListCourseFromStudent;
+    }
+
+    public Course getSelectedCourseFromStudent() {
+        return selectedCourseFromStudent;
+    }
+
+    public void setSelectedCourseFromStudent(Course selectedCourseFromStudent) {
+        this.selectedCourseFromStudent = selectedCourseFromStudent;
+    }
+    
+    
     
 }

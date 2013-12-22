@@ -7,23 +7,34 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-        <h:form>  
-            <p:dataTable var="course" value="#{enrollStudentOnCourseMB.listCourseFromStudent}">  
-                <p:column headerText="Model">  
-                    <h:outputText value="#{course.name}" />  
-                </p:column>  
-            </p:dataTable>  
-        </h:form>                     
-
-        <h:form>  
-            <p:dataTable var="course" value="#{enrollStudentOnCourseMB.listCourse}">  
-                <p:column headerText="Model">  
-                    <h:outputText value="#{course.name}" />  
-                </p:column>  
-            </p:dataTable>  
-        </h:form>     
+         <h:form id="form">  
+             <p:dataTable  var="course" value="#{enrollStudentOnCourseMB.listCourseFromStudent}" rowKey="#{course.id}" paginator="true" rows="10"  
+                           filteredValue="#{enrollStudentOnCourseMB.filteredListCourseFromStudent}" id="courseStudent" selection="#{enrollStudentOnCourseMB.selectedCourseFromStudent}" selectionMode="single">
+                <p:growl for="growl" life="3000"/>
+                <!--<p:ajax event="rowSelect" update=":form:display" oncomplete="studentDialog.show()" />  -->
+                <f:facet name="header">  
+                    Lista de cursos del estudiante
+                </f:facet>  
+                <p:column headerText="Curso" sortBy="name" filterBy="name" id="name">  
+                    #{course.name}
+                </p:column>                       
+            </p:dataTable>
+             
+             
+            <p:dialog header="Datos del curso" widgetVar="studentDialog" resizable="false"  
+                      showEffect="explode" hideEffect="explode" styleClass="headerDialog">  
+                <h:panelGrid id="display" columns="2" cellpadding="4">  
+                    <f:facet name="header">  
+                        <p:outputLabel value=""/>  
+                    </f:facet>  
+                    <h:outputText value="Nombre:" />  
+                    <h:outputText value="#{enrollStudentOnCourseMB.selectedCourseFromStudent.name}" id="name"/> 
+                </h:panelGrid>  
+            </p:dialog>
+        </h:form> 
+        
+        
     </ui:define>
-
 
 
 </ui:composition>
