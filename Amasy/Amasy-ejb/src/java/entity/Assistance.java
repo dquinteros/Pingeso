@@ -4,11 +4,11 @@
  */
 package entity;
 
-
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -18,25 +18,27 @@ import javax.persistence.Temporal;
  *
  * @author Pingeso
  */
-
-@NamedQueries( {
+@NamedQueries({
     @NamedQuery(name = "Assistance.findStudentAssistance", query = "SELECT COUNT(a) FROM Assistance a WHERE a.blockClass.id = :idBlockClass AND a.student.id = :idStudent AND a.student.user.userStatus = true")
 })
-
 @Entity
 public class Assistance implements Serializable {
-    private static final long serialVersionUID = 1L;
+    @OneToOne
+    private JustifiedAudit justifiedAudit;
 
-    
+    private static final long serialVersionUID = 1L;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date date;
-    
+    @ManyToOne
+    private AssistanceState state;
     @Id
     @OneToOne
     private Student student;
     @Id
     @OneToOne
     private BlockClass blockClass;
+
+    
     
     public Date getDate() {
         return date;
@@ -46,6 +48,14 @@ public class Assistance implements Serializable {
         this.date = date;
     }
 
+    public AssistanceState getState() {
+        return state;
+    }
+
+    public void setState(AssistanceState state) {
+        this.state = state;
+    }
+
     public Student getStudent() {
         return student;
     }
@@ -53,8 +63,6 @@ public class Assistance implements Serializable {
     public void setStudent(Student student) {
         this.student = student;
     }
-    
-    
 
     public BlockClass getBlockClass() {
         return blockClass;
@@ -63,7 +71,4 @@ public class Assistance implements Serializable {
     public void setBlockClass(BlockClass blockClass) {
         this.blockClass = blockClass;
     }
-            
-    
-    
 }

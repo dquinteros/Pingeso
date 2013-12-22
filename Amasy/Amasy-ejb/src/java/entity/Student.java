@@ -23,7 +23,7 @@ import javax.persistence.Temporal;
  */
 @NamedQueries( {
     @NamedQuery(name ="Student.findByIdUser", query = "SELECT a FROM Student a WHERE a.user.id = :idUser AND a.user.userStatus = true"),
-    @NamedQuery(name="Student.getAllStudentUserInfo", query="SELECT u.user FROM Student u WHERE u.user.userStatus = true"),    
+    @NamedQuery(name="Student.getAllStudentUserInfo", query="SELECT u.user FROM Student u WHERE u.user.userStatus = true")   
 })
 @Entity
 public class Student implements Serializable {

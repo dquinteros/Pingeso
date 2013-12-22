@@ -99,15 +99,16 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
     }
     
     @Override
-    public LinkedList<UserDTO> getAllTeacher() {
+    @SuppressWarnings("empty-statement")    
+    public LinkedList<UserDTO> getAllTeacher() {        
         Collection<User> result;
         LinkedList<UserDTO> exitResult = new LinkedList<UserDTO>();
-        Query q = this.em.createNamedQuery("Teacher.getAllTeacherUserInfo");
+        Query q = this.em.createNamedQuery("Teacher.getAllTeacherUserInfo");                
         try {
             result = (Collection<User>) q.getResultList();
             return sqlResultToUserList(result, exitResult);
         } catch (NoResultException nre) {
-            System.out.println(nre);
+            System.out.println("error: "+nre);
             return null;
         }
     }

@@ -7,9 +7,6 @@ package sessionBeans.teacherManagement;
 import DTOs.AnswerDTO;
 import DTOs.NewUserDTO;
 import DTOs.UserDTO;
-import entity.User;
-import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
 import javax.ejb.Local;
 

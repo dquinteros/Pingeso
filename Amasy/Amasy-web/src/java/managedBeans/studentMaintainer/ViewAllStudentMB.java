@@ -30,11 +30,6 @@ public class ViewAllStudentMB {
     private StudentMaintainerConversationalMB studentMaintainerConversation;
     
     private LinkedList<UserDTO> userList;
-    private String rut;
-    private String firstName;
-    private String lastName;
-    private int page;
-    private int studentsPerPage;
     private UserDTO selectedStudent;
     private List<UserDTO> filteredStudents;
     
@@ -51,17 +46,10 @@ public class ViewAllStudentMB {
     }
     
     public void getStudent(){        
-        rut="";
-        firstName="";
-        lastName="";
-        page=1;
-        studentsPerPage=10;
         userList = studentManagementSB.getAllStudent();
-        //System.out.println(userListDTO.getTotalPageNumber());
     }
 
     public void editStudent(Long idUser){
-        System.out.println(idUser);
         this.studentMaintainerConversation.beginConversation();
         this.studentMaintainerConversation.setIdUser(idUser);
         UtilitiesMB.redirection("/faces/admin/studentMaintainer/editStudent.xhtml?cid=".concat(this.studentMaintainerConversation.getConversation().getId().toString()));
@@ -79,46 +67,6 @@ public class ViewAllStudentMB {
 
     public void setUserList(LinkedList<UserDTO> userList) {
         this.userList = userList;
-    }
-    
-    public int getStudentsPerPage() {
-        return studentsPerPage;
-    }
-
-    public void setStudentsPerPage(int studentsPerPage) {
-        this.studentsPerPage = studentsPerPage;
-    }    
-
-    public String getRut() {
-        return rut;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
     }
 
     public UserDTO getSelectedStudent() {
