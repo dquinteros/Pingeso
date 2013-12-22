@@ -43,56 +43,108 @@ public class BlockClass implements Serializable {
     @OneToOne(mappedBy = "blockClass")
     private Assistance assistance;
 
+    /**
+     *
+     * @return
+     */
     public Date getDate() {
         return date;
     }
 
+    /**
+     *
+     * @param date
+     */
     public void setDate(Date date) {
         this.date = date;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isDone() {
         return done;
     }
 
+    /**
+     *
+     * @param done
+     */
     public void setDone(boolean done) {
         this.done = done;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getComment() {
         return comment;
     }
 
+    /**
+     *
+     * @param comment
+     */
     public void setComment(String comment) {
         this.comment = comment;
     }
 
+    /**
+     *
+     * @return
+     */
     public Assistance getAssistance() {
         return assistance;
     }
 
+    /**
+     *
+     * @param assistance
+     */
     public void setAssistance(Assistance assistance) {
         this.assistance = assistance;
     }
 
  
     
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Course getCourse() {
         return course;
     }
 
+    /**
+     *
+     * @param course
+     */
     public void setCourse(Course course) {
         this.course = course;
     }   
     
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -100,6 +152,11 @@ public class BlockClass implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -113,6 +170,10 @@ public class BlockClass implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "entity.BlockClass[ id=" + id + " ]";

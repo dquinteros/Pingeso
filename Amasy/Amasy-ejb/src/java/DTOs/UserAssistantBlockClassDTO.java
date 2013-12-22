@@ -18,23 +18,44 @@ public class UserAssistantBlockClassDTO {
     private boolean present;
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    /**
+     *
+     * @param user
+     * @param present
+     */
     public void TakeAttendanceDataUser(UserDTO user, boolean present) {        
         this.userDTO = user;
         this.present = present;  
     }
     
+    /**
+     *
+     * @return
+     */
     public UserDTO getUser() {
         return userDTO;
     }
 
+    /**
+     *
+     * @param user
+     */
     public void setUser(UserDTO user) {
         this.userDTO = user;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isPresent() {
         return present;
     }
 
+    /**
+     *
+     * @param present
+     */
     public void setPresent(boolean present) {
         this.present = present;
     }   

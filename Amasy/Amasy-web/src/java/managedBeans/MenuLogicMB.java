@@ -21,6 +21,11 @@ public class MenuLogicMB {
     public MenuLogicMB() {
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isIndex(String view) {
         if ("/admin/index.xhtml".equals(view)) {
             return "on-hover";
@@ -29,6 +34,11 @@ public class MenuLogicMB {
         }
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isStudentView(String view) {
         switch (view) {
             case "/admin/studentMaintainer/viewAllStudent.xhtml":
@@ -42,6 +52,11 @@ public class MenuLogicMB {
         }
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isNotStudentView(String view) {
         switch (view) {
             case "/admin/studentMaintainer/viewAllStudent.xhtml":
@@ -55,6 +70,11 @@ public class MenuLogicMB {
         }
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isViewStudent(String view) {
         if ("/admin/studentMaintainer/viewAllStudent.xhtml".equals(view)) {
             return "on-hover";
@@ -63,6 +83,11 @@ public class MenuLogicMB {
         }
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isAddStudent(String view) {
         if ("/admin/studentMaintainer/addStudent.xhtml".equals(view)) {
             return "on-hover";
@@ -71,6 +96,11 @@ public class MenuLogicMB {
         }
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isEditStudent(String view) {
         if ("/admin/studentMaintainer/editStudent.xhtml".equals(view)) {
             return "on-hover";
@@ -79,6 +109,11 @@ public class MenuLogicMB {
         }
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isTeacherView(String view) {
         switch (view) {
             case "/admin/teacherMaintainer/viewAllTeacher.xhtml":
@@ -92,6 +127,11 @@ public class MenuLogicMB {
         }
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isNotTeacherView(String view) {
         switch (view) {
             case "/admin/teacherMaintainer/viewAllTeacher.xhtml":
@@ -105,6 +145,11 @@ public class MenuLogicMB {
         }
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isViewTeacher(String view) {
         if ("/admin/teacherMaintainer/viewAllTeacher.xhtml".equals(view)) {
             return "on-hover";
@@ -113,6 +158,11 @@ public class MenuLogicMB {
         }
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isAddTeacher(String view) {
         if ("/admin/teacherMaintainer/addTeacher.xhtml".equals(view)) {
             return "on-hover";
@@ -121,6 +171,11 @@ public class MenuLogicMB {
         }
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isEditTeacher(String view) {
         if ("/admin/teacherMaintainer/edirTeacher.xhtml".equals(view)) {
             return "on-hover";
@@ -129,6 +184,11 @@ public class MenuLogicMB {
         }
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isCouseListTeacher(String view) {
         if ("/teacher/takeAttendance/viewCourseList.xhtml".equals(view)) {
             return "on-hover";
@@ -137,6 +197,11 @@ public class MenuLogicMB {
         }
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isNotCourseViewTeacher(String view) {
         switch (view) {
             default:
@@ -144,6 +209,11 @@ public class MenuLogicMB {
         }
     }
     
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isNotTakeAttendanceTeacher(String view) {
         switch (view) {
             case "/teacher/takeAttendance/takeAttendance.xhtml":
@@ -155,6 +225,11 @@ public class MenuLogicMB {
         }
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isTakeAttendanceTeacher(String view) {
         if ("/teacher/takeAttendance/takeAttendance.xhtml".equals(view)) {
             return "on-hover";
@@ -163,6 +238,11 @@ public class MenuLogicMB {
         }
     }
     
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isCourseViewAdmin(String view) {
         switch (view) {
             case "/admin/courseMaintainer/viewAllCourse.xhtml":
@@ -176,6 +256,11 @@ public class MenuLogicMB {
         }
     }
     
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isViewCourseAdmin(String view) {
         if ("/admin/courseMaintainer/viewAllCourse.xhtml".equals(view)) {
             return "on-hover";
@@ -184,6 +269,11 @@ public class MenuLogicMB {
         }
     }
 
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isAddCourseAdmin(String view) {
         if ("/admin/courseMaintainer/addCourse.xhtml".equals(view)) {
             return "on-hover";
@@ -192,6 +282,11 @@ public class MenuLogicMB {
         }
     }
     
+    /**
+     *
+     * @param view
+     * @return
+     */
     public String isNotCourseViewAdmin(String view) {
         switch (view) {
             case "/admin/courseMaintainer/viewAllCourse.xhtml":

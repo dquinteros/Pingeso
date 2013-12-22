@@ -13,7 +13,17 @@ import javax.ejb.Local;
  */
 @Local
 public interface UserManagementSBLocal {
+    /**
+     *
+     * @param rut
+     * @return
+     */
     public UserDTO findUserByRut(int rut);
 
+    /**
+     *
+     * @param username
+     * @return
+     */
     public UserDTO findUserByUserName(String username);
 }

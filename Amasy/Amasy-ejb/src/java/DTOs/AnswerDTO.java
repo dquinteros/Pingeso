@@ -16,13 +16,24 @@ import javax.ejb.LocalBean;
 public class AnswerDTO {
     private int idError;
 
+    /**
+     *
+     */
     public AnswerDTO() {
     }
     
+    /**
+     *
+     * @param idError
+     */
     public AnswerDTO(int idError){
         this.idError = idError;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isValid(){
         if(idError==0){
             return true;
@@ -31,10 +42,18 @@ public class AnswerDTO {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public int getIdError() {
         return idError;
     }
 
+    /**
+     *
+     * @param idError
+     */
     public void setIdError(int idError) {
         this.idError = idError;
     }               

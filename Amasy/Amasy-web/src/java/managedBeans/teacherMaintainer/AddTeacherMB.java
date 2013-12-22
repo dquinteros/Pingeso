@@ -9,6 +9,10 @@ import javax.enterprise.context.RequestScoped;
 import managedBeans.UtilitiesMB;
 import sessionBeans.teacherManagement.TeacherManagementSBLocal;
 
+/**
+ *
+ * @author Pingeso
+ */
 @Named(value = "addTeacherMB")
 @RequestScoped
 public class AddTeacherMB {
@@ -16,14 +20,23 @@ public class AddTeacherMB {
     private TeacherManagementSBLocal teacherManagementSB;
     private NewUserDTO newTeacher;
 
+    /**
+     *
+     */
     public AddTeacherMB() {
     }
     
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         newTeacher = new NewUserDTO();
     }
     
+    /**
+     *
+     */
     public void insertNewTeacher(){
         AnswerDTO r = new AnswerDTO();
         newTeacher.setRut(parseRut(newTeacher.getRut()));
@@ -51,6 +64,11 @@ public class AddTeacherMB {
     
     //http://www.qualityinfosolutions.com/validador-de-rut-chileno-en-java/
     
+    /**
+     *
+     * @param rut
+     * @return
+     */
     public static boolean validateRut(String rut) {
         boolean validacion = false;
         try {
@@ -71,10 +89,18 @@ public class AddTeacherMB {
         return validacion;
     }
 
+    /**
+     *
+     * @return
+     */
     public NewUserDTO getNewTeacher() {
         return newTeacher;
     }
 
+    /**
+     *
+     * @param newTeacher
+     */
     public void setNewTeacher(NewUserDTO newTeacher) {
         this.newTeacher = newTeacher;
     }

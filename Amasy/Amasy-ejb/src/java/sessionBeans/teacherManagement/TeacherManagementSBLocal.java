@@ -17,14 +17,39 @@ import javax.ejb.Local;
 @Local
 public interface TeacherManagementSBLocal {
 
+    /**
+     *
+     * @return
+     */
     LinkedList<UserDTO> getAllTeacher();
     
+    /**
+     *
+     * @param userDTO
+     * @return
+     */
     AnswerDTO insertNewTeacher(NewUserDTO userDTO);
     
+    /**
+     *
+     * @param userId
+     * @return
+     */
     NewUserDTO getTeacherById(long userId);
     
+    /**
+     *
+     * @param newTeacher
+     * @param studentId
+     * @return
+     */
     AnswerDTO updateTeacher(NewUserDTO newTeacher, Long studentId);
     
+    /**
+     *
+     * @param id
+     * @return
+     */
     AnswerDTO deleteTeacher(Long id);
     
 }

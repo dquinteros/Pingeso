@@ -21,6 +21,10 @@ public class UserManagementSB implements UserManagementSBLocal {
     @PersistenceContext(unitName = "Amasy-ejbPU")
     private EntityManager em;
 
+    /**
+     *
+     * @param object
+     */
     public void persist(Object object) {
         em.persist(object);
     }
@@ -28,6 +32,11 @@ public class UserManagementSB implements UserManagementSBLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     
+    /**
+     *
+     * @param rut
+     * @return
+     */
     @Override
     public UserDTO findUserByRut(int rut) {
         Query q = this.em.createNamedQuery("User.findByRut", User.class);
@@ -41,6 +50,11 @@ public class UserManagementSB implements UserManagementSBLocal {
         return res;
     }    
     
+    /**
+     *
+     * @param username
+     * @return
+     */
     @Override
     public UserDTO findUserByUserName(String username){        
         Query q = this.em.createNamedQuery("User.findByUserName", User.class);

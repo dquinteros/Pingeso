@@ -29,9 +29,15 @@ public class EditTeacherMB {
     private AnswerDTO r;
     private Long teacherId;
 
+    /**
+     *
+     */
     public EditTeacherMB() {
     }
     
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         System.out.println(teacherMaintainerConversation.getIdUser());
@@ -39,6 +45,9 @@ public class EditTeacherMB {
         newUserDTO=teacherManagementSB.getTeacherById(teacherId);
     }
     
+    /**
+     *
+     */
     public void editCurrentTeacher(){
         r = teacherManagementSB.updateTeacher(newUserDTO, teacherId);
         if(r.getIdError()==0){
@@ -48,10 +57,18 @@ public class EditTeacherMB {
         }        
     }
 
+    /**
+     *
+     * @return
+     */
     public NewUserDTO getNewUserDTO() {
         return newUserDTO;
     }
 
+    /**
+     *
+     * @param newUserDTO
+     */
     public void setNewUserDTO(NewUserDTO newUserDTO) {
         this.newUserDTO = newUserDTO;
     }

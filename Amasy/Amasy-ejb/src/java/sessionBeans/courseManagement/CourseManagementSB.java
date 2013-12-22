@@ -39,6 +39,10 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     @Resource
     UserTransaction ut;
     
+    /**
+     *
+     * @return
+     */
     @Override
     @SuppressWarnings("empty-statement")
     public LinkedList<CourseDTO> getAllCourse() {
@@ -63,10 +67,19 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         return exitResult;
     }
 
+    /**
+     *
+     * @param object
+     */
     public void persist(Object object) {
         em.persist(object);
     }
     
+    /**
+     *
+     * @param courseDTO
+     * @return
+     */
     @Override
     public AnswerDTO insertNewCourse(CourseDTO courseDTO) {
         AnswerDTO existCourseName = validateCourseRegistry(courseDTO);
@@ -97,6 +110,11 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         return course;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public boolean persistInsert(Object object) {
         try {

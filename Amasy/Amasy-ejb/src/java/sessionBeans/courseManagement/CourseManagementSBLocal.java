@@ -15,8 +15,17 @@ import javax.ejb.Local;
  */
 @Local
 public interface CourseManagementSBLocal {
-        public LinkedList<CourseDTO> getAllCourse();
-        public AnswerDTO insertNewCourse(CourseDTO userDTO);
+        /**
+     *
+     * @return
+     */
+    public LinkedList<CourseDTO> getAllCourse();
+        /**
+     *
+     * @param userDTO
+     * @return
+     */
+    public AnswerDTO insertNewCourse(CourseDTO userDTO);
         
     
 }

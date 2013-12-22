@@ -58,10 +58,19 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
     UserTransaction ut;
     private static final int PASSWORD_LENGTH = 10;
     
+    /**
+     *
+     * @param object
+     */
     public void persist(Object object) {
         em.persist(object);
     }
     
+    /**
+     *
+     * @param object
+     * @return
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public boolean persistInsert(Object object) {
         try {
@@ -80,6 +89,11 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         }
     }
     
+    /**
+     *
+     * @param object
+     * @return
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public boolean persistUpdate(Object object) {
         try {
@@ -98,6 +112,10 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     @SuppressWarnings("empty-statement")    
     public LinkedList<UserDTO> getAllTeacher() {        
@@ -122,6 +140,11 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         return exitResult;
     }
     
+    /**
+     *
+     * @param userDTO
+     * @return
+     */
     @Override
     public AnswerDTO insertNewTeacher(NewUserDTO userDTO) {
         AnswerDTO existEmailUserNameRut = validateTeacherRegistry(userDTO);
@@ -290,6 +313,11 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         return null;
     }
     
+    /**
+     *
+     * @param userId
+     * @return
+     */
     @Override
     public NewUserDTO getTeacherById(long userId){
         User user = em.find(User.class, userId);
@@ -297,6 +325,12 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         return newUser;
     }
     
+    /**
+     *
+     * @param newTeacher
+     * @param teacherId
+     * @return
+     */
     @Override
     public AnswerDTO updateTeacher(NewUserDTO newTeacher, Long teacherId){
         User user = em.find(User.class, teacherId);
@@ -314,6 +348,11 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         }       
     }
     
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public AnswerDTO deleteTeacher(Long id) {
         System.out.println(id);

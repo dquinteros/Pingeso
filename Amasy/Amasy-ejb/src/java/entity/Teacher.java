@@ -40,32 +40,60 @@ public class Teacher implements Serializable {
     @OneToMany
     private List<Course> listCourse;
 
+    /**
+     *
+     * @return
+     */
     public List<Course> getListCourse() {
         return listCourse;
     }
 
+    /**
+     *
+     * @param listCourse
+     */
     public void setListCourse(List<Course> listCourse) {
         this.listCourse = listCourse;
     }        
     
     
+    /**
+     *
+     * @return
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     *
+     * @param user
+     */
     public void setUser(User user) {
         this.user = user;
     }
     
     
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -73,6 +101,11 @@ public class Teacher implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -86,6 +119,10 @@ public class Teacher implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "entity.Teacher[ id=" + id + " ]";

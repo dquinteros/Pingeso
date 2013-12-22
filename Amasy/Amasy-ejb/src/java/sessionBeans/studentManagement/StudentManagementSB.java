@@ -53,10 +53,19 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     UserTransaction ut;
     private static final int PASSWORD_LENGTH = 10;
 
+    /**
+     *
+     * @param object
+     */
     public void persist(Object object) {
         em.persist(object);
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public boolean persistInsert(Object object) {
         try {
@@ -75,6 +84,11 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         }
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public boolean persistUpdate(Object object) {
         try {
@@ -93,6 +107,10 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     @SuppressWarnings("empty-statement")
     public LinkedList<UserDTO> getAllStudent() {
@@ -117,6 +135,12 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         return exitResult;
     }
 
+    /**
+     *
+     * @param userDTO
+     * @param enrollYear
+     * @return
+     */
     @Override
     public AnswerDTO insertNewStudent(NewUserDTO userDTO, Date enrollYear) {
         AnswerDTO existEmailUserNameRut = validateStudentRegistry(userDTO);
@@ -134,6 +158,12 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         return new AnswerDTO(0);
     }
 
+    /**
+     *
+     * @param newStudent
+     * @param studentId
+     * @return
+     */
     @Override
     public AnswerDTO updateStudent(NewUserDTO newStudent, Long studentId) {
         User user = em.find(User.class, studentId);
@@ -151,6 +181,11 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         }
     }
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     @Override
     public NewUserDTO getStudentById(long userId) {
         User user = em.find(User.class, userId);
@@ -257,6 +292,11 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         return password;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public AnswerDTO deleteStudent(Long id) {
         System.out.println(id);
@@ -275,6 +315,11 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         return new AnswerDTO(000);
     }
     
+    /**
+     *
+     * @param idUser
+     * @return
+     */
     @Override
     public ListCourseDTO getCoursesFromStudent(Long idUser) {
         Collection<Course> listCourse;
@@ -288,6 +333,12 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         return listCourseDTO;
     }
     
+    /**
+     *
+     * @param idUser
+     * @param idCourse
+     * @return
+     */
     @Override
     public AnswerDTO enrollStudentOnCourse(Long idUser, Long idCourse) {
         Collection<Course> listCourse;
@@ -329,10 +380,18 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         return ex;
     }
 
+    /**
+     *
+     * @return
+     */
     public EntityManager getEm() {
         return em;
     }
 
+    /**
+     *
+     * @param em
+     */
     public void setEm(EntityManager em) {
         this.em = em;
     }

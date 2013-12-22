@@ -34,6 +34,10 @@ public class LoginSessionMB extends UtilitiesMB implements Serializable{
     private UserManagementSBLocal userManagementSB;
     
    
+    /**
+     *
+     * @throws ServletException
+     */
     public void loginVerification() throws ServletException {
         System.out.println("init: "+startPage);
         FacesContext context = FacesContext.getCurrentInstance();
@@ -44,9 +48,18 @@ public class LoginSessionMB extends UtilitiesMB implements Serializable{
         }
     }        
     
+    /**
+     *
+     */
     public LoginSessionMB() {
     }
     
+    /**
+     *
+     * @param userName
+     * @param pass
+     * @return
+     */
     public AnswerDTO login(String userName, String pass){
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
@@ -78,6 +91,9 @@ public class LoginSessionMB extends UtilitiesMB implements Serializable{
         }
     }
     
+    /**
+     *
+     */
     public void logout() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.invalidateSession();
@@ -101,18 +117,34 @@ public class LoginSessionMB extends UtilitiesMB implements Serializable{
         LoginSessionMB.redirection(startPage);
     }
    
+    /**
+     *
+     * @return
+     */
     public String getStartPage() {
         return startPage;
     }
 
+    /**
+     *
+     * @param startPage
+     */
     public void setStartPage(String startPage) {
         this.startPage = startPage;
     }
 
+    /**
+     *
+     * @return
+     */
     public UserDTO getUser() {
         return user;
     }
 
+    /**
+     *
+     * @param user
+     */
     public void setUser(UserDTO user) {
         this.user = user;
     }

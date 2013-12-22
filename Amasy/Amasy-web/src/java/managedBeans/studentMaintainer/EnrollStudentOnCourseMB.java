@@ -16,6 +16,10 @@ import javax.inject.Inject;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
 import sessionBeans.studentManagement.StudentManagementSBLocal;
 
+/**
+ *
+ * @author Pingeso
+ */
 @Named(value = "enrollStudentOnCourseMB")
 @RequestScoped
 public class EnrollStudentOnCourseMB {
@@ -35,6 +39,9 @@ public class EnrollStudentOnCourseMB {
     private Course selectedCourseFromStudent;
     private LinkedList<Course> filteredListCourseFromStudent;
     
+    /**
+     *
+     */
     public EnrollStudentOnCourseMB() {
     }
 
@@ -54,42 +61,82 @@ public class EnrollStudentOnCourseMB {
         ////////////////////////////////////
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<Course> getListCourseFromStudent() {
         return listCourseFromStudent;
     }
 
+    /**
+     *
+     * @param listCourseFromStudent
+     */
     public void setListCourseFromStudent(LinkedList<Course> listCourseFromStudent) {
         this.listCourseFromStudent = listCourseFromStudent;
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<CourseDTO> getListCourse() {
         return listCourse;
     }
 
+    /**
+     *
+     * @param listCourse
+     */
     public void setListCourse(LinkedList<CourseDTO> listCourse) {
         this.listCourse = listCourse;
     }    
 
+    /**
+     *
+     * @return
+     */
     public String getSelectedCourse() {
         return selectedCourse;
     }
 
+    /**
+     *
+     * @param selectedCourse
+     */
     public void setSelectedCourse(String selectedCourse) {
         this.selectedCourse = selectedCourse;
     }        
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<Course> getFilteredListCourseFromStudent() {
         return filteredListCourseFromStudent;
     }
 
+    /**
+     *
+     * @param filteredListCourseFromStudent
+     */
     public void setFilteredListCourseFromStudent(LinkedList<Course> filteredListCourseFromStudent) {
         this.filteredListCourseFromStudent = filteredListCourseFromStudent;
     }
 
+    /**
+     *
+     * @return
+     */
     public Course getSelectedCourseFromStudent() {
         return selectedCourseFromStudent;
     }
 
+    /**
+     *
+     * @param selectedCourseFromStudent
+     */
     public void setSelectedCourseFromStudent(Course selectedCourseFromStudent) {
         this.selectedCourseFromStudent = selectedCourseFromStudent;
     }

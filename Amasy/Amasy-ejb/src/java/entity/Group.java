@@ -28,38 +28,74 @@ public class Group implements Serializable {
     @OneToMany
     private List<Course> listCourse;
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Student> getListStudent() {
         return listStudent;
     }
 
+    /**
+     *
+     * @param listStudent
+     */
     public void setListStudent(List<Student> listStudent) {
         this.listStudent = listStudent;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Course> getListCourse() {
         return listCourse;
     }
 
+    /**
+     *
+     * @param listCourse
+     */
     public void setListCourse(List<Course> listCourse) {
         this.listCourse = listCourse;
     }        
     
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -67,6 +103,11 @@ public class Group implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -80,6 +121,10 @@ public class Group implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "entity.group[ id=" + id + " ]";

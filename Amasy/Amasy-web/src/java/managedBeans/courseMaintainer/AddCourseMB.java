@@ -27,10 +27,18 @@ public class AddCourseMB {
   
     private CourseDTO newCourse; 
 
+    /**
+     *
+     * @return
+     */
     public CourseDTO getNewCourse() {
         return newCourse;
     }
 
+    /**
+     *
+     * @param newCourse
+     */
     public void setNewCourse(CourseDTO newCourse) {
         this.newCourse = newCourse;
     }
@@ -41,11 +49,17 @@ public class AddCourseMB {
     public AddCourseMB() {
     }
     
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         newCourse = new CourseDTO();
     }
     
+    /**
+     *
+     */
     public void insertNewCourse(){
         AnswerDTO r = new AnswerDTO();
         r = courseManagementSB.insertNewCourse(newCourse);

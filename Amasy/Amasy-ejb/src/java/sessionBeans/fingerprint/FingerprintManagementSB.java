@@ -38,6 +38,13 @@ public class FingerprintManagementSB {
         return f;
     }
 
+    /**
+     *
+     * @param wantedFingerprint
+     * @param fingerList
+     * @param idUser
+     * @return
+     */
     public static Long userIdentify(String wantedFingerprint, LinkedList<String> fingerList, LinkedList<Long> idUser) {
         Importer importer = UareUGlobal.GetImporter();
         Fmd wantedFmd;

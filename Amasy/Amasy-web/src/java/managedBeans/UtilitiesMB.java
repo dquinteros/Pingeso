@@ -26,6 +26,10 @@ public class UtilitiesMB {
     public UtilitiesMB() {
     }
 
+    /**
+     *
+     * @param url
+     */
     public static void redirection(String url) {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         try {
@@ -112,6 +116,10 @@ public class UtilitiesMB {
         }
     }
 
+    /**
+     *
+     * @param answer
+     */
     public static void showFeedback(AnswerDTO answer) {
         String message = getResponseServer(answer);
         String typeMessage = getTypeMessage(answer);
@@ -131,6 +139,11 @@ public class UtilitiesMB {
         }
     }
 
+    /**
+     *
+     * @param answer
+     * @param parteMensajeExtra
+     */
     public static void showFeedback(AnswerDTO answer, String parteMensajeExtra) {
         String message = getResponseServer(answer);
         String typeMessage = getTypeMessage(answer);

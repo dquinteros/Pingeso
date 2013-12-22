@@ -49,102 +49,202 @@ public class User implements Serializable {
     @ManyToOne
     private UserType userType;
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     *
+     * @param userName
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     *
+     * @param firstName
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     *
+     * @param lastName
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getHomePhone() {
         return homePhone;
     }
 
+    /**
+     *
+     * @param homePhone
+     */
     public void setHomePhone(String homePhone) {
         this.homePhone = homePhone;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCellPhone() {
         return cellPhone;
     }
 
+    /**
+     *
+     * @param cellPhone
+     */
     public void setCellPhone(String cellPhone) {
         this.cellPhone = cellPhone;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getRut() {
         return rut;
     }
 
+    /**
+     *
+     * @param rut
+     */
     public void setRut(int rut) {
         this.rut = rut;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isUserStatus() {
         return userStatus;
     }
 
+    /**
+     *
+     * @param userStatus
+     */
     public void setUserStatus(boolean userStatus) {
         this.userStatus = userStatus;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFingerPrint() {
         return fingerPrint;
     }
 
+    /**
+     *
+     * @param fingerPrint
+     */
     public void setFingerPrint(String fingerPrint) {
         this.fingerPrint = fingerPrint;
     }
 
+    /**
+     *
+     * @return
+     */
     public UserType getUserType() {
         return userType;
     }
 
+    /**
+     *
+     * @param userType
+     */
     public void setUserType(UserType userType) {
         this.userType = userType;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -152,6 +252,11 @@ public class User implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -165,6 +270,10 @@ public class User implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "entity.user[ id=" + id + " ]";

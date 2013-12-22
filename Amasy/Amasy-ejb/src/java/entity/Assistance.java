@@ -40,34 +40,66 @@ public class Assistance implements Serializable {
 
     
     
+    /**
+     *
+     * @return
+     */
     public Date getDate() {
         return date;
     }
 
+    /**
+     *
+     * @param date
+     */
     public void setDate(Date date) {
         this.date = date;
     }
 
+    /**
+     *
+     * @return
+     */
     public AssistanceState getState() {
         return state;
     }
 
+    /**
+     *
+     * @param state
+     */
     public void setState(AssistanceState state) {
         this.state = state;
     }
 
+    /**
+     *
+     * @return
+     */
     public Student getStudent() {
         return student;
     }
 
+    /**
+     *
+     * @param student
+     */
     public void setStudent(Student student) {
         this.student = student;
     }
 
+    /**
+     *
+     * @return
+     */
     public BlockClass getBlockClass() {
         return blockClass;
     }
 
+    /**
+     *
+     * @param blockClass
+     */
     public void setBlockClass(BlockClass blockClass) {
         this.blockClass = blockClass;
     }

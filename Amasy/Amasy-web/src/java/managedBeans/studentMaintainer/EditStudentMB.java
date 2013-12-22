@@ -10,6 +10,10 @@ import javax.inject.Inject;
 import managedBeans.UtilitiesMB;
 import sessionBeans.studentManagement.StudentManagementSBLocal;
 
+/**
+ *
+ * @author Pingeso
+ */
 @Named(value = "editStudentMB")
 @RequestScoped
 public class EditStudentMB {    
@@ -21,15 +25,24 @@ public class EditStudentMB {
     private AnswerDTO r;
     private Long studentId;
     
+    /**
+     *
+     */
     public EditStudentMB(){
     }
     
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         studentId = studentMaintainerConversation.getIdUser();
         newUserDTO=studentManagementSB.getStudentById(studentId);
     }
     
+    /**
+     *
+     */
     public void editCurrentStudent(){
         r = studentManagementSB.updateStudent(newUserDTO, studentId);
         if(r.getIdError()==0){
@@ -39,10 +52,18 @@ public class EditStudentMB {
         }        
     }
 
+    /**
+     *
+     * @return
+     */
     public NewUserDTO getNewUserDTO() {
         return newUserDTO;
     }
 
+    /**
+     *
+     * @param newUserDTO
+     */
     public void setNewUserDTO(NewUserDTO newUserDTO) {
         this.newUserDTO = newUserDTO;
     }

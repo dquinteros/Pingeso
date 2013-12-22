@@ -47,57 +47,109 @@ public class Student implements Serializable {
     @OneToOne
     private User user;
    
+    /**
+     *
+     * @return
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     *
+     * @param user
+     */
     public void setUser(User user) {
         this.user = user;
     }   
 
+    /**
+     *
+     * @return
+     */
     public List<Course> getListCourse() {
         return listCourse;
     }
 
+    /**
+     *
+     * @param listCourse
+     */
     public void setListCourse(List<Course> listCourse) {
         this.listCourse = listCourse;
     }
 
     
+    /**
+     *
+     * @return
+     */
     public Date getEnrollYear() {
         return enrollYear;
     }
 
+    /**
+     *
+     * @param enrollYear
+     */
     public void setEnrollYear(Date enrollYear) {
         this.enrollYear = enrollYear;
     }    
     
+    /**
+     *
+     * @return
+     */
     public Assistance getAssistance() {
         return assistance;
     }
 
+    /**
+     *
+     * @param assistance
+     */
     public void setAssistance(Assistance assistance) {
         this.assistance = assistance;
     }
 
      
     
+    /**
+     *
+     * @return
+     */
     public Date getIncomeYear() {
         return enrollYear;
     }
 
+    /**
+     *
+     * @param incomeYear
+     */
     public void setIncomeYear(Date incomeYear) {
         this.enrollYear = incomeYear;
     }        
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -105,6 +157,11 @@ public class Student implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -118,6 +175,10 @@ public class Student implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "entity.Student[ id=" + id + " ]";

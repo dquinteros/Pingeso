@@ -25,10 +25,17 @@ public class NewUserDTO {
     private String rut;
     private String userType;
     
+    /**
+     *
+     */
     public NewUserDTO(){
         
     }
     
+    /**
+     *
+     * @param user
+     */
     public NewUserDTO(User user){
         rut=String.valueOf(user.getRut());
         userName=user.getUserName();
@@ -40,74 +47,146 @@ public class NewUserDTO {
     }
     
 
+    /**
+     *
+     * @return
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     *
+     * @param userName
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     *
+     * @param firstName
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     *
+     * @param lastName
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getHomePhone() {
         return homePhone;
     }
 
+    /**
+     *
+     * @param homePhone
+     */
     public void setHomePhone(String homePhone) {
         this.homePhone = homePhone;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCellPhone() {
         return cellPhone;
     }
 
+    /**
+     *
+     * @param cellPhone
+     */
     public void setCellPhone(String cellPhone) {
         this.cellPhone = cellPhone;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFingerprint() {
         return fingerprint;
     }
 
+    /**
+     *
+     * @param fingerprint
+     */
     public void setFingerprint(String fingerprint) {
         this.fingerprint = fingerprint;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getRut() {
         return rut;
     }
 
+    /**
+     *
+     * @param rut
+     */
     public void setRut(String rut) {
         this.rut = rut;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUserType() {
         return userType;
     }
 
+    /**
+     *
+     * @param userType
+     */
     public void setUserType(String userType) {
         this.userType = userType;
     }    

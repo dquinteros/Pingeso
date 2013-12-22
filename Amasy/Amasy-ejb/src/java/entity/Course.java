@@ -45,56 +45,108 @@ public class Course implements Serializable {
 
 
     
+    /**
+     *
+     * @return
+     */
     public List<BlockClass> getListBlockClass() {
         return listBlockClass;
     }
 
+    /**
+     *
+     * @param listBlockClass
+     */
     public void setListBlockClass(List<BlockClass> listBlockClass) {
         this.listBlockClass = listBlockClass;
     }        
     
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
-     public List<Student> getListStudent() {
+     /**
+     *
+     * @return
+     */
+    public List<Student> getListStudent() {
          return listStudent;
      }
  
-     public void setListStudent(List<Student> listStudent) {
+     /**
+     *
+     * @param listStudent
+     */
+    public void setListStudent(List<Student> listStudent) {
          this.listStudent = listStudent;
      }
  
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     *
+     * @param level
+     */
     public void setLevel(int level) {
         this.level = level;
     }
 
 
+    /**
+     *
+     * @return
+     */
     public List<Teacher> getListTeacher() {
         return listTeacher;
     }
 
+    /**
+     *
+     * @param listTeacher
+     */
     public void setListTeacher(List<Teacher> listTeacher) {
         this.listTeacher = listTeacher;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -102,6 +154,11 @@ public class Course implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -115,6 +172,10 @@ public class Course implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "entity.Course[ id=" + id + " ]";

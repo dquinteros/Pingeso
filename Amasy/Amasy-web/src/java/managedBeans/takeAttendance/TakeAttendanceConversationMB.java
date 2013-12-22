@@ -29,43 +29,75 @@ public class TakeAttendanceConversationMB implements Serializable {
     private long idClass;
     private BlockClass blockClass;
 
+    /**
+     *
+     */
     public TakeAttendanceConversationMB() {
     }
 
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         this.idClass = -1;
     }
     
 
+    /**
+     *
+     */
     public void beginConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
         }
     }
 
+    /**
+     *
+     */
     public void endConversation() {
         if (!conversation.isTransient()) {
             conversation.end();
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Conversation getConversation() {
         return conversation;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getIdClass() {
         return idClass;
     }
 
+    /**
+     *
+     * @param idClass
+     */
     public void setIdClass(long idClass) {
         this.idClass = idClass;
     }
 
+    /**
+     *
+     * @return
+     */
     public BlockClass getBlockClass() {
         return blockClass;
     }
 
+    /**
+     *
+     * @param blockClass
+     */
     public void setBlockClass(BlockClass blockClass) {
         this.blockClass = blockClass;
     }

@@ -17,10 +17,27 @@ import javax.ejb.Local;
 @Local
 public interface TakeAttendanceSBLocal {
 
+    /**
+     *
+     * @param course
+     * @param blockClass
+     * @return
+     */
     public ArrayList<UserAssistantBlockClassDTO> listOfStudentsPerCourseList(long course, long blockClass);
 
+    /**
+     *
+     * @param course
+     * @return
+     */
     public BlockClass getIdBloackClassForTakeAttendance(Long course);
     
+    /**
+     *
+     * @param fingerprint
+     * @param blockClass
+     * @return
+     */
     public ResponseAssistanceDTO validateFingerprintBM(String fingerprint, BlockClass blockClass);
     
 }

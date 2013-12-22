@@ -23,29 +23,50 @@ public class StudentMaintainerConversationalMB implements Serializable {
     
     private Long idUser;
     
+    /**
+     *
+     */
     public StudentMaintainerConversationalMB() {
     }
     
+    /**
+     *
+     */
     public void beginConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
         }
     }
 
+    /**
+     *
+     */
     public void endConversation() {
         if (!conversation.isTransient()) {
             conversation.end();
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Conversation getConversation() {
         return conversation;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getIdUser() {
         return idUser;
     }
 
+    /**
+     *
+     * @param idUser
+     */
     public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }

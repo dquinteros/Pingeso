@@ -30,11 +30,17 @@ public class AddStudentMB {
     public AddStudentMB() {
     }
     
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         newStudent = new NewUserDTO();
     }
     
+    /**
+     *
+     */
     public void insertNewStudent(){
         AnswerDTO r = new AnswerDTO();
         newStudent.setRut(parseRut(newStudent.getRut()));
@@ -62,6 +68,11 @@ public class AddStudentMB {
     
     //http://www.qualityinfosolutions.com/validador-de-rut-chileno-en-java/
     
+    /**
+     *
+     * @param rut
+     * @return
+     */
     public static boolean validateRut(String rut) {
         boolean validacion = false;
         try {
@@ -82,10 +93,18 @@ public class AddStudentMB {
         return validacion;
     }
     
+    /**
+     *
+     * @return
+     */
     public NewUserDTO getNewStudent() {
         return newStudent;
     }
 
+    /**
+     *
+     * @param newStudent
+     */
     public void setNewStudent(NewUserDTO newStudent) {
         this.newStudent = newStudent;
     }

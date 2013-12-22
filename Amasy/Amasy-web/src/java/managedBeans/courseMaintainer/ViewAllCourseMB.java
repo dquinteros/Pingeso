@@ -38,30 +38,57 @@ public class ViewAllCourseMB {
         getCourse();
     }
     
+    /**
+     *
+     */
     public void getCourse(){        
         courseList = courseManagementSB.getAllCourse();
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<CourseDTO> getCourseList() {
         return courseList;
     }
 
+    /**
+     *
+     * @param courseList
+     */
     public void setCourseList(LinkedList<CourseDTO> courseList) {
         this.courseList = courseList;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<CourseDTO> getFilteredCourses() {
         return filteredCourses;
     }
 
+    /**
+     *
+     * @param filteredCourses
+     */
     public void setFilteredCourses(List<CourseDTO> filteredCourses) {
         this.filteredCourses = filteredCourses;
     }
 
+    /**
+     *
+     * @return
+     */
     public CourseDTO getSelectedCourse() {
         return selectedCourse;
     }
 
+    /**
+     *
+     * @param selectedCourse
+     */
     public void setSelectedCourse(CourseDTO selectedCourse) {
         this.selectedCourse = selectedCourse;
     }

@@ -22,28 +22,51 @@ public class CourseDTO {
     private String name;
     private int level;
 
+    /**
+     *
+     * @param course
+     */
     public CourseDTO(Course course) {
         
         this.name = course.getName();
         this.level = course.getLevel();
     }
     
+    /**
+     *
+     */
     public CourseDTO() {
     }
     
     
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     *
+     * @param level
+     */
     public void setLevel(int level) {
         this.level = level;
     }

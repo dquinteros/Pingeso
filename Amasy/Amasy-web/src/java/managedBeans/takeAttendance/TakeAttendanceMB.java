@@ -35,10 +35,16 @@ public class TakeAttendanceMB{
     @Inject 
     private TakeAttendanceConversationMB takeAttendanceConversation;
     
+    /**
+     *
+     */
     public TakeAttendanceMB() {
         
     }
     
+    /**
+     *
+     */
     @PostConstruct
     public void init() {      
         System.out.println(takeAttendanceConversation.getIdClass());
@@ -56,6 +62,10 @@ public class TakeAttendanceMB{
         }        
     }
     
+    /**
+     *
+     * @param actionEvent
+     */
     public void sendFingerprint(ActionEvent actionEvent) {        
         ResponseAssistanceDTO responseAssistance = TakeAttendanceSB.validateFingerprintBM(fingerprint, blockClass);
         String message="";
@@ -80,42 +90,82 @@ public class TakeAttendanceMB{
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public TakeAttendanceSBLocal getTakeAttendanceSB() {
         return TakeAttendanceSB;
     }
 
+    /**
+     *
+     * @param TakeAttendanceSB
+     */
     public void setTakeAttendanceSB(TakeAttendanceSBLocal TakeAttendanceSB) {
         this.TakeAttendanceSB = TakeAttendanceSB;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<UserAssistantBlockClassDTO> getListStudents() {
         return listStudents;
     }
 
+    /**
+     *
+     * @param listStudents
+     */
     public void setListStudents(ArrayList<UserAssistantBlockClassDTO> listStudents) {
         this.listStudents = listStudents;
     }
 
+    /**
+     *
+     * @return
+     */
     public BlockClass getBlockClass() {
         return blockClass;
     }
 
+    /**
+     *
+     * @param blockClass
+     */
     public void setBlockClass(BlockClass blockClass) {
         this.blockClass = blockClass;
     }
 
+    /**
+     *
+     * @return
+     */
     public TakeAttendanceConversationMB getTakeAttendanceConversation() {
         return takeAttendanceConversation;
     }
 
+    /**
+     *
+     * @param takeAttendanceConversation
+     */
     public void setTakeAttendanceConversation(TakeAttendanceConversationMB takeAttendanceConversation) {
         this.takeAttendanceConversation = takeAttendanceConversation;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFingerprint() {
         return fingerprint;
     }
 
+    /**
+     *
+     * @param fingerprint
+     */
     public void setFingerprint(String fingerprint) {
         this.fingerprint = fingerprint;
     }

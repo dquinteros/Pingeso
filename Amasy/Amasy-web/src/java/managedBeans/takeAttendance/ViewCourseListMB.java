@@ -34,32 +34,58 @@ public class ViewCourseListMB{
     private LoginSessionMB session;
     private ArrayList<Course> listCourse;
     
+    /**
+     *
+     */
     public ViewCourseListMB() {
     }
     
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         this.listCourse = CoursesDataSB.teacherCourses(session.getUser().getId());          
     }
 
+    /**
+     *
+     * @param idCourse
+     */
     public void courseRedirect(long idCourse){   
         this.takeAttendanceConversation.beginConversation();
         this.takeAttendanceConversation.setIdClass(idCourse);
         UtilitiesMB.redirection("/faces/teacher/takeAttendance/takeAttendance.xhtml?cid=".concat(this.takeAttendanceConversation.getConversation().getId().toString()));
     }
     
+    /**
+     *
+     * @return
+     */
     public CoursesDataSBLocal getCoursesDataSB() {
         return CoursesDataSB;
     }
 
+    /**
+     *
+     * @param CoursesDataSB
+     */
     public void setCoursesDataSB(CoursesDataSBLocal CoursesDataSB) {
         this.CoursesDataSB = CoursesDataSB;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Course> getListCourse() {
         return listCourse;
     }
 
+    /**
+     *
+     * @param listCourse
+     */
     public void setListCourse(ArrayList<Course> listCourse) {
         this.listCourse = listCourse;
     }

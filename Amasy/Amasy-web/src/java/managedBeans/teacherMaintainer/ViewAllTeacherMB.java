@@ -12,6 +12,10 @@ import javax.inject.Inject;
 import managedBeans.UtilitiesMB;
 import sessionBeans.teacherManagement.TeacherManagementSBLocal;
 
+/**
+ *
+ * @author Pingeso
+ */
 @Named(value = "viewAllTeacherMB")
 @RequestScoped
 public class ViewAllTeacherMB {
@@ -26,6 +30,9 @@ public class ViewAllTeacherMB {
     private UserDTO selectedTeacher;
     private List<UserDTO> filteredTeachers;
     
+    /**
+     *
+     */
     public ViewAllTeacherMB() {
     }
     
@@ -34,10 +41,17 @@ public class ViewAllTeacherMB {
         getTeacher();
     }
     
+    /**
+     *
+     */
     public void getTeacher(){       
         userList = teacherManagementSB.getAllTeacher();
     }
     
+    /**
+     *
+     * @param idUser
+     */
     public void editTeacher(Long idUser){
         System.out.println(idUser);
         this.teacherMaintainerConversation.beginConversation();
@@ -45,32 +59,60 @@ public class ViewAllTeacherMB {
         UtilitiesMB.redirection("/faces/admin/teacherMaintainer/editTeacher.xhtml?cid=".concat(this.teacherMaintainerConversation.getConversation().getId().toString()));
     }
     
+    /**
+     *
+     * @param idUser
+     */
     public void deleteTeacher(Long idUser){
         System.out.println(idUser);
         AnswerDTO ans = teacherManagementSB.deleteTeacher(idUser);
         UtilitiesMB.showFeedback(ans);
    }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<UserDTO> getUserList() {
         return userList;
     }
 
+    /**
+     *
+     * @param userList
+     */
     public void setUserList(LinkedList<UserDTO> userList) {
         this.userList = userList;
     }
 
+    /**
+     *
+     * @return
+     */
     public UserDTO getSelectedTeacher() {
         return selectedTeacher;
     }
 
+    /**
+     *
+     * @param selectedTeacher
+     */
     public void setSelectedTeacher(UserDTO selectedTeacher) {
         this.selectedTeacher = selectedTeacher;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<UserDTO> getFilteredTeachers() {
         return filteredTeachers;
     }
 
+    /**
+     *
+     * @param filteredTeachers
+     */
     public void setFilteredTeachers(List<UserDTO> filteredTeachers) {
         this.filteredTeachers = filteredTeachers;
     }

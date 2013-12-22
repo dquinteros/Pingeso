@@ -45,42 +45,77 @@ public class ViewAllStudentMB {
         getStudent();
     }
     
+    /**
+     *
+     */
     public void getStudent(){        
         userList = studentManagementSB.getAllStudent();
     }
 
+    /**
+     *
+     * @param idUser
+     */
     public void editStudent(Long idUser){
         this.studentMaintainerConversation.beginConversation();
         this.studentMaintainerConversation.setIdUser(idUser);
         UtilitiesMB.redirection("/faces/admin/studentMaintainer/editStudent.xhtml?cid=".concat(this.studentMaintainerConversation.getConversation().getId().toString()));
     }
     
+    /**
+     *
+     * @param idUser
+     */
     public void deleteStudent(Long idUser){
         System.out.println(idUser);
         AnswerDTO ans = studentManagementSB.deleteStudent(idUser);
         UtilitiesMB.showFeedback(ans);
    }
     
+    /**
+     *
+     * @return
+     */
     public LinkedList<UserDTO> getUserList() {
         return userList;
     }
 
+    /**
+     *
+     * @param userList
+     */
     public void setUserList(LinkedList<UserDTO> userList) {
         this.userList = userList;
     }
 
+    /**
+     *
+     * @return
+     */
     public UserDTO getSelectedStudent() {
         return selectedStudent;
     }
 
+    /**
+     *
+     * @param selectedStudent
+     */
     public void setSelectedStudent(UserDTO selectedStudent) {
         this.selectedStudent = selectedStudent;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<UserDTO> getFilteredStudents() {
         return filteredStudents;
     }
 
+    /**
+     *
+     * @param filteredStudents
+     */
     public void setFilteredStudents(List<UserDTO> filteredStudents) {
         this.filteredStudents = filteredStudents;
     }    

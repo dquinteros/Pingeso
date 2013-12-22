@@ -27,19 +27,32 @@ public class LoginMB {
     private String userName;
     private String password;
     
+    /**
+     *
+     */
     public LoginMB() {
     }
     
+    /**
+     *
+     * @throws ServletException
+     */
     @PostConstruct
     public void init() throws ServletException {
         varSession.loginVerification();        
     }   
 
+    /**
+     *
+     */
     public void login(){
         AnswerDTO res = varSession.login(userName, password);
         UtilitiesMB.showFeedback(res);
     }
    
+    /**
+     *
+     */
     public void logout(){
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.invalidateSession();
@@ -47,18 +60,34 @@ public class LoginMB {
         varSession.setUser(null);
     }
     
+    /**
+     *
+     * @return
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     *
+     * @param userName
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }

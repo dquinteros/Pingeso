@@ -49,10 +49,19 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
     @Resource
     UserTransaction ut;
 
+    /**
+     *
+     * @param object
+     */
     public void persist(Object object) {
         em.persist(object);
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public boolean persistInsert(Object object){
          try {
@@ -72,6 +81,12 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
          }
      }
 
+    /**
+     *
+     * @param course
+     * @param blockClass
+     * @return
+     */
     @Override
     public ArrayList<UserAssistantBlockClassDTO> listOfStudentsPerCourseList(long course, long blockClass) {
         Collection<Student> res = em.find(Course.class, course).getListStudent();
@@ -104,6 +119,11 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
         return listTakeAttendanceDataUser;
     }
 
+    /**
+     *
+     * @param course
+     * @return
+     */
     @Override
     public BlockClass getIdBloackClassForTakeAttendance(Long course) {
         Date date = new Date();
@@ -119,6 +139,12 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
         return null;
     }
 
+    /**
+     *
+     * @param fingerprint
+     * @param blockClass
+     * @return
+     */
     @Override
     public ResponseAssistanceDTO validateFingerprintBM(String fingerprint, BlockClass blockClass){
         LinkedList<User> listUser = findUserByBlockClass(blockClass.getId());

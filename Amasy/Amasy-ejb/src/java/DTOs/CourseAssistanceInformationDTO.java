@@ -20,6 +20,9 @@ public class CourseAssistanceInformationDTO {
     private User user;
     //private ArrayList<boolean> listAssistance;    
     
+    /**
+     *
+     */
     @Schedule(minute = "*", second = "0", dayOfMonth = "*", month = "*", year = "*", hour = "9-17", dayOfWeek = "Mon-Fri")
     public void myTimer() {
         System.out.println("Timer event: " + new Date());

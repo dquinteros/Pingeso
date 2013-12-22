@@ -23,6 +23,10 @@ public class CoursesDataSB implements CoursesDataSBLocal {
     @PersistenceContext(unitName = "Amasy-ejbPU")
     private EntityManager em;
 
+    /**
+     *
+     * @param object
+     */
     public void persist(Object object) {
         em.persist(object);
     }
@@ -30,6 +34,11 @@ public class CoursesDataSB implements CoursesDataSBLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
+    /**
+     *
+     * @param profesorActual
+     * @return
+     */
     @Override
     public ArrayList<Course> teacherCourses(long profesorActual) {        
         Collection<Course> res = em.find(Teacher.class, profesorActual).getListCourse();        
