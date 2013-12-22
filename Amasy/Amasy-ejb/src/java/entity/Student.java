@@ -18,17 +18,22 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
- *
+ * 
  * @author Pingeso
  */
 @NamedQueries( {
     @NamedQuery(name ="Student.findByIdUser", query = "SELECT a FROM Student a WHERE a.user.id = :idUser AND a.user.userStatus = true"),
-    @NamedQuery(name="Student.getAllStudentUserInfo", query="SELECT u.user FROM Student u WHERE u.user.userStatus = true")   
+    @NamedQuery(name="Student.getAllStudentUserInfo", query="SELECT u.user FROM Student u WHERE u.user.userStatus = true"),
+    @NamedQuery(name="Student.getListCourseFromUser", query="SELECT s.listCourse FROM Student s WHERE s.user.id = :idUser")
+    
 })
 @Entity
 public class Student implements Serializable {
     @ManyToMany(mappedBy = "listStudent")
     private List<Course> listCourse;
+
+
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +47,14 @@ public class Student implements Serializable {
     @OneToOne
     private User user;
    
-    
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }   
+
     public List<Course> getListCourse() {
         return listCourse;
     }
@@ -51,14 +63,15 @@ public class Student implements Serializable {
         this.listCourse = listCourse;
     }
 
-    public User getUser() {
-        return user;
+    
+    public Date getEnrollYear() {
+        return enrollYear;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
+    public void setEnrollYear(Date enrollYear) {
+        this.enrollYear = enrollYear;
+    }    
+    
     public Assistance getAssistance() {
         return assistance;
     }
