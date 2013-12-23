@@ -84,7 +84,11 @@ public class UtilitiesMB {
             case 122:
                 return "Error al intentar iniciar sesión. Inténtelo nuevamente.";
             case 123:
-                return "Nombre de usuario o contraseña incorrecto.";           
+                return "Nombre de usuario o contraseña incorrecto."; 
+            case 124:
+                return "El usuario ha sido deshabilitado del sistema.";
+            case 125:
+                return "Nombre de curso ya registrado."; 
             default:
                 return "Error";
         }

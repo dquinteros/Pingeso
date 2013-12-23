@@ -4,19 +4,28 @@
  */
 package sessionBeans.courseManagement;
 
+import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
-import DTOs.UserDTO;
 import entity.Course;
-import entity.User;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
+import sessionBeans.TakeAttendanceSB;
 
 /**
  *
@@ -56,5 +65,65 @@ public class CourseManagementSB implements CourseManagementSBLocal {
 
     public void persist(Object object) {
         em.persist(object);
+    }
+    
+    @Override
+    public AnswerDTO insertNewCourse(CourseDTO courseDTO) {
+        AnswerDTO existCourseName = validateCourseRegistry(courseDTO);
+        if(existCourseName.getIdError()!=0){
+            return existCourseName;
+        }
+        Course course = newCourse(courseDTO);
+        persistInsert(course);
+        return new AnswerDTO(0);
+    }
+
+    private AnswerDTO validateCourseRegistry(CourseDTO courseDTO) {
+        if (courseDTO == null) {
+            return new AnswerDTO(109);
+        }
+        boolean existName = existName(courseDTO.getName());
+         if (existName) {
+            return new AnswerDTO(125);
+        } else{
+            return new AnswerDTO(000);
+        }
+    }
+
+    private Course newCourse(CourseDTO courseDTO) {
+        Course course = new Course();
+        course.setName(courseDTO.getName());
+        course.setLevel(courseDTO.getLevel());
+        return course;
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public boolean persistInsert(Object object) {
+        try {
+            ut.begin(); // Start a new transaction
+            try {
+                em.persist(object);
+                ut.commit(); // Commit the transaction
+                return true;
+            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
+                ut.rollback(); // Rollback the transaction
+                return false;
+            }
+        } catch (NotSupportedException | SystemException ex) {
+            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
+            return false;
+        }
+    }
+
+    private boolean existName(String name) {
+        Long count;
+        Query q = em.createNamedQuery("Course.countCourseByName", Course.class);
+        q.setParameter("name", name);
+        count = (Long) q.getSingleResult();
+        if (count == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

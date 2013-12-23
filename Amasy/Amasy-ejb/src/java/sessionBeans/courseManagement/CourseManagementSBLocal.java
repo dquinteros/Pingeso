@@ -4,6 +4,7 @@
  */
 package sessionBeans.courseManagement;
 
+import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
 import java.util.LinkedList;
 import javax.ejb.Local;
@@ -15,6 +16,7 @@ import javax.ejb.Local;
 @Local
 public interface CourseManagementSBLocal {
         public LinkedList<CourseDTO> getAllCourse();
+        public AnswerDTO insertNewCourse(CourseDTO userDTO);
         
     
 }
