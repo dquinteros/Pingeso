@@ -6,7 +6,9 @@ package sessionBeans.courseManagement;
 
 import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
+import DTOs.ListCourseDTO;
 import entity.Course;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -71,12 +73,14 @@ public class CourseManagementSB implements CourseManagementSBLocal {
      */
     @Override
     @SuppressWarnings("empty-statement")
-    public LinkedList<CourseDTO> getAllCourse() {
+    public ListCourseDTO getAllCourse() {
         Collection<Course> result;
-        LinkedList<CourseDTO> exitResult = new LinkedList<CourseDTO>();
+        ListCourseDTO exitResult = new ListCourseDTO();
         Query q = this.em.createNamedQuery("Course.getAllCourses");
         try {
+            System.out.println("(CourseManagementSB) Vamos a pedir los cursos...");
             result = (Collection<Course>) q.getResultList();
+            System.out.println("(CourseManagementSB) Cursos listos! Vamos a entregarlos...");
             return sqlResultToCourseList(result, exitResult);
         } catch (NoResultException nre) {
             System.out.println(nre);
@@ -84,12 +88,20 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         }
     }
 
-    private LinkedList<CourseDTO> sqlResultToCourseList(Collection<Course> result, LinkedList<CourseDTO> exitResult) {
+    private ListCourseDTO sqlResultToCourseList(Collection<Course> result, ListCourseDTO exitResult) {
         CourseDTO courseDTOTemp;
+        Collection<CourseDTO> listCourseTemp = new ArrayList<>();
         for (Course iter : result) {
-            courseDTOTemp = new CourseDTO(iter);            
-            exitResult.add(courseDTOTemp);
+            System.out.println("(CourseManagementSB) CourseDTO auxiliar...");
+            courseDTOTemp = new CourseDTO(iter);
+            System.out.println("(CourseManagementSB) Agreguems el auxiliar a la lista de cursos...");
+            listCourseTemp.add(courseDTOTemp);
         }
+        System.out.println("(CourseManagementSB) Agreguemos la lista al ListCourseDTO...");
+        exitResult.setListCourse(listCourseTemp);
+        System.out.println("(CourseManagementSB) Agreguemos el mensaje de éxito...");
+        exitResult.setAnswerDTO(new AnswerDTO(0));
+        System.out.println("(CourseManagementSB) Entreguemos la lista...");
         return exitResult;
     }
 

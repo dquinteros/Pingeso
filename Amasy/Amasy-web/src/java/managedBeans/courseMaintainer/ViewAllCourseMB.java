@@ -5,6 +5,7 @@
 package managedBeans.courseMaintainer;
 
 import DTOs.CourseDTO;
+import DTOs.ListCourseDTO;
 import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -25,7 +26,8 @@ public class ViewAllCourseMB {
     private CourseDTO selectedCourse;
     private List<CourseDTO> filteredCourses;
     
-    private LinkedList<CourseDTO> courseList;
+    private ListCourseDTO courseListDTO;
+    private LinkedList<CourseDTO> courseList; //Depreciated
 
     /**
      * Creates a new instance of ViewAllCourseMB
@@ -42,23 +44,8 @@ public class ViewAllCourseMB {
      *
      */
     public void getCourse(){        
-        courseList = courseManagementSB.getAllCourse();
-    }
-
-    /**
-     *
-     * @return
-     */
-    public LinkedList<CourseDTO> getCourseList() {
-        return courseList;
-    }
-
-    /**
-     *
-     * @param courseList
-     */
-    public void setCourseList(LinkedList<CourseDTO> courseList) {
-        this.courseList = courseList;
+        courseListDTO = courseManagementSB.getAllCourse();
+        courseList = new LinkedList<>(courseListDTO.getListCourse());
     }
 
     /**
@@ -92,5 +79,14 @@ public class ViewAllCourseMB {
     public void setSelectedCourse(CourseDTO selectedCourse) {
         this.selectedCourse = selectedCourse;
     }
+
+    public LinkedList<CourseDTO> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(LinkedList<CourseDTO> courseList) {
+        this.courseList = courseList;
+    }
+    
     
 }
