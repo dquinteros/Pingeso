@@ -4,36 +4,77 @@
                 template="./../../admin/index.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:define name="content">
-         <h:form id="form">  
-             <p:dataTable  var="course" value="#{enrollStudentOnCourseMB.listCourseFromStudent}" rowKey="#{course.id}" paginator="true" rows="10"  
-                           filteredValue="#{enrollStudentOnCourseMB.filteredListCourseFromStudent}" id="courseStudent" selection="#{enrollStudentOnCourseMB.selectedCourseFromStudent}" selectionMode="single">
-                <p:growl for="growl" life="3000"/>
-                <!--<p:ajax event="rowSelect" update=":form:display" oncomplete="studentDialog.show()" />  -->
-                <f:facet name="header">  
-                    Lista de cursos del estudiante
-                </f:facet>  
-                <p:column headerText="Curso" sortBy="name" filterBy="name" id="name">  
-                    #{course.name}
-                </p:column>                       
-            </p:dataTable>
-             
-             
-            <p:dialog header="Datos del curso" widgetVar="studentDialog" resizable="false"  
-                      showEffect="explode" hideEffect="explode" styleClass="headerDialog">  
-                <h:panelGrid id="display" columns="2" cellpadding="4">  
+        <h:outputStylesheet library="css" name="enrolleStudentOnCourse.css" />
+        <h3>Información estudiante</h3>
+        <h:form id="form">
+            <p:growl for="growl" life="3000"/>
+            <h:panelGrid id="grid" columns="4" cellpadding="10" cellspacing="10">                
+                <h:outputText value="Nombre: #{enrollStudentOnCourseMB.newUserDTO.firstName} #{enrollStudentOnCourseMB.newUserDTO.lastName}" />  
+                <h:outputText value="Rut: #{enrollStudentOnCourseMB.newUserDTO.rut}" />  
+                <h:outputText value="Nombre de usuario: #{enrollStudentOnCourseMB.newUserDTO.userName}" />  
+                <h:outputText value="Correo electronico: #{enrollStudentOnCourseMB.newUserDTO.email}" />  
+            </h:panelGrid>            
+        </h:form>                 
+        <div id="div-enroll-content-left">
+            <h:form id="form1">  
+                <p:dataTable  var="course" value="#{enrollStudentOnCourseMB.listCourseFromAll}" rowKey="#{course.name}" paginator="true" rows="10"  
+                              filteredValue="#{enrollStudentOnCourseMB.filteredListCourseFromAll}" id="courseAll" selection="#{enrollStudentOnCourseMB.selectedCourseFromAll}" 
+                              selectionMode="single" emptyMessage="No hay cursos disponibles">
+                    <p:growl for="growl" life="3000"/>
+                    <p:ajax event="rowSelect" update=":form1:display" oncomplete="courseFromAllStudentDialog.show()" />
                     <f:facet name="header">  
-                        <p:outputLabel value=""/>  
+                        Cursos disponibles
                     </f:facet>  
-                    <h:outputText value="Nombre:" />  
-                    <h:outputText value="#{enrollStudentOnCourseMB.selectedCourseFromStudent.name}" id="name"/> 
-                </h:panelGrid>  
-            </p:dialog>
-        </h:form> 
-        
-        
+                    <p:column headerText="Curso" sortBy="name" filterBy="name" id="name1">  
+                        #{course.name}
+                    </p:column>
+                    <p:column headerText="Asignar curso" id="action" style="width: 30%">
+                    </p:column>
+                </p:dataTable>
+                <p:dialog header="Datos del curso" widgetVar="courseFromAllStudentDialog" resizable="false"  
+                          showEffect="explode" hideEffect="explode" styleClass="headerDialog">  
+                    <h:panelGrid id="display" columns="2" cellpadding="4">  
+                        <f:facet name="header">  
+                            <p:outputLabel value=""/>  
+                        </f:facet>  
+                        <h:outputText value="Nombre:" />  
+                        <h:outputText value="#{enrollStudentOnCourseMB.selectedCourseFromAll.name}" id="name1"/> 
+                    </h:panelGrid>  
+                </p:dialog>
+            </h:form>
+        </div>
+        <div id="div-enroll-content-right">
+            <h:form id="form2">  
+                <p:dataTable  var="course" value="#{enrollStudentOnCourseMB.listCourseFromStudent}" rowKey="#{course.name}" paginator="true" rows="10"  
+                              filteredValue="#{enrollStudentOnCourseMB.filteredListCourseFromStudent}" id="courseStudent" selection="#{enrollStudentOnCourseMB.selectedCourseFromStudent}" 
+                              selectionMode="single" emptyMessage="No hay cursos disponibles">
+                    <p:growl for="growl" life="3000"/>
+                    <p:ajax event="rowSelect" update=":form2:display" oncomplete="courseFromStudentDialog.show()" />
+                    <f:facet name="header">  
+                        Cursos del estudiante
+                    </f:facet>  
+                    <p:column headerText="Curso" sortBy="name" filterBy="name" id="name2">  
+                        #{course.name}
+                    </p:column>                       
+                </p:dataTable>
+
+                <p:dialog header="Datos del curso" widgetVar="courseFromStudentDialog" resizable="false"  
+                          showEffect="explode" hideEffect="explode" styleClass="headerDialog">  
+                    <h:panelGrid id="display" columns="2" cellpadding="4">  
+                        <f:facet name="header">  
+                            <p:outputLabel value=""/>  
+                        </f:facet>  
+                        <h:outputText value="Nombre:" />  
+                        <h:outputText value="#{enrollStudentOnCourseMB.selectedCourseFromStudent.name}" id="name2"/> 
+                    </h:panelGrid>  
+                </p:dialog>
+            </h:form> 
+
+        </div>      
     </ui:define>
 
 

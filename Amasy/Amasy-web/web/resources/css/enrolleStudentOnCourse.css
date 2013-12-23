@@ -1,0 +1,6 @@
+#div-enroll-content-left, #div-enroll-content-right{
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+}
+

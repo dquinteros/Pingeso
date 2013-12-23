@@ -7,6 +7,7 @@ package sessionBeans.studentManagement;
 import DTOs.NewUserDTO;
 import DTOs.UserDTO;
 import DTOs.AnswerDTO;
+import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
 import entity.Course;
 import entity.Student;
@@ -325,11 +326,17 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         Collection<Course> listCourse;
         ListCourseDTO listCourseDTO;
         
+        Collection<CourseDTO> collectionCourseDTO = new ArrayList<>();
+        
         Query q = em.createNamedQuery("Student.getListCourseFromUser", Student.class);
         q.setParameter("idUser", idUser);
         listCourse = (Collection<Course>) q.getResultList();
         
-        listCourseDTO = new ListCourseDTO(listCourse, new AnswerDTO(0));
+        for(Course it: listCourse){
+            collectionCourseDTO.add(new CourseDTO(it));
+        }
+                
+        listCourseDTO = new ListCourseDTO(collectionCourseDTO, new AnswerDTO(0));
         return listCourseDTO;
     }
     

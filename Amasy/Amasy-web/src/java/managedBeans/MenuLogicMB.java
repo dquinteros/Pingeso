@@ -65,6 +65,8 @@ public class MenuLogicMB {
                 return "";
             case "/admin/studentMaintainer/editStudent.xhtml":
                 return "";
+            case "/admin/studentMaintainer/enrollStudentOnCourse.xhtml":
+                return "";
             default:
                 return "hidden";
         }

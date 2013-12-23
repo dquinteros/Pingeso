@@ -6,8 +6,10 @@ package managedBeans.studentMaintainer;
 
 import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
+import DTOs.NewUserDTO;
 import entity.Course;
 import java.util.LinkedList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -23,22 +25,25 @@ import sessionBeans.studentManagement.StudentManagementSBLocal;
 @Named(value = "enrollStudentOnCourseMB")
 @RequestScoped
 public class EnrollStudentOnCourseMB {
-    @EJB
-    private CourseManagementSBLocal courseManagementSB;
 
     @EJB
+    private CourseManagementSBLocal courseManagementSB;
+    @EJB
     private StudentManagementSBLocal studentManagementSB;
-    
     @Inject
     private StudentMaintainerConversationalMB studentMaintainerConversation;
-    private LinkedList<Course> listCourseFromStudent;
     private Long userId;
-    private LinkedList<CourseDTO> listCourse;
     private String selectedCourse;
-    
-    private Course selectedCourseFromStudent;
-    private LinkedList<Course> filteredListCourseFromStudent;
-    
+    ///
+    private LinkedList<CourseDTO> listCourseFromStudent;
+    private CourseDTO selectedCourseFromStudent;
+    private List<Course> filteredListCourseFromStudent;
+    ///
+    private LinkedList<CourseDTO> listCourseFromAll;
+    private CourseDTO selectedCourseFromAll;
+    private List<Course> filteredListCourseFromAll;
+    private NewUserDTO newUserDTO;
+
     /**
      *
      */
@@ -50,48 +55,25 @@ public class EnrollStudentOnCourseMB {
         userId = studentMaintainerConversation.getIdUser();
         getAllCourseFromStudent();
     }
-    
-    private void getAllCourseFromStudent(){
-        ListCourseDTO listCourseDTO = studentManagementSB.getCoursesFromStudent(userId); 
+
+    private void getAllCourseFromStudent() {
+        ListCourseDTO listCourseDTO = studentManagementSB.getCoursesFromStudent(userId);
         listCourseFromStudent = new LinkedList<>(listCourseDTO.getListCourse());
 
         //listCourseDTO = courseManagementSB.getAllCourse();
-        listCourse  = courseManagementSB.getAllCourse();
-        
-        ////////////////////////////////////
+        listCourseFromAll = courseManagementSB.getAllCourse();
+
+        newUserDTO = studentManagementSB.getStudentById(userId);
+
     }
 
-    /**
-     *
-     * @return
-     */
-    public LinkedList<Course> getListCourseFromStudent() {
+    public LinkedList<CourseDTO> getListCourseFromStudent() {
         return listCourseFromStudent;
     }
 
-    /**
-     *
-     * @param listCourseFromStudent
-     */
-    public void setListCourseFromStudent(LinkedList<Course> listCourseFromStudent) {
+    public void setListCourseFromStudent(LinkedList<CourseDTO> listCourseFromStudent) {
         this.listCourseFromStudent = listCourseFromStudent;
     }
-
-    /**
-     *
-     * @return
-     */
-    public LinkedList<CourseDTO> getListCourse() {
-        return listCourse;
-    }
-
-    /**
-     *
-     * @param listCourse
-     */
-    public void setListCourse(LinkedList<CourseDTO> listCourse) {
-        this.listCourse = listCourse;
-    }    
 
     /**
      *
@@ -107,40 +89,53 @@ public class EnrollStudentOnCourseMB {
      */
     public void setSelectedCourse(String selectedCourse) {
         this.selectedCourse = selectedCourse;
-    }        
+    }
 
-    /**
-     *
-     * @return
-     */
-    public LinkedList<Course> getFilteredListCourseFromStudent() {
+    public List<Course> getFilteredListCourseFromStudent() {
         return filteredListCourseFromStudent;
     }
 
-    /**
-     *
-     * @param filteredListCourseFromStudent
-     */
-    public void setFilteredListCourseFromStudent(LinkedList<Course> filteredListCourseFromStudent) {
+    public void setFilteredListCourseFromStudent(List<Course> filteredListCourseFromStudent) {
         this.filteredListCourseFromStudent = filteredListCourseFromStudent;
     }
 
-    /**
-     *
-     * @return
-     */
-    public Course getSelectedCourseFromStudent() {
+    public LinkedList<CourseDTO> getListCourseFromAll() {
+        return listCourseFromAll;
+    }
+
+    public void setListCourseFromAll(LinkedList<CourseDTO> listCourseFromAll) {
+        this.listCourseFromAll = listCourseFromAll;
+    }
+
+    public CourseDTO getSelectedCourseFromStudent() {
         return selectedCourseFromStudent;
     }
 
-    /**
-     *
-     * @param selectedCourseFromStudent
-     */
-    public void setSelectedCourseFromStudent(Course selectedCourseFromStudent) {
+    public void setSelectedCourseFromStudent(CourseDTO selectedCourseFromStudent) {
         this.selectedCourseFromStudent = selectedCourseFromStudent;
     }
-    
-    
-    
+
+    public CourseDTO getSelectedCourseFromAll() {
+        return selectedCourseFromAll;
+    }
+
+    public void setSelectedCourseFromAll(CourseDTO selectedCourseFromAll) {
+        this.selectedCourseFromAll = selectedCourseFromAll;
+    }
+
+    public NewUserDTO getNewUserDTO() {
+        return newUserDTO;
+    }
+
+    public void setNewUserDTO(NewUserDTO newUserDTO) {
+        this.newUserDTO = newUserDTO;
+    }
+
+    public List<Course> getFilteredListCourseFromAll() {
+        return filteredListCourseFromAll;
+    }
+
+    public void setFilteredListCourseFromAll(List<Course> filteredListCourseFromAll) {
+        this.filteredListCourseFromAll = filteredListCourseFromAll;
+    }
 }

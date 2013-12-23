@@ -16,7 +16,7 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class ListCourseDTO {
-    private Collection<Course> listCourse;
+    private Collection<CourseDTO> listCourse;
     private AnswerDTO answerDTO;
 
     /**
@@ -30,26 +30,20 @@ public class ListCourseDTO {
      * @param listCourse
      * @param answerDTO
      */
-    public ListCourseDTO(Collection<Course> listCourse, AnswerDTO answerDTO){
+    public ListCourseDTO(Collection<CourseDTO> listCourse, AnswerDTO answerDTO){
         this.listCourse = listCourse;
         this.answerDTO = answerDTO;
     }
-    
-    /**
-     *
-     * @return
-     */
-    public Collection<Course> getListCourse() {
+
+    public Collection<CourseDTO> getListCourse() {
         return listCourse;
     }
 
-    /**
-     *
-     * @param listCourse
-     */
-    public void setListCourse(Collection<Course> listCourse) {
+    public void setListCourse(Collection<CourseDTO> listCourse) {
         this.listCourse = listCourse;
     }
+    
+
 
     /**
      *
