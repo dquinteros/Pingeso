@@ -20,7 +20,7 @@ public class CourseDTO {
     // "Insert Code > Add Business Method")
     
     private String name;
-    private int level;
+    private String level;
 
     /**
      *
@@ -59,7 +59,7 @@ public class CourseDTO {
      *
      * @return
      */
-    public int getLevel() {
+    public String getLevel() {
         return level;
     }
 
@@ -67,7 +67,7 @@ public class CourseDTO {
      *
      * @param level
      */
-    public void setLevel(int level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 

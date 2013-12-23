@@ -15,6 +15,8 @@ import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -32,12 +34,36 @@ import sessionBeans.TakeAttendanceSB;
  * @author Pingeso
  */
 @Stateless
+@TransactionManagement(TransactionManagementType.BEAN)
 public class CourseManagementSB implements CourseManagementSBLocal {
     @PersistenceContext(unitName = "Amasy-ejbPU")
     private EntityManager em;
 
     @Resource
     UserTransaction ut;
+    
+     /**
+     *
+     * @param object
+     * @return
+     */
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public boolean persistInsert(Object object) {
+        try {
+            ut.begin(); // Start a new transaction
+            try {
+                em.persist(object);
+                ut.commit(); // Commit the transaction
+                return true;
+            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
+                ut.rollback(); // Rollback the transaction
+                return false;
+            }
+        } catch (NotSupportedException | SystemException ex) {
+            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
+            return false;
+        }
+    }
     
     /**
      *
@@ -82,11 +108,13 @@ public class CourseManagementSB implements CourseManagementSBLocal {
      */
     @Override
     public AnswerDTO insertNewCourse(CourseDTO courseDTO) {
+        System.out.println("(CourseManagementSB) Insertando nuevo curso...");
         AnswerDTO existCourseName = validateCourseRegistry(courseDTO);
         if(existCourseName.getIdError()!=0){
             return existCourseName;
         }
         Course course = newCourse(courseDTO);
+        System.out.println("(CourseManagementSB) Ahora, llamando a persistencia...");
         persistInsert(course);
         return new AnswerDTO(0);
     }
@@ -106,32 +134,12 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     private Course newCourse(CourseDTO courseDTO) {
         Course course = new Course();
         course.setName(courseDTO.getName());
+        System.out.println("(CourseManagementSB) course.setLevel(courseDTO.getLevel())");
         course.setLevel(courseDTO.getLevel());
         return course;
     }
 
-    /**
-     *
-     * @param object
-     * @return
-     */
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public boolean persistInsert(Object object) {
-        try {
-            ut.begin(); // Start a new transaction
-            try {
-                em.persist(object);
-                ut.commit(); // Commit the transaction
-                return true;
-            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
-                ut.rollback(); // Rollback the transaction
-                return false;
-            }
-        } catch (NotSupportedException | SystemException ex) {
-            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
-            return false;
-        }
-    }
+   
 
     private boolean existName(String name) {
         Long count;
