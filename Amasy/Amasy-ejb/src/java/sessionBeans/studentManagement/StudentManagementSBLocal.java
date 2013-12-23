@@ -5,6 +5,7 @@
 package sessionBeans.studentManagement;
 
 import DTOs.AnswerDTO;
+import DTOs.ListCourseDTO;
 import DTOs.NewUserDTO;
 import DTOs.UserDTO;
 import java.util.Date;
@@ -20,11 +21,16 @@ public interface StudentManagementSBLocal {
 
     LinkedList<UserDTO> getAllStudent();
 
-    public AnswerDTO insertNewStudent(NewUserDTO user, Date enrollYear);
+    AnswerDTO insertNewStudent(NewUserDTO user, Date enrollYear);
 
-    public AnswerDTO updateStudent(NewUserDTO newStudent, Long studentId);
+    AnswerDTO updateStudent(NewUserDTO newStudent, Long studentId);
 
-    public NewUserDTO getStudentById(long userId);
+    NewUserDTO getStudentById(long userId);
 
-    public AnswerDTO deleteStudent(Long id);
+    AnswerDTO deleteStudent(Long id);
+
+    AnswerDTO enrollStudentOnCourse(Long idUser, Long idCourse);
+
+    ListCourseDTO getCoursesFromStudent(Long idUser);
+    
 }

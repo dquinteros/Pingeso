@@ -26,7 +26,6 @@ public class EditStudentMB {
     
     @PostConstruct
     public void init() {
-        System.out.println(studentMaintainerConversation.getIdUser());
         studentId = studentMaintainerConversation.getIdUser();
         newUserDTO=studentManagementSB.getStudentById(studentId);
     }

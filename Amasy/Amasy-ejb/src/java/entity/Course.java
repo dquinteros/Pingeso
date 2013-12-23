@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -26,6 +27,7 @@ import javax.persistence.OneToMany;
     @NamedQuery(name="Course.countCourseByName", query="SELECT COUNT(c) FROM Course c WHERE c.name = :name")
 })
 public class Course implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +42,9 @@ public class Course implements Serializable {
     @OneToMany
     private List<Teacher> listTeacher;
 
+
+
+    
     public List<BlockClass> getListBlockClass() {
         return listBlockClass;
     }
@@ -55,6 +60,15 @@ public class Course implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+     public List<Student> getListStudent() {
+         return listStudent;
+     }
+ 
+     public void setListStudent(List<Student> listStudent) {
+         this.listStudent = listStudent;
+     }
+ 
 
     public String getName() {
         return name;
@@ -72,13 +86,6 @@ public class Course implements Serializable {
         this.level = level;
     }
 
-    public List<Student> getListStudent() {
-        return listStudent;
-    }
-
-    public void setListStudent(List<Student> listStudent) {
-        this.listStudent = listStudent;
-    }
 
     public List<Teacher> getListTeacher() {
         return listTeacher;
@@ -88,8 +95,6 @@ public class Course implements Serializable {
         this.listTeacher = listTeacher;
     }
 
-    
-    
     @Override
     public int hashCode() {
         int hash = 0;

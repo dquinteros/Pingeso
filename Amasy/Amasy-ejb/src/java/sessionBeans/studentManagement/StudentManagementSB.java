@@ -7,14 +7,18 @@ package sessionBeans.studentManagement;
 import DTOs.NewUserDTO;
 import DTOs.UserDTO;
 import DTOs.AnswerDTO;
+import DTOs.ListCourseDTO;
+import entity.Course;
 import entity.Student;
 import entity.User;
 import entity.UserType;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -70,7 +74,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
             return false;
         }
     }
-    
+
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public boolean persistUpdate(Object object) {
         try {
@@ -89,8 +93,6 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         }
     }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
     @Override
     @SuppressWarnings("empty-statement")
     public LinkedList<UserDTO> getAllStudent() {
@@ -109,7 +111,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     private LinkedList<UserDTO> sqlResultToUserList(Collection<User> result, LinkedList<UserDTO> exitResult) {
         UserDTO studentDTOTemp;
         for (User iter : result) {
-            studentDTOTemp = new UserDTO(iter);            
+            studentDTOTemp = new UserDTO(iter);
             exitResult.add(studentDTOTemp);
         }
         return exitResult;
@@ -131,31 +133,31 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         persistInsert(newStudent);
         return new AnswerDTO(0);
     }
-    
+
     @Override
-    public AnswerDTO updateStudent(NewUserDTO newStudent, Long studentId){
+    public AnswerDTO updateStudent(NewUserDTO newStudent, Long studentId) {
         User user = em.find(User.class, studentId);
         user.setFirstName(newStudent.getFirstName());
         user.setLastName(newStudent.getLastName());
         user.setCellPhone(newStudent.getCellPhone());
         user.setHomePhone(newStudent.getHomePhone());
-        if(!"".equals(newStudent.getFingerprint())){
+        if (!"".equals(newStudent.getFingerprint())) {
             user.setFingerPrint(newStudent.getFingerprint());
         }
-        if(persistUpdate(user)){
+        if (persistUpdate(user)) {
             return new AnswerDTO(0);
-        }else{
+        } else {
             return new AnswerDTO(113);
-        }       
+        }
     }
 
     @Override
-    public NewUserDTO getStudentById(long userId){
+    public NewUserDTO getStudentById(long userId) {
         User user = em.find(User.class, userId);
         NewUserDTO newUser = new NewUserDTO(user);
         return newUser;
     }
-    
+
     private AnswerDTO validateStudentRegistry(NewUserDTO userDTO) {
         if (userDTO == null) {
             return new AnswerDTO(109);
@@ -272,6 +274,35 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         }
         return new AnswerDTO(000);
     }
+    
+    @Override
+    public ListCourseDTO getCoursesFromStudent(Long idUser) {
+        Collection<Course> listCourse;
+        ListCourseDTO listCourseDTO;
+        
+        Query q = em.createNamedQuery("Student.getListCourseFromUser", Student.class);
+        q.setParameter("idUser", idUser);
+        listCourse = (Collection<Course>) q.getResultList();
+        
+        listCourseDTO = new ListCourseDTO(listCourse, new AnswerDTO(0));
+        return listCourseDTO;
+    }
+    
+    @Override
+    public AnswerDTO enrollStudentOnCourse(Long idUser, Long idCourse) {
+        Collection<Course> listCourse;
+ 
+        
+        Query q = em.createNamedQuery("Student.getListCourseFromUser", User.class);
+        q.setParameter("idUser", idUser);
+        listCourse = (Collection<Course>) q.getResultList();
+       
+                
+        Course course = em.find(Course.class, idCourse);
+        listCourse.add(course);
+        persistUpdate(listCourse);
+        return null;
+    }
 
     //http://stackoverflow.com/questions/415953/generate-md5-hash-in-java
     private String MD5(String md5) {
@@ -287,26 +318,26 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         }
         return null;
     }
-    
 
-    
-    private String regExFix(String ex){
-        if("".equals(ex)){
-            ex="%";
-        }else{
+    private String regExFix(String ex) {
+        if ("".equals(ex)) {
+            ex = "%";
+        } else {
             ex = ("%".concat(ex)).concat("%");
         }
         System.out.println(ex);
         return ex;
     }
-            
+
     public EntityManager getEm() {
         return em;
     }
 
     public void setEm(EntityManager em) {
         this.em = em;
-    }    
+    }
+
+    
 
     
 }
