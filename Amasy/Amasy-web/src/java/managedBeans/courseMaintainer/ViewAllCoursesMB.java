@@ -1,6 +1,7 @@
 package managedBeans.courseMaintainer;
 
 import DTOs.CourseDTO;
+import DTOs.ListCourseDTO;
 import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -20,6 +21,7 @@ import sessionBeans.courseManagement.CourseManagementSBLocal;
 public class ViewAllCoursesMB {
     @EJB
     private CourseManagementSBLocal courseManagementSB;
+    private ListCourseDTO courseListDTO;
     private LinkedList<CourseDTO> courseList;
     private CourseDTO selectedCourse;
     private List<CourseDTO> filteredCourses;
@@ -36,7 +38,8 @@ public class ViewAllCoursesMB {
     }
 
     private void getCourses() {
-        courseList = courseManagementSB.getAllCoursesOfTeacher(session.getUser().getId());
+        courseListDTO = courseManagementSB.getAllCoursesOfTeacher(session.getUser().getId());
+        courseList = new LinkedList<>(courseListDTO.getListCourse());
     }
     
     public LinkedList<CourseDTO> getCourseList() {

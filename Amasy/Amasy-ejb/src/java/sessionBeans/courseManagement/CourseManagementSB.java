@@ -88,25 +88,19 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         }
     }
 
-<<<<<<< HEAD
-    private LinkedList<CourseDTO> sqlResultToCourseList(Collection<Course> result, LinkedList<CourseDTO> exitResult) {
-        System.out.println("Entre al sqlResultToCourseList");
-=======
     private ListCourseDTO sqlResultToCourseList(Collection<Course> result, ListCourseDTO exitResult) {
->>>>>>> 32fddf5cb5e88cfa488344bd98f7d492ac9887e9
+        System.out.println("Entre al sqlResultToCourseList");
+
+    
         CourseDTO courseDTOTemp;
         Collection<CourseDTO> listCourseTemp = new ArrayList<>();
-        for (Course iter : result) {
-<<<<<<< HEAD
-            System.out.println("Curso: "+iter.getName());
-            courseDTOTemp = new CourseDTO(iter);            
-            exitResult.add(courseDTOTemp);
-=======
+        for (Course iter : result) {            
+
             System.out.println("(CourseManagementSB) CourseDTO auxiliar...");
             courseDTOTemp = new CourseDTO(iter);
             System.out.println("(CourseManagementSB) Agreguems el auxiliar a la lista de cursos...");
             listCourseTemp.add(courseDTOTemp);
->>>>>>> 32fddf5cb5e88cfa488344bd98f7d492ac9887e9
+
         }
         System.out.println("(CourseManagementSB) Agreguemos la lista al ListCourseDTO...");
         exitResult.setListCourse(listCourseTemp);
@@ -178,15 +172,15 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     
     @Override
     @SuppressWarnings("empty-statement")
-    public LinkedList<CourseDTO> getAllCoursesOfTeacher(Long idUser) {
-        Collection<Course> result;
-        LinkedList<CourseDTO> exitResult = new LinkedList<CourseDTO>();
+    public ListCourseDTO getAllCoursesOfTeacher(Long idUser) {
+        Collection<Course> result;        
         Query q = this.em.createNamedQuery("Course.getAllCoursesOfTeacher");
         System.out.println("ID_USER: "+idUser);
         q.setParameter("idUser", idUser);
         try {
             result = (Collection<Course>) q.getResultList();
-            return sqlResultToCourseList(result, exitResult);
+
+            return sqlResultToCourseList(result, new ListCourseDTO());
         } catch (NoResultException nre) {
             System.out.println(nre);
             return null;
