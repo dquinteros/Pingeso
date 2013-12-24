@@ -14,39 +14,37 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
- * 
+ *
  * @author Pingeso
  */
-@NamedQueries( {
-    @NamedQuery(name ="Student.findByIdUser", query = "SELECT a FROM Student a WHERE a.user.id = :idUser AND a.user.userStatus = true"),
-    @NamedQuery(name="Student.getAllStudentUserInfo", query="SELECT u.user FROM Student u WHERE u.user.userStatus = true"),
-    @NamedQuery(name="Student.getListCourseFromUser", query="SELECT s.listCourse FROM Student s WHERE s.user.id = :idUser")
-    
+@NamedQueries({
+    @NamedQuery(name = "Student.findByIdUser", query = "SELECT a FROM Student a WHERE a.user.id = :idUser AND a.user.userStatus = true"),
+    @NamedQuery(name = "Student.getAllStudentUserInfo", query = "SELECT u.user FROM Student u WHERE u.user.userStatus = true"),
+    @NamedQuery(name = "Student.getListCourseFromUser", query = "SELECT s.listCourse FROM Student s WHERE s.user.id = :idUser")
 })
 @Entity
 public class Student implements Serializable {
-    @ManyToMany(mappedBy = "listStudent")
+
+    @ManyToMany
     private List<Course> listCourse;
-
-
-    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date enrollYear;    
+    private Date enrollYear;
 
-    @OneToOne(mappedBy = "student")
-    private Assistance assistance;
-        
+    @OneToMany(mappedBy = "student")
+    private List<Assistance> assistance;
     @OneToOne
     private User user;
-   
+    
+
     /**
      *
      * @return
@@ -61,7 +59,7 @@ public class Student implements Serializable {
      */
     public void setUser(User user) {
         this.user = user;
-    }   
+    }
 
     /**
      *
@@ -79,7 +77,6 @@ public class Student implements Serializable {
         this.listCourse = listCourse;
     }
 
-    
     /**
      *
      * @return
@@ -94,26 +91,16 @@ public class Student implements Serializable {
      */
     public void setEnrollYear(Date enrollYear) {
         this.enrollYear = enrollYear;
-    }    
-    
-    /**
-     *
-     * @return
-     */
-    public Assistance getAssistance() {
+    }
+
+    public List<Assistance> getAssistance() {
         return assistance;
     }
 
-    /**
-     *
-     * @param assistance
-     */
-    public void setAssistance(Assistance assistance) {
+    public void setAssistance(List<Assistance> assistance) {
         this.assistance = assistance;
     }
 
-     
-    
     /**
      *
      * @return
@@ -128,7 +115,7 @@ public class Student implements Serializable {
      */
     public void setIncomeYear(Date incomeYear) {
         this.enrollYear = incomeYear;
-    }        
+    }
 
     /**
      *
@@ -183,5 +170,4 @@ public class Student implements Serializable {
     public String toString() {
         return "entity.Student[ id=" + id + " ]";
     }
-    
 }

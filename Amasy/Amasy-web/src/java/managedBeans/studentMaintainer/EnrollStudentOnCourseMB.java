@@ -4,6 +4,7 @@
  */
 package managedBeans.studentMaintainer;
 
+import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
 import DTOs.NewUserDTO;
@@ -32,7 +33,7 @@ public class EnrollStudentOnCourseMB {
     private StudentManagementSBLocal studentManagementSB;
     @Inject
     private StudentMaintainerConversationalMB studentMaintainerConversation;
-    private Long userId;
+    private Long idUser;
     private String selectedCourse;
     ///
     private LinkedList<CourseDTO> listCourseFromStudent;
@@ -52,21 +53,27 @@ public class EnrollStudentOnCourseMB {
 
     @PostConstruct
     private void init() {
-        userId = studentMaintainerConversation.getIdUser();
+        idUser = studentMaintainerConversation.getIdUser();
         getAllCourseFromStudent();
     }
 
     private void getAllCourseFromStudent() {
-        ListCourseDTO listCourseDTO = studentManagementSB.getCoursesFromStudent(userId);
+        ListCourseDTO listCourseDTO = studentManagementSB.getCoursesFromStudent(idUser);
         listCourseFromStudent = new LinkedList<>(listCourseDTO.getListCourse());
 
         //listCourseDTO = courseManagementSB.getAllCourse();
         listCourseFromAll = courseManagementSB.getAllCourse();
-
-        newUserDTO = studentManagementSB.getStudentById(userId);
-
+        newUserDTO = studentManagementSB.getStudentById(idUser);
     }
 
+    public void enrollStudentOnCourse(Long idCourse){
+        AnswerDTO answerDTO = studentManagementSB.enrollStudentOnCourse(idUser, idCourse);        
+    }
+    
+    /*************/
+    /*************/
+    
+    
     public LinkedList<CourseDTO> getListCourseFromStudent() {
         return listCourseFromStudent;
     }
