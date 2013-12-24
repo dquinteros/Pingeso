@@ -7,6 +7,9 @@ package sessionBeans.courseManagement;
 import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
+import DTOs.NewUserDTO;
+import entity.Course;
+import entity.User;
 import java.util.LinkedList;
 import javax.ejb.Local;
 
@@ -27,6 +30,7 @@ public interface CourseManagementSBLocal {
      * @return
      */
     public AnswerDTO insertNewCourse(CourseDTO userDTO);
-        
+
+    public CourseDTO getCourseByName(String courseName);
     
 }

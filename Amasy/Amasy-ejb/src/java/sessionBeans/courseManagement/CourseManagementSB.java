@@ -164,4 +164,13 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return true;
         }
     }
+
+    @Override
+    public CourseDTO getCourseByName(String courseName) {
+        Course course = em.find(Course.class, courseName);
+        CourseDTO currentCourse = new CourseDTO(course);
+        return currentCourse;
+    }
+    
+    
 }

@@ -12,6 +12,9 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import managedBeans.UtilitiesMB;
+import managedBeans.studentMaintainer.StudentMaintainerConversationalMB;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
 
 /**
@@ -23,6 +26,8 @@ import sessionBeans.courseManagement.CourseManagementSBLocal;
 public class ViewAllCourseMB {
     @EJB
     private CourseManagementSBLocal courseManagementSB;
+    @Inject 
+    private CourseMaintainerConversationalMB courseMaintainerConversation;
     private CourseDTO selectedCourse;
     private List<CourseDTO> filteredCourses;
     
@@ -88,5 +93,15 @@ public class ViewAllCourseMB {
         this.courseList = courseList;
     }
     
+        /**
+     *
+     * @param courseName
+     */
+    public void editCourse(String courseName){
+        this.courseMaintainerConversation.beginConversation();
+        this.courseMaintainerConversation.setCourseName(courseName);        
+        UtilitiesMB.redirection("/faces/admin/courseMaintainer/editCourse.xhtml?cid=".concat(this.courseMaintainerConversation.getConversation().getId().toString()));
+    }
+   
     
 }

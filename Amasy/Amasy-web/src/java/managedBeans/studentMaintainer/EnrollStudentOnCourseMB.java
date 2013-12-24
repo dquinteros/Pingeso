@@ -60,8 +60,8 @@ public class EnrollStudentOnCourseMB {
         ListCourseDTO listCourseDTO = studentManagementSB.getCoursesFromStudent(userId);
         listCourseFromStudent = new LinkedList<>(listCourseDTO.getListCourse());
 
-        //listCourseDTO = courseManagementSB.getAllCourse();
-        listCourseFromAll = courseManagementSB.getAllCourse();
+        listCourseDTO = courseManagementSB.getAllCourse();
+        listCourseFromAll = new LinkedList<>(listCourseDTO.getListCourse());
 
         newUserDTO = studentManagementSB.getStudentById(userId);
 
