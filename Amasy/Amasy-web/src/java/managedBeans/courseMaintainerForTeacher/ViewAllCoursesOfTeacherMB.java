@@ -1,4 +1,4 @@
-package managedBeans.courseMaintainer;
+package managedBeans.courseMaintainerForTeacher;
 
 import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
@@ -10,15 +10,17 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import managedBeans.LoginSessionMB;
+import managedBeans.UtilitiesMB;
+import managedBeans.courseMaintainer.CourseMaintainerConversationalMB;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
 
 /**
  *
  * @author Pingeso
  */
-@Named(value = "viewAllCoursesMB")
+@Named(value = "viewAllCoursesOfTeacherMB")
 @RequestScoped
-public class ViewAllCoursesMB {
+public class ViewAllCoursesOfTeacherMB {
     @EJB
     private CourseManagementSBLocal courseManagementSB;
     private ListCourseDTO courseListDTO;
@@ -29,7 +31,10 @@ public class ViewAllCoursesMB {
     @Inject
     private LoginSessionMB session;
     
-    public ViewAllCoursesMB() {
+    @Inject 
+    private CourseMaintainerOfTeacherConversationalMB courseMaintainerOfTeacherConversation;
+    
+    public ViewAllCoursesOfTeacherMB() {
     }
     
     @PostConstruct
@@ -40,6 +45,12 @@ public class ViewAllCoursesMB {
     private void getCourses() {
         courseListDTO = courseManagementSB.getAllCoursesOfTeacher(session.getUser().getId());
         courseList = new LinkedList<>(courseListDTO.getListCourse());
+    }
+   
+    public void configureCourse(Long idCourse){
+        this.courseMaintainerOfTeacherConversation.beginConversation();
+        this.courseMaintainerOfTeacherConversation.setIdCourse(idCourse);
+        UtilitiesMB.redirection("/faces/teacher/courses/configureCourse.xhtml?cid=".concat(this.courseMaintainerOfTeacherConversation.getConversation().getId().toString()));
     }
     
     public LinkedList<CourseDTO> getCourseList() {

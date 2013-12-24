@@ -21,6 +21,8 @@ public class CourseDTO {
     private Long id;
     private String name;
     private String level;
+    private int minutesAfterClassStart;
+    private int minutesBeforeClassStart;
 
     /**
      *
@@ -30,6 +32,8 @@ public class CourseDTO {
         this.id = course.getId();
         this.name = course.getName();
         this.level = course.getLevel();
+        this.minutesAfterClassStart = course.getMinutesAfterClassStart();
+        this.minutesBeforeClassStart = course.getMinutesBeforeClassStart();
     }
     
     /**
@@ -79,6 +83,20 @@ public class CourseDTO {
         this.id = id;
     }
 
-    
+    public int getMinutesAfterClassStart() {
+        return minutesAfterClassStart;
+    }
+
+    public void setMinutesAfterClassStart(int minutesAfterClassStart) {
+        this.minutesAfterClassStart = minutesAfterClassStart;
+    }
+
+    public int getMinutesBeforeClassStart() {
+        return minutesBeforeClassStart;
+    }
+
+    public void setMinutesBeforeClassStart(int minutesBeforeClassStart) {
+        this.minutesBeforeClassStart = minutesBeforeClassStart;
+    }
     
 }

@@ -99,7 +99,7 @@ public class ViewAllCourseMB {
      */
     public void editCourse(String courseName){
         this.courseMaintainerConversation.beginConversation();
-        this.courseMaintainerConversation.setCourseName(courseName);        
+        this.courseMaintainerConversation.setCourseName(courseName);
         UtilitiesMB.redirection("/faces/admin/courseMaintainer/editCourse.xhtml?cid=".concat(this.courseMaintainerConversation.getConversation().getId().toString()));
     }
    

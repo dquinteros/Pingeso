@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package managedBeans.courseMaintainer;
+package managedBeans.courseMaintainerForTeacher;
 
 import javax.inject.Named;
 import javax.enterprise.context.ConversationScoped;
@@ -14,9 +14,10 @@ import javax.inject.Inject;
  *
  * @author Pingeso
  */
-@Named(value = "courseMaintainerConversationalMB")
+@Named(value = "courseMaintainerOfTeacherConversationalMB")
 @ConversationScoped
-public class CourseMaintainerConversationalMB implements Serializable {
+public class CourseMaintainerOfTeacherConversationalMB implements Serializable {
+
     @Inject
     Conversation conversation;
     /**
@@ -26,7 +27,7 @@ public class CourseMaintainerConversationalMB implements Serializable {
     private String courseName;
     private Long idCourse;
     
-    public CourseMaintainerConversationalMB() {
+    public CourseMaintainerOfTeacherConversationalMB() {
     }
     
     public void beginConversation() {
@@ -60,6 +61,5 @@ public class CourseMaintainerConversationalMB implements Serializable {
     public void setIdCourse(Long idCourse) {
         this.idCourse = idCourse;
     }
-    
     
 }

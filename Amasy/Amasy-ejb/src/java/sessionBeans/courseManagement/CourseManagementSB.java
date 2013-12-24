@@ -89,24 +89,15 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     }
 
     private ListCourseDTO sqlResultToCourseList(Collection<Course> result, ListCourseDTO exitResult) {
-        System.out.println("Entre al sqlResultToCourseList");
-
-    
         CourseDTO courseDTOTemp;
         Collection<CourseDTO> listCourseTemp = new ArrayList<>();
         for (Course iter : result) {            
-
-            System.out.println("(CourseManagementSB) CourseDTO auxiliar...");
             courseDTOTemp = new CourseDTO(iter);
-            System.out.println("(CourseManagementSB) Agreguems el auxiliar a la lista de cursos...");
             listCourseTemp.add(courseDTOTemp);
 
         }
-        System.out.println("(CourseManagementSB) Agreguemos la lista al ListCourseDTO...");
         exitResult.setListCourse(listCourseTemp);
-        System.out.println("(CourseManagementSB) Agreguemos el mensaje de éxito...");
         exitResult.setAnswerDTO(new AnswerDTO(0));
-        System.out.println("(CourseManagementSB) Entreguemos la lista...");
         return exitResult;
     }
 
@@ -125,13 +116,11 @@ public class CourseManagementSB implements CourseManagementSBLocal {
      */
     @Override
     public AnswerDTO insertNewCourse(CourseDTO courseDTO) {
-        System.out.println("(CourseManagementSB) Insertando nuevo curso...");
         AnswerDTO existCourseName = validateCourseRegistry(courseDTO);
         if(existCourseName.getIdError()!=0){
             return existCourseName;
         }
         Course course = newCourse(courseDTO);
-        System.out.println("(CourseManagementSB) Ahora, llamando a persistencia...");
         persistInsert(course);
         return new AnswerDTO(0);
     }
@@ -151,7 +140,6 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     private Course newCourse(CourseDTO courseDTO) {
         Course course = new Course();
         course.setName(courseDTO.getName());
-        System.out.println("(CourseManagementSB) course.setLevel(courseDTO.getLevel())");
         course.setLevel(courseDTO.getLevel());
         return course;
     }
@@ -184,11 +172,11 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     public ListCourseDTO getAllCoursesOfTeacher(Long idUser) {
         Collection<Course> result;        
         Query q = this.em.createNamedQuery("Course.getAllCoursesOfTeacher");
-        System.out.println("ID_USER: "+idUser);
         q.setParameter("idUser", idUser);
         try {
+            System.out.println("ANTES DEL RESULT");
             result = (Collection<Course>) q.getResultList();
-
+            System.out.println("DESPUES DEL RESULT");
             return sqlResultToCourseList(result, new ListCourseDTO());
         } catch (NoResultException nre) {
             System.out.println(nre);
