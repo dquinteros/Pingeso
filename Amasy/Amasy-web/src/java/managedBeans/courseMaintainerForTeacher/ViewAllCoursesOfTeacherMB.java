@@ -11,7 +11,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import managedBeans.LoginSessionMB;
 import managedBeans.UtilitiesMB;
-import managedBeans.courseMaintainer.CourseMaintainerConversationalMB;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
 
 /**

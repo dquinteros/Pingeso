@@ -23,32 +23,30 @@ import sessionBeans.studentManagement.StudentManagementSBLocal;
 @Named(value = "viewAllStudentMB")
 @RequestScoped
 public class ViewAllStudentMB {
+
     @EJB
     private StudentManagementSBLocal studentManagementSB;
-    
-    @Inject 
+    @Inject
     private StudentMaintainerConversationalMB studentMaintainerConversation;
-    
     private LinkedList<UserDTO> userList;
     private UserDTO selectedStudent;
     private List<UserDTO> filteredStudents;
-    
+
     /**
      * Creates a new instance of ViewAllStudent
-     */        
-    
+     */
     public ViewAllStudentMB() {
     }
-    
+
     @PostConstruct
-    void init(){
+    void init() {
         getStudent();
     }
-    
+
     /**
      *
      */
-    public void getStudent(){        
+    public void getStudent() {
         userList = studentManagementSB.getAllStudent();
     }
 
@@ -56,27 +54,27 @@ public class ViewAllStudentMB {
      *
      * @param idUser
      */
-    public void editStudent(Long idUser){
+    public void editStudent(Long idUser) {
         this.studentMaintainerConversation.beginConversation();
         this.studentMaintainerConversation.setIdUser(idUser);
         UtilitiesMB.redirection("/faces/admin/studentMaintainer/editStudent.xhtml?cid=".concat(this.studentMaintainerConversation.getConversation().getId().toString()));
     }
-    
+
     /**
      *
      * @param idUser
      */
-    public void deleteStudent(Long idUser){
+    public void deleteStudent(Long idUser) {
         AnswerDTO ans = studentManagementSB.deleteStudent(idUser);
         UtilitiesMB.showFeedback(ans);
-   }
-    
-    public void addCourseToStudent(Long idUser){
+    }
+
+    public void addCourseToStudent(Long idUser) {
         this.studentMaintainerConversation.beginConversation();
         this.studentMaintainerConversation.setIdUser(idUser);
         UtilitiesMB.redirection("/faces/admin/studentMaintainer/enrollStudentOnCourse.xhtml?cid=".concat(this.studentMaintainerConversation.getConversation().getId().toString()));
     }
-    
+
     /**
      *
      * @return
@@ -123,6 +121,5 @@ public class ViewAllStudentMB {
      */
     public void setFilteredStudents(List<UserDTO> filteredStudents) {
         this.filteredStudents = filteredStudents;
-    }    
-    
+    }
 }

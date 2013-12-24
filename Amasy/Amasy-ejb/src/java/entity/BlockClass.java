@@ -7,7 +7,6 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -29,6 +27,8 @@ import javax.persistence.Temporal;
 @Entity
 public class BlockClass implements Serializable {
 
+    @ManyToOne
+    private DayBlockClass dayBlockClass;
     @ManyToOne
     private TimeBlockClass timeBlockClass;
     @ManyToOne
@@ -43,6 +43,14 @@ public class BlockClass implements Serializable {
     private String comment;
     @OneToMany(mappedBy = "blockClass")
     private List<Assistance> listAssistance;
+
+    public DayBlockClass getDayBlockClass() {
+        return dayBlockClass;
+    }
+
+    public void setDayBlockClass(DayBlockClass dayBlockClass) {
+        this.dayBlockClass = dayBlockClass;
+    }
 
     /**
      *

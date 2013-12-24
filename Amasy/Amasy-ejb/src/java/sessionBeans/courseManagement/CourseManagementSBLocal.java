@@ -7,9 +7,7 @@ package sessionBeans.courseManagement;
 import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
-import DTOs.NewUserDTO;
-import entity.Course;
-import entity.User;
+import entity.BlockClass;
 import java.util.LinkedList;
 import javax.ejb.Local;
 
@@ -19,28 +17,27 @@ import javax.ejb.Local;
  */
 @Local
 public interface CourseManagementSBLocal {
-        /**
+
+    /**
      *
      * @return
      */
     public ListCourseDTO getAllCourse();
-        /**
+
+    /**
      *
      * @param userDTO
      * @return
      */
-    public AnswerDTO insertNewCourse(CourseDTO userDTO);
+    AnswerDTO insertNewCourse(CourseDTO userDTO);
 
+    CourseDTO getCourseByName(String courseName);
 
-    public CourseDTO getCourseByName(String courseName);
+    ListCourseDTO getAllCoursesOfTeacher(Long idUser);
 
-    
-    
-    public ListCourseDTO getAllCoursesOfTeacher(Long idUser);
+    CourseDTO getCourseById(Long courseId);
 
-    public CourseDTO getCourseById(Long courseId);
-    
-    public AnswerDTO updateCourse(CourseDTO courseDTO, Long courseId);
-        
-    
+    AnswerDTO allocateBlockclassesoToCourse(Long idCourse, LinkedList<BlockClass> listBlockClass);
+
+    AnswerDTO updateCourse(CourseDTO courseDTO, Long courseId);
 }

@@ -17,17 +17,16 @@ import javax.persistence.OneToMany;
  * @author Pingeso
  */
 @Entity
-public class TimeBlockClass implements Serializable {
+public class DayBlockClass implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String startHour;
-    private String endHour;
-    private String abbreviation;
-    @OneToMany(mappedBy = "timeBlockClass")
+    @OneToMany(mappedBy = "dayBlockClass")
     private List<BlockClass> listBlockClass;
+    private String abbreviation;
+    private String day;
 
     public Long getId() {
         return id;
@@ -37,28 +36,20 @@ public class TimeBlockClass implements Serializable {
         this.id = id;
     }
 
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
     public String getAbbreviation() {
         return abbreviation;
     }
 
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
-    }
-
-    public String getStartHour() {
-        return startHour;
-    }
-
-    public void setStartHour(String startHour) {
-        this.startHour = startHour;
-    }
-
-    public String getEndHour() {
-        return endHour;
-    }
-
-    public void setEndHour(String endHour) {
-        this.endHour = endHour;
     }
 
     public List<BlockClass> getListBlockClass() {
@@ -79,10 +70,10 @@ public class TimeBlockClass implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TimeBlockClass)) {
+        if (!(object instanceof DayBlockClass)) {
             return false;
         }
-        TimeBlockClass other = (TimeBlockClass) object;
+        DayBlockClass other = (DayBlockClass) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -91,6 +82,6 @@ public class TimeBlockClass implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.TimeBlockClass[ id=" + id + " ]";
+        return "entity.DayBlockClass[ id=" + id + " ]";
     }
 }

@@ -16,40 +16,41 @@ import sessionBeans.studentManagement.StudentManagementSBLocal;
  */
 @Named(value = "editStudentMB")
 @RequestScoped
-public class EditStudentMB {    
+public class EditStudentMB {
+
     @EJB
-    private StudentManagementSBLocal studentManagementSB;    
+    private StudentManagementSBLocal studentManagementSB;
     @Inject
     private StudentMaintainerConversationalMB studentMaintainerConversation;
-    private NewUserDTO newUserDTO;    
+    private NewUserDTO newUserDTO;
     private AnswerDTO r;
     private Long studentId;
-    
+
     /**
      *
      */
-    public EditStudentMB(){
+    public EditStudentMB() {
     }
-    
+
     /**
      *
      */
     @PostConstruct
     public void init() {
         studentId = studentMaintainerConversation.getIdUser();
-        newUserDTO=studentManagementSB.getStudentById(studentId);
+        newUserDTO = studentManagementSB.getStudentById(studentId);
     }
-    
+
     /**
      *
      */
-    public void editCurrentStudent(){
+    public void editCurrentStudent() {
         r = studentManagementSB.updateStudent(newUserDTO, studentId);
-        if(r.getIdError()==0){
-            UtilitiesMB.showFeedback(r);        
-        }else{
-            UtilitiesMB.showFeedback(r);        
-        }        
+        if (r.getIdError() == 0) {
+            UtilitiesMB.showFeedback(r);
+        } else {
+            UtilitiesMB.showFeedback(r);
+        }
     }
 
     /**
@@ -67,5 +68,4 @@ public class EditStudentMB {
     public void setNewUserDTO(NewUserDTO newUserDTO) {
         this.newUserDTO = newUserDTO;
     }
-    
 }
