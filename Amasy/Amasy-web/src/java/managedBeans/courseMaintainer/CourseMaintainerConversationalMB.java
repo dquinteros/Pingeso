@@ -23,7 +23,10 @@ public class CourseMaintainerConversationalMB implements Serializable {
      * Creates a new instance of CourseMaintainerConversationalMB
      */
     
+<<<<<<< HEAD
     private String courseName;
+=======
+>>>>>>> e2c0327cfc7d337b1f1237cea46f366cfc108518
     private Long idCourse;
     
     public CourseMaintainerConversationalMB() {
@@ -45,14 +48,15 @@ public class CourseMaintainerConversationalMB implements Serializable {
         return conversation;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public Long getIdCourse() {
+        return idCourse;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setIdCourse(Long idCourse) {
+        this.idCourse = idCourse;
     }
 
+<<<<<<< HEAD
     public Long getIdCourse() {
         return idCourse;
     }
@@ -61,5 +65,8 @@ public class CourseMaintainerConversationalMB implements Serializable {
         this.idCourse = idCourse;
     }
     
+=======
+
+>>>>>>> e2c0327cfc7d337b1f1237cea46f366cfc108518
     
 }

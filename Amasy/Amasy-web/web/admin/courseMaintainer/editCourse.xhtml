@@ -15,7 +15,7 @@
             <p:growl for="growl" life="3000"/>
             <h:panelGrid id="grid" columns="3" cellpadding="4">
                 <h:outputText value="Nombre: *" />  
-                <p:inputText id="name" required="true" value="#{editCourseMB.courseName}" requiredMessage="Nombre obligatorio">                    
+                <p:inputText id="name" required="true" value="#{editCourseMB.currentCourseDTO.name}" requiredMessage="Nombre obligatorio">                    
                 </p:inputText>
                 <p:message for="name" display="text" id="asdf"/>
                 
@@ -25,7 +25,7 @@
                 </p:inputText>
                 <p:message for="level" display="text" />                                                                   
             </h:panelGrid>  
-            <p:commandButton id="submitButton" value="Crear curso" update="form" action="#{editCourseMB.editCurrentCourse()}"/>  
+            <p:commandButton id="submitButton" value="Editar curso" update="form" action="#{editCourseMB.editCurrentCourse()}"/>  
         </h:form> 
 
     </ui:define>

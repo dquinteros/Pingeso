@@ -8,6 +8,7 @@ import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
 import entity.Course;
+import entity.User;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -109,6 +110,31 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         em.persist(object);
     }
     
+        /**
+     *
+     * @param object
+     * @return
+     */
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public boolean persistUpdate(Object object) {
+        try {
+            ut.begin(); // Start a new transaction
+            try {
+                em.merge(object);
+                ut.commit(); // Commit the transaction
+                return true;
+            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
+                ut.rollback(); // Rollback the transaction
+                System.out.println("rollbakc:"+e);
+                return false;
+            }
+        } catch (NotSupportedException | SystemException ex) {
+            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
+            System.out.println("rollbakc:"+ex);
+            return false;
+        }
+    }
+    
     /**
      *
      * @param courseDTO
@@ -181,6 +207,31 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         } catch (NoResultException nre) {
             System.out.println(nre);
             return null;
+        }
+    }
+
+    @Override
+    public CourseDTO getCourseById(Long courseId) {
+        System.out.println("course: "+courseId);
+        Course course = em.find(Course.class, courseId);
+        System.out.println("course: "+course.getName());
+        return new CourseDTO(course);
+    }
+    
+    @Override
+    public AnswerDTO updateCourse(CourseDTO courseDTO, Long idCourse){
+        System.out.println("Buscar class a modificar...");
+        Course course = em.find(Course.class, idCourse);
+        System.out.println("Setear nombre...");
+        course.setName(courseDTO.getName());
+        System.out.println("Nombre: "+ course.getName());
+        course.setLevel(courseDTO.getLevel());
+        System.out.println("Setear nivel...");
+        System.out.println("Nivel: "+ course.getLevel());
+        if (persistUpdate(course)) {
+            return new AnswerDTO(0);
+        } else {
+            return new AnswerDTO(113);
         }
     }
 }

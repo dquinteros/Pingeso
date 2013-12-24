@@ -37,6 +37,10 @@ public interface CourseManagementSBLocal {
     
     
     public ListCourseDTO getAllCoursesOfTeacher(Long idUser);
+
+    public CourseDTO getCourseById(Long courseId);
+    
+    public AnswerDTO updateCourse(CourseDTO courseDTO, Long courseId);
         
     
 }

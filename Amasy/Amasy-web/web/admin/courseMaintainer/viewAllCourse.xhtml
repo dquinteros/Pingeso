@@ -28,7 +28,7 @@
                 </p:column>                    
                 <p:column styleClass="center" headerText="Editar/Eliminar">
                     
-                    <p:commandButton id="editCourseButton" icon="ui-icon-pencil" title="Editar" action="#{viewAllCourseMB.editCourse(courseDTO.name)}"/>
+                    <p:commandButton id="editCourseButton" icon="ui-icon-pencil" title="Editar" action="#{viewAllCourseMB.editCourse(courseDTO.id)}"/>
                     <p:tooltip for="editCourseButton" value="Editar" showEffect="fade" hideEffect="fade"/>
                     
                     <p:commandButton id="submitCourseButton" icon="ui-icon-closethick" update="courseDTOTable"/>

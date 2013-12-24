@@ -4,12 +4,14 @@
  */
 package managedBeans.courseMaintainer;
 
+import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import managedBeans.UtilitiesMB;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
 
 /**
@@ -19,49 +21,56 @@ import sessionBeans.courseManagement.CourseManagementSBLocal;
 @Named(value = "editCourseMB")
 @RequestScoped
 public class EditCourseMB {
+
     @EJB
     private CourseManagementSBLocal courseManagementSB;
     @Inject
     private CourseMaintainerConversationalMB courseMaintainerConversationalMB;
     private CourseDTO currentCourseDTO;
-    private String courseName;
+    private Long idCourse;
+    private AnswerDTO r;
 
     /**
      * Creates a new instance of EditCourseMB
      */
     public EditCourseMB() {
     }
-    
+
     /**
      *
      */
     @PostConstruct
     public void init() {
-        System.out.println("Inicializando EditCourseMB...");
-        System.out.println("Obteniendo nombre...");
-        courseName = courseMaintainerConversationalMB.getCourseName();
-        System.out.println("Nombre obtenido:"+courseName);
-        System.out.println("Obteniendo DTO...");
-        currentCourseDTO = courseManagementSB.getCourseByName(courseName);
-        System.out.println("Terminado...");
+        idCourse = courseMaintainerConversationalMB.getIdCourse();
+        System.out.println("idcourse "+idCourse);
+        currentCourseDTO = courseManagementSB.getCourseById(idCourse);
+        System.out.println("idcourse "+idCourse);
     }
 
+    public void editCurrentCourse(){
+        r = courseManagementSB.updateCourse(currentCourseDTO, idCourse);
+        if(r.getIdError()==0){
+            UtilitiesMB.showFeedback(r);        
+        }else{
+            UtilitiesMB.showFeedback(r);        
+        }             
+    }
+    
     public CourseDTO getCurrentCourseDTO() {
         return currentCourseDTO;
     }
 
     public void setCurrentCourseDTO(CourseDTO currentCourseDTO) {
         this.currentCourseDTO = currentCourseDTO;
-    }    
-
-    public String getCourseName() {
-        return courseName;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public Long getIdCourse() {
+        return idCourse;
     }
-    
+
+    public void setIdCourse(Long idCourse) {
+        this.idCourse = idCourse;
+    }
     
     
 }
