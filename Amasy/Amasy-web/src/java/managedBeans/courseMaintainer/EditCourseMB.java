@@ -4,12 +4,14 @@
  */
 package managedBeans.courseMaintainer;
 
+import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import managedBeans.UtilitiesMB;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
 
 /**
@@ -26,6 +28,7 @@ public class EditCourseMB {
     private CourseMaintainerConversationalMB courseMaintainerConversationalMB;
     private CourseDTO currentCourseDTO;
     private Long idCourse;
+    private AnswerDTO r;
 
     /**
      * Creates a new instance of EditCourseMB
@@ -45,7 +48,12 @@ public class EditCourseMB {
     }
 
     public void editCurrentCourse(){
-        
+        r = courseManagementSB.updateCourse(currentCourseDTO, idCourse);
+        if(r.getIdError()==0){
+            UtilitiesMB.showFeedback(r);        
+        }else{
+            UtilitiesMB.showFeedback(r);        
+        }             
     }
     
     public CourseDTO getCurrentCourseDTO() {
