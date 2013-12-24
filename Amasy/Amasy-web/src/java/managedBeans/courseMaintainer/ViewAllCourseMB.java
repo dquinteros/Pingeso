@@ -95,11 +95,11 @@ public class ViewAllCourseMB {
     
         /**
      *
-     * @param courseName
+     * @param idCourse
      */
     public void editCourse(Long idCourse){
         this.courseMaintainerConversation.beginConversation();
-        this.courseMaintainerConversation.setIdCourse(idCourse);        
+        this.courseMaintainerConversation.setIdCourse(idCourse);
         UtilitiesMB.redirection("/faces/admin/courseMaintainer/editCourse.xhtml?cid=".concat(this.courseMaintainerConversation.getConversation().getId().toString()));
     }
    

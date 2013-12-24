@@ -12,9 +12,9 @@
 
     <ui:define name="content">
         <h:form id="form">  
-            <p:dataTable  var="courseDTO" value="#{viewAllCoursesMB.courseList}" rowKey="#{courseDTO.name}" paginator="true" rows="10"  
-                          filteredValue="#{viewAllCoursesMB.filteredCourses}" id="courseDTOTable" selection="#{viewAllCoursesMB.selectedCourse}" selectionMode="single">
-                <p:growl for="growl" life="3000"/>
+            <p:dataTable  var="courseDTO" value="#{viewAllCoursesOfTeacherMB.courseList}" rowKey="#{courseDTO.name}" paginator="true" rows="10"  
+                          filteredValue="#{viewAllCoursesOfTeacherMB.filteredCourses}" id="courseDTOTable" selection="#{viewAllCoursesOfTeacherMB.selectedCourse}" selectionMode="single">
+                
                 
                 <f:facet name="header">  
                     Lista de cursos
@@ -25,9 +25,8 @@
                 <p:column headerText="Nivel" sortBy="level" filterBy="level" id="level">  
                     #{courseDTO.level}
                 </p:column>                    
-                <p:column styleClass="center" headerText="Eliminar/Editar">
-                    <p:commandButton id="submitButton" icon="ui-icon-closethick" update="courseDTOTable"/>  
-                    <p:commandButton icon="ui-icon-pencil" title="Editar"/>
+                <p:column styleClass="center" headerText="Configurar"> 
+                    <p:commandButton icon="ui-icon-gear" title="Configurar" action="#{viewAllCoursesOfTeacherMB.configureCourse(courseDTO.id)}"/>
                 </p:column>
 
             </p:dataTable>

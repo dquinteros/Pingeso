@@ -9,6 +9,7 @@ import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
 import entity.BlockClass;
 import entity.Course;
+import entity.User;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -112,7 +113,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return null;
         }
     }
-    
+
     private ListCourseDTO sqlResultToCourseList(Collection<Course> result, ListCourseDTO exitResult) {
         CourseDTO courseDTOTemp;
         Collection<CourseDTO> listCourseTemp = new ArrayList<>();
@@ -134,6 +135,8 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         em.persist(object);
     }
 
+    
+
     /**
      *
      * @param courseDTO
@@ -141,13 +144,11 @@ public class CourseManagementSB implements CourseManagementSBLocal {
      */
     @Override
     public AnswerDTO insertNewCourse(CourseDTO courseDTO) {
-        System.out.println("(CourseManagementSB) Insertando nuevo curso...");
         AnswerDTO existCourseName = validateCourseRegistry(courseDTO);
         if (existCourseName.getIdError() != 0) {
             return existCourseName;
         }
         Course course = newCourse(courseDTO);
-        System.out.println("(CourseManagementSB) Ahora, llamando a persistencia...");
         persistInsert(course);
         return new AnswerDTO(0);
     }
@@ -167,7 +168,6 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     private Course newCourse(CourseDTO courseDTO) {
         Course course = new Course();
         course.setName(courseDTO.getName());
-        System.out.println("(CourseManagementSB) course.setLevel(courseDTO.getLevel())");
         course.setLevel(courseDTO.getLevel());
         return course;
     }    
@@ -199,8 +199,9 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         System.out.println("ID_USER: " + idUser);
         q.setParameter("idUser", idUser);
         try {
+            System.out.println("ANTES DEL RESULT");
             result = (Collection<Course>) q.getResultList();
-            
+            System.out.println("DESPUES DEL RESULT");
             return sqlResultToCourseList(result, new ListCourseDTO());
         } catch (NoResultException nre) {
             System.out.println(nre);
@@ -225,5 +226,22 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         }else{
             return new AnswerDTO(128);
         }        
+    }
+    
+    @Override
+    public AnswerDTO updateCourse(CourseDTO courseDTO, Long idCourse){
+        System.out.println("Buscar class a modificar...");
+        Course course = em.find(Course.class, idCourse);
+        System.out.println("Setear nombre...");
+        course.setName(courseDTO.getName());
+        System.out.println("Nombre: "+ course.getName());
+        course.setLevel(courseDTO.getLevel());
+        System.out.println("Setear nivel...");
+        System.out.println("Nivel: "+ course.getLevel());
+        if (persistUpdate(course)) {
+            return new AnswerDTO(0);
+        } else {
+            return new AnswerDTO(113);
+        }
     }
 }

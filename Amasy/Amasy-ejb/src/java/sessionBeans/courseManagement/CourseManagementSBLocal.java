@@ -38,4 +38,6 @@ public interface CourseManagementSBLocal {
     CourseDTO getCourseById(Long courseId);
 
     AnswerDTO allocateBlockclassesoToCourse(Long idCourse, LinkedList<BlockClass> listBlockClass);
+
+    AnswerDTO updateCourse(CourseDTO courseDTO, Long courseId);
 }

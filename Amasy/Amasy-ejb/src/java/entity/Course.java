@@ -34,6 +34,9 @@ public class Course implements Serializable {
     private Long id;
     private String name;
     private String level;
+    private int minutesAfterClassStart;
+    private int minutesBeforeClassStart;
+    
 
     
     @OneToMany(mappedBy = "course")
@@ -132,6 +135,24 @@ public class Course implements Serializable {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
+
+    public int getMinutesAfterClassStart() {
+        return minutesAfterClassStart;
+    }
+
+    public void setMinutesAfterClassStart(int minutesEarlierClassStart) {
+        this.minutesAfterClassStart = minutesEarlierClassStart;
+    }
+
+    public int getMinutesBeforeClassStart() {
+        return minutesBeforeClassStart;
+    }
+
+    public void setMinutesBeforeClassStart(int minutesBeforeClassStart) {
+        this.minutesBeforeClassStart = minutesBeforeClassStart;
+    }
+    
+    
     
     /**
      *
