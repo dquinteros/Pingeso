@@ -7,6 +7,7 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +29,10 @@ import javax.persistence.Temporal;
 })
 @Entity
 public class BlockClass implements Serializable {
+    //@Column(nullable = false)
+    @ManyToOne
+    private TimeBlockClass timeBlockClass;
+  
     @ManyToOne
     private Course course;
     private static final long serialVersionUID = 1L;
@@ -38,8 +43,8 @@ public class BlockClass implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date date;
     private boolean done;
-    private String comment;      
-
+    private String comment;          
+      
     @OneToMany(mappedBy = "blockClass")
     private List<Assistance> listAssistance;
     
@@ -130,8 +135,14 @@ public class BlockClass implements Serializable {
     public void setListAssistance(List<Assistance> listAssistance) {
         this.listAssistance = listAssistance;
     }
-    
-    
+
+    public TimeBlockClass getTimeBlockClass() {
+        return timeBlockClass;
+    }
+
+    public void setTimeBlockClass(TimeBlockClass timeBlockClass) {
+        this.timeBlockClass = timeBlockClass;
+    }        
     
     /**
      *

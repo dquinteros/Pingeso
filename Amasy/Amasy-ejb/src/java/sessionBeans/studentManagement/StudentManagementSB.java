@@ -353,46 +353,71 @@ public class StudentManagementSB implements StudentManagementSBLocal {
      * @return
      */
     @Override
-    public AnswerDTO enrollStudentOnCourse(Long idUser, Long idCourse) {
-        List<Course> listCourse;   
-        
+    public AnswerDTO enrollStudentOnCourse(Long idUser, Long idCourse) {          
+        Student student = getStudentByIdUser(idUser);                     
+        if(existStudentOnCourse(student, idCourse)){
+            return new AnswerDTO(127);
+        }
+        student = addCourseToStudent(student, idCourse);        
+        LinkedList<Assistance> listAssistance = generateAssistanceToStudent(student, idCourse);                                
+        return persistEnrollStudentOnCourse(student, listAssistance);
+    }
+    
+    private Student getStudentByIdUser(Long idUser){
         Query q = em.createNamedQuery("Student.findByIdUser", User.class);
         q.setParameter("idUser", idUser);
-        Student student = (Student)q.getSingleResult();
-        
-        
-        Course course = em.find(Course.class, idCourse); 
-
-        
-        
-        listCourse = student.getListCourse(); 
-        
-        listCourse.add(course);
-        
-        
-                         
-               
-        student.setListCourse(listCourse);        
-        
-        persistUpdate(student); 
-        
-      
-                
+        return (Student)q.getSingleResult();
+    }
     
-        
+    private Student addCourseToStudent(Student student, Long idCourse){
+        List<Course> listCourse; 
+        Course course = em.find(Course.class, idCourse);                 
+        listCourse = student.getListCourse();         
+        listCourse.add(course);                                   
+        student.setListCourse(listCourse);
+        return student;
+    }
+    
+    private LinkedList<Assistance> generateAssistanceToStudent(Student student, Long idCourse){
         LinkedList<BlockClass> listBlockClass;
         listBlockClass = new LinkedList<>(em.find(Course.class, idCourse).getListBlockClass());        
         Assistance assistance;
+        LinkedList<Assistance> listAssistance = new LinkedList<>();        
         AssistanceState assistanceState = em.find(AssistanceState.class, 1L);
         for(BlockClass it: listBlockClass){
             assistance = new Assistance();
             assistance.setState(assistanceState);
             assistance.setBlockClass(it);
             assistance.setStudent(student);            
-            persistInsert(assistance);
+            listAssistance.add(assistance);
         }      
-        
-        return null;
+        return listAssistance;
+    }
+    
+    private Boolean existStudentOnCourse(Student student, Long idCourse){
+        LinkedList<Course> listCourse = new LinkedList<>( student.getListCourse());
+        Course course = em.find(Course.class, idCourse);
+        return listCourse.contains(course);
+    }
+            
+    private AnswerDTO persistEnrollStudentOnCourse(Student student, LinkedList<Assistance> listAssistance){
+        try {
+            ut.begin(); // Start a new transaction
+            try {
+                em.merge(student);
+                for(Assistance it: listAssistance){
+                    em.persist(it);
+                }                
+                ut.commit(); // Commit the transaction
+                return new AnswerDTO(0);
+            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
+                ut.rollback(); // Rollback the transaction
+                return new AnswerDTO(126);
+            }
+        } catch (NotSupportedException | SystemException ex) {
+            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
+            return new AnswerDTO(126);
+        }
     }
 
     //http://stackoverflow.com/questions/415953/generate-md5-hash-in-java

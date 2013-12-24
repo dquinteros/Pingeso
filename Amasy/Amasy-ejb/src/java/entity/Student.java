@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,6 +30,8 @@ import javax.persistence.Temporal;
 })
 @Entity
 public class Student implements Serializable {
+    @ManyToOne
+    private Course course;
 
     @ManyToMany
     private List<Course> listCourse;
@@ -38,6 +41,7 @@ public class Student implements Serializable {
     private Long id;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date enrollYear;
+
 
     @OneToMany(mappedBy = "student")
     private List<Assistance> assistance;

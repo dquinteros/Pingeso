@@ -23,13 +23,14 @@ import javax.persistence.Temporal;
 })
 @Entity
 public class Assistance implements Serializable {
-    
     @Id
     @ManyToOne
     private BlockClass blockClass;
     @Id
     @ManyToOne
-    private Student student;    
+    private Student student;
+    
+  
     @OneToOne
     private JustifiedAudit justifiedAudit;
     private static final long serialVersionUID = 1L;
