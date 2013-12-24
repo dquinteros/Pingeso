@@ -28,10 +28,7 @@ import javax.persistence.Temporal;
 
 })
 @Entity
-public class BlockClass implements Serializable {
-    //@Column(nullable = false)
-    @ManyToOne
-    private TimeBlockClass timeBlockClass;
+public class BlockClass implements Serializable {    
   
     @ManyToOne
     private Course course;
@@ -134,15 +131,7 @@ public class BlockClass implements Serializable {
 
     public void setListAssistance(List<Assistance> listAssistance) {
         this.listAssistance = listAssistance;
-    }
-
-    public TimeBlockClass getTimeBlockClass() {
-        return timeBlockClass;
-    }
-
-    public void setTimeBlockClass(TimeBlockClass timeBlockClass) {
-        this.timeBlockClass = timeBlockClass;
-    }        
+    }       
     
     /**
      *

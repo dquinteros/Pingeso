@@ -4,3 +4,16 @@
     vertical-align: top;
 }
 
+#title-inf-student, #title-enrolle-student{
+    text-align: center;
+}
+
+.panelGridInfoStudent{
+    width: 50%;
+}
+
+
+#form{
+    margin-top: 30px;
+}
+

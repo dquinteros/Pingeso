@@ -93,6 +93,10 @@ public class UtilitiesMB {
                 return "El usuario ha sido deshabilitado del sistema.";
             case 125:
                 return "Nombre de curso ya registrado."; 
+            case 126: 
+                return "Error al vincular alumno con curso";
+            case 127:
+                return "Alumno ya vinculado con el curso";
             default:
                 return "Error";
         }
@@ -109,6 +113,8 @@ public class UtilitiesMB {
             case 117:
                 return "warning";
             case 123:
+                return "warning";
+            case 127:
                 return "warning";
             default:
                 return "error";

@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import managedBeans.UtilitiesMB;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
 import sessionBeans.studentManagement.StudentManagementSBLocal;
 
@@ -70,7 +71,11 @@ public class EnrollStudentOnCourseMB {
     }
 
     public void enrollStudentOnCourse(Long idCourse){
-        AnswerDTO answerDTO = studentManagementSB.enrollStudentOnCourse(idUser, idCourse);        
+        AnswerDTO answerDTO = studentManagementSB.enrollStudentOnCourse(idUser, idCourse); 
+        UtilitiesMB.showFeedback(answerDTO);
+        ListCourseDTO listCourseDTO = studentManagementSB.getCoursesFromStudent(idUser);
+        listCourseFromStudent = new LinkedList<>(listCourseDTO.getListCourse());
+        System.out.println("count "+listCourseFromStudent.size());
     }
     
     /*************/
