@@ -89,13 +89,18 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     }
 
     private ListCourseDTO sqlResultToCourseList(Collection<Course> result, ListCourseDTO exitResult) {
+        System.out.println("Entre al sqlResultToCourseList");
+
+    
         CourseDTO courseDTOTemp;
         Collection<CourseDTO> listCourseTemp = new ArrayList<>();
-        for (Course iter : result) {
+        for (Course iter : result) {            
+
             System.out.println("(CourseManagementSB) CourseDTO auxiliar...");
             courseDTOTemp = new CourseDTO(iter);
             System.out.println("(CourseManagementSB) Agreguems el auxiliar a la lista de cursos...");
             listCourseTemp.add(courseDTOTemp);
+
         }
         System.out.println("(CourseManagementSB) Agreguemos la lista al ListCourseDTO...");
         exitResult.setListCourse(listCourseTemp);
@@ -173,4 +178,21 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     }
     
     
+
+    @Override
+    @SuppressWarnings("empty-statement")
+    public ListCourseDTO getAllCoursesOfTeacher(Long idUser) {
+        Collection<Course> result;        
+        Query q = this.em.createNamedQuery("Course.getAllCoursesOfTeacher");
+        System.out.println("ID_USER: "+idUser);
+        q.setParameter("idUser", idUser);
+        try {
+            result = (Collection<Course>) q.getResultList();
+
+            return sqlResultToCourseList(result, new ListCourseDTO());
+        } catch (NoResultException nre) {
+            System.out.println(nre);
+            return null;
+        }
+    }
 }

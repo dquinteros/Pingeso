@@ -31,6 +31,12 @@ public interface CourseManagementSBLocal {
      */
     public AnswerDTO insertNewCourse(CourseDTO userDTO);
 
+
     public CourseDTO getCourseByName(String courseName);
+
+    
+    
+    public ListCourseDTO getAllCoursesOfTeacher(Long idUser);
+        
     
 }

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../admin/index.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+  
+
+
+
+    <ui:define name="content">
+        <h:form id="form">  
+            <p:dataTable  var="courseDTO" value="#{viewAllCoursesMB.courseList}" rowKey="#{courseDTO.name}" paginator="true" rows="10"  
+                          filteredValue="#{viewAllCoursesMB.filteredCourses}" id="courseDTOTable" selection="#{viewAllCoursesMB.selectedCourse}" selectionMode="single">
+                <p:growl for="growl" life="3000"/>
+                
+                <f:facet name="header">  
+                    Lista de cursos
+                </f:facet>  
+                <p:column headerText="Curso" sortBy="name" filterBy="name" id="name">  
+                    #{courseDTO.name}
+                </p:column>  
+                <p:column headerText="Nivel" sortBy="level" filterBy="level" id="level">  
+                    #{courseDTO.level}
+                </p:column>                    
+                <p:column styleClass="center" headerText="Eliminar/Editar">
+                    <p:commandButton id="submitButton" icon="ui-icon-closethick" update="courseDTOTable"/>  
+                    <p:commandButton icon="ui-icon-pencil" title="Editar"/>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>         
+    </ui:define>
+</ui:composition>

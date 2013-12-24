@@ -33,6 +33,8 @@
                         #{course.name}
                     </p:column>
                     <p:column headerText="Asignar curso" id="action" style="width: 30%">
+                        <p:commandButton id="addCourseButton" icon="ui-icon-plusthick" action="#{enrollStudentOnCourseMB.enrollStudentOnCourse(course.id)}"/>                      
+                        <p:tooltip for="addCourseButton" value="Agregar cursos" showEffect="fade" hideEffect="fade" />                         
                     </p:column>
                 </p:dataTable>
                 <p:dialog header="Datos del curso" widgetVar="courseFromAllStudentDialog" resizable="false"  
