@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -21,9 +22,11 @@ import javax.persistence.OneToOne;
     @NamedQuery(name="Course.getAllStudentsOfCourse", query="SELECT e FROM Student e WHERE e.user.userStatus = true"),
     @NamedQuery(name="Course.getAllCourses", query="SELECT c FROM Course c"),
     @NamedQuery(name="Course.countCourseByName", query="SELECT COUNT(c) FROM Course c WHERE c.name = :name"),
-    @NamedQuery(name="Course.getAllCoursesOfTeacher", query="SELECT c FROM Course c WHERE c.teacher.user.id = :idUser")
+    @NamedQuery(name="Course.getAllCoursesOfTeacher", query="SELECT t.listCourse FROM Teacher t WHERE t.user.id = :idUser")
 })
 public class Course implements Serializable {
+    @ManyToOne
+    private Teacher teacher;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,11 +37,10 @@ public class Course implements Serializable {
 
     @OneToMany
     private List<BlockClass> listBlockClass;
-    @ManyToMany
+    @ManyToMany(mappedBy = "listCourse")
     private List<Student> listStudent;
         
-    @OneToOne(mappedBy = "course")
-    private Teacher teacher;;
+
     
     /**
      *
@@ -128,9 +130,7 @@ public class Course implements Serializable {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
-
-
-
+    
     /**
      *
      * @return

@@ -39,7 +39,8 @@ public class Teacher implements Serializable {
     @OneToOne
     private User user;
     
-    @OneToMany
+
+    @OneToMany(mappedBy = "teacher")
     private List<Course> listCourse;
 
     /**
@@ -92,6 +93,24 @@ public class Teacher implements Serializable {
         this.id = id;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public JustifiedAudit getJustifiedAudit() {
+        return justifiedAudit;
+    }
+
+    public void setJustifiedAudit(JustifiedAudit justifiedAudit) {
+        this.justifiedAudit = justifiedAudit;
+    }
+
+    
+    
     /**
      *
      * @return
