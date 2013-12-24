@@ -70,18 +70,20 @@ public class EnrollStudentOnCourseMB {
 
     }
 
-    public void enrollStudentOnCourse(Long idCourse){
-        AnswerDTO answerDTO = studentManagementSB.enrollStudentOnCourse(idUser, idCourse); 
+    public void enrollStudentOnCourse(Long idCourse) {
+        AnswerDTO answerDTO = studentManagementSB.enrollStudentOnCourse(idUser, idCourse);
         UtilitiesMB.showFeedback(answerDTO);
         ListCourseDTO listCourseDTO = studentManagementSB.getCoursesFromStudent(idUser);
         listCourseFromStudent = new LinkedList<>(listCourseDTO.getListCourse());
-        System.out.println("count "+listCourseFromStudent.size());
+        System.out.println("count " + listCourseFromStudent.size());
     }
-    
-    /*************/
-    /*************/
-    
-    
+
+    /**
+     * **********
+     */
+    /**
+     * **********
+     */
     public LinkedList<CourseDTO> getListCourseFromStudent() {
         return listCourseFromStudent;
     }

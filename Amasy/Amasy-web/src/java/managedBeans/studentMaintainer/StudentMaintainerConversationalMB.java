@@ -18,17 +18,17 @@ import javax.inject.Inject;
 @Named(value = "studentMaintainerConversationalMB")
 @ConversationScoped
 public class StudentMaintainerConversationalMB implements Serializable {
+
     @Inject
     Conversation conversation;
-    
     private Long idUser;
-    
+
     /**
      *
      */
     public StudentMaintainerConversationalMB() {
     }
-    
+
     /**
      *
      */
@@ -70,5 +70,4 @@ public class StudentMaintainerConversationalMB implements Serializable {
     public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
-    
 }

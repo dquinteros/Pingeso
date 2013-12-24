@@ -20,16 +20,18 @@ import sessionBeans.studentManagement.StudentManagementSBLocal;
 @Named(value = "addStudentMB")
 @RequestScoped
 public class AddStudentMB {
+
     @EJB
     private StudentManagementSBLocal studentManagementSB;
-    private NewUserDTO newStudent;   
+    private NewUserDTO newStudent;
     private String rutParaValidar;
+
     /**
      * Creates a new instance of addStudentMB
      */
     public AddStudentMB() {
     }
-    
+
     /**
      *
      */
@@ -37,37 +39,39 @@ public class AddStudentMB {
     public void init() {
         newStudent = new NewUserDTO();
     }
-    
+
     /**
      *
      */
-    public void insertNewStudent(){
+    public void insertNewStudent() {
         AnswerDTO r = new AnswerDTO();
         newStudent.setRut(parseRut(newStudent.getRut()));
-        if(validateRut(newStudent.getRut())){
-            if(newStudent.getRut().contains("K")) newStudent.setRut(newStudent.getRut().replace("K",""));
-            else newStudent.setRut(newStudent.getRut().substring(0, newStudent.getRut().length()-1));
+        if (validateRut(newStudent.getRut())) {
+            if (newStudent.getRut().contains("K")) {
+                newStudent.setRut(newStudent.getRut().replace("K", ""));
+            } else {
+                newStudent.setRut(newStudent.getRut().substring(0, newStudent.getRut().length() - 1));
+            }
             r = studentManagementSB.insertNewStudent(newStudent, null);
-        }else{
+        } else {
             r.setIdError(110);
             //Aqui hay que hacer que diga que el rut no es valido, en la vista
         }
         System.out.println(r.getIdError());
-        UtilitiesMB.showFeedback(r);        
+        UtilitiesMB.showFeedback(r);
         //FacesContext fc = FacesContext.getCurrentInstance();
         //FacesContext.getCurrentInstance().getMessages("asdf")
         //fc.addMessage(, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Hola"," Hubo un error"));
     }
-    
+
     private String parseRut(String rut) {
         rut = rut.toUpperCase();
         rut = rut.replace(".", "");
         rut = rut.replace("-", "");
         return rut;
     }
-    
+
     //http://www.qualityinfosolutions.com/validador-de-rut-chileno-en-java/
-    
     /**
      *
      * @param rut
@@ -92,7 +96,7 @@ public class AddStudentMB {
         }
         return validacion;
     }
-    
+
     /**
      *
      * @return
@@ -108,5 +112,4 @@ public class AddStudentMB {
     public void setNewStudent(NewUserDTO newStudent) {
         this.newStudent = newStudent;
     }
-    
 }

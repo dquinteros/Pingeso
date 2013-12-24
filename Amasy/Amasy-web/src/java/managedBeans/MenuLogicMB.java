@@ -122,7 +122,7 @@ public class MenuLogicMB {
                 return "on-hover";
             case "/admin/teacherMaintainer/addTeacher.xhtml":
                 return "on-hover";
-            case "/admin/teacherMaintainer/edirTeacher.xhtml":
+            case "/admin/teacherMaintainer/editTeacher.xhtml":
                 return "on-hover";
             default:
                 return "";
@@ -140,7 +140,7 @@ public class MenuLogicMB {
                 return "";
             case "/admin/teacherMaintainer/addTeacher.xhtml":
                 return "";
-            case "/admin/teacherMaintainer/edirTeacher.xhtml":
+            case "/admin/teacherMaintainer/editTeacher.xhtml":
                 return "";
             default:
                 return "hidden";
@@ -251,7 +251,7 @@ public class MenuLogicMB {
                 return "on-hover";
             case "/admin/courseMaintainer/addCourse.xhtml":
                 return "on-hover";
-            case "/admin/courseMaintainer/edirCourse.xhtml":
+            case "/admin/courseMaintainer/editCourse.xhtml":
                 return "on-hover";
             default:
                 return "";

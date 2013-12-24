@@ -7,10 +7,12 @@ package sessionBeans.courseManagement;
 import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
+import entity.BlockClass;
 import entity.Course;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -38,13 +40,13 @@ import sessionBeans.TakeAttendanceSB;
 @Stateless
 @TransactionManagement(TransactionManagementType.BEAN)
 public class CourseManagementSB implements CourseManagementSBLocal {
+
     @PersistenceContext(unitName = "Amasy-ejbPU")
     private EntityManager em;
-
     @Resource
     UserTransaction ut;
-    
-     /**
+
+    /**
      *
      * @param object
      * @return
@@ -66,7 +68,32 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return false;
         }
     }
-    
+
+    /**
+     *
+     * @param object
+     * @return
+     */
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public boolean persistUpdate(Object object) {
+        try {
+            ut.begin(); // Start a new transaction
+            try {
+                em.merge(object);
+                ut.commit(); // Commit the transaction
+                return true;
+            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
+                ut.rollback(); // Rollback the transaction
+                System.out.println("rollbakc:" + e);
+                return false;
+            }
+        } catch (NotSupportedException | SystemException ex) {
+            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
+            System.out.println("rollbakc:" + ex);
+            return false;
+        }
+    }
+
     /**
      *
      * @return
@@ -78,35 +105,24 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         ListCourseDTO exitResult = new ListCourseDTO();
         Query q = this.em.createNamedQuery("Course.getAllCourses");
         try {
-            System.out.println("(CourseManagementSB) Vamos a pedir los cursos...");
             result = (Collection<Course>) q.getResultList();
-            System.out.println("(CourseManagementSB) Cursos listos! Vamos a entregarlos...");
             return sqlResultToCourseList(result, exitResult);
         } catch (NoResultException nre) {
             System.out.println(nre);
             return null;
         }
     }
-
-    private ListCourseDTO sqlResultToCourseList(Collection<Course> result, ListCourseDTO exitResult) {
-        System.out.println("Entre al sqlResultToCourseList");
-
     
+    private ListCourseDTO sqlResultToCourseList(Collection<Course> result, ListCourseDTO exitResult) {
         CourseDTO courseDTOTemp;
         Collection<CourseDTO> listCourseTemp = new ArrayList<>();
         for (Course iter : result) {            
-
-            System.out.println("(CourseManagementSB) CourseDTO auxiliar...");
             courseDTOTemp = new CourseDTO(iter);
-            System.out.println("(CourseManagementSB) Agreguems el auxiliar a la lista de cursos...");
             listCourseTemp.add(courseDTOTemp);
-
+            
         }
-        System.out.println("(CourseManagementSB) Agreguemos la lista al ListCourseDTO...");
         exitResult.setListCourse(listCourseTemp);
-        System.out.println("(CourseManagementSB) Agreguemos el mensaje de éxito...");
         exitResult.setAnswerDTO(new AnswerDTO(0));
-        System.out.println("(CourseManagementSB) Entreguemos la lista...");
         return exitResult;
     }
 
@@ -117,7 +133,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     public void persist(Object object) {
         em.persist(object);
     }
-    
+
     /**
      *
      * @param courseDTO
@@ -127,7 +143,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     public AnswerDTO insertNewCourse(CourseDTO courseDTO) {
         System.out.println("(CourseManagementSB) Insertando nuevo curso...");
         AnswerDTO existCourseName = validateCourseRegistry(courseDTO);
-        if(existCourseName.getIdError()!=0){
+        if (existCourseName.getIdError() != 0) {
             return existCourseName;
         }
         Course course = newCourse(courseDTO);
@@ -135,29 +151,27 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         persistInsert(course);
         return new AnswerDTO(0);
     }
-
+    
     private AnswerDTO validateCourseRegistry(CourseDTO courseDTO) {
         if (courseDTO == null) {
             return new AnswerDTO(109);
         }
         boolean existName = existName(courseDTO.getName());
-         if (existName) {
+        if (existName) {
             return new AnswerDTO(125);
-        } else{
+        } else {
             return new AnswerDTO(000);
         }
     }
-
+    
     private Course newCourse(CourseDTO courseDTO) {
         Course course = new Course();
         course.setName(courseDTO.getName());
         System.out.println("(CourseManagementSB) course.setLevel(courseDTO.getLevel())");
         course.setLevel(courseDTO.getLevel());
         return course;
-    }
-
-   
-
+    }    
+    
     private boolean existName(String name) {
         Long count;
         Query q = em.createNamedQuery("Course.countCourseByName", Course.class);
@@ -169,7 +183,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return true;
         }
     }
-
+    
     @Override
     public CourseDTO getCourseByName(String courseName) {
         Course course = em.find(Course.class, courseName);
@@ -177,30 +191,39 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         return currentCourse;
     }
     
-    
-
     @Override
     @SuppressWarnings("empty-statement")
     public ListCourseDTO getAllCoursesOfTeacher(Long idUser) {
         Collection<Course> result;        
         Query q = this.em.createNamedQuery("Course.getAllCoursesOfTeacher");
-        System.out.println("ID_USER: "+idUser);
+        System.out.println("ID_USER: " + idUser);
         q.setParameter("idUser", idUser);
         try {
             result = (Collection<Course>) q.getResultList();
-
+            
             return sqlResultToCourseList(result, new ListCourseDTO());
         } catch (NoResultException nre) {
             System.out.println(nre);
             return null;
         }
     }
-
+    
     @Override
     public CourseDTO getCourseById(Long courseId) {
-        System.out.println("course: "+courseId);
+        System.out.println("course: " + courseId);
         Course course = em.find(Course.class, courseId);
-        System.out.println("course: "+course.getName());
+        System.out.println("course: " + course.getName());
         return new CourseDTO(course);
+    }    
+    
+    @Override
+    public AnswerDTO allocateBlockclassesoToCourse(Long idCourse, LinkedList<BlockClass> listBlockClass) {
+        Course course = em.find(Course.class, idCourse);
+        course.setListBlockClass(listBlockClass);
+        if(persistUpdate(course)){
+            return new AnswerDTO(0);
+        }else{
+            return new AnswerDTO(128);
+        }        
     }
 }

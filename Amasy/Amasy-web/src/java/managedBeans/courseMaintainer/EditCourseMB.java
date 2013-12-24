@@ -39,9 +39,7 @@ public class EditCourseMB {
     @PostConstruct
     public void init() {
         idCourse = courseMaintainerConversationalMB.getIdCourse();
-        System.out.println("idcourse "+idCourse);
         currentCourseDTO = courseManagementSB.getCourseById(idCourse);
-        System.out.println("idcourse "+idCourse);
     }
 
     public void editCurrentCourse(){
