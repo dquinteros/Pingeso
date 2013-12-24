@@ -28,22 +28,6 @@ public class AddCourseMB {
     private CourseDTO newCourse; 
 
     /**
-     *
-     * @return
-     */
-    public CourseDTO getNewCourse() {
-        return newCourse;
-    }
-
-    /**
-     *
-     * @param newCourse
-     */
-    public void setNewCourse(CourseDTO newCourse) {
-        this.newCourse = newCourse;
-    }
-
-    /**
      * Creates a new instance of AddCourseMB
      */
     public AddCourseMB() {
@@ -62,8 +46,24 @@ public class AddCourseMB {
      */
     public void insertNewCourse(){
         AnswerDTO r = new AnswerDTO();
+        newCourse.setLevel(newCourse.getLevel());
         r = courseManagementSB.insertNewCourse(newCourse);
         UtilitiesMB.showFeedback(r); 
     }
     
+        /**
+     *
+     * @return
+     */
+    public CourseDTO getNewCourse() {
+        return newCourse;
+    }
+
+    /**
+     *
+     * @param newCourse
+     */
+    public void setNewCourse(CourseDTO newCourse) {
+        this.newCourse = newCourse;
+    }
 }

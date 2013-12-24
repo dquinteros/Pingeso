@@ -33,17 +33,15 @@ public class Course implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private int level;
+    private String level;
 
-    @OneToMany(mappedBy = "course")
-    private List<BlockClass> listBlockClass;    
-    @ManyToMany(mappedBy = "listCourse")
-    private List<Student> listStudent;    
+    @OneToMany
+    private List<BlockClass> listBlockClass;
+    @ManyToMany
+    private List<Student> listStudent;
+        
     @OneToMany
     private List<Teacher> listTeacher;
-
-
-
     
     /**
      *
@@ -114,7 +112,7 @@ public class Course implements Serializable {
      *
      * @return
      */
-    public int getLevel() {
+    public String getLevel() {
         return level;
     }
 
@@ -122,7 +120,7 @@ public class Course implements Serializable {
      *
      * @param level
      */
-    public void setLevel(int level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 
