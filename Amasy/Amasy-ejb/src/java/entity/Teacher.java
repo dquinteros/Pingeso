@@ -28,6 +28,8 @@ import javax.persistence.OneToOne;
 })
 public class Teacher implements Serializable {
     @OneToOne
+    private Course course;
+    @OneToOne
     private JustifiedAudit justifiedAudit;
     private static final long serialVersionUID = 1L;
     @Id

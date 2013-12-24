@@ -24,7 +24,8 @@ import javax.persistence.OneToOne;
 @NamedQueries( {
     @NamedQuery(name="Course.getAllStudentsOfCourse", query="SELECT e FROM Student e WHERE e.user.userStatus = true"),
     @NamedQuery(name="Course.getAllCourses", query="SELECT c FROM Course c"),
-    @NamedQuery(name="Course.countCourseByName", query="SELECT COUNT(c) FROM Course c WHERE c.name = :name")
+    @NamedQuery(name="Course.countCourseByName", query="SELECT COUNT(c) FROM Course c WHERE c.name = :name"),
+    @NamedQuery(name="Course.getAllCoursesOfTeacher", query="SELECT c FROM Course c WHERE c.teacher.user.id = :idUser")
 })
 public class Course implements Serializable {
 
@@ -39,8 +40,9 @@ public class Course implements Serializable {
     private List<BlockClass> listBlockClass;    
     @ManyToMany
     private List<Student> listStudent;    
-    @OneToMany
-    private List<Teacher> listTeacher;
+
+    @OneToOne(mappedBy = "course")
+    private Teacher teacher;
 
 
 
@@ -126,22 +128,15 @@ public class Course implements Serializable {
         this.level = level;
     }
 
-
-    /**
-     *
-     * @return
-     */
-    public List<Teacher> getListTeacher() {
-        return listTeacher;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    /**
-     *
-     * @param listTeacher
-     */
-    public void setListTeacher(List<Teacher> listTeacher) {
-        this.listTeacher = listTeacher;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
+
+
 
     /**
      *

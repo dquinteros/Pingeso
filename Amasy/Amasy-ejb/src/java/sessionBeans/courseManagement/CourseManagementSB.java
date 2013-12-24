@@ -59,8 +59,10 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     }
 
     private LinkedList<CourseDTO> sqlResultToCourseList(Collection<Course> result, LinkedList<CourseDTO> exitResult) {
+        System.out.println("Entre al sqlResultToCourseList");
         CourseDTO courseDTOTemp;
         for (Course iter : result) {
+            System.out.println("Curso: "+iter.getName());
             courseDTOTemp = new CourseDTO(iter);            
             exitResult.add(courseDTOTemp);
         }
@@ -142,6 +144,23 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return false;
         } else {
             return true;
+        }
+    }
+    
+    @Override
+    @SuppressWarnings("empty-statement")
+    public LinkedList<CourseDTO> getAllCoursesOfTeacher(Long idUser) {
+        Collection<Course> result;
+        LinkedList<CourseDTO> exitResult = new LinkedList<CourseDTO>();
+        Query q = this.em.createNamedQuery("Course.getAllCoursesOfTeacher");
+        System.out.println("ID_USER: "+idUser);
+        q.setParameter("idUser", idUser);
+        try {
+            result = (Collection<Course>) q.getResultList();
+            return sqlResultToCourseList(result, exitResult);
+        } catch (NoResultException nre) {
+            System.out.println(nre);
+            return null;
         }
     }
 }

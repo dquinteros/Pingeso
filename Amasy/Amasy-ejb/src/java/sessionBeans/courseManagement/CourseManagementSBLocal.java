@@ -26,6 +26,8 @@ public interface CourseManagementSBLocal {
      * @return
      */
     public AnswerDTO insertNewCourse(CourseDTO userDTO);
+    
+    public LinkedList<CourseDTO> getAllCoursesOfTeacher(Long idUser);
         
     
 }

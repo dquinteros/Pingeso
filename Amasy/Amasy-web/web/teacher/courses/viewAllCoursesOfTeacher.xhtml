@@ -4,8 +4,7 @@
                 template="./../../admin/index.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:c="http://java.sun.com/jsp/jstl/core">
+                xmlns:f="http://java.sun.com/jsf/core">
 
   
 
@@ -13,8 +12,8 @@
 
     <ui:define name="content">
         <h:form id="form">  
-            <p:dataTable  var="courseDTO" value="#{viewAllCourseMB.courseList}" rowKey="#{courseDTO.name}" paginator="true" rows="10"  
-                          filteredValue="#{viewAllCourseMB.filteredCourses}" id="courseDTOTable" selection="#{viewAllCourseMB.selectedCourse}" selectionMode="single">
+            <p:dataTable  var="courseDTO" value="#{viewAllCoursesMB.courseList}" rowKey="#{courseDTO.name}" paginator="true" rows="10"  
+                          filteredValue="#{viewAllCoursesMB.filteredCourses}" id="courseDTOTable" selection="#{viewAllCoursesMB.selectedCourse}" selectionMode="single">
                 <p:growl for="growl" life="3000"/>
                 
                 <f:facet name="header">  
@@ -24,7 +23,7 @@
                     #{courseDTO.name}
                 </p:column>  
                 <p:column headerText="Nivel" sortBy="level" filterBy="level" id="level">  
-                    #{courseDTO.level}  
+                    #{courseDTO.level}
                 </p:column>                    
                 <p:column styleClass="center" headerText="Eliminar/Editar">
                     <p:commandButton id="submitButton" icon="ui-icon-closethick" update="courseDTOTable"/>  
