@@ -7,7 +7,11 @@ package sessionBeans.studentManagement;
 import DTOs.NewUserDTO;
 import DTOs.UserDTO;
 import DTOs.AnswerDTO;
+import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
+import entity.Assistance;
+import entity.AssistanceState;
+import entity.BlockClass;
 import entity.Course;
 import entity.Student;
 import entity.User;
@@ -66,6 +70,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
      * @param object
      * @return
      */
+    
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public boolean persistInsert(Object object) {
         try {
@@ -99,10 +104,12 @@ public class StudentManagementSB implements StudentManagementSBLocal {
                 return true;
             } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
                 ut.rollback(); // Rollback the transaction
+                System.out.println("rollbakc:"+e);
                 return false;
             }
         } catch (NotSupportedException | SystemException ex) {
             Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
+            System.out.println("rollbakc:"+ex);
             return false;
         }
     }
@@ -325,11 +332,17 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         Collection<Course> listCourse;
         ListCourseDTO listCourseDTO;
         
+        Collection<CourseDTO> collectionCourseDTO = new ArrayList<>();
+        
         Query q = em.createNamedQuery("Student.getListCourseFromUser", Student.class);
         q.setParameter("idUser", idUser);
         listCourse = (Collection<Course>) q.getResultList();
         
-        listCourseDTO = new ListCourseDTO(listCourse, new AnswerDTO(0));
+        for(Course it: listCourse){
+            collectionCourseDTO.add(new CourseDTO(it));
+        }
+                
+        listCourseDTO = new ListCourseDTO(collectionCourseDTO, new AnswerDTO(0));
         return listCourseDTO;
     }
     
@@ -341,17 +354,44 @@ public class StudentManagementSB implements StudentManagementSBLocal {
      */
     @Override
     public AnswerDTO enrollStudentOnCourse(Long idUser, Long idCourse) {
-        Collection<Course> listCourse;
- 
+        List<Course> listCourse;   
         
-        Query q = em.createNamedQuery("Student.getListCourseFromUser", User.class);
+        Query q = em.createNamedQuery("Student.findByIdUser", User.class);
         q.setParameter("idUser", idUser);
-        listCourse = (Collection<Course>) q.getResultList();
-       
-                
-        Course course = em.find(Course.class, idCourse);
+        Student student = (Student)q.getSingleResult();
+        
+        
+        Course course = em.find(Course.class, idCourse); 
+
+        
+        
+        listCourse = student.getListCourse(); 
+        
         listCourse.add(course);
-        persistUpdate(listCourse);
+        
+        
+                         
+               
+        student.setListCourse(listCourse);        
+        
+        persistUpdate(student); 
+        
+      
+                
+    
+        
+        LinkedList<BlockClass> listBlockClass;
+        listBlockClass = new LinkedList<>(em.find(Course.class, idCourse).getListBlockClass());        
+        Assistance assistance;
+        AssistanceState assistanceState = em.find(AssistanceState.class, 1L);
+        for(BlockClass it: listBlockClass){
+            assistance = new Assistance();
+            assistance.setState(assistanceState);
+            assistance.setBlockClass(it);
+            assistance.setStudent(student);            
+            persistInsert(assistance);
+        }      
+        
         return null;
     }
 
@@ -379,6 +419,8 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         System.out.println(ex);
         return ex;
     }
+    
+
 
     /**
      *

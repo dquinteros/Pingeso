@@ -23,20 +23,21 @@ import javax.persistence.Temporal;
 })
 @Entity
 public class Assistance implements Serializable {
+    
+    @Id
+    @ManyToOne
+    private BlockClass blockClass;
+    @Id
+    @ManyToOne
+    private Student student;    
     @OneToOne
     private JustifiedAudit justifiedAudit;
-
     private static final long serialVersionUID = 1L;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date date;
     @ManyToOne
     private AssistanceState state;
-    @Id
-    @OneToOne
-    private Student student;
-    @Id
-    @OneToOne
-    private BlockClass blockClass;
+
 
     
     
@@ -88,19 +89,26 @@ public class Assistance implements Serializable {
         this.student = student;
     }
 
-    /**
-     *
-     * @return
-     */
+    public JustifiedAudit getJustifiedAudit() {
+        return justifiedAudit;
+    }
+
+    public void setJustifiedAudit(JustifiedAudit justifiedAudit) {
+        this.justifiedAudit = justifiedAudit;
+    }
+
     public BlockClass getBlockClass() {
         return blockClass;
     }
 
-    /**
-     *
-     * @param blockClass
-     */
     public void setBlockClass(BlockClass blockClass) {
         this.blockClass = blockClass;
     }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+    
+    
+    
 }

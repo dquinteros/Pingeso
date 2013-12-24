@@ -23,14 +23,18 @@
                 <p:column headerText="Curso" sortBy="name" filterBy="name" id="name">  
                     #{courseDTO.name}
                 </p:column>  
-                <p:column headerText="Nivel" sortBy="level" filterBy="level" id="level">  
+                <p:column headerText="Nivel" sortBy="level" filterBy="level" id="level" styleClass="center">  
                     #{courseDTO.level}  
                 </p:column>                    
-                <p:column styleClass="center" headerText="Eliminar/Editar">
-                    <p:commandButton id="submitButton" icon="ui-icon-closethick" update="courseDTOTable"/>  
-                    <p:commandButton icon="ui-icon-pencil" title="Editar"/>
+                <p:column styleClass="center" headerText="Editar/Eliminar">
+                    
+                    <p:commandButton id="editCourseButton" icon="ui-icon-pencil" title="Editar"/>
+                    <p:tooltip for="editCourseButton" value="Editar" showEffect="fade" hideEffect="fade" />
+                    
+                    <p:commandButton id="submitCourseButton" icon="ui-icon-closethick" update="courseDTOTable"/>
+                    <p:tooltip for="submitCourseButton" value="Eliminar" showEffect="fade" hideEffect="fade" />
+                    
                 </p:column>
-
             </p:dataTable>
         </h:form>         
     </ui:define>

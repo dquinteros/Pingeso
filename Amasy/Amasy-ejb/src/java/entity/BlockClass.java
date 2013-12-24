@@ -40,9 +40,9 @@ public class BlockClass implements Serializable {
     private boolean done;
     private String comment;      
 
-    @OneToOne(mappedBy = "blockClass")
-    private Assistance assistance;
-
+    @OneToMany(mappedBy = "blockClass")
+    private List<Assistance> listAssistance;
+    
     /**
      *
      * @return
@@ -90,24 +90,6 @@ public class BlockClass implements Serializable {
     public void setComment(String comment) {
         this.comment = comment;
     }
-
-    /**
-     *
-     * @return
-     */
-    public Assistance getAssistance() {
-        return assistance;
-    }
-
-    /**
-     *
-     * @param assistance
-     */
-    public void setAssistance(Assistance assistance) {
-        this.assistance = assistance;
-    }
-
- 
     
     /**
      *
@@ -140,6 +122,16 @@ public class BlockClass implements Serializable {
     public void setCourse(Course course) {
         this.course = course;
     }   
+
+    public List<Assistance> getListAssistance() {
+        return listAssistance;
+    }
+
+    public void setListAssistance(List<Assistance> listAssistance) {
+        this.listAssistance = listAssistance;
+    }
+    
+    
     
     /**
      *

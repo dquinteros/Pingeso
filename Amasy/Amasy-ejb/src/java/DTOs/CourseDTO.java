@@ -18,16 +18,16 @@ public class CourseDTO {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    
+    private Long id;
     private String name;
-    private int level;
+    private String level;
 
     /**
      *
      * @param course
      */
     public CourseDTO(Course course) {
-        
+        this.id = course.getId();
         this.name = course.getName();
         this.level = course.getLevel();
     }
@@ -59,7 +59,7 @@ public class CourseDTO {
      *
      * @return
      */
-    public int getLevel() {
+    public String getLevel() {
         return level;
     }
 
@@ -67,8 +67,18 @@ public class CourseDTO {
      *
      * @param level
      */
-    public void setLevel(int level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    
+    
 }

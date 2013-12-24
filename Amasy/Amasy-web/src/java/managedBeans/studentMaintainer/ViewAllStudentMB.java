@@ -67,10 +67,15 @@ public class ViewAllStudentMB {
      * @param idUser
      */
     public void deleteStudent(Long idUser){
-        System.out.println(idUser);
         AnswerDTO ans = studentManagementSB.deleteStudent(idUser);
         UtilitiesMB.showFeedback(ans);
    }
+    
+    public void addCourseToStudent(Long idUser){
+        this.studentMaintainerConversation.beginConversation();
+        this.studentMaintainerConversation.setIdUser(idUser);
+        UtilitiesMB.redirection("/faces/admin/studentMaintainer/enrollStudentOnCourse.xhtml?cid=".concat(this.studentMaintainerConversation.getConversation().getId().toString()));
+    }
     
     /**
      *

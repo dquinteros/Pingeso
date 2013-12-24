@@ -29,8 +29,12 @@
                 </p:column>                      
 
                 <p:column styleClass="center" headerText="Eliminar/Editar">
-                    <p:commandButton id="submitButton" icon="ui-icon-closethick" update="userDTOTable" action="#{viewAllTeacherMB.deleteTeacher(userDTO.id)}"/>  
-                    <p:commandButton icon="ui-icon-pencil" title="Editar" action="#{viewAllTeacherMB.editTeacher(userDTO.id)}"/>
+                    <p:commandButton id="editTeacherButton" icon="ui-icon-pencil" title="Editar" action="#{viewAllTeacherMB.editTeacher(userDTO.id)}"/>
+                    <p:tooltip for="editTeacherButton" value="Editar profesor" showEffect="fade" hideEffect="fade" /> 
+                    
+                    <p:commandButton id="submitButton" icon="ui-icon-closethick" title="Eliminar" update="userDTOTable" action="#{viewAllTeacherMB.deleteTeacher(userDTO.id)}"/>                      
+                    <p:tooltip for="submitButton" value="Eliminar profesor" showEffect="fade" hideEffect="fade" /> 
+                    
                 </p:column>
 
             </p:dataTable>  
