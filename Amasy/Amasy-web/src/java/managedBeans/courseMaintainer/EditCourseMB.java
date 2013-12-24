@@ -19,49 +19,50 @@ import sessionBeans.courseManagement.CourseManagementSBLocal;
 @Named(value = "editCourseMB")
 @RequestScoped
 public class EditCourseMB {
+
     @EJB
     private CourseManagementSBLocal courseManagementSB;
     @Inject
     private CourseMaintainerConversationalMB courseMaintainerConversationalMB;
     private CourseDTO currentCourseDTO;
-    private String courseName;
+    private Long idCourse;
 
     /**
      * Creates a new instance of EditCourseMB
      */
     public EditCourseMB() {
     }
-    
+
     /**
      *
      */
     @PostConstruct
     public void init() {
-        System.out.println("Inicializando EditCourseMB...");
-        System.out.println("Obteniendo nombre...");
-        courseName = courseMaintainerConversationalMB.getCourseName();
-        System.out.println("Nombre obtenido:"+courseName);
-        System.out.println("Obteniendo DTO...");
-        currentCourseDTO = courseManagementSB.getCourseByName(courseName);
-        System.out.println("Terminado...");
+        idCourse = courseMaintainerConversationalMB.getIdCourse();
+        System.out.println("idcourse "+idCourse);
+        currentCourseDTO = courseManagementSB.getCourseById(idCourse);
+        System.out.println("idcourse "+idCourse);
     }
 
+    public void editCurrentCourse(){
+        
+    }
+    
     public CourseDTO getCurrentCourseDTO() {
         return currentCourseDTO;
     }
 
     public void setCurrentCourseDTO(CourseDTO currentCourseDTO) {
         this.currentCourseDTO = currentCourseDTO;
-    }    
-
-    public String getCourseName() {
-        return courseName;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public Long getIdCourse() {
+        return idCourse;
     }
-    
+
+    public void setIdCourse(Long idCourse) {
+        this.idCourse = idCourse;
+    }
     
     
 }

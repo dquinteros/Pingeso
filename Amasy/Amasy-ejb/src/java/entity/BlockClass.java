@@ -23,28 +23,27 @@ import javax.persistence.Temporal;
  *
  * @author Pingeso
  */
-@NamedQueries( {
+@NamedQueries({
     @NamedQuery(name = "BlockClass.findStudentByBlockClass", query = "SELECT b.course.listStudent FROM BlockClass b WHERE b.id = :idBlockClass")
-
 })
 @Entity
-public class BlockClass implements Serializable {    
-  
+public class BlockClass implements Serializable {
+
+    @ManyToOne
+    private TimeBlockClass timeBlockClass;
     @ManyToOne
     private Course course;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date date;
     private boolean done;
-    private String comment;          
-      
+    private String comment;
     @OneToMany(mappedBy = "blockClass")
     private List<Assistance> listAssistance;
-    
+
     /**
      *
      * @return
@@ -92,7 +91,7 @@ public class BlockClass implements Serializable {
     public void setComment(String comment) {
         this.comment = comment;
     }
-    
+
     /**
      *
      * @return
@@ -109,6 +108,14 @@ public class BlockClass implements Serializable {
         this.id = id;
     }
 
+    public TimeBlockClass getTimeBlockClass() {
+        return timeBlockClass;
+    }
+
+    public void setTimeBlockClass(TimeBlockClass timeBlockClass) {
+        this.timeBlockClass = timeBlockClass;
+    }
+
     /**
      *
      * @return
@@ -123,7 +130,7 @@ public class BlockClass implements Serializable {
      */
     public void setCourse(Course course) {
         this.course = course;
-    }   
+    }
 
     public List<Assistance> getListAssistance() {
         return listAssistance;
@@ -131,8 +138,8 @@ public class BlockClass implements Serializable {
 
     public void setListAssistance(List<Assistance> listAssistance) {
         this.listAssistance = listAssistance;
-    }       
-    
+    }
+
     /**
      *
      * @return
@@ -170,5 +177,4 @@ public class BlockClass implements Serializable {
     public String toString() {
         return "entity.BlockClass[ id=" + id + " ]";
     }
-    
 }

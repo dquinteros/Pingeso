@@ -18,20 +18,66 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class TimeBlockClass implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String day;
+    private String startHour;
+    private String endHour;
+    private String name;
+    @OneToMany(mappedBy = "timeBlockClass")
+    private List<BlockClass> listBlockClass;
 
-    
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }  
-    
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getStartHour() {
+        return startHour;
+    }
+
+    public void setStartHour(String startHour) {
+        this.startHour = startHour;
+    }
+
+    public String getEndHour() {
+        return endHour;
+    }
+
+    public void setEndHour(String endHour) {
+        this.endHour = endHour;
+    }
+
+    public List<BlockClass> getListBlockClass() {
+        return listBlockClass;
+    }
+
+    public void setListBlockClass(List<BlockClass> listBlockClass) {
+        this.listBlockClass = listBlockClass;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -56,5 +102,4 @@ public class TimeBlockClass implements Serializable {
     public String toString() {
         return "entity.TimeBlockClass[ id=" + id + " ]";
     }
-    
 }

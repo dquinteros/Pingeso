@@ -195,4 +195,12 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return null;
         }
     }
+
+    @Override
+    public CourseDTO getCourseById(Long courseId) {
+        System.out.println("course: "+courseId);
+        Course course = em.find(Course.class, courseId);
+        System.out.println("course: "+course.getName());
+        return new CourseDTO(course);
+    }
 }
