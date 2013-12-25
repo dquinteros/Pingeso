@@ -49,7 +49,7 @@ public class TakeAttendanceMB{
     public void init() {      
         System.out.println(takeAttendanceConversation.getIdClass());
         if(takeAttendanceConversation.getIdClass()!=-1){
-            blockClass = TakeAttendanceSB.getIdBloackClassForTakeAttendance(this.takeAttendanceConversation.getIdClass());            
+            blockClass = TakeAttendanceSB.getIdBlockClassForTakeAttendance(this.takeAttendanceConversation.getIdClass());            
             takeAttendanceConversation.setBlockClass(blockClass);
             if(blockClass!=null){   
                 System.out.println(blockClass.getDate());

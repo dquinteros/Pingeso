@@ -97,6 +97,10 @@ public class UtilitiesMB {
                 return "Error al vincular alumno con curso";
             case 127:
                 return "Alumno ya vinculado con el curso";
+            case 128:
+                return "Error al crear el vinculo cn los bloques de clase";
+            case 129:
+                return "Error al configurar la ventana de tiempo para la toma de asistencia";
             default:
                 return "Error";
         }

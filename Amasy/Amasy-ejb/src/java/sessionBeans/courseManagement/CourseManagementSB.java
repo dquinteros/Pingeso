@@ -196,12 +196,9 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     public ListCourseDTO getAllCoursesOfTeacher(Long idUser) {
         Collection<Course> result;        
         Query q = this.em.createNamedQuery("Course.getAllCoursesOfTeacher");
-        System.out.println("ID_USER: " + idUser);
         q.setParameter("idUser", idUser);
         try {
-            System.out.println("ANTES DEL RESULT");
             result = (Collection<Course>) q.getResultList();
-            System.out.println("DESPUES DEL RESULT");
             return sqlResultToCourseList(result, new ListCourseDTO());
         } catch (NoResultException nre) {
             System.out.println(nre);
@@ -211,11 +208,9 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     
     @Override
     public CourseDTO getCourseById(Long courseId) {
-        System.out.println("course: " + courseId);
         Course course = em.find(Course.class, courseId);
-        System.out.println("course: " + course.getName());
         return new CourseDTO(course);
-    }    
+    }
     
     @Override
     public AnswerDTO allocateBlockclassesoToCourse(Long idCourse, LinkedList<BlockClass> listBlockClass) {
@@ -242,6 +237,18 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return new AnswerDTO(0);
         } else {
             return new AnswerDTO(113);
+        }
+    }
+    
+    @Override
+    public AnswerDTO configureAssistanceTimebox(CourseDTO course){
+        Course courseToUpdate = em.find(Course.class, course.getId());
+        courseToUpdate.setMinutesBeforeClassStart(course.getMinutesBeforeClassStart());
+        courseToUpdate.setMinutesAfterClassStart(course.getMinutesAfterClassStart());
+        if(persistUpdate(courseToUpdate)){
+            return new AnswerDTO(0);
+        }else{
+            return new AnswerDTO(0);
         }
     }
 }

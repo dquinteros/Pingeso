@@ -40,4 +40,6 @@ public interface CourseManagementSBLocal {
     AnswerDTO allocateBlockclassesoToCourse(Long idCourse, LinkedList<BlockClass> listBlockClass);
 
     AnswerDTO updateCourse(CourseDTO courseDTO, Long courseId);
+    
+    AnswerDTO configureAssistanceTimebox(CourseDTO course);
 }

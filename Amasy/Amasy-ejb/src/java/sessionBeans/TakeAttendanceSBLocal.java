@@ -30,7 +30,7 @@ public interface TakeAttendanceSBLocal {
      * @param course
      * @return
      */
-    public BlockClass getIdBloackClassForTakeAttendance(Long course);
+    public BlockClass getIdBlockClassForTakeAttendance(Long course);
     
     /**
      *

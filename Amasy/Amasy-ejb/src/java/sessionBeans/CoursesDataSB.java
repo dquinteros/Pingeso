@@ -44,25 +44,35 @@ public class CoursesDataSB implements CoursesDataSBLocal {
         Collection<Course> res = em.find(Teacher.class, profesorActual).getListCourse();        
         ArrayList<Course> listaCursos = new ArrayList<> ();     
         for (Course iter : res) { 
-            if(getIdBloackClassForTakeAttendance(iter.getId())!=null){
+            if(getIdBlockClassForTakeAttendance(iter.getId())!=null){
                 listaCursos.add(iter);                          
             }                                 
         }
         return listaCursos;
     }
     
-    private BlockClass getIdBloackClassForTakeAttendance(Long course) {
-        Date date = new Date();        
+    private BlockClass getIdBlockClassForTakeAttendance(Long course) {      
         Collection<BlockClass> res = em.find(Course.class, course).getListBlockClass(); 
         if(res.isEmpty()){
             return null;
         }
         for (BlockClass iter : res) {
-            if( iter.getDate().getTime()/1000 -5*60 <= date.getTime()/1000 && date.getTime()/1000 <= iter.getDate().getTime()/1000+30*60){
+            if( validAssistanceTimebox(course, iter)){
                 return iter;
             }
         }
         return null;
     } 
+    
+    private boolean validAssistanceTimebox(Long idCourse, BlockClass blockclass){
+        Course course = em.find(Course.class, idCourse);
+        Date date = new Date();
+        if(blockclass.getDate().getTime()/1000 -course.getMinutesBeforeClassStart()*60 <= date.getTime()/1000 && date.getTime()/1000 <= blockclass.getDate().getTime()/1000+course.getMinutesAfterClassStart()*60){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
 
 }
