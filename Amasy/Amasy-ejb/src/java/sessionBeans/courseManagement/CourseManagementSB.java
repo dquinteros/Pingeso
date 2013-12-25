@@ -5,11 +5,21 @@
 package sessionBeans.courseManagement;
 
 import DTOs.AnswerDTO;
+import DTOs.BlockClassDTO;
+import DTOs.BlockClassListDTO;
 import DTOs.CourseDTO;
+import DTOs.DayBlockClassDTO;
+import DTOs.DayBlockClassListDTO;
 import DTOs.ListCourseDTO;
+import DTOs.TimeBlockClassDTO;
+import DTOs.TimeBlockClassListDTO;
+import entity.Assistance;
+import entity.AssistanceState;
 import entity.BlockClass;
 import entity.Course;
-import entity.User;
+import entity.DayBlockClass;
+import entity.Student;
+import entity.TimeBlockClass;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -211,37 +221,151 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     
     @Override
     public CourseDTO getCourseById(Long courseId) {
-        System.out.println("course: " + courseId);
         Course course = em.find(Course.class, courseId);
-        System.out.println("course: " + course.getName());
         return new CourseDTO(course);
     }    
     
     @Override
-    public AnswerDTO allocateBlockclassesoToCourse(Long idCourse, LinkedList<BlockClass> listBlockClass) {
-        Course course = em.find(Course.class, idCourse);
-        course.setListBlockClass(listBlockClass);
-        if(persistUpdate(course)){
-            return new AnswerDTO(0);
+    public AnswerDTO allocateBlockclassesoToCourse(Long idCourse, LinkedList<BlockClassDTO> listBlockClassDTO) {        
+        LinkedList<BlockClass> listBlockClass = new LinkedList<>(generateListBlockClass(idCourse, listBlockClassDTO));        
+        if(listBlockClass.isEmpty()){
+            return new AnswerDTO(131);
+        }
+        LinkedList<Assistance> listAssistance = generateAssistanceToStudent(idCourse, listBlockClass);        
+        persistallocateBlockclassesoToCourse(listBlockClass, listAssistance);
+        return new AnswerDTO(0);
+    }
+    
+    private boolean existBlockClass(BlockClassDTO blockClassDTO){
+        Long count;
+        Query q = em.createNamedQuery("BlockClass.existBlockClass", BlockClass.class);
+        q.setParameter("idDayBlockClass", blockClassDTO.getDayBlockClass());
+        q.setParameter("idTimeBlockClass", blockClassDTO.getTimeBlockClass());
+        count = (Long) q.getSingleResult();
+        if(count >0){
+            return true;
         }else{
-            return new AnswerDTO(128);
+            return false;
         }        
+    }
+    
+    private List<BlockClass> generateListBlockClass(Long idCourse, LinkedList<BlockClassDTO> listBlockClassDTO){
+        List<BlockClass> listBlockClass = new ArrayList();
+        Course course = em.find(Course.class, idCourse);
+        BlockClass blockClass;
+        DayBlockClass dayBlockClass;
+        TimeBlockClass timeBlockClass;
+        for(BlockClassDTO it: listBlockClassDTO){            
+            if(!existBlockClass(it)){
+                blockClass = new BlockClass();
+                blockClass.setDate(it.getDate());            
+                blockClass.setDone(false);
+                dayBlockClass = em.find(DayBlockClass.class, it.getDayBlockClass());
+                timeBlockClass = em.find(TimeBlockClass.class, it.getTimeBlockClass());
+                blockClass.setDayBlockClass(dayBlockClass);
+                blockClass.setTimeBlockClass(timeBlockClass);
+                blockClass.setCourse(course);
+                listBlockClass.add(blockClass);
+            }
+        }
+        return listBlockClass;
+    }
+    
+    private LinkedList<Assistance> generateAssistanceToStudent(Long idCourse, LinkedList<BlockClass> listNewBlockCLass){
+        Query q = this.em.createNamedQuery("Student.getStundentOfCourse");
+        q.setParameter("idCourse", idCourse);
+        LinkedList<Student> listStudent = new LinkedList<>((Collection<Student>)q.getResultList());                                 
+        LinkedList<Assistance> listAssistance = new LinkedList<>();
+        Assistance assistance;
+        AssistanceState assistanceState = em.find(AssistanceState.class, 1L);
+        for(Student student: listStudent){
+            for(BlockClass blockClass: listNewBlockCLass){
+                assistance = new Assistance();
+                assistance.setBlockClass(blockClass);
+                assistance.setStudent(student);
+                assistance.setState(assistanceState);
+                listAssistance.add(assistance);
+            }
+        }
+        return listAssistance;
+    }
+    
+    private AnswerDTO persistallocateBlockclassesoToCourse(LinkedList<BlockClass> listBlockClass, LinkedList<Assistance> listAssistance){
+        try {
+            ut.begin(); // Start a new transaction
+            try {
+                for(Assistance it: listAssistance){
+                    em.persist(it);
+                }
+                for(BlockClass it: listBlockClass){
+                    em.persist(it);
+                }
+                ut.commit(); // Commit the transaction
+                return new AnswerDTO(0);
+            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
+                ut.rollback(); // Rollback the transaction
+                return new AnswerDTO(126);
+            }
+        } catch (NotSupportedException | SystemException ex) {
+            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
+            return new AnswerDTO(126);
+        }
     }
     
     @Override
     public AnswerDTO updateCourse(CourseDTO courseDTO, Long idCourse){
-        System.out.println("Buscar class a modificar...");
         Course course = em.find(Course.class, idCourse);
-        System.out.println("Setear nombre...");
         course.setName(courseDTO.getName());
-        System.out.println("Nombre: "+ course.getName());
         course.setLevel(courseDTO.getLevel());
-        System.out.println("Setear nivel...");
-        System.out.println("Nivel: "+ course.getLevel());
         if (persistUpdate(course)) {
             return new AnswerDTO(0);
         } else {
             return new AnswerDTO(113);
         }
     }
+
+    @Override
+    public TimeBlockClassListDTO getAllTimeBlockClass() {
+        Collection<TimeBlockClass> result;
+        LinkedList<TimeBlockClassDTO> timeBlockClassDTO = new LinkedList<>();
+        Query q = this.em.createNamedQuery("TimeBlockClass.gelAllTimeBlockClass");
+        result = (Collection<TimeBlockClass>) q.getResultList();        
+        for(TimeBlockClass it: result){
+            timeBlockClassDTO.add(new TimeBlockClassDTO(it));
+        }        
+        return new TimeBlockClassListDTO(timeBlockClassDTO, new AnswerDTO(0));
+    }
+
+    @Override
+    public DayBlockClassListDTO getAllDayBlockClassDTO() {
+        Collection<DayBlockClass> result;
+        LinkedList<DayBlockClassDTO> timeBlockClassDTO = new LinkedList<>();
+        Query q = this.em.createNamedQuery("DayBlockClass.gelAllDayBlockClass");
+        result = (Collection<DayBlockClass>) q.getResultList();        
+        for(DayBlockClass it: result){
+            timeBlockClassDTO.add(new DayBlockClassDTO(it));
+        }        
+        return new DayBlockClassListDTO(timeBlockClassDTO, new AnswerDTO(0));
+    }
+
+    @Override
+    public BlockClassListDTO getAllBlockClassOfCourse(Long idCourse) {
+        Query q = this.em.createNamedQuery("BlockClass.getBlockClassOfCourse");
+        q.setParameter("idCourse", idCourse);
+        Collection<BlockClass> result = (Collection<BlockClass>) q.getResultList();        
+        LinkedList<BlockClassDTO> listBlockClassDTO = new LinkedList<>();
+        BlockClassDTO blockClass;
+        for(BlockClass it: result){
+            blockClass = new BlockClassDTO();
+            blockClass.setDate(it.getDate());            
+            blockClass.setDayBlockClass(it.getDayBlockClass().getId());
+            blockClass.setTimeBlockClass(it.getTimeBlockClass().getId());
+            listBlockClassDTO.add(blockClass);
+        }        
+        return new BlockClassListDTO(listBlockClassDTO, new AnswerDTO(0));
+    }
+    
+    
+    
+    
 }

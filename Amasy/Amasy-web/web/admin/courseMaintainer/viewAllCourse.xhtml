@@ -6,17 +6,11 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-
-  
-
-
-
     <ui:define name="content">
         <h:form id="form">  
             <p:dataTable  var="courseDTO" value="#{viewAllCourseMB.courseList}" rowKey="#{courseDTO.name}" paginator="true" rows="10"  
                           filteredValue="#{viewAllCourseMB.filteredCourses}" id="courseDTOTable" selection="#{viewAllCourseMB.selectedCourse}" selectionMode="single">
                 <p:growl for="growl" life="3000"/>
-
                 <f:facet name="header">  
                     Lista de cursos
                 </f:facet>  
@@ -26,14 +20,13 @@
                 <p:column headerText="Nivel" sortBy="level" filterBy="level" id="level" styleClass="center">  
                     #{courseDTO.level}  
                 </p:column>                    
-                <p:column styleClass="center" headerText="Editar/Eliminar">
-                    
-                    <p:commandButton id="editCourseButton" icon="ui-icon-pencil" title="Editar" action="#{viewAllCourseMB.editCourse(courseDTO.id)}"/>
+                <p:column styleClass="center" headerText="Acciones">
+                    <p:commandButton id="editCourseButton" icon="ui-icon-pencil" action="#{viewAllCourseMB.editCourse(courseDTO.id)}"/>
                     <p:tooltip for="editCourseButton" value="Editar" showEffect="fade" hideEffect="fade"/>
-                    
+                    <p:commandButton id="addBlockClassButton" icon="ui-icon-plusthick" action="#{viewAllCourseMB.addBlockCourse(courseDTO.id)}"/>
+                    <p:tooltip for="addBlockClassButton" value="Agregar bloque horario" showEffect="fade" hideEffect="fade" /> 
                     <p:commandButton id="submitCourseButton" icon="ui-icon-closethick" update="courseDTOTable"/>
                     <p:tooltip for="submitCourseButton" value="Eliminar" showEffect="fade" hideEffect="fade" />
-                    
                 </p:column>
             </p:dataTable>
         </h:form>         
