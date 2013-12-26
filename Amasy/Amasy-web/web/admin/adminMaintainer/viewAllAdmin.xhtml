@@ -30,10 +30,10 @@
 
                 <p:column styleClass="center" headerText="Eliminar/Editar">
                     <p:commandButton id="editAdminButton" icon="ui-icon-pencil" title="Editar" action="#{viewAllAdminMB.editAdmin(userDTO.id)}"/>
-                    <p:tooltip for="editAdminButton" value="Editar administrador" showEffect="fade" hideEffect="fade" /> 
+                    <p:tooltip for="editAdminButton" value="Editar" showEffect="fade" hideEffect="fade" /> 
                     
                     <p:commandButton id="submitButton" icon="ui-icon-closethick" title="Eliminar" update="userDTOTable" action="#{viewAllAdminMB.deleteAdmin(userDTO.id)}"/>                      
-                    <p:tooltip for="submitButton" value="Eliminar profesor" showEffect="fade" hideEffect="fade" /> 
+                    <p:tooltip for="submitButton" value="Eliminar" showEffect="fade" hideEffect="fade" /> 
                     
                 </p:column>
 
@@ -45,19 +45,19 @@
                         <p:outputLabel value=""/>  
                     </f:facet>  
                     <h:outputText value="Rut:" />  
-                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.rut}" id="rut"/>
+                    <h:outputText value="#{viewAllAdminMB.selectedAdmin.rut}" id="rut"/>
                     <h:outputText value="Nombre:" />  
-                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.firstName}" id="firstName"/>  
+                    <h:outputText value="#{viewAllAdminMB.selectedAdmin.firstName}" id="firstName"/>  
                     <h:outputText value="Apellido:" />  
-                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.lastName}" id="lastName"/>  
+                    <h:outputText value="#{viewAllAdminMB.selectedAdmin.lastName}" id="lastName"/>  
                     <h:outputText value="Nombre de usuario:" />  
-                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.userName}" id="userName"/>
+                    <h:outputText value="#{viewAllAdminMB.selectedAdmin.userName}" id="userName"/>
                     <h:outputText value="Email:" />  
-                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.email}" id="email"/>
+                    <h:outputText value="#{viewAllAdminMB.selectedAdmin.email}" id="email"/>
                     <h:outputText value="Telefono:" />  
-                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.homePhone}" id="homePhone"/>
+                    <h:outputText value="#{viewAllAdminMB.selectedAdmin.homePhone}" id="homePhone"/>
                     <h:outputText value="Celular:" />  
-                    <h:outputText value="#{viewAllTeacherMB.selectedTeacher.cellPhone}" id="cellPhone"/>
+                    <h:outputText value="#{viewAllAdminMB.selectedAdmin.cellPhone}" id="cellPhone"/>
                 </h:panelGrid>  
             </p:dialog>  
         </h:form> 

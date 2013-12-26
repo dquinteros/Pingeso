@@ -26,4 +26,15 @@ public interface AdminManagementSBLocal {
      */
     public AnswerDTO insertNewAdmin(NewUserDTO userDTO);
     
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public AnswerDTO deleteAdmin(Long id);
+
+    public NewUserDTO getAdminById(Long userId);
+
+    public AnswerDTO updateAdmin(NewUserDTO newAdmin, Long userId);
+    
 }

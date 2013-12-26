@@ -89,6 +89,29 @@ public class AdminManagementSB implements AdminManagementSBLocal {
         }
     }
     
+    /**
+     *
+     * @param object
+     * @return
+     */
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public boolean persistUpdate(Object object) {
+        try {
+            ut.begin(); // Start a new transaction
+            try {
+                em.merge(object);
+                ut.commit(); // Commit the transaction
+                return true;
+            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
+                ut.rollback(); // Rollback the transaction
+                return false;
+            }
+        } catch (NotSupportedException | SystemException ex) {
+            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
+            return false;
+        }
+    }
+    
     @Override
     @SuppressWarnings("empty-statement")    
     public LinkedList<UserDTO> getAllAdmin() {
@@ -283,6 +306,54 @@ public class AdminManagementSB implements AdminManagementSBLocal {
         } catch (NoSuchAlgorithmException e) {
         }
         return null;
+    }
+    
+    public AnswerDTO deleteAdmin(Long id) {
+        Query q = em.createNamedQuery("Admin.countAllAdmin", Admin.class);
+        Long count = (Long) q.getSingleResult();
+        System.out.println("Cantidad de administradores: "+count);
+        if(count > 2){
+            System.out.println(id);
+            User u = em.find(User.class, id);
+            if (u == null) {
+                System.out.println("nulo");
+                return new AnswerDTO(120);
+            } else if (u.isUserStatus() == false) {
+                System.out.println("ya cambiado");
+                return new AnswerDTO(121);
+            } else {
+                System.out.println("Bien");
+                u.setUserStatus(false);
+                persistUpdate(u);
+            }
+            return new AnswerDTO(000);
+        }else{
+            return new AnswerDTO(130);
+        }
+    }
+
+    @Override
+    public NewUserDTO getAdminById(Long userId) {
+        User user = em.find(User.class, userId);
+        NewUserDTO newUser = new NewUserDTO(user);
+        return newUser;
+    }
+
+    @Override
+    public AnswerDTO updateAdmin(NewUserDTO newAdmin, Long adminId) {
+        User user = em.find(User.class, adminId);
+        user.setFirstName(newAdmin.getFirstName());
+        user.setLastName(newAdmin.getLastName());
+        user.setCellPhone(newAdmin.getCellPhone());
+        user.setHomePhone(newAdmin.getHomePhone());
+        if(!"".equals(newAdmin.getFingerprint())){
+            user.setFingerPrint(newAdmin.getFingerprint());
+        }
+        if(persistUpdate(user)){
+            return new AnswerDTO(0);
+        }else{
+            return new AnswerDTO(119);
+        } 
     }
 
 }

@@ -21,8 +21,8 @@ import javax.persistence.OneToOne;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name="Admin.getAllAdminUserInfo", query="SELECT u.user FROM Admin u WHERE u.user.userStatus = true")
-    //@NamedQuery(name="Teacher.getStundentAttendanceFromCourse", query="SELECT c.listStudent FROM Course c WHERE c.id = :course")
+    @NamedQuery(name="Admin.getAllAdminUserInfo", query="SELECT u.user FROM Admin u WHERE u.user.userStatus = true"),
+    @NamedQuery(name="Admin.countAllAdmin", query="SELECT COUNT(a) FROM Admin a WHERE a.user.userStatus = true")
 })
 
 public class Admin {
