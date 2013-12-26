@@ -4,6 +4,7 @@
  */
 package managedBeans.adminMaintainer;
 
+import DTOs.AnswerDTO;
 import DTOs.UserDTO;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,9 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import managedBeans.UtilitiesMB;
+import managedBeans.teacherMaintainer.TeacherMaintainerConversationalMB;
 import sessionBeans.adminManagement.AdminManagementSBLocal;
 
 /**
@@ -23,6 +27,8 @@ public class ViewAllAdminMB {
     @EJB
     private AdminManagementSBLocal adminManagementSB;
     
+    @Inject 
+    private AdminMaintainerConversationalMB adminMaintainerConversation;
     
     private LinkedList<UserDTO> userList;
     private UserDTO selectedAdmin;
@@ -38,6 +44,26 @@ public class ViewAllAdminMB {
     void init(){
         getAdmin();
     }
+    
+    public void editAdmin(Long idUser){
+        System.out.println(idUser);
+        this.adminMaintainerConversation.beginConversation();
+        this.adminMaintainerConversation.setIdUser(idUser);
+        UtilitiesMB.redirection("/faces/admin/adminMaintainer/editAdmin.xhtml?cid=".concat(this.adminMaintainerConversation.getConversation().getId().toString()));
+    }
+    
+    public void deleteAdmin(Long idUser){        
+        AnswerDTO ans = adminManagementSB.deleteAdmin(idUser);
+        if(ans.getIdError()==0){
+            for(UserDTO it: userList){
+                if(it.getId()==idUser){
+                    userList.remove(it);
+                    break;
+                }
+            }
+        }
+        UtilitiesMB.showFeedback(ans);
+   }
     
     public void getAdmin(){       
         userList = adminManagementSB.getAllAdmin();

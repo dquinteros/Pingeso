@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package managedBeans.courseMaintainer;
+package managedBeans.adminMaintainer;
 
 import javax.inject.Named;
 import javax.enterprise.context.ConversationScoped;
 import java.io.Serializable;
-import java.util.LinkedList;
 import javax.enterprise.context.Conversation;
 import javax.inject.Inject;
 
@@ -15,26 +14,33 @@ import javax.inject.Inject;
  *
  * @author Pingeso
  */
-@Named(value = "courseMaintainerConversationalMB")
+@Named(value = "adminMaintainerConversationalMB")
 @ConversationScoped
-public class CourseMaintainerConversationalMB implements Serializable {
-
+public class AdminMaintainerConversationalMB implements Serializable {
+    
     @Inject
     Conversation conversation;
+    
+    private Long idUser;
+
     /**
-     * Creates a new instance of CourseMaintainerConversationalMB
+     * Creates a new instance of AdminMaintainerConversationalMB
      */
-    private Long idCourse;
-
-    public CourseMaintainerConversationalMB() {
+    public AdminMaintainerConversationalMB() {
     }
-
+    
+    /**
+     *
+     */
     public void beginConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
         }
     }
 
+    /**
+     *
+     */
     public void endConversation() {
         if (!conversation.isTransient()) {
             conversation.end();
@@ -45,11 +51,13 @@ public class CourseMaintainerConversationalMB implements Serializable {
         return conversation;
     }
 
-    public Long getIdCourse() {
-        return idCourse;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setIdCourse(Long idCourse) {
-        this.idCourse = idCourse;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
+    
+    
 }

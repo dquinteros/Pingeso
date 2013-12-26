@@ -5,6 +5,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -45,7 +46,7 @@ public class BlockClass implements Serializable {
     private String comment;
     @OneToMany(mappedBy = "blockClass")
     private List<Assistance> listAssistance;
-
+    
     public DayBlockClass getDayBlockClass() {
         return dayBlockClass;
     }
