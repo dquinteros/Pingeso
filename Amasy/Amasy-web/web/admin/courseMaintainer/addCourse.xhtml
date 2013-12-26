@@ -24,11 +24,7 @@
                     <f:validateRegex for="level" pattern="[0-9]*"/>
                 </p:inputText>
                 <p:message for="level" display="text" /> 
-                <h:outputText value="Profesor: *" />
-                <p:selectOneMenu id="user" required="true" value="#{addCourseMB.user}">
-                    <f:selectItem itemLabel="Profesor" itemValue=""/>
-                    <f:selectItems value="#{addCourseMB.userList}"/>
-                </p:selectOneMenu>
+                
             </h:panelGrid>  
             <p:commandButton id="submitButton" value="Crear curso" update="form" action="#{addCourseMB.insertNewCourse()}"/>  
         </h:form> 

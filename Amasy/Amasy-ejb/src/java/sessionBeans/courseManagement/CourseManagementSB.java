@@ -25,6 +25,7 @@ import entity.Student;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -225,9 +226,12 @@ public class CourseManagementSB implements CourseManagementSBLocal {
 
     @Override
     public AnswerDTO allocateBlockclassesoToCourse(Long idCourse, BlockClassDTO blockClassDTO) {
-        BlockClass blockClass = generateBlockClass(idCourse, blockClassDTO);
-        LinkedList<Assistance> listAssistance = generateAssistanceToStudent(idCourse, blockClass);
-        persistallocateBlockclassesoToCourse(blockClass, listAssistance);
+        Course course = em.find(Course.class, idCourse);
+        BlockClass blockClass = generateBlockClass(course, blockClassDTO);
+        course.getListBlockClass().add(blockClass);
+        persistInsert(blockClass);
+        persistUpdate(course);
+        List<Assistance> listAssistance = generateAssistanceToStudent(course, blockClass);
         return new AnswerDTO(0);
     }
 
@@ -244,8 +248,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         }
     }
 
-    private BlockClass generateBlockClass(Long idCourse, BlockClassDTO blockClassDTO) {
-        Course course = em.find(Course.class, idCourse);
+    private BlockClass generateBlockClass(Course course, BlockClassDTO blockClassDTO) {
         BlockClass blockClass;
         DayBlockClass dayBlockClass;
         TimeBlockClass timeBlockClass;
@@ -262,10 +265,10 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         return blockClass;
     }
 
-    private LinkedList<Assistance> generateAssistanceToStudent(Long idCourse, BlockClass blockClass) {
+    private List<Assistance> generateAssistanceToStudent(Course course, BlockClass blockClass) {
         Query q = this.em.createNamedQuery("Student.getStundentOfCourse");
-        q.setParameter("idCourse", idCourse);
-        LinkedList<Student> listStudent = new LinkedList<>((Collection<Student>) q.getResultList());
+        q.setParameter("idCourse", course.getId());
+        List<Student> listStudent = q.getResultList();
         LinkedList<Assistance> listAssistance = new LinkedList<>();
         Assistance assistance;
         AssistanceState assistanceState = em.find(AssistanceState.class, 1L);
@@ -274,30 +277,12 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             assistance.setBlockClass(blockClass);
             assistance.setStudent(student);
             assistance.setState(assistanceState);
-            listAssistance.add(assistance);           
+            listAssistance.add(assistance); 
+            student.getAssistance().add(assistance);
+            persistInsert(assistance);
+            persistUpdate(student);
         }
         return listAssistance;
-    }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    private AnswerDTO persistallocateBlockclassesoToCourse(BlockClass blockClass, LinkedList<Assistance> listAssistance) {
-        try {
-            ut.begin(); // Start a new transaction
-            try {
-                em.persist(blockClass);
-                for (Assistance it : listAssistance) {                 
-                    em.persist(it);
-                }                
-                ut.commit(); // Commit the transaction
-                return new AnswerDTO(0);
-            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
-                ut.rollback(); // Rollback the transaction
-                return new AnswerDTO(126);
-            }
-        } catch (NotSupportedException | SystemException ex) {
-            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
-            return new AnswerDTO(126);
-        }
     }
 
     @Override

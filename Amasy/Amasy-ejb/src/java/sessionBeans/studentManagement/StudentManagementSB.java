@@ -159,9 +159,9 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         String roll = "Alumno";
         User user = newUser(userDTO, password, roll);
         Student newStudent = new Student();
-        newStudent.setUser(user);
         newStudent.setIncomeYear(enrollYear);
         persistInsert(user);
+        newStudent.setUser(user);
         persistInsert(newStudent);
         return new AnswerDTO(0);
     }
@@ -262,7 +262,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         }
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    
     private User newUser(NewUserDTO userDTO, String password, String roll) {
         User newUser = new User();
         newUser.setCellPhone(userDTO.getCellPhone());
@@ -359,9 +359,14 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         if (existStudentOnCourse(student, idCourse)) {
             return new AnswerDTO(127);
         }
-        student = addCourseToStudent(student, idCourse);
-        LinkedList<Assistance> listAssistance = generateAssistanceToStudent(student, idCourse);
-        return persistEnrollStudentOnCourse(student, listAssistance);
+        Course course = em.find(Course.class, idCourse);
+        course.getListStudent().add(student);
+        student.getListCourse().add(course);
+        persistUpdate(student);
+        persistUpdate(course);
+        createAssistanceToStudent(student, course);
+        
+        return new AnswerDTO(0);//persistEnrollStudentOnCourse(student, listAssistance);
     }
 
     private Student getStudentByIdUser(Long idUser) {
@@ -373,27 +378,29 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     private Student addCourseToStudent(Student student, Long idCourse) {
         List<Course> listCourse;
         Course course = em.find(Course.class, idCourse);
+        course.getListStudent().add(student);
         listCourse = student.getListCourse();
         listCourse.add(course);
         student.setListCourse(listCourse);
         return student;
     }
 
-
-    private LinkedList<Assistance> generateAssistanceToStudent(Student student, Long idCourse) {
-        LinkedList<BlockClass> listBlockClass;        
-        listBlockClass = new LinkedList<>(em.find(Course.class, idCourse).getListBlockClass());
-        Assistance assistance;
-        LinkedList<Assistance> listAssistance = new LinkedList<>();
+    private void createAssistanceToStudent(Student student, Course course) {
+        List<BlockClass> listBlockClass;        
+        listBlockClass = course.getListBlockClass();
+        Assistance assistance;        
         AssistanceState assistanceState = em.find(AssistanceState.class, 1L);
         for (BlockClass it : listBlockClass) {
             assistance = new Assistance();
             assistance.setState(assistanceState);
             assistance.setBlockClass(it);
             assistance.setStudent(student);
-            listAssistance.add(assistance);
+            persistInsert(assistance);
+            it.getListAssistance().add(assistance);
+            student.getAssistance().add(assistance);
+            persistUpdate(it);
+            persistUpdate(student);
         }
-        return listAssistance;
     }
 
     private Boolean existStudentOnCourse(Student student, Long idCourse) {
@@ -402,7 +409,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         return listCourse.contains(course);
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    //@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     private AnswerDTO persistEnrollStudentOnCourse(Student student, LinkedList<Assistance> listAssistance) {
         try {
             ut.begin(); // Start a new transaction
