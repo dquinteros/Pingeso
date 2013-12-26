@@ -14,7 +14,6 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import managedBeans.UtilitiesMB;
-import managedBeans.teacherMaintainer.TeacherMaintainerConversationalMB;
 import sessionBeans.adminManagement.AdminManagementSBLocal;
 
 /**

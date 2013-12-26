@@ -8,9 +8,9 @@
 
     <ui:define name="content">
         <h:form id="form">  
+            <p:growl for="growl" life="3000"/>
             <p:dataTable  var="userDTO" value="#{viewAllAdminMB.userList}" rowKey="#{userDTO.rut}" paginator="true" rows="10"  
                           filteredValue="#{viewAllAdminMB.filteredAdmins}" id="userDTOTable" selection="#{viewAllAdminMB.selectedAdmin}" selectionMode="single">
-                <p:growl for="growl" life="3000"/>
                 <p:ajax event="rowSelect" update=":form:display" oncomplete="adminDialog.show()" />  
                 <f:facet name="header">  
                     Lista de administradores
@@ -32,7 +32,7 @@
                     <p:commandButton id="editAdminButton" icon="ui-icon-pencil" title="Editar" action="#{viewAllAdminMB.editAdmin(userDTO.id)}"/>
                     <p:tooltip for="editAdminButton" value="Editar" showEffect="fade" hideEffect="fade" /> 
                     
-                    <p:commandButton id="submitButton" icon="ui-icon-closethick" title="Eliminar" update="userDTOTable" action="#{viewAllAdminMB.deleteAdmin(userDTO.id)}"/>                      
+                    <p:commandButton id="submitButton" icon="ui-icon-closethick" title="Eliminar" update=":form" action="#{viewAllAdminMB.deleteAdmin(userDTO.id)}"/>                      
                     <p:tooltip for="submitButton" value="Eliminar" showEffect="fade" hideEffect="fade" /> 
                     
                 </p:column>
