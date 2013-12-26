@@ -60,6 +60,10 @@ public class MenuLogicMB {
                 return "on-hover";       
             case "/teacher/courses/configureCourse.xhtml":
                 return "on-hover";
+            case "/teacher/courses/viewAllStudentsOfCourse.xhtml":
+                return "on-hover";
+            case "/teacher/courses/workgroupManagement.xhtml":
+                return "on-hover";
             default:
                 return "";
         }
@@ -202,7 +206,7 @@ public class MenuLogicMB {
      * @return
      */
     public String isEditTeacher(String view) {
-        if ("/admin/teacherMaintainer/edirTeacher.xhtml".equals(view)) {
+        if ("/admin/teacherMaintainer/editTeacher.xhtml".equals(view)) {
             return "on-hover";
         } else {
             return "";
@@ -232,6 +236,10 @@ public class MenuLogicMB {
             case "/teacher/courses/viewAllCoursesOfTeacher.xhtml":
                 return "";
             case "/teacher/courses/configureCourse.xhtml":
+                return "";
+            case "/teacher/courses/viewAllStudentsOfCourse.xhtml":
+                return "";
+            case "/teacher/courses/workgroupManagement.xhtml":
                 return "";
             default:
                 return "hidden";
@@ -279,6 +287,8 @@ public class MenuLogicMB {
             case "/admin/courseMaintainer/addCourse.xhtml":
                 return "on-hover";
             case "/admin/courseMaintainer/editCourse.xhtml":
+                return "on-hover";
+            case "/admin/courseMaintainer/allocateBlockclassesoToCourse.xhtml":
                 return "on-hover";
             default:
                 return "";
@@ -331,6 +341,8 @@ public class MenuLogicMB {
             case "/admin/courseMaintainer/addCourse.xhtml":
                 return "";
             case "/admin/courseMaintainer/editCourse.xhtml":
+                return "";
+            case "/admin/courseMaintainer/allocateBlockclassesoToCourse.xhtml":
                 return "";
             default:
                 return "hidden";

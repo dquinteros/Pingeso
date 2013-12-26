@@ -66,6 +66,14 @@ public class ViewAllStudentMB {
      */
     public void deleteStudent(Long idUser) {
         AnswerDTO ans = studentManagementSB.deleteStudent(idUser);
+        if(ans.getIdError()==0){
+            for(UserDTO it: userList){
+                if(it.getId()==idUser){
+                    userList.remove(it);
+                    break;
+                }
+            }
+        }
         UtilitiesMB.showFeedback(ans);
     }
 

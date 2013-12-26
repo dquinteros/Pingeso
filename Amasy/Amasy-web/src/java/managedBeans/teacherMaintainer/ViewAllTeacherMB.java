@@ -63,9 +63,16 @@ public class ViewAllTeacherMB {
      *
      * @param idUser
      */
-    public void deleteTeacher(Long idUser){
-        System.out.println(idUser);
+    public void deleteTeacher(Long idUser){        
         AnswerDTO ans = teacherManagementSB.deleteTeacher(idUser);
+        if(ans.getIdError()==0){
+            for(UserDTO it: userList){
+                if(it.getId()==idUser){
+                    userList.remove(it);
+                    break;
+                }
+            }
+        }
         UtilitiesMB.showFeedback(ans);
    }
 

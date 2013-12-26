@@ -10,12 +10,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
  *
  * @author Pingeso
  */
+
+@NamedQueries({
+    @NamedQuery(name = "DayBlockClass.gelAllDayBlockClass", query = "SELECT d FROM DayBlockClass d")
+})
 @Entity
 public class DayBlockClass implements Serializable {
 
