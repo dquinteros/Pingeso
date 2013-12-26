@@ -6,11 +6,14 @@ package managedBeans;
  */
 import DTOs.AnswerDTO;
 import java.io.IOException;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import sessionBeans.UserManagementSBLocal;
 
 /**
  *
@@ -19,10 +22,14 @@ import javax.faces.context.FacesContext;
 @Named(value = "utilitiesMB")
 @RequestScoped
 public class UtilitiesMB {
-
-    /**
-     * Creates a new instance of UtilitiesMB
-     */
+    @EJB
+    private UserManagementSBLocal userManagementSB;
+    
+    @Inject
+    private LoginSessionMB session;
+    
+    private String username;
+    
     public UtilitiesMB() {
     }
 
@@ -171,5 +178,17 @@ public class UtilitiesMB {
             default:
                 context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error" + " " + parteMensajeExtra, ""));
         }
+    }
+    
+    public String welcomeUserMessage(){
+        return userManagementSB.findUserById(session.getUser().getId()).getFirstName();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
