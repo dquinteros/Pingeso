@@ -60,23 +60,19 @@ public class AllocateBlockclassesoToCourseMB {
         listHour = generateListHour(listTimeBlockClass);
         generateListDateTimeBlockClassCourse();
         course = courseManagementSBLocal.getCourseById(idCourse);
-    }
-
+    }    
+    
     private void generateListDateTimeBlockClassCourse() {
-        if (courseMaintainerConversationalMB.isNotNullListDateTimeBlockClassCourse()) {
-            listDateTimeBlockClassCourse = courseMaintainerConversationalMB.getListDateTimeBlockClassCourse();
-        } else {
-            listDateTimeBlockClassCourse = courseMaintainerConversationalMB.getListDateTimeBlockClassCourse();
-            BlockClassListDTO blockClassListDTO = courseManagementSBLocal.getAllBlockClassOfCourse(idCourse);
-            for (BlockClassDTO it : blockClassListDTO.getListBlockClass()) {
-                listDateTimeBlockClassCourse.add(new DateTimeBlockClassCourse(it));
-            }
+        BlockClassListDTO blockClassListDTO = courseManagementSBLocal.getAllBlockClassOfCourse(idCourse);
+        listDateTimeBlockClassCourse = new LinkedList<>();
+        for (BlockClassDTO it : blockClassListDTO.getListBlockClass()) {
+            listDateTimeBlockClassCourse.add(new DateTimeBlockClassCourse(it));
         }
     }
 
     public void addDateTimeBlockClassCourse() {
         if (!existBlockClass(time, date)) {
-            listDateTimeBlockClassCourse.add(new DateTimeBlockClassCourse(time, date));
+            saveBlockClassOfCourse(new DateTimeBlockClassCourse(time, date));
         } else {
             UtilitiesMB.showFeedback(new AnswerDTO(130));
         }
@@ -88,6 +84,7 @@ public class AllocateBlockclassesoToCourseMB {
         Long hour = Long.parseLong(split[0]) * 60L * 60L * 1000L;
         date = new Date(date.getTime() + hour + minute);
         for (DateTimeBlockClassCourse it : listDateTimeBlockClassCourse) {
+            System.out.println(it.getDate().getTime() + " " + date.getTime());
             if (it.getDate().getTime() == date.getTime()) {
                 return true;
             }
@@ -103,17 +100,15 @@ public class AllocateBlockclassesoToCourseMB {
         return listHour;
     }
 
-    public void saveBlockClassOfCourse() {
-        LinkedList<BlockClassDTO> listDTO = new LinkedList<>();
-        BlockClassDTO blockClass;
-        for (DateTimeBlockClassCourse it : listDateTimeBlockClassCourse) {
-            blockClass = new BlockClassDTO();
-            blockClass.setDate(it.getDate());
-            blockClass.setDayBlockClass(getIdDayBlockClass(it.getDay()));
-            blockClass.setTimeBlockClass(getIdTimeBlockClass(it.getTime()));
-            listDTO.add(blockClass);
+    public void saveBlockClassOfCourse(DateTimeBlockClassCourse dateTimeBlockClassCourse) {
+        BlockClassDTO blockClass = new BlockClassDTO();
+        blockClass.setDate(dateTimeBlockClassCourse.getDate());
+        blockClass.setDayBlockClass(getIdDayBlockClass(dateTimeBlockClassCourse.getDay()));
+        blockClass.setTimeBlockClass(getIdTimeBlockClass(dateTimeBlockClassCourse.getTime()));
+        AnswerDTO answer = courseManagementSBLocal.allocateBlockclassesoToCourse(idCourse, blockClass);
+        if(answer.getIdError()==0){
+            generateListDateTimeBlockClassCourse();
         }
-        AnswerDTO answer = courseManagementSBLocal.allocateBlockclassesoToCourse(idCourse, listDTO);
         UtilitiesMB.showFeedback(answer);
     }
 

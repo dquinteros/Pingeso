@@ -9,6 +9,7 @@ import DTOs.ResponseAssistanceDTO;
 import DTOs.UserAssistantBlockClassDTO;
 import DTOs.UserDTO;
 import entity.Assistance;
+import entity.AssistanceState;
 import entity.BlockClass;
 import entity.Course;
 import entity.Student;
@@ -81,6 +82,26 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
          }
      }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public boolean persistUpdate(Object object) {
+        try {
+            ut.begin(); // Start a new transaction
+            try {
+                em.merge(object);
+                ut.commit(); // Commit the transaction
+                return true;
+            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
+                ut.rollback(); // Rollback the transaction
+                System.out.println("rollbakc:" + e);
+                return false;
+            }
+        } catch (NotSupportedException | SystemException ex) {
+            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
+            System.out.println("rollbakc:" + ex);
+            return false;
+        }
+    }
+    
     /**
      *
      * @param course
@@ -91,20 +112,26 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
     public ArrayList<UserAssistantBlockClassDTO> listOfStudentsPerCourseList(long course, long blockClass) {
         Collection<Student> res = em.find(Course.class, course).getListStudent();
         ArrayList<UserAssistantBlockClassDTO> listTakeAttendanceDataUser = new ArrayList<> ();
-        Long resultado;
+        Assistance assistance;
         UserAssistantBlockClassDTO takeAttendanceDataUserTemp;
         User userTemp;
-        for(Student iter : res){
-            userTemp = ((Student)em.find(Student.class, iter.getId())).getUser();
-            Query q = this.em.createNamedQuery("Assistance.findStudentAssistance");
-            q.setParameter("idStudent", iter.getId());
-            q.setParameter("idBlockClass", blockClass);
-            try {
-                resultado = (Long)q.getSingleResult();
-                if(resultado==1){
-                    takeAttendanceDataUserTemp = new UserAssistantBlockClassDTO();
-                    takeAttendanceDataUserTemp.TakeAttendanceDataUser(new UserDTO(iter.getUser()), true);
-                    listTakeAttendanceDataUser.add(takeAttendanceDataUserTemp);
+        for(Student iter : res){            
+            try {                
+                if(existAssistance(iter.getId(), blockClass)){
+                    userTemp = ((Student)em.find(Student.class, iter.getId())).getUser();
+                    Query q = this.em.createNamedQuery("Assistance.findAssistanceOfBlockIdClassAndIdStudent");
+                    q.setParameter("idStudent", iter.getId());
+                    q.setParameter("idBlockClass", blockClass);
+                    assistance = (Assistance)q.getSingleResult();
+                    if(assistance.getState().getId()==2){
+                        takeAttendanceDataUserTemp = new UserAssistantBlockClassDTO();
+                        takeAttendanceDataUserTemp.TakeAttendanceDataUser(new UserDTO(iter.getUser()), true);
+                        listTakeAttendanceDataUser.add(takeAttendanceDataUserTemp);
+                    }else{
+                        takeAttendanceDataUserTemp = new UserAssistantBlockClassDTO();
+                        takeAttendanceDataUserTemp.TakeAttendanceDataUser(new UserDTO(iter.getUser()), false);
+                        listTakeAttendanceDataUser.add(takeAttendanceDataUserTemp);
+                    }                                        
                 }else{
                     takeAttendanceDataUserTemp = new UserAssistantBlockClassDTO();
                     takeAttendanceDataUserTemp.TakeAttendanceDataUser(new UserDTO(iter.getUser()), false);
@@ -119,6 +146,21 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
         return listTakeAttendanceDataUser;
     }
 
+
+    
+      private boolean existAssistance(long idStudent, long idBlockClass){
+        Long response;
+        Query q = this.em.createNamedQuery("Assistance.findStudentAssistance");
+        q.setParameter("idBlockClass", idBlockClass);
+        q.setParameter("idStudent", idStudent);
+        response = (Long)q.getSingleResult();
+        if(response==0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
     /**
      *
      * @param course
@@ -145,8 +187,7 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
             return true;
         }else{
             return false;
-        }
-        
+        }        
     }
 
     /**
@@ -164,12 +205,11 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
             UserDTO userDTO;
             Student student;
             Long response;
-            response = existingStudentList(fingerprint, listUser);
-            
+            response = existingStudentList(fingerprint, listUser);            
             if(response<0){
                 responseAssistanceDTO.setAnswer(new AnswerDTO(114));
                 return responseAssistanceDTO;
-            }
+            }           
             user = em.find(User.class, response);
             userDTO = new UserDTO(user);
             student = findStundetByUserId(user.getId());
@@ -190,30 +230,44 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
         Long response;  
         LinkedList<String> listFingerprint = new LinkedList<>();
         LinkedList<Long> listIdUser = new LinkedList<>();
-
         for(User it: listUser){            
-            if(it.getFingerPrint()!=null){
+            if(it.getFingerPrint()!=null && !"".equals(it.getFingerPrint())){
                 listFingerprint.add(it.getFingerPrint());
                 listIdUser.add(it.getId());          
-                System.out.println("id usuario: "+it.getId()+" fingerprint user: "+it.getFingerPrint());                                
             }            
         }
-        System.out.println("fingerprint buscado: "+fingerprint);
+        if(listFingerprint.isEmpty()){
+            return -1L;
+        }
         response = FingerprintManagementSB.userIdentify(fingerprint, listFingerprint, listIdUser);
         return response;
     }
 
-    private boolean addStudentAssistance(Student student, BlockClass blockClass){
-        if(!existAssistance(student, blockClass)){
+    private boolean addStudentAssistance(Student student, BlockClass blockClass){                     
+        if(!existAssistance(student, blockClass)){            
+            AssistanceState assistanceState = em.find(AssistanceState.class, 2L);
             Assistance assistance = new Assistance();
-            Date date = new Date();
             assistance.setBlockClass(blockClass);
             assistance.setStudent(student);
-            assistance.setDate(date);
+            assistance.setState(assistanceState);
             persistInsert(assistance);
             return true;
-        }else{
-            return false;
+        }else{ 
+            Query q = em.createNamedQuery("Assistance.findAssistanceOfBlockIdClassAndIdStudent");
+            q.setParameter("idBlockClass", blockClass.getId());
+            q.setParameter("idStudent", student.getId());            
+            Assistance assistanceAux = (Assistance)q.getSingleResult();
+            Assistance assistance = em.find(Assistance.class, assistanceAux.getId());
+            if(assistance.getState().getId()==1L){
+                AssistanceState assistanceState = em.find(AssistanceState.class, 2L);
+                assistance.setState(assistanceState);            
+                System.out.println("asdf "+assistance.getState().getName());
+                persistUpdate(assistanceState);
+                System.out.println("asdf "+assistance.getState().getName());
+                return true;
+            }else{
+                return false;
+            }             
         }
     }
 
@@ -224,7 +278,6 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
         q.setParameter("idBlockClass", blockClass.getId());
         q.setParameter("idStudent", student.getId());
         response = (Long)q.getSingleResult();
-        System.out.println("asistencia presente: "+response);
         if(response==0){
             return false;
         }else{

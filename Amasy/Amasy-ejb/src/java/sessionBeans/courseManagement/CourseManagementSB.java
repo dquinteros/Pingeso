@@ -179,6 +179,8 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         Course course = new Course();
         course.setName(courseDTO.getName());
         course.setLevel(courseDTO.getLevel());
+        course.setMinutesBeforeClassStart(0);
+        course.setMinutesAfterClassStart(30);
         return course;
     }
 
@@ -223,13 +225,10 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     }
 
     @Override
-    public AnswerDTO allocateBlockclassesoToCourse(Long idCourse, LinkedList<BlockClassDTO> listBlockClassDTO) {
-        LinkedList<BlockClass> listBlockClass = new LinkedList<>(generateListBlockClass(idCourse, listBlockClassDTO));
-        if (listBlockClass.isEmpty()) {
-            return new AnswerDTO(131);
-        }
-        LinkedList<Assistance> listAssistance = generateAssistanceToStudent(idCourse, listBlockClass);
-        persistallocateBlockclassesoToCourse(listBlockClass, listAssistance);
+    public AnswerDTO allocateBlockclassesoToCourse(Long idCourse, BlockClassDTO blockClassDTO) {
+        BlockClass blockClass = generatelockClass(idCourse, blockClassDTO);
+        LinkedList<Assistance> listAssistance = generateAssistanceToStudent(idCourse, blockClass);
+        persistallocateBlockclassesoToCourse(blockClass, listAssistance);
         return new AnswerDTO(0);
     }
 
@@ -246,29 +245,24 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         }
     }
 
-    private List<BlockClass> generateListBlockClass(Long idCourse, LinkedList<BlockClassDTO> listBlockClassDTO) {
-        List<BlockClass> listBlockClass = new ArrayList();
+    private BlockClass generatelockClass(Long idCourse, BlockClassDTO blockClassDTO) {
         Course course = em.find(Course.class, idCourse);
         BlockClass blockClass;
         DayBlockClass dayBlockClass;
         TimeBlockClass timeBlockClass;
-        for (BlockClassDTO it : listBlockClassDTO) {
-            if (!existBlockClass(it)) {
-                blockClass = new BlockClass();
-                blockClass.setDate(it.getDate());
-                blockClass.setDone(false);
-                dayBlockClass = em.find(DayBlockClass.class, it.getDayBlockClass());
-                timeBlockClass = em.find(TimeBlockClass.class, it.getTimeBlockClass());
-                blockClass.setDayBlockClass(dayBlockClass);
-                blockClass.setTimeBlockClass(timeBlockClass);
-                blockClass.setCourse(course);
-                listBlockClass.add(blockClass);
-            }
-        }
-        return listBlockClass;
+        blockClass = new BlockClass();
+        blockClass.setDate(blockClassDTO.getDate());
+        blockClass.setDone(false);
+        dayBlockClass = em.find(DayBlockClass.class, blockClassDTO.getDayBlockClass());
+        timeBlockClass = em.find(TimeBlockClass.class, blockClassDTO.getTimeBlockClass());
+        blockClass.setDayBlockClass(dayBlockClass);
+        blockClass.setTimeBlockClass(timeBlockClass);
+        blockClass.setCourse(course);
+        blockClass.setComment("");
+        return blockClass;
     }
 
-    private LinkedList<Assistance> generateAssistanceToStudent(Long idCourse, LinkedList<BlockClass> listNewBlockCLass) {
+    private LinkedList<Assistance> generateAssistanceToStudent(Long idCourse, BlockClass blockClass) {
         Query q = this.em.createNamedQuery("Student.getStundentOfCourse");
         q.setParameter("idCourse", idCourse);
         LinkedList<Student> listStudent = new LinkedList<>((Collection<Student>) q.getResultList());
@@ -276,27 +270,24 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         Assistance assistance;
         AssistanceState assistanceState = em.find(AssistanceState.class, 1L);
         for (Student student : listStudent) {
-            for (BlockClass blockClass : listNewBlockCLass) {
-                assistance = new Assistance();
-                assistance.setBlockClass(blockClass);
-                assistance.setStudent(student);
-                assistance.setState(assistanceState);
-                listAssistance.add(assistance);
-            }
+            assistance = new Assistance();
+            assistance.setBlockClass(blockClass);
+            assistance.setStudent(student);
+            assistance.setState(assistanceState);
+            listAssistance.add(assistance);           
         }
         return listAssistance;
     }
 
-    private AnswerDTO persistallocateBlockclassesoToCourse(LinkedList<BlockClass> listBlockClass, LinkedList<Assistance> listAssistance) {
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    private AnswerDTO persistallocateBlockclassesoToCourse(BlockClass listBlockClass, LinkedList<Assistance> listAssistance) {
         try {
             ut.begin(); // Start a new transaction
             try {
+                em.persist(listBlockClass);
                 for (Assistance it : listAssistance) {
                     em.persist(it);
-                }
-                for (BlockClass it : listBlockClass) {
-                    em.persist(it);
-                }
+                }                
                 ut.commit(); // Commit the transaction
                 return new AnswerDTO(0);
             } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {

@@ -47,12 +47,10 @@ public class TakeAttendanceMB{
      */
     @PostConstruct
     public void init() {      
-        System.out.println(takeAttendanceConversation.getIdClass());
         if(takeAttendanceConversation.getIdClass()!=-1){
             blockClass = TakeAttendanceSB.getIdBlockClassForTakeAttendance(this.takeAttendanceConversation.getIdClass());            
             takeAttendanceConversation.setBlockClass(blockClass);
             if(blockClass!=null){   
-                System.out.println(blockClass.getDate());
                 listStudents = TakeAttendanceSB.listOfStudentsPerCourseList(this.takeAttendanceConversation.getIdClass(), blockClass.getId());            
             }else{
                 UtilitiesMB.redirection("/faces/teacher/takeAttendance/viewCourseList.xhtml");

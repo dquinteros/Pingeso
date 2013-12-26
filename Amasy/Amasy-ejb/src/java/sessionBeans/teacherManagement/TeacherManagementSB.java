@@ -24,12 +24,6 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -41,6 +35,12 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import sessionBeans.TakeAttendanceSB;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 
 /**
  *
@@ -49,9 +49,9 @@ import sessionBeans.TakeAttendanceSB;
 @Stateless
 @TransactionManagement(TransactionManagementType.BEAN)
 public class TeacherManagementSB implements TeacherManagementSBLocal {
-    
     @Resource(name="mail/AmasyDB")
     private Session session;
+    
     @PersistenceContext(unitName = "Amasy-ejbPU")
     private EntityManager em;
     @Resource
@@ -266,18 +266,16 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
             text += "Contraseña: "+password;
             String messageText = text;
             message.setText(messageText);
-            message.setHeader("X-Mailer", "amasys@usach.cl");
+            message.setHeader("X-Mailer", "amasysRealm@gmail.cl");
             message.setSentDate(timeStamp);
             // Send message
-            Transport.send(message);
             System.out.println("Mail sent to " + recipient + ".");
         } catch (MessagingException ex) {
-            ex.printStackTrace();
             System.out.println("Error in ConfirmerBean for " + recipient);
         }
         return false;
-
     }
+    
     
     private String newPass(String emailRut) {
         emailRut = MD5(emailRut+MD5(emailRut));
