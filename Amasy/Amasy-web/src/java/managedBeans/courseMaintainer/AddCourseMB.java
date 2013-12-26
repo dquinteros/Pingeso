@@ -6,14 +6,15 @@ package managedBeans.courseMaintainer;
 
 import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
-import DTOs.NewUserDTO;
+import DTOs.UserDTO;
+import java.util.LinkedList;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import managedBeans.UtilitiesMB;
-import static managedBeans.studentMaintainer.AddStudentMB.validateRut;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
+import sessionBeans.teacherManagement.TeacherManagementSBLocal;
 
 /**
  *
@@ -23,9 +24,14 @@ import sessionBeans.courseManagement.CourseManagementSBLocal;
 @RequestScoped
 public class AddCourseMB {
     @EJB
+    private TeacherManagementSBLocal teacherManagementSB;
+    @EJB
     private CourseManagementSBLocal courseManagementSB;
+    
   
-    private CourseDTO newCourse; 
+    private CourseDTO newCourse;
+    private LinkedList<UserDTO> userList;
+    private UserDTO user;
 
     /**
      * Creates a new instance of AddCourseMB
@@ -39,6 +45,7 @@ public class AddCourseMB {
     @PostConstruct
     public void init() {
         newCourse = new CourseDTO();
+        userList = teacherManagementSB.getAllTeacher();
     }
     
     /**
@@ -66,4 +73,21 @@ public class AddCourseMB {
     public void setNewCourse(CourseDTO newCourse) {
         this.newCourse = newCourse;
     }
+
+    public LinkedList<UserDTO> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(LinkedList<UserDTO> userList) {
+        this.userList = userList;
+    }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+    
 }
