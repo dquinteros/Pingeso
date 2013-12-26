@@ -25,7 +25,6 @@ import entity.Student;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -152,7 +151,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
      * @param courseDTO
      * @return
      */
-    @Override
+    @Override    
     public AnswerDTO insertNewCourse(CourseDTO courseDTO) {
         AnswerDTO existCourseName = validateCourseRegistry(courseDTO);
         if (existCourseName.getIdError() != 0) {
@@ -226,7 +225,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
 
     @Override
     public AnswerDTO allocateBlockclassesoToCourse(Long idCourse, BlockClassDTO blockClassDTO) {
-        BlockClass blockClass = generatelockClass(idCourse, blockClassDTO);
+        BlockClass blockClass = generateBlockClass(idCourse, blockClassDTO);
         LinkedList<Assistance> listAssistance = generateAssistanceToStudent(idCourse, blockClass);
         persistallocateBlockclassesoToCourse(blockClass, listAssistance);
         return new AnswerDTO(0);
@@ -245,7 +244,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         }
     }
 
-    private BlockClass generatelockClass(Long idCourse, BlockClassDTO blockClassDTO) {
+    private BlockClass generateBlockClass(Long idCourse, BlockClassDTO blockClassDTO) {
         Course course = em.find(Course.class, idCourse);
         BlockClass blockClass;
         DayBlockClass dayBlockClass;
@@ -259,6 +258,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         blockClass.setTimeBlockClass(timeBlockClass);
         blockClass.setCourse(course);
         blockClass.setComment("");
+        blockClass.setListAssistance(new LinkedList<Assistance>());
         return blockClass;
     }
 
@@ -280,12 +280,12 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    private AnswerDTO persistallocateBlockclassesoToCourse(BlockClass listBlockClass, LinkedList<Assistance> listAssistance) {
+    private AnswerDTO persistallocateBlockclassesoToCourse(BlockClass blockClass, LinkedList<Assistance> listAssistance) {
         try {
             ut.begin(); // Start a new transaction
             try {
-                em.persist(listBlockClass);
-                for (Assistance it : listAssistance) {
+                em.persist(blockClass);
+                for (Assistance it : listAssistance) {                 
                     em.persist(it);
                 }                
                 ut.commit(); // Commit the transaction
@@ -365,6 +365,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         }
     }
 
+    
     @Override
     public ListUserDTO getAllStudentsFromCourse(Long idCourse) {
         Collection<Student> resultQuery;
@@ -398,4 +399,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         exitResult.setAnswerDTO(new AnswerDTO(0));
         return exitResult;
     }
+    
+   
+    
 }

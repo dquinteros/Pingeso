@@ -41,9 +41,8 @@ public interface CourseManagementSBLocal {
     DayBlockClassListDTO getAllDayBlockClassDTO();
 
     BlockClassListDTO getAllBlockClassOfCourse(Long idCourse);
-    
-    AnswerDTO configureAssistanceTimebox(CourseDTO course);
-    
-    ListUserDTO getAllStudentsFromCourse(Long idCourse);
 
+    AnswerDTO configureAssistanceTimebox(CourseDTO course);
+
+    ListUserDTO getAllStudentsFromCourse(Long idCourse);    
 }

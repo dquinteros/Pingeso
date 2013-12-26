@@ -48,9 +48,10 @@ public class ViewAllStudentsOfCourseMB {
         UtilitiesMB.showFeedback(ans.getAnswerDTO());
     }
     
-    public void assistanceOfStudent(){
+    public void assistanceOfStudent(Long idStudent){
         this.courseMaintainerOfTeacherConversation.beginConversation();
         this.courseMaintainerOfTeacherConversation.setIdCourse(idCourse);
+        this.courseMaintainerOfTeacherConversation.setIdUser(idStudent);
         UtilitiesMB.redirection("/faces/teacher/courses/viewAssistanceOfStudent.xhtml?cid=".concat(this.courseMaintainerOfTeacherConversation.getConversation().getId().toString()));
     }
 

@@ -28,7 +28,7 @@
                     #{userDTO.email}  
                 </p:column>                      
                 <p:column styleClass="center" headerText="Acciones"> 
-                    <p:commandButton id="assistanceButton" icon="ui-icon-clipboard" title="Ver la asistencia" action="#{viewAllStudentsOfCourseMB.assistanceOfStudent()}"/>
+                    <p:commandButton id="assistanceButton" icon="ui-icon-clipboard" title="Ver la asistencia" action="#{viewAllStudentsOfCourseMB.assistanceOfStudent(userDTO.id)}"/>
                     <p:tooltip for="assistanceButton" value="Ver la asistencia" showEffect="fade" hideEffect="fade" /> 
                 </p:column>
             </p:dataTable>

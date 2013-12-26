@@ -5,6 +5,7 @@
 package sessionBeans.studentManagement;
 
 import DTOs.AnswerDTO;
+import DTOs.AssistanceListDTO;
 import DTOs.ListCourseDTO;
 import DTOs.NewUserDTO;
 import DTOs.UserDTO;
@@ -69,5 +70,6 @@ public interface StudentManagementSBLocal {
      * @return
      */
     ListCourseDTO getCoursesFromStudent(Long idUser);
-    
+
+    AssistanceListDTO getAssistanceStudent(Long idCourse, Long idUser);
 }

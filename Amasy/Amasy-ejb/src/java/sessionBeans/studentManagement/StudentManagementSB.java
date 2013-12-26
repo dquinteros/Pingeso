@@ -7,6 +7,8 @@ package sessionBeans.studentManagement;
 import DTOs.NewUserDTO;
 import DTOs.UserDTO;
 import DTOs.AnswerDTO;
+import DTOs.AssistanceDTO;
+import DTOs.AssistanceListDTO;
 import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
 import entity.Assistance;
@@ -70,7 +72,6 @@ public class StudentManagementSB implements StudentManagementSBLocal {
      * @param object
      * @return
      */
-    
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public boolean persistInsert(Object object) {
         try {
@@ -104,12 +105,12 @@ public class StudentManagementSB implements StudentManagementSBLocal {
                 return true;
             } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
                 ut.rollback(); // Rollback the transaction
-                System.out.println("rollbakc:"+e);
+                System.out.println("rollbakc:" + e);
                 return false;
             }
         } catch (NotSupportedException | SystemException ex) {
             Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
-            System.out.println("rollbakc:"+ex);
+            System.out.println("rollbakc:" + ex);
             return false;
         }
     }
@@ -321,7 +322,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         }
         return new AnswerDTO(000);
     }
-    
+
     /**
      *
      * @param idUser
@@ -331,21 +332,21 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     public ListCourseDTO getCoursesFromStudent(Long idUser) {
         Collection<Course> listCourse;
         ListCourseDTO listCourseDTO;
-        
+
         Collection<CourseDTO> collectionCourseDTO = new ArrayList<>();
-        
+
         Query q = em.createNamedQuery("Student.getListCourseFromUser", Student.class);
         q.setParameter("idUser", idUser);
         listCourse = (Collection<Course>) q.getResultList();
-        
-        for(Course it: listCourse){
+
+        for (Course it : listCourse) {
             collectionCourseDTO.add(new CourseDTO(it));
         }
-                
+
         listCourseDTO = new ListCourseDTO(collectionCourseDTO, new AnswerDTO(0));
         return listCourseDTO;
     }
-    
+
     /**
      *
      * @param idUser
@@ -353,70 +354,67 @@ public class StudentManagementSB implements StudentManagementSBLocal {
      * @return
      */
     @Override
-    public AnswerDTO enrollStudentOnCourse(Long idUser, Long idCourse) {          
-        Student student = getStudentByIdUser(idUser);                     
-        if(existStudentOnCourse(student, idCourse)){
+    public AnswerDTO enrollStudentOnCourse(Long idUser, Long idCourse) {
+        Student student = getStudentByIdUser(idUser);
+        if (existStudentOnCourse(student, idCourse)) {
             return new AnswerDTO(127);
         }
-        student = addCourseToStudent(student, idCourse);        
-        LinkedList<Assistance> listAssistance = generateAssistanceToStudent(student, idCourse);  
-        System.out.println("asdf2222 "+listAssistance.size());
+        student = addCourseToStudent(student, idCourse);
+        LinkedList<Assistance> listAssistance = generateAssistanceToStudent(student, idCourse);
         return persistEnrollStudentOnCourse(student, listAssistance);
     }
-    
-    private Student getStudentByIdUser(Long idUser){
+
+    private Student getStudentByIdUser(Long idUser) {
         Query q = em.createNamedQuery("Student.findByIdUser", User.class);
         q.setParameter("idUser", idUser);
-        return (Student)q.getSingleResult();
+        return (Student) q.getSingleResult();
     }
-    
-    private Student addCourseToStudent(Student student, Long idCourse){
-        List<Course> listCourse; 
-        Course course = em.find(Course.class, idCourse);                 
-        listCourse = student.getListCourse();         
-        listCourse.add(course);                                   
+
+    private Student addCourseToStudent(Student student, Long idCourse) {
+        List<Course> listCourse;
+        Course course = em.find(Course.class, idCourse);
+        listCourse = student.getListCourse();
+        listCourse.add(course);
         student.setListCourse(listCourse);
         return student;
     }
-    
-    private LinkedList<Assistance> generateAssistanceToStudent(Student student, Long idCourse){
-        LinkedList<BlockClass> listBlockClass;
-        listBlockClass = new LinkedList<>(em.find(Course.class, idCourse).getListBlockClass());        
+
+
+    private LinkedList<Assistance> generateAssistanceToStudent(Student student, Long idCourse) {
+        LinkedList<BlockClass> listBlockClass;        
+        listBlockClass = new LinkedList<>(em.find(Course.class, idCourse).getListBlockClass());
         Assistance assistance;
-        LinkedList<Assistance> listAssistance = new LinkedList<>();        
+        LinkedList<Assistance> listAssistance = new LinkedList<>();
         AssistanceState assistanceState = em.find(AssistanceState.class, 1L);
-        for(BlockClass it: listBlockClass){
+        for (BlockClass it : listBlockClass) {
             assistance = new Assistance();
             assistance.setState(assistanceState);
             assistance.setBlockClass(it);
-            assistance.setStudent(student);            
+            assistance.setStudent(student);
             listAssistance.add(assistance);
-        }      
+        }
         return listAssistance;
     }
-    
-    private Boolean existStudentOnCourse(Student student, Long idCourse){
-        LinkedList<Course> listCourse = new LinkedList<>( student.getListCourse());
+
+    private Boolean existStudentOnCourse(Student student, Long idCourse) {
+        LinkedList<Course> listCourse = new LinkedList<>(student.getListCourse());
         Course course = em.find(Course.class, idCourse);
         return listCourse.contains(course);
     }
-    
+
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    private AnswerDTO persistEnrollStudentOnCourse(Student student, LinkedList<Assistance> listAssistance){
+    private AnswerDTO persistEnrollStudentOnCourse(Student student, LinkedList<Assistance> listAssistance) {
         try {
             ut.begin(); // Start a new transaction
             try {
                 em.merge(student);
-                System.out.println("entro "+listAssistance.size());                
-                for(Assistance it: listAssistance){
-                    System.out.println(""+it.getBlockClass());
-                    System.out.println(""+it.getStudent());
+                for (Assistance it : listAssistance) {
                     em.persist(it);
-                }                
+                }
                 ut.commit(); // Commit the transaction
                 return new AnswerDTO(0);
             } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
-                System.out.println("error: "+e);
+                System.out.println("error: " + e);
                 ut.rollback(); // Rollback the transaction
                 return new AnswerDTO(126);
             }
@@ -450,8 +448,44 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         System.out.println(ex);
         return ex;
     }
-    
 
+    @Override
+    public AssistanceListDTO getAssistanceStudent(Long idCourse, Long idUser) {
+        Query q;
+        AssistanceListDTO assistanceListDTO;
+        q = em.createNamedQuery("Assistance.getAssistanceStudentToCourse");
+        q.setParameter("idCourse", idCourse);
+        q.setParameter("idUser", idUser);
+        LinkedList<Assistance> listAssistance = new LinkedList<>((Collection<Assistance>) q.getResultList());
+        LinkedList<BlockClass> listBlockClass = new LinkedList<>(em.find(Course.class, idCourse).getListBlockClass());
+        LinkedList<AssistanceDTO> listAssistanceDTO = new LinkedList<>();
+        AssistanceState assistanceAbsent = em.find(AssistanceState.class, 1L);
+        for (BlockClass it : listBlockClass) {
+            Assistance assistance = findAssistanceToBlockClass(listAssistance, it);
+            AssistanceDTO assistanceDTO;
+            if (assistance != null) {
+                System.out.println("entro");
+                assistanceDTO = new AssistanceDTO(assistance, it, it.getTimeBlockClass(), it.getDayBlockClass(), assistance.getState());
+            } else {
+                assistanceDTO = new AssistanceDTO(it, it.getTimeBlockClass(), it.getDayBlockClass(), assistanceAbsent);
+            }
+            listAssistanceDTO.add(assistanceDTO);
+        }
+        for (AssistanceDTO it : listAssistanceDTO) {
+            System.out.println("asistencia " + it.getDate() + " " + it.getDayBlockClassDTO().getDay() + " " + it.getTimeBlockClassDTO().getStartHour() + " " + it.getState());
+        }
+        assistanceListDTO = new AssistanceListDTO(listAssistanceDTO, new AnswerDTO(0));
+        return assistanceListDTO;
+    }
+
+    private Assistance findAssistanceToBlockClass(LinkedList<Assistance> listAssistance, BlockClass blockClass) {
+        for (Assistance it : listAssistance) {
+            if (blockClass.equals(it.getBlockClass())) {
+                return it;
+            }
+        }
+        return null;
+    }
 
     /**
      *
@@ -468,8 +502,4 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     public void setEm(EntityManager em) {
         this.em = em;
     }
-
-    
-
-    
 }
