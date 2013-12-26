@@ -5,10 +5,13 @@
 package sessionBeans.courseManagement;
 
 import DTOs.AnswerDTO;
+import DTOs.BlockClassDTO;
+import DTOs.BlockClassListDTO;
 import DTOs.CourseDTO;
+import DTOs.DayBlockClassListDTO;
 import DTOs.ListCourseDTO;
+import DTOs.TimeBlockClassListDTO;
 import DTOs.ListUserDTO;
-import entity.BlockClass;
 import java.util.LinkedList;
 import javax.ejb.Local;
 
@@ -19,17 +22,8 @@ import javax.ejb.Local;
 @Local
 public interface CourseManagementSBLocal {
 
-    /**
-     *
-     * @return
-     */
-    public ListCourseDTO getAllCourse();
+    ListCourseDTO getAllCourse();
 
-    /**
-     *
-     * @param userDTO
-     * @return
-     */
     AnswerDTO insertNewCourse(CourseDTO userDTO);
 
     CourseDTO getCourseByName(String courseName);
@@ -38,11 +32,20 @@ public interface CourseManagementSBLocal {
 
     CourseDTO getCourseById(Long courseId);
 
-    AnswerDTO allocateBlockclassesoToCourse(Long idCourse, LinkedList<BlockClass> listBlockClass);
+    AnswerDTO allocateBlockclassesoToCourse(Long idCourse, LinkedList<BlockClassDTO> listBlockClass);
 
     AnswerDTO updateCourse(CourseDTO courseDTO, Long courseId);
+
+
+    TimeBlockClassListDTO getAllTimeBlockClass();
+
+    DayBlockClassListDTO getAllDayBlockClassDTO();
+
+    BlockClassListDTO getAllBlockClassOfCourse(Long idCourse);
+
     
     AnswerDTO configureAssistanceTimebox(CourseDTO course);
     
     ListUserDTO getAllStudentsFromCourse(Long idCourse);
+
 }

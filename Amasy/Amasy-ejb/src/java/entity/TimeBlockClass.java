@@ -10,12 +10,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
  *
  * @author Pingeso
  */
+@NamedQueries({
+    @NamedQuery(name = "TimeBlockClass.gelAllTimeBlockClass", query = "SELECT T FROM TimeBlockClass T")
+})
 @Entity
 public class TimeBlockClass implements Serializable {
 

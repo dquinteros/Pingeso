@@ -22,7 +22,9 @@ import javax.persistence.Temporal;
  * @author Pingeso
  */
 @NamedQueries({
-    @NamedQuery(name = "BlockClass.findStudentByBlockClass", query = "SELECT b.course.listStudent FROM BlockClass b WHERE b.id = :idBlockClass")
+    @NamedQuery(name = "BlockClass.findStudentByBlockClass", query = "SELECT b.course.listStudent FROM BlockClass b WHERE b.id = :idBlockClass"),
+    @NamedQuery(name = "BlockClass.existBlockClass", query = "SELECT COUNT(b) FROM BlockClass b WHERE b.dayBlockClass.id = :idDayBlockClass AND b.timeBlockClass.id = :idTimeBlockClass"),
+    @NamedQuery(name = "BlockClass.getBlockClassOfCourse", query = "SELECT c.listBlockClass FROM Course c WHERE c.id = :idCourse"),
 })
 @Entity
 public class BlockClass implements Serializable {

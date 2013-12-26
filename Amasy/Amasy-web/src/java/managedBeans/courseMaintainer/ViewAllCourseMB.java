@@ -14,7 +14,6 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import managedBeans.UtilitiesMB;
-import managedBeans.studentMaintainer.StudentMaintainerConversationalMB;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
 
 /**
@@ -103,5 +102,10 @@ public class ViewAllCourseMB {
         UtilitiesMB.redirection("/faces/admin/courseMaintainer/editCourse.xhtml?cid=".concat(this.courseMaintainerConversation.getConversation().getId().toString()));
     }
    
+    public void addBlockCourse(Long idCourse){
+        this.courseMaintainerConversation.beginConversation();
+        this.courseMaintainerConversation.setIdCourse(idCourse);
+        UtilitiesMB.redirection("/faces/admin/courseMaintainer/allocateBlockclassesoToCourse.xhtml?cid=".concat(this.courseMaintainerConversation.getConversation().getId().toString()));
+    }
     
 }

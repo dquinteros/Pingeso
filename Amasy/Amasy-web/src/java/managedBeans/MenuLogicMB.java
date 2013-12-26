@@ -288,6 +288,8 @@ public class MenuLogicMB {
                 return "on-hover";
             case "/admin/courseMaintainer/editCourse.xhtml":
                 return "on-hover";
+            case "/admin/courseMaintainer/allocateBlockclassesoToCourse.xhtml":
+                return "on-hover";
             default:
                 return "";
         }
@@ -339,6 +341,8 @@ public class MenuLogicMB {
             case "/admin/courseMaintainer/addCourse.xhtml":
                 return "";
             case "/admin/courseMaintainer/editCourse.xhtml":
+                return "";
+            case "/admin/courseMaintainer/allocateBlockclassesoToCourse.xhtml":
                 return "";
             default:
                 return "hidden";

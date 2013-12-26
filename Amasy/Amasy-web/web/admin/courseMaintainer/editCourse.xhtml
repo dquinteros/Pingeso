@@ -5,11 +5,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
-
-
-    <ui:define name="content">
-        
-        
+    <ui:define name="content">                
         <h:form id="form">
             <h3>Editar curso</h3>
             <p:growl for="growl" life="3000"/>
@@ -27,7 +23,5 @@
             </h:panelGrid>  
             <p:commandButton id="submitButton" value="Editar curso" update="form" action="#{editCourseMB.editCurrentCourse()}"/>  
         </h:form> 
-
     </ui:define>
-
 </ui:composition>

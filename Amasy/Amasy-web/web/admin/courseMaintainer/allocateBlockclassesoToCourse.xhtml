@@ -5,21 +5,43 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
-
     <ui:define name="content">
-
-        
-        
-        
-        
-        <h3>Fecha inicio</h3>   
-        <p:calendar value="#{allocateBlockclassesoToCourseMB.startDate}" id="startDate" />  
-        
-        <h3>Fecha inicio</h3>   
-        <p:calendar value="#{allocateBlockclassesoToCourseMB.endDate}" id="endDate" />  
-        
-        
-        
-        
+        <h1 style="text-align: center">Curso #{allocateBlockclassesoToCourseMB.course.name}</h1>
+        <h:form id="form">
+            <p:growl for="growl" life="3000"/>
+            <div style="width: 30%; display: inline-block; vertical-align: top; text-align: center">
+                <h3 style="text-align: center">Datos nuevo bloque horario</h3>            
+                <h:panelGrid columns="3" style="margin: auto">
+                <h:outputLabel value="Fecha" />
+                <p:calendar value="#{allocateBlockclassesoToCourseMB.date}" id="date" required="true" requiredMessage="Campo obligatorio"/>
+                <p:message for="date" display="text"/>
+                <h:outputLabel value="Hora" />
+                <p:selectOneMenu id="time" value="#{allocateBlockclassesoToCourseMB.time}" required="true" requiredMessage="Campo obligatorio">  
+                    <f:selectItem itemLabel="Seleccione un horario" itemValue="" />  
+                    <f:selectItems value="#{allocateBlockclassesoToCourseMB.listHour}" />  
+                </p:selectOneMenu>
+                <p:message for="time" display="text"/>
+            </h:panelGrid>
+            <p:commandButton style="margin-top: 20px" value="Agregar bloque de clase" update=":form" action="#{allocateBlockclassesoToCourseMB.addDateTimeBlockClassCourse()}"/>
+            </div>
+            <div style="width: 68%; display: inline-block;">
+            <p:dataTable  var="dateTimeBlockClassCourse" value="#{allocateBlockclassesoToCourseMB.listDateTimeBlockClassCourse}" rowKey="#{dateTimeBlockClassCourse.date}" paginator="true" rows="10"  
+                          filteredValue="#{allocateBlockclassesoToCourseMB.filteredListDateTimeBlockClassCourse}" id="dateTimeBlockClassCourse">                
+                <f:facet name="header">  
+                    Lista de cursos
+                </f:facet>  
+                <p:column headerText="Día" sortBy="day" filterBy="day" id="day">  
+                    #{dateTimeBlockClassCourse.day}
+                </p:column>                   
+                <p:column headerText="Fecha" sortBy="date" filterBy="date" id="date">  
+                    #{dateTimeBlockClassCourse.dateString}
+                </p:column>             
+                <p:column headerText="Hora" sortBy="time" filterBy="time" id="time">  
+                    #{dateTimeBlockClassCourse.time}
+                </p:column>             
+            </p:dataTable>  
+            <p:commandButton value="Guardar bloques del cursos" update=":form" action="#{allocateBlockclassesoToCourseMB.saveBlockClassOfCourse()}"/>                
+            </div>
+        </h:form>   
     </ui:define>
 </ui:composition>
