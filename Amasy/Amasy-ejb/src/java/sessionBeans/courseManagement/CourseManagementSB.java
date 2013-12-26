@@ -7,8 +7,11 @@ package sessionBeans.courseManagement;
 import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
+import DTOs.ListUserDTO;
+import DTOs.UserDTO;
 import entity.BlockClass;
 import entity.Course;
+import entity.Student;
 import entity.User;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -250,5 +253,39 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         }else{
             return new AnswerDTO(0);
         }
+    }
+    
+    @Override
+    public ListUserDTO getAllStudentsFromCourse(Long idCourse){
+        Collection<Student> resultQuery;
+        Collection<UserDTO> result = new ArrayList<>();
+        
+        Query q = this.em.createNamedQuery("Student.getAllStudentFromCourse");
+        q.setParameter("idCourse", idCourse);
+        try {
+            resultQuery = (Collection<Student>) q.getResultList(); 
+            for(Student it: resultQuery){                
+                if(it.getUser().isUserStatus()){
+                    result.add(new UserDTO(it.getUser()));
+                }
+            }
+            ListUserDTO exitResult = new ListUserDTO(result, new AnswerDTO());
+            return sqlResultToListUserDTO(result, exitResult);
+        } catch (NoResultException nre) {
+            System.out.println(nre);
+            return null;
+        }
+    }
+    
+    private ListUserDTO sqlResultToListUserDTO(Collection<UserDTO> result, ListUserDTO exitResult) {
+        UserDTO userDTOTemp;
+        Collection<UserDTO> listUserTemp = new ArrayList<>();
+        for (UserDTO iter : result){   
+            userDTOTemp = iter;
+            listUserTemp.add(userDTOTemp);            
+        }
+        exitResult.setListUser(listUserTemp);
+        exitResult.setAnswerDTO(new AnswerDTO(0));
+        return exitResult;
     }
 }

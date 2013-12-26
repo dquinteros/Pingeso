@@ -52,6 +52,18 @@ public class ViewAllCoursesOfTeacherMB {
         UtilitiesMB.redirection("/faces/teacher/courses/configureCourse.xhtml?cid=".concat(this.courseMaintainerOfTeacherConversation.getConversation().getId().toString()));
     }
     
+    public void studentsOfCourse(Long idCourse){
+        this.courseMaintainerOfTeacherConversation.beginConversation();
+        this.courseMaintainerOfTeacherConversation.setIdCourse(idCourse);
+        UtilitiesMB.redirection("/faces/teacher/courses/viewAllStudentsOfCourse.xhtml?cid=".concat(this.courseMaintainerOfTeacherConversation.getConversation().getId().toString()));
+    }
+    
+    public void workgroupsOfCourse(Long idCourse){
+        this.courseMaintainerOfTeacherConversation.beginConversation();
+        this.courseMaintainerOfTeacherConversation.setIdCourse(idCourse);
+        UtilitiesMB.redirection("/faces/teacher/courses/workgroupManagement.xhtml?cid=".concat(this.courseMaintainerOfTeacherConversation.getConversation().getId().toString()));
+    }
+    
     public LinkedList<CourseDTO> getCourseList() {
         return courseList;
     }

@@ -7,6 +7,7 @@ package sessionBeans.courseManagement;
 import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
+import DTOs.ListUserDTO;
 import entity.BlockClass;
 import java.util.LinkedList;
 import javax.ejb.Local;
@@ -42,4 +43,6 @@ public interface CourseManagementSBLocal {
     AnswerDTO updateCourse(CourseDTO courseDTO, Long courseId);
     
     AnswerDTO configureAssistanceTimebox(CourseDTO course);
+    
+    ListUserDTO getAllStudentsFromCourse(Long idCourse);
 }

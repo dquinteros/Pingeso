@@ -45,6 +45,10 @@ public class CourseMaintainerOfTeacherConversationalMB implements Serializable {
     public Conversation getConversation() {
         return conversation;
     }
+    
+    public void setConversation(Conversation conversation) {
+        this.conversation = conversation;
+    }
 
     public String getCourseName() {
         return courseName;
