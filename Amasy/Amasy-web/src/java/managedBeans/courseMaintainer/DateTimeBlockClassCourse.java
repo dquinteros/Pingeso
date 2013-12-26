@@ -27,7 +27,15 @@ public class DateTimeBlockClassCourse {
     public DateTimeBlockClassCourse(BlockClassDTO listBlockClassDTO) { 
         date = listBlockClassDTO.getDate();
         day = getDateName(date);
-        time = date.getHours()+":"+date.getHours();
+        String hour = ""+date.getHours();
+        String minute;
+        if(date.getHours()<10){
+            minute = "0"+date.getMinutes();
+        }else{
+            minute = ""+date.getMinutes();
+        }
+        time = hour+":"+minute;
+        
         this.dateString = UtilitiesMB.dateFormat(date);     
     }
     
@@ -43,6 +51,8 @@ public class DateTimeBlockClassCourse {
     
     private String getDateName(Date date){
         switch(date.getDay()){
+            case 0:
+                return "Domingo";   
             case 1:
                 return "Lunes";
             case 2:
@@ -55,8 +65,6 @@ public class DateTimeBlockClassCourse {
                 return "Viernes";
             case 6:
                 return "Sábado";
-            case 7:
-                return "Domingo";    
             default: return "";
         }
     }    

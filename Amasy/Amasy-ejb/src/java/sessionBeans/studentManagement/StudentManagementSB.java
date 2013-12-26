@@ -359,7 +359,8 @@ public class StudentManagementSB implements StudentManagementSBLocal {
             return new AnswerDTO(127);
         }
         student = addCourseToStudent(student, idCourse);        
-        LinkedList<Assistance> listAssistance = generateAssistanceToStudent(student, idCourse);                                
+        LinkedList<Assistance> listAssistance = generateAssistanceToStudent(student, idCourse);  
+        System.out.println("asdf2222 "+listAssistance.size());
         return persistEnrollStudentOnCourse(student, listAssistance);
     }
     
@@ -399,18 +400,23 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         Course course = em.find(Course.class, idCourse);
         return listCourse.contains(course);
     }
-            
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     private AnswerDTO persistEnrollStudentOnCourse(Student student, LinkedList<Assistance> listAssistance){
         try {
             ut.begin(); // Start a new transaction
             try {
                 em.merge(student);
+                System.out.println("entro "+listAssistance.size());                
                 for(Assistance it: listAssistance){
+                    System.out.println(""+it.getBlockClass());
+                    System.out.println(""+it.getStudent());
                     em.persist(it);
                 }                
                 ut.commit(); // Commit the transaction
                 return new AnswerDTO(0);
             } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
+                System.out.println("error: "+e);
                 ut.rollback(); // Rollback the transaction
                 return new AnswerDTO(126);
             }

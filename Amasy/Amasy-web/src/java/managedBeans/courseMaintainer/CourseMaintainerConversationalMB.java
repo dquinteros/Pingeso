@@ -21,22 +21,12 @@ public class CourseMaintainerConversationalMB implements Serializable {
 
     @Inject
     Conversation conversation;
-    private LinkedList<DateTimeBlockClassCourse> listDateTimeBlockClassCourse;
     /**
      * Creates a new instance of CourseMaintainerConversationalMB
      */
     private Long idCourse;
 
     public CourseMaintainerConversationalMB() {
-    }
-    
-    public boolean isNotNullListDateTimeBlockClassCourse(){
-        if (listDateTimeBlockClassCourse != null) {
-            return true;
-        } else {
-            listDateTimeBlockClassCourse = new LinkedList<>();
-            return false;
-        }
     }
 
     public void beginConversation() {
@@ -61,18 +51,5 @@ public class CourseMaintainerConversationalMB implements Serializable {
 
     public void setIdCourse(Long idCourse) {
         this.idCourse = idCourse;
-    }
-
-    public LinkedList<DateTimeBlockClassCourse> getListDateTimeBlockClassCourse() {
-        if (listDateTimeBlockClassCourse != null) {
-            return listDateTimeBlockClassCourse;
-        } else {
-            listDateTimeBlockClassCourse = new LinkedList<>();
-            return new LinkedList<>();
-        }
-    }        
-
-    public void setListDateTimeBlockClassCourse(LinkedList<DateTimeBlockClassCourse> listDateTimeBlockClassCourse) {
-        this.listDateTimeBlockClassCourse = listDateTimeBlockClassCourse;
     }
 }

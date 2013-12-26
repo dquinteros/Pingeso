@@ -32,17 +32,15 @@ public interface CourseManagementSBLocal {
 
     CourseDTO getCourseById(Long courseId);
 
-    AnswerDTO allocateBlockclassesoToCourse(Long idCourse, LinkedList<BlockClassDTO> listBlockClass);
+    AnswerDTO allocateBlockclassesoToCourse(Long idCourse, BlockClassDTO blockClassDTO);
 
     AnswerDTO updateCourse(CourseDTO courseDTO, Long courseId);
-
 
     TimeBlockClassListDTO getAllTimeBlockClass();
 
     DayBlockClassListDTO getAllDayBlockClassDTO();
 
     BlockClassListDTO getAllBlockClassOfCourse(Long idCourse);
-
     
     AnswerDTO configureAssistanceTimebox(CourseDTO course);
     
