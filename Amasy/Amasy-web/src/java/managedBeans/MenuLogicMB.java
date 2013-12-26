@@ -27,11 +27,13 @@ public class MenuLogicMB {
      * @return
      */
     public String isIndex(String view) {
-        if ("/admin/index.xhtml".equals(view)) {
-            return "on-hover";
-        } else {
-            return "";
-        }
+        switch(view){
+            case "/admin/index.xhtml":
+                return "on-hover";
+            case "/teacher/index.xhtml":
+                return "on-hover";
+            default: return "";
+        }        
     }
 
     /**
@@ -52,6 +54,31 @@ public class MenuLogicMB {
         }
     }
 
+    public String isCourseViewTeacher(String view){
+        switch (view) {
+            case "/teacher/courses/viewAllCoursesOfTeacher.xhtml":
+                return "on-hover";       
+            case "/teacher/courses/configureCourse.xhtml":
+                return "on-hover";
+            case "/teacher/courses/viewAllStudentsOfCourse.xhtml":
+                return "on-hover";
+            case "/teacher/courses/workgroupManagement.xhtml":
+                return "on-hover";
+            default:
+                return "";
+        }
+    }
+    
+    public String isTakeAttendanceViewTeacher(String view){
+        switch (view) {
+            case "/teacher/takeAttendance/viewCourseList.xhtml":
+                return "on-hover";       
+            case "/teacher/takeAttendance/takeAttendance.xhtml":
+                return "on-hover";
+            default:
+                return "";
+        }
+    }    
     /**
      *
      * @param view
@@ -179,7 +206,7 @@ public class MenuLogicMB {
      * @return
      */
     public String isEditTeacher(String view) {
-        if ("/admin/teacherMaintainer/edirTeacher.xhtml".equals(view)) {
+        if ("/admin/teacherMaintainer/editTeacher.xhtml".equals(view)) {
             return "on-hover";
         } else {
             return "";
@@ -206,6 +233,14 @@ public class MenuLogicMB {
      */
     public String isNotCourseViewTeacher(String view) {
         switch (view) {
+            case "/teacher/courses/viewAllCoursesOfTeacher.xhtml":
+                return "";
+            case "/teacher/courses/configureCourse.xhtml":
+                return "";
+            case "/teacher/courses/viewAllStudentsOfCourse.xhtml":
+                return "";
+            case "/teacher/courses/workgroupManagement.xhtml":
+                return "";
             default:
                 return "hidden";
         }
@@ -216,12 +251,12 @@ public class MenuLogicMB {
      * @param view
      * @return
      */
-    public String isNotTakeAttendanceTeacher(String view) {
+    public String isNotTakeAttendanceTeacher(String view) {   
         switch (view) {
             case "/teacher/takeAttendance/takeAttendance.xhtml":
                return "";
-            case "/faces/teacher/takeAttendance/viewCourseList.xhtml":
-                return "";
+            case "/teacher/takeAttendance/viewCourseList.xhtml":
+               return "";
             default:
                 return "hidden";
         }
@@ -233,7 +268,7 @@ public class MenuLogicMB {
      * @return
      */
     public String isTakeAttendanceTeacher(String view) {
-        if ("/teacher/takeAttendance/takeAttendance.xhtml".equals(view)) {
+        if ("/teacher/takeAttendance/viewCourseList.xhtml".equals(view)) {
             return "on-hover";
         } else {
             return "";
@@ -273,6 +308,14 @@ public class MenuLogicMB {
         }
     }
 
+    public String isViewListCourseTeacher(String view){
+        if ("/teacher/courses/viewAllCoursesOfTeacher.xhtml".equals(view)) {
+            return "on-hover";
+        } else {
+            return "";
+        }
+    }
+    
     /**
      *
      * @param view
@@ -297,12 +340,74 @@ public class MenuLogicMB {
                 return "";
             case "/admin/courseMaintainer/addCourse.xhtml":
                 return "";
-            case "/admin/courseMaintainer/edirCourse.xhtml":
+            case "/admin/courseMaintainer/editCourse.xhtml":
                 return "";
             case "/admin/courseMaintainer/allocateBlockclassesoToCourse.xhtml":
                 return "";
             default:
                 return "hidden";
+        }
+    }
+    
+    /**
+     *
+     * @param view
+     * @return
+     */
+    public String isAdminView(String view) {
+        switch (view) {
+            case "/admin/adminMaintainer/viewAllAdmin.xhtml":
+                return "on-hover";
+            case "/admin/adminMaintainer/addAdmin.xhtml":
+                return "on-hover";
+            case "/admin/adminMaintainer/editAdmin.xhtml":
+                return "on-hover";
+            default:
+                return "";
+        }
+    }
+    
+    /**
+     *
+     * @param view
+     * @return
+     */
+    public String isNotAdminView(String view) {
+        switch (view) {
+            case "/admin/adminMaintainer/viewAllAdmin.xhtml":
+                return "";
+            case "/admin/adminMaintainer/addAdmin.xhtml":
+                return "";
+            case "/admin/adminMaintainer/editAdmin.xhtml":
+                return "";
+            default:
+                return "hidden";
+        }
+    }
+    
+     /**
+     *
+     * @param view
+     * @return
+     */
+    public String isViewAdmin(String view) {
+        if ("/admin/adminMaintainer/viewAllAdmin.xhtml".equals(view)) {
+            return "on-hover";
+        } else {
+            return "";
+        }
+    }
+    
+        /**
+     *
+     * @param view
+     * @return
+     */
+    public String isAddAdmin(String view) {
+        if ("/admin/adminMaintainer/addAdmin.xhtml".equals(view)) {
+            return "on-hover";
+        } else {
+            return "";
         }
     }
 }

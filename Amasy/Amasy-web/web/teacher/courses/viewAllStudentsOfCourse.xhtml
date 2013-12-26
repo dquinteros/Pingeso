@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../teacher/index.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:define name="content">
+        <h:form id="form">  
+            <p:dataTable  var="userDTO" value="#{viewAllStudentsOfCourseMB.users}" rowKey="#{userDTO.rut}" paginator="true" rows="10"  
+                          filteredValue="#{viewAllStudentsOfCourseMB.filteredUsers}" id="userDTOTable" selection="#{viewAllStudentsOfCourseMB.selectedUser}" selectionMode="single" emptyMessage="El curso no cuenta con alumnos registrados">
+                <p:growl for="growl" life="3000"/>
+                <p:ajax event="rowSelect" update=":form:display" oncomplete="studentDialog.show()" />  
+                <f:facet name="header">  
+                    Lista de alumnos
+                </f:facet>  
+                <p:column headerText="Nombre" sortBy="firstName" filterBy="firstName" id="firstName">  
+                    #{userDTO.firstName}
+                </p:column>  
+                <p:column headerText="Apellido" sortBy="lastName" filterBy="lastName" id="lastName">  
+                    #{userDTO.lastName}  
+                </p:column>  
+                <p:column headerText="Rut" sortBy="rut" filterBy="rut" id="rut">  
+                    #{userDTO.rut}  
+                </p:column>  
+                <p:column headerText="Email" sortBy="email" filterBy="email" id="email">  
+                    #{userDTO.email}  
+                </p:column>                      
+
+            </p:dataTable>
+            <p:dialog header="Datos estudiante" widgetVar="studentDialog" resizable="false"  
+                      showEffect="explode" hideEffect="explode" styleClass="headerDialog">  
+                <h:panelGrid id="display" columns="2" cellpadding="4">  
+                    <f:facet name="header">  
+                        <p:outputLabel value=""/>  
+                    </f:facet>  
+                    <h:outputText value="Rut:" />  
+                    <h:outputText value="#{viewAllStudentsOfCourseMB.selectedUser.rut}" id="rut"/>
+                    <h:outputText value="Nombre:" />  
+                    <h:outputText value="#{viewAllStudentsOfCourseMB.selectedUser.firstName}" id="firstName"/>  
+                    <h:outputText value="Apellido:" />  
+                    <h:outputText value="#{viewAllStudentsOfCourseMB.selectedUser.lastName}" id="lastName"/>  
+                    <h:outputText value="Nombre de usuario:" />  
+                    <h:outputText value="#{viewAllStudentsOfCourseMB.selectedUser.userName}" id="userName"/>
+                    <h:outputText value="Email:" />  
+                    <h:outputText value="#{viewAllStudentsOfCourseMB.selectedUser.email}" id="email"/>
+                    <h:outputText value="Telefono:" />  
+                    <h:outputText value="#{viewAllStudentsOfCourseMB.selectedUser.homePhone}" id="homePhone"/>
+                    <h:outputText value="Celular:" />  
+                    <h:outputText value="#{viewAllStudentsOfCourseMB.selectedUser.cellPhone}" id="cellPhone"/>  
+                </h:panelGrid>  
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

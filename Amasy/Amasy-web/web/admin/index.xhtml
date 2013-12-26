@@ -13,6 +13,7 @@
             <p:menuitem value="Estudiantes" styleClass="#{menuLogicMB.isStudentView(view.viewId)}"  url="/faces/admin/studentMaintainer/viewAllStudent.xhtml"/>
             <p:menuitem value="Profesores" styleClass="#{menuLogicMB.isTeacherView(view.viewId)}" url="/faces/admin/teacherMaintainer/viewAllTeacher.xhtml" />
             <p:menuitem value="Cursos" styleClass="#{menuLogicMB.isCourseViewAdmin(view.viewId)}" url="/faces/admin/courseMaintainer/viewAllCourse.xhtml" />
+            <p:menuitem value="Administradores" styleClass="#{menuLogicMB.isAdminView(view.viewId)}" url="/faces/admin/adminMaintainer/viewAllAdmin.xhtml" />
         </p:menubar>
     </ui:define>
     <ui:define name="west">
@@ -34,8 +35,13 @@
                 <p:menuitem value="Agregar Cursos" styleClass="#{menuLogicMB.isAddCourseAdmin(view.viewId)}" outcome="/faces/admin/courseMaintainer/addCourse.xhtml"/> 
             </p:submenu>
         </p:menu>
+        <p:menu styleClass="#{menuLogicMB.isNotAdminView(view.viewId)} menuLateral">
+            <p:submenu  label="Mantenedor">
+                <p:menuitem value="Ver Administradores" styleClass="#{menuLogicMB.isViewAdmin(view.viewId)}" outcome="/faces/admin/adminMaintainer/viewAllAdmin.xhtml"/> 
+                <p:menuitem value="Agregar Administradores" styleClass="#{menuLogicMB.isAddAdmin(view.viewId)}" outcome="/faces/admin/adminMaintainer/addAdmin.xhtml"/> 
+            </p:submenu>
+        </p:menu>
     </ui:define>
-    <!-- Falta agregar boton "Agregar Curso" -->
 
 
     <ui:define name="center">

@@ -140,8 +140,8 @@ public class Course implements Serializable {
         return minutesAfterClassStart;
     }
 
-    public void setMinutesAfterClassStart(int minutesEarlierClassStart) {
-        this.minutesAfterClassStart = minutesEarlierClassStart;
+    public void setMinutesAfterClassStart(int minutesAfterClassStart) {
+        this.minutesAfterClassStart = minutesAfterClassStart;
     }
 
     public int getMinutesBeforeClassStart() {
@@ -151,8 +151,9 @@ public class Course implements Serializable {
     public void setMinutesBeforeClassStart(int minutesBeforeClassStart) {
         this.minutesBeforeClassStart = minutesBeforeClassStart;
     }
-    
-    
+
+   
+        
     
     /**
      *

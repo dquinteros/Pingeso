@@ -8,9 +8,10 @@
 
     <ui:define name="content">
         <h:form id="form">  
+            <p:growl for="growl" life="3000"/>
             <p:dataTable  var="userDTO" value="#{viewAllTeacherMB.userList}" rowKey="#{userDTO.rut}" paginator="true" rows="10"  
-                          filteredValue="#{viewAllTeacherMB.filteredTeachers}" id="userDTOTable" selection="#{viewAllTeacherMB.selectedTeacher}" selectionMode="single">
-                <p:growl for="growl" life="3000"/>
+                          filteredValue="#{viewAllTeacherMB.filteredTeachers}" id="userDTOTable" selection="#{viewAllTeacherMB.selectedTeacher}" selectionMode="single"
+                          emptyMessage="No existen profesores válidos en el sistema">
                 <p:ajax event="rowSelect" update=":form:display" oncomplete="teacherDialog.show()" />  
                 <f:facet name="header">  
                     Lista de profesores
@@ -32,7 +33,7 @@
                     <p:commandButton id="editTeacherButton" icon="ui-icon-pencil" title="Editar" action="#{viewAllTeacherMB.editTeacher(userDTO.id)}"/>
                     <p:tooltip for="editTeacherButton" value="Editar profesor" showEffect="fade" hideEffect="fade" /> 
                     
-                    <p:commandButton id="submitButton" icon="ui-icon-closethick" title="Eliminar" update="userDTOTable" action="#{viewAllTeacherMB.deleteTeacher(userDTO.id)}"/>                      
+                    <p:commandButton id="submitButton" icon="ui-icon-closethick" title="Eliminar" update=":form" action="#{viewAllTeacherMB.deleteTeacher(userDTO.id)}"/>                      
                     <p:tooltip for="submitButton" value="Eliminar profesor" showEffect="fade" hideEffect="fade" /> 
                     
                 </p:column>

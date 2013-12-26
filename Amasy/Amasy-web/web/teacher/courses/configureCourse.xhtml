@@ -1,29 +1,30 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../../admin/index.xhtml"
+                template="./../../teacher/index.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="content">
-        <h3>Configuracion de cursos</h3>
         <h:form id="form">
+            <p:growl for="growl" life="3000"/>
+            <h3><h:outputText value="Configuración del curso: #{configureCourseMB.course.name}"/></h3>
             <h:panelGrid id="grid" columns="3" cellpadding="4">
                 <h:outputText value="Minutos antes de que inicie la clase: *" />  
-                <p:inputText id="beforeClass" required="true" value="" requiredMessage="Campo obligatorio" validatorMessage="Debe ser un numero">
-                    <f:validateRegex for="level" pattern="[0-9]*"/>
+                <p:inputText id="beforeClass" required="true" value="#{configureCourseMB.minutesBeforeAux}" requiredMessage="Campo obligatorio" validatorMessage="Debe ser un numero positivo o cero">
+                    <f:validateRegex for="level" pattern="^[0-9]\d*$"/>
                 </p:inputText>
                 <p:message for="beforeClass" display="text" />
 
                 <h:outputText value="Minutos despues de que inicie la clase: *" />  
-                <p:inputText id="afterClass" required="true" value="" requiredMessage="Campo obligatorio" validatorMessage="Debe ser un numero">
-                    <f:validateRegex for="level" pattern="[0-9]*"/>
+                <p:inputText id="afterClass" required="true" value="#{configureCourseMB.minutesAfterAux}" requiredMessage="Campo obligatorio" validatorMessage="Debe ser un numero positivo o cero">
+                    <f:validateRegex for="level" pattern="^[0-9]\d*$"/>
                 </p:inputText>
                 <p:message for="afterClass" display="text" />
                 
             </h:panelGrid>
-            <p:commandButton id="submitButton" value="Configurar Curso" update="form"/>
+            <p:commandButton id="submitButton" value="Configurar Curso" update="form" action="#{configureCourseMB.configureAssistanceTimebox()}"/>
         </h:form>
     </ui:define>
 </ui:composition>

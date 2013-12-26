@@ -98,5 +98,7 @@ public class CourseDTO {
     public void setMinutesBeforeClassStart(int minutesBeforeClassStart) {
         this.minutesBeforeClassStart = minutesBeforeClassStart;
     }
-    
+
+  
+
 }

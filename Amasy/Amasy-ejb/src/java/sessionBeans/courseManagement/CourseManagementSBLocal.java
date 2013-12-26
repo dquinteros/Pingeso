@@ -8,11 +8,10 @@ import DTOs.AnswerDTO;
 import DTOs.BlockClassDTO;
 import DTOs.BlockClassListDTO;
 import DTOs.CourseDTO;
-import DTOs.DayBlockClassDTO;
 import DTOs.DayBlockClassListDTO;
 import DTOs.ListCourseDTO;
 import DTOs.TimeBlockClassListDTO;
-import entity.BlockClass;
+import DTOs.ListUserDTO;
 import java.util.LinkedList;
 import javax.ejb.Local;
 
@@ -37,9 +36,16 @@ public interface CourseManagementSBLocal {
 
     AnswerDTO updateCourse(CourseDTO courseDTO, Long courseId);
 
+
     TimeBlockClassListDTO getAllTimeBlockClass();
 
     DayBlockClassListDTO getAllDayBlockClassDTO();
 
     BlockClassListDTO getAllBlockClassOfCourse(Long idCourse);
+
+    
+    AnswerDTO configureAssistanceTimebox(CourseDTO course);
+    
+    ListUserDTO getAllStudentsFromCourse(Long idCourse);
+
 }

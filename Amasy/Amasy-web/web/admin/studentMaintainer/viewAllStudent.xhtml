@@ -13,9 +13,10 @@
 
     <ui:define name="content">
         <h:form id="form">  
+            <p:growl for="growl" life="3000"/>
             <p:dataTable  var="userDTO" value="#{viewAllStudentMB.userList}" rowKey="#{userDTO.rut}" paginator="true" rows="10"  
-                          filteredValue="#{viewAllStudentMB.filteredStudents}" id="userDTOTable" selection="#{viewAllStudentMB.selectedStudent}" selectionMode="single">
-                <p:growl for="growl" life="3000"/>
+                          filteredValue="#{viewAllStudentMB.filteredStudents}" id="userDTOTable" selection="#{viewAllStudentMB.selectedStudent}" selectionMode="single"
+                          emptyMessage="No existen alumnos válidos en el sistema">                
                 <p:ajax event="rowSelect" update=":form:display" oncomplete="studentDialog.show()" />  
                 <f:facet name="header">  
                     Lista de alumnos
@@ -39,7 +40,7 @@
                     <p:commandButton id="addCourseButton" icon="ui-icon-plusthick" update="userDTOTable" action="#{viewAllStudentMB.addCourseToStudent(userDTO.id)}"/>                      
                     <p:tooltip for="addCourseButton" value="Agregar cursos" showEffect="fade" hideEffect="fade" /> 
                     
-                    <p:commandButton id="submitButton" icon="ui-icon-closethick" update="userDTOTable" action="#{viewAllStudentMB.deleteStudent(userDTO.id)}"/>                      
+                    <p:commandButton id="submitButton" icon="ui-icon-closethick" update=":form" action="#{viewAllStudentMB.deleteStudent(userDTO.id)}"/>                      
                     <p:tooltip for="submitButton" value="Eliminar estudiante" showEffect="fade" hideEffect="fade" /> 
                                                             
                     
