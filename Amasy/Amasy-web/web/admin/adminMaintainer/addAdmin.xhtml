@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../admin/index.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h3>Agregar nuevo administrador</h3>
+        <h:form id="form">
+            <p:growl for="growl" life="3000"/>
+            <h:panelGrid id="grid" columns="3" cellpadding="4">
+                <h:outputText value="Nombre: *" />  
+                <p:inputText id="firstName" required="true" value="#{addAdminMB.newAdmin.firstName}" requiredMessage="Nombre obligatorio">                    
+                </p:inputText>
+                <p:message for="firstName" display="text" id="asdf"/>                               
+                
+                <h:outputText value="Apellido: *" />  
+                <p:inputText id="lastName" required="true" value="#{addAdminMB.newAdmin.lastName}" requiredMessage="Apellido obligatorio"/>  
+                <p:message for="lastName" display="text"/>  
+                
+                <h:outputText value="Celular *" />  
+                <p:inputText id="cellPhone" required="true" value="#{addAdminMB.newAdmin.cellPhone}" requiredMessage="Celular obligatorio" validatorMessage="El número de teléfono celular solo puede ser numérico">
+                    <f:validateRegex for="cellPhone" pattern="[0-9]*"/>
+                </p:inputText>  
+                <p:message for="cellPhone" display="text"/>  
+                
+                <h:outputText value="Correo electronico: *" />  
+                <p:inputText id="email" required="true" value="#{addAdminMB.newAdmin.email}" requiredMessage="Correo obligatorio" validatorMessage="Email no es valido" >
+                    <f:validateRegex for="email" pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />                    
+                </p:inputText>
+                <p:message for="email" display="text"/>
+                
+                <h:outputText value="Teléfono de casa: *" />  
+                <p:inputText id="homePhone" required="true" value="#{addAdminMB.newAdmin.homePhone}" requiredMessage="Telefono obligatorio" validatorMessage="El número de teléfono del hogar solo puede ser numérico">
+                    <f:validateRegex for="homePhone" pattern="[0-9]*"/>
+                </p:inputText>
+                <p:message for="homePhone" display="text" />  
+                
+                <h:outputText value="Rut: *" />  
+                <p:inputText id="rut" required="true" value="#{addAdminMB.newAdmin.rut}" requiredMessage="Rut obligatorio" validatorMessage="El rut debe tener el siguiente formato: 12345678-X" maxlength="14">
+                    <f:validateRegex for="rut" pattern="^0*(\d{1,3}(\.?\d{3})*)\-?([\dkK])$"/> <!--\b\d{1,8}\-[K|k|0-9]-->
+                </p:inputText>
+                <p:message for="rut" display="text"/>
+                
+                <h:outputText value="Nombre de usuario: *" />  
+                <p:inputText id="userName" required="true" value="#{addAdminMB.newAdmin.userName}" requiredMessage="Nombre de usuario obligatorio">
+                </p:inputText>
+                <p:message for="userName" display="text"/>
+                
+            </h:panelGrid>  
+
+            <p:commandButton id="submitButton" value="Crear administrador" update="form" action="#{addAdminMB.insertNewAdmin()}"/>  
+        </h:form>
+    </ui:define>
+</ui:composition>

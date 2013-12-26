@@ -1,0 +1,57 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package entity;
+
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+/**
+ *
+ * @author Pingeso
+ */
+
+@Entity
+@NamedQueries({
+    @NamedQuery(name="Admin.getAllAdminUserInfo", query="SELECT u.user FROM Admin u WHERE u.user.userStatus = true")
+    //@NamedQuery(name="Teacher.getStundentAttendanceFromCourse", query="SELECT c.listStudent FROM Course c WHERE c.id = :course")
+})
+
+public class Admin {
+    
+    @OneToOne
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+       
+    @OneToOne
+    private User user;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    
+    
+}

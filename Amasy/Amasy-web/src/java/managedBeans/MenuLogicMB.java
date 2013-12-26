@@ -338,10 +338,72 @@ public class MenuLogicMB {
                 return "";
             case "/admin/courseMaintainer/addCourse.xhtml":
                 return "";
-            case "/admin/courseMaintainer/edirCourse.xhtml":
+            case "/admin/courseMaintainer/editCourse.xhtml":
                 return "";
             default:
                 return "hidden";
+        }
+    }
+    
+    /**
+     *
+     * @param view
+     * @return
+     */
+    public String isAdminView(String view) {
+        switch (view) {
+            case "/admin/adminMaintainer/viewAllAdmin.xhtml":
+                return "on-hover";
+            case "/admin/adminMaintainer/addAdmin.xhtml":
+                return "on-hover";
+            case "/admin/adminMaintainer/editAdmin.xhtml":
+                return "on-hover";
+            default:
+                return "";
+        }
+    }
+    
+    /**
+     *
+     * @param view
+     * @return
+     */
+    public String isNotAdminView(String view) {
+        switch (view) {
+            case "/admin/adminMaintainer/viewAllAdmin.xhtml":
+                return "";
+            case "/admin/adminMaintainer/addAdmin.xhtml":
+                return "";
+            case "/admin/adminMaintainer/editAdmin.xhtml":
+                return "";
+            default:
+                return "hidden";
+        }
+    }
+    
+     /**
+     *
+     * @param view
+     * @return
+     */
+    public String isViewAdmin(String view) {
+        if ("/admin/adminMaintainer/viewAllAdmin.xhtml".equals(view)) {
+            return "on-hover";
+        } else {
+            return "";
+        }
+    }
+    
+        /**
+     *
+     * @param view
+     * @return
+     */
+    public String isAddAdmin(String view) {
+        if ("/admin/adminMaintainer/addAdmin.xhtml".equals(view)) {
+            return "on-hover";
+        } else {
+            return "";
         }
     }
 }
