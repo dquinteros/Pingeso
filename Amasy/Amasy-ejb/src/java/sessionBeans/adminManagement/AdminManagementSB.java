@@ -22,6 +22,8 @@ import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -45,6 +47,7 @@ import sessionBeans.TakeAttendanceSB;
  * @author Pingeso
  */
 @Stateless
+@TransactionManagement(TransactionManagementType.BEAN)
 public class AdminManagementSB implements AdminManagementSBLocal {
     
     @Resource(name="mail/AmasyDB")
@@ -126,15 +129,11 @@ public class AdminManagementSB implements AdminManagementSBLocal {
         User user = newUser(userDTO, password, roll);
         Admin newAdmin = new Admin();
         newAdmin.setUser(user);
-        System.out.println("(AMSB/insertNewAdmin()) Usuario: "+ user.getFirstName());
-        System.out.println("(AMSB/insertNewAdmin()) Usuario: "+ user.getLastName());
-        System.out.println("(AMSB/insertNewAdmin()) Usuario: "+ user.getRut());
-        System.out.println("(AMSB/insertNewAdmin()) Usuario: "+ user.getUserName());
-        System.out.println("(AMSB/insertNewAdmin()) Usuario: "+ user.getPassword());
         persistInsert(user);
         persistInsert(newAdmin);
         return new AnswerDTO(0);
     }
+    
     
     private AnswerDTO validateAdminRegistry(NewUserDTO userDTO) {
         if (userDTO == null) {
@@ -202,20 +201,19 @@ public class AdminManagementSB implements AdminManagementSBLocal {
         User newUser = new User();
         newUser.setCellPhone(userDTO.getCellPhone());
         newUser.setEmail(userDTO.getEmail());
-        newUser.setFingerPrint(userDTO.getFingerprint());
         newUser.setFirstName(userDTO.getFirstName());
         newUser.setHomePhone(userDTO.getHomePhone());
         newUser.setLastName(userDTO.getLastName());
         newUser.setRut(Integer.parseInt(userDTO.getRut()));
         newUser.setUserName(userDTO.getUserName());
 
-        UserType ut = new UserType();
-        ut.setName(roll);
+        UserType usertype = new UserType();
+        usertype.setName(roll);
 
         newUser.setPassword(MD5(password));
 
-        newUser.setUserType(ut);
-        senEmail(newUser.getEmail(), newUser.getUserName() ,password);
+        newUser.setUserType(usertype);
+        //senEmail(newUser.getEmail(), newUser.getUserName() ,password);
         
         return newUser;
     }
