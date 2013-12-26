@@ -68,6 +68,10 @@ public class UserManagementSB implements UserManagementSBLocal {
         return res;
     }
 
-    
+    @Override
+    public UserDTO findUserById(Long idUser){
+        UserDTO userDTO = new UserDTO(em.find(User.class, idUser));
+        return userDTO;
+    }
     
 }

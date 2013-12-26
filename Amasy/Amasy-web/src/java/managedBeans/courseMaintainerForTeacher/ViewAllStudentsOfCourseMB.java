@@ -47,6 +47,12 @@ public class ViewAllStudentsOfCourseMB {
         users = new LinkedList<>(ans.getListUser());
         UtilitiesMB.showFeedback(ans.getAnswerDTO());
     }
+    
+    public void assistanceOfStudent(){
+        this.courseMaintainerOfTeacherConversation.beginConversation();
+        this.courseMaintainerOfTeacherConversation.setIdCourse(idCourse);
+        UtilitiesMB.redirection("/faces/teacher/courses/viewAssistanceOfStudent.xhtml?cid=".concat(this.courseMaintainerOfTeacherConversation.getConversation().getId().toString()));
+    }
 
     public ListUserDTO getUserListDTO() {
         return userListDTO;

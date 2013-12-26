@@ -4,6 +4,8 @@
  */
 package sessionBeans.adminManagement;
 
+import DTOs.AnswerDTO;
+import DTOs.NewUserDTO;
 import DTOs.UserDTO;
 import java.util.LinkedList;
 import javax.ejb.Local;
@@ -16,5 +18,12 @@ import javax.ejb.Local;
 public interface AdminManagementSBLocal {
     
     public LinkedList<UserDTO> getAllAdmin();
+    
+    /**
+     *
+     * @param userDTO
+     * @return
+     */
+    public AnswerDTO insertNewAdmin(NewUserDTO userDTO);
     
 }

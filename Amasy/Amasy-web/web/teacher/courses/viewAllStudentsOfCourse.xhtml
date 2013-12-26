@@ -27,7 +27,10 @@
                 <p:column headerText="Email" sortBy="email" filterBy="email" id="email">  
                     #{userDTO.email}  
                 </p:column>                      
-
+                <p:column styleClass="center" headerText="Acciones"> 
+                    <p:commandButton id="assistanceButton" icon="ui-icon-clipboard" title="Ver la asistencia" action="#{viewAllStudentsOfCourseMB.assistanceOfStudent()}"/>
+                    <p:tooltip for="assistanceButton" value="Ver la asistencia" showEffect="fade" hideEffect="fade" /> 
+                </p:column>
             </p:dataTable>
             <p:dialog header="Datos estudiante" widgetVar="studentDialog" resizable="false"  
                       showEffect="explode" hideEffect="explode" styleClass="headerDialog">  

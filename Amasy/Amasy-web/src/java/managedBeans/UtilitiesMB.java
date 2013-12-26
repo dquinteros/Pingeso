@@ -8,11 +8,14 @@ import DTOs.AnswerDTO;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import sessionBeans.UserManagementSBLocal;
 
 /**
  *
@@ -21,10 +24,14 @@ import javax.faces.context.FacesContext;
 @Named(value = "utilitiesMB")
 @RequestScoped
 public class UtilitiesMB {
-
-    /**
-     * Creates a new instance of UtilitiesMB
-     */
+    @EJB
+    private UserManagementSBLocal userManagementSB;
+    
+    @Inject
+    private LoginSessionMB session;
+    
+    private String username;
+    
     public UtilitiesMB() {
     }
 
@@ -81,7 +88,7 @@ public class UtilitiesMB {
                 return "Clase sin alumnos inscritos";
             case 118:
                 return "Error con el registro de profesor";
-            case 119:
+            case 119:;
                 return "No se pudo actualizar los datos del profesor";
             case 120:
                 return "Error al eliminar un profesor.";
@@ -90,23 +97,19 @@ public class UtilitiesMB {
             case 122:
                 return "Error al intentar iniciar sesión. Inténtelo nuevamente.";
             case 123:
-                return "Nombre de usuario o contraseña incorrecto.";
+                return "Nombre de usuario o contraseña incorrecto."; 
             case 124:
                 return "El usuario ha sido deshabilitado del sistema.";
             case 125:
-                return "Nombre de curso ya registrado.";
-            case 126:
+                return "Nombre de curso ya registrado."; 
+            case 126: 
                 return "Error al vincular alumno con curso";
             case 127:
                 return "Alumno ya vinculado con el curso";
             case 128:
-                return "Error al crear el vinculo con los bloques de clase.";
+                return "Error al crear el vinculo cn los bloques de clase";
             case 129:
                 return "Error al configurar la ventana de tiempo para la toma de asistencia";
-            case 130:
-                return "Bloque horario ya registrado";
-            case 131:
-                return "Bloques horarios ya registrados";
             default:
                 return "Error";
         }
@@ -126,10 +129,9 @@ public class UtilitiesMB {
                 return "warning";
             case 127:
                 return "warning";
-            case 131:
-                return "warning";
             default:
                 return "error";
+             
         }
     }
 
@@ -179,7 +181,19 @@ public class UtilitiesMB {
                 context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error" + " " + parteMensajeExtra, ""));
         }
     }
+    
+    public String welcomeUserMessage(){
+        return userManagementSB.findUserById(session.getUser().getId()).getFirstName();
+    }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
     public static String dateFormat(Date date) {
         if (null == date) {
             return "";
@@ -190,6 +204,4 @@ public class UtilitiesMB {
 
         }
     }
-    
-    
 }

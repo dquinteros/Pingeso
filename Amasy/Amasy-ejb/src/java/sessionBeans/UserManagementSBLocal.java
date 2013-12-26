@@ -26,4 +26,6 @@ public interface UserManagementSBLocal {
      * @return
      */
     public UserDTO findUserByUserName(String username);
+    
+    UserDTO findUserById(Long idUser);
 }
