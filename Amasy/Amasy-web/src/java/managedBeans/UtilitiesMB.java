@@ -51,41 +51,41 @@ public class UtilitiesMB {
     private static String getResponseServer(AnswerDTO r) {
         switch (r.getIdError()) {
             case 0:
-                return "Operación realizada con éxito";
+                return "Operación realizada con éxito.";
             case 101:
-                return "Nombre de usuario, email y rut ya registrados";
+                return "Nombre de usuario, email y rut ya registrados.";
             case 102:
-                return "Email y nombre de usuario ya registrados";
+                return "Email y nombre de usuario ya registrados.";
             case 103:
-                return "Nombre de usuario y rut ya registrados";
+                return "Nombre de usuario y rut ya registrados.";
             case 104:
-                return "Email y rut ya registrados";
+                return "Email y rut ya registrados.";
             case 105:
-                return "Email ya registrado";
+                return "Email ya registrado.";
             case 106:
-                return "Nombre de usuario ya registrado";
+                return "Nombre de usuario ya registrado.";
             case 107:
-                return "Rut ya registrado";
+                return "Rut ya registrado.";
             case 108:
-                return "Usuario o contraseña no válido";
+                return "Usuario o contraseña no válido.";
             case 109:
-                return "Error con el registro de estudiante";
+                return "Error con el registro de estudiante.";
             case 110:
-                return "Rut no válido";
+                return "Rut no válido.";
             case 111:
-                return "Error al eliminar un estudiante";
+                return "Error al eliminar un estudiante.";
             case 112:
-                return "El estudiante ya se encontraba eliminado";
+                return "El estudiante ya se encontraba eliminado.";
             case 113:
-                return "No se pudo actualizar los datos del estudiante";
+                return "No se pudo actualizar los datos del estudiante.";
             case 114:
-                return "En caso de pertenecer al curso y su huella este registrada repita la operacion";
+                return "En caso de pertenecer al curso y su huella este registrada repita la operacion.";
             case 115:
                 return "Se ha marcado como presente a";
             case 116:
-                return "Ya se encontraba presente el alumno";
+                return "Ya se encontraba presente el alumno.";
             case 117:
-                return "Clase sin alumnos inscritos";
+                return "Clase sin alumnos inscritos.";
             case 118:
                 return "Error con el registro de profesor";
             case 119:;
@@ -103,13 +103,15 @@ public class UtilitiesMB {
             case 125:
                 return "Nombre de curso ya registrado."; 
             case 126: 
-                return "Error al vincular alumno con curso";
+                return "Error al vincular alumno con curso.";
             case 127:
-                return "Alumno ya vinculado con el curso";
+                return "Alumno ya vinculado con el curso.";
             case 128:
-                return "Error al crear el vinculo cn los bloques de clase";
+                return "Error al crear el vinculo cn los bloques de clase.";
             case 129:
-                return "Error al configurar la ventana de tiempo para la toma de asistencia";
+                return "Error al configurar la ventana de tiempo para la toma de asistencia.";
+            case 130:
+                return "No se pueden eliminar más administradores del sistema. Minimo: 2.";
             default:
                 return "Error";
         }
