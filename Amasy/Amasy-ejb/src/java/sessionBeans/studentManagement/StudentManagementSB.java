@@ -471,15 +471,11 @@ public class StudentManagementSB implements StudentManagementSBLocal {
             Assistance assistance = findAssistanceToBlockClass(listAssistance, it);
             AssistanceDTO assistanceDTO;
             if (assistance != null) {
-                System.out.println("entro");
                 assistanceDTO = new AssistanceDTO(assistance, it, it.getTimeBlockClass(), it.getDayBlockClass(), assistance.getState());
             } else {
                 assistanceDTO = new AssistanceDTO(it, it.getTimeBlockClass(), it.getDayBlockClass(), assistanceAbsent);
             }
             listAssistanceDTO.add(assistanceDTO);
-        }
-        for (AssistanceDTO it : listAssistanceDTO) {
-            System.out.println("asistencia " + it.getDate() + " " + it.getDayBlockClassDTO().getDay() + " " + it.getTimeBlockClassDTO().getStartHour() + " " + it.getState());
         }
         assistanceListDTO = new AssistanceListDTO(listAssistanceDTO, new AnswerDTO(0));
         return assistanceListDTO;

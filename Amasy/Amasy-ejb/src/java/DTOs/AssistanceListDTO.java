@@ -15,17 +15,21 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class AssistanceListDTO {
+
     private LinkedList<AssistanceDTO> listAssistanceDTO;
     private AnswerDTO answer;
+    private int UserID;
+    private String firstName;
+    private String lastName;
 
-    public AssistanceListDTO(){
+    public AssistanceListDTO() {
     }
-    
-    public AssistanceListDTO(LinkedList<AssistanceDTO> listAssistanceDTO, AnswerDTO answer){
+
+    public AssistanceListDTO(LinkedList<AssistanceDTO> listAssistanceDTO, AnswerDTO answer) {
         this.listAssistanceDTO = listAssistanceDTO;
         this.answer = answer;
     }
-    
+
     public LinkedList<AssistanceDTO> getListAssistanceDTO() {
         return listAssistanceDTO;
     }
@@ -40,5 +44,29 @@ public class AssistanceListDTO {
 
     public void setAnswer(AnswerDTO answer) {
         this.answer = answer;
-    }    
+    }
+
+    public int getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(int UserID) {
+        this.UserID = UserID;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }

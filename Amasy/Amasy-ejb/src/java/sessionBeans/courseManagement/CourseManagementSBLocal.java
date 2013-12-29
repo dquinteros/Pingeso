@@ -5,6 +5,7 @@
 package sessionBeans.courseManagement;
 
 import DTOs.AnswerDTO;
+import DTOs.AssistanceListCourseDTO;
 import DTOs.BlockClassDTO;
 import DTOs.BlockClassListDTO;
 import DTOs.CourseDTO;
@@ -45,4 +46,6 @@ public interface CourseManagementSBLocal {
     AnswerDTO configureAssistanceTimebox(CourseDTO course);
 
     ListUserDTO getAllStudentsFromCourse(Long idCourse);    
+
+    AssistanceListCourseDTO assistanceListCourse(Long idCourse);
 }
