@@ -39,7 +39,6 @@ public class LoginSessionMB extends UtilitiesMB implements Serializable{
      * @throws ServletException
      */
     public void loginVerification() throws ServletException {
-        System.out.println("init: "+startPage);
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
