@@ -43,11 +43,7 @@
                 <p:inputText id="defaultg" required="true" value="#{editStudentMB.newUserDTO.homePhone}" requiredMessage="Telefono obligatorio" validatorMessage="El número de teléfono del hogar solo puede ser numérico">
                     <f:validateRegex for="defaultd" pattern="[0-9]*"/>
                 </p:inputText>
-                <p:message for="defaultg" display="text" />  
-                
-                <h:outputText value="Huella digital: *" />
-                <p:inputText id="defaulty" required="true" value="null" requiredMessage="Huella digital obligatoria"/>  
-                <p:message for="defaulty" display="text"/>
+                <p:message for="defaultg" display="text" />                  
             </h:panelGrid>
             <p:commandButton id="submitButton" value="Guardar cambios" update="form" action="#{editStudentMB.editCurrentStudent()}"/>  
         </h:form>  

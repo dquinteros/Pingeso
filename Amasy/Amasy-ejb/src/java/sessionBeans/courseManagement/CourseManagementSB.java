@@ -5,6 +5,12 @@
 package sessionBeans.courseManagement;
 
 import DTOs.AnswerDTO;
+import DTOs.AssistanceDTO;
+import DTOs.AssistanceListCourseDTO;
+import DTOs.AssistanceListCourseRowDTO;
+import DTOs.AssistanceListCourseTitleDTO;
+import DTOs.AssistanceListCourseUnitDTO;
+import DTOs.AssistanceListDTO;
 import DTOs.BlockClassDTO;
 import DTOs.BlockClassListDTO;
 import DTOs.CourseDTO;
@@ -22,13 +28,16 @@ import DTOs.UserDTO;
 import entity.BlockClass;
 import entity.Course;
 import entity.Student;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -45,6 +54,7 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import sessionBeans.TakeAttendanceSB;
+import sessionBeans.studentManagement.StudentManagementSBLocal;
 
 /**
  *
@@ -53,7 +63,7 @@ import sessionBeans.TakeAttendanceSB;
 @Stateless
 @TransactionManagement(TransactionManagementType.BEAN)
 public class CourseManagementSB implements CourseManagementSBLocal {
-
+    
     @PersistenceContext(unitName = "Amasy-ejbPU")
     private EntityManager em;
     @Resource
@@ -125,14 +135,14 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return null;
         }
     }
-
+    
     private ListCourseDTO sqlResultToCourseList(Collection<Course> result, ListCourseDTO exitResult) {
         CourseDTO courseDTOTemp;
         Collection<CourseDTO> listCourseTemp = new ArrayList<>();
         for (Course iter : result) {
             courseDTOTemp = new CourseDTO(iter);
             listCourseTemp.add(courseDTOTemp);
-
+            
         }
         exitResult.setListCourse(listCourseTemp);
         exitResult.setAnswerDTO(new AnswerDTO(0));
@@ -152,7 +162,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
      * @param courseDTO
      * @return
      */
-    @Override
+    @Override    
     public AnswerDTO insertNewCourse(CourseDTO courseDTO) {
         AnswerDTO existCourseName = validateCourseRegistry(courseDTO);
         if (existCourseName.getIdError() != 0) {
@@ -162,7 +172,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         persistInsert(course);
         return new AnswerDTO(0);
     }
-
+    
     private AnswerDTO validateCourseRegistry(CourseDTO courseDTO) {
         if (courseDTO == null) {
             return new AnswerDTO(109);
@@ -174,7 +184,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return new AnswerDTO(000);
         }
     }
-
+    
     private Course newCourse(CourseDTO courseDTO) {
         Course course = new Course();
         course.setName(courseDTO.getName());
@@ -183,7 +193,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         course.setMinutesAfterClassStart(30);
         return course;
     }
-
+    
     private boolean existName(String name) {
         Long count;
         Query q = em.createNamedQuery("Course.countCourseByName", Course.class);
@@ -195,14 +205,14 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return true;
         }
     }
-
+    
     @Override
     public CourseDTO getCourseByName(String courseName) {
         Course course = em.find(Course.class, courseName);
         CourseDTO currentCourse = new CourseDTO(course);
         return currentCourse;
     }
-
+    
     @Override
     @SuppressWarnings("empty-statement")
     public ListCourseDTO getAllCoursesOfTeacher(Long idUser) {
@@ -217,21 +227,24 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return null;
         }
     }
-
+    
     @Override
     public CourseDTO getCourseById(Long courseId) {
         Course course = em.find(Course.class, courseId);
         return new CourseDTO(course);
     }
-
+    
     @Override
     public AnswerDTO allocateBlockclassesoToCourse(Long idCourse, BlockClassDTO blockClassDTO) {
-        BlockClass blockClass = generatelockClass(idCourse, blockClassDTO);
-        LinkedList<Assistance> listAssistance = generateAssistanceToStudent(idCourse, blockClass);
-        persistallocateBlockclassesoToCourse(blockClass, listAssistance);
+        Course course = em.find(Course.class, idCourse);
+        BlockClass blockClass = generateBlockClass(course, blockClassDTO);
+        course.getListBlockClass().add(blockClass);
+        persistInsert(blockClass);
+        persistUpdate(course);
+        List<Assistance> listAssistance = generateAssistanceToStudent(course, blockClass);
         return new AnswerDTO(0);
     }
-
+    
     private boolean existBlockClass(BlockClassDTO blockClassDTO) {
         Long count;
         Query q = em.createNamedQuery("BlockClass.existBlockClass", BlockClass.class);
@@ -244,9 +257,8 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return false;
         }
     }
-
-    private BlockClass generatelockClass(Long idCourse, BlockClassDTO blockClassDTO) {
-        Course course = em.find(Course.class, idCourse);
+    
+    private BlockClass generateBlockClass(Course course, BlockClassDTO blockClassDTO) {
         BlockClass blockClass;
         DayBlockClass dayBlockClass;
         TimeBlockClass timeBlockClass;
@@ -259,13 +271,14 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         blockClass.setTimeBlockClass(timeBlockClass);
         blockClass.setCourse(course);
         blockClass.setComment("");
+        blockClass.setListAssistance(new LinkedList<Assistance>());
         return blockClass;
     }
-
-    private LinkedList<Assistance> generateAssistanceToStudent(Long idCourse, BlockClass blockClass) {
+    
+    private List<Assistance> generateAssistanceToStudent(Course course, BlockClass blockClass) {
         Query q = this.em.createNamedQuery("Student.getStundentOfCourse");
-        q.setParameter("idCourse", idCourse);
-        LinkedList<Student> listStudent = new LinkedList<>((Collection<Student>) q.getResultList());
+        q.setParameter("idCourse", course.getId());
+        List<Student> listStudent = q.getResultList();
         LinkedList<Assistance> listAssistance = new LinkedList<>();
         Assistance assistance;
         AssistanceState assistanceState = em.find(AssistanceState.class, 1L);
@@ -274,32 +287,14 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             assistance.setBlockClass(blockClass);
             assistance.setStudent(student);
             assistance.setState(assistanceState);
-            listAssistance.add(assistance);           
+            listAssistance.add(assistance);            
+            student.getAssistance().add(assistance);
+            persistInsert(assistance);
+            persistUpdate(student);
         }
         return listAssistance;
     }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    private AnswerDTO persistallocateBlockclassesoToCourse(BlockClass listBlockClass, LinkedList<Assistance> listAssistance) {
-        try {
-            ut.begin(); // Start a new transaction
-            try {
-                em.persist(listBlockClass);
-                for (Assistance it : listAssistance) {
-                    em.persist(it);
-                }                
-                ut.commit(); // Commit the transaction
-                return new AnswerDTO(0);
-            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
-                ut.rollback(); // Rollback the transaction
-                return new AnswerDTO(126);
-            }
-        } catch (NotSupportedException | SystemException ex) {
-            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
-            return new AnswerDTO(126);
-        }
-    }
-
+    
     @Override
     public AnswerDTO updateCourse(CourseDTO courseDTO, Long idCourse) {
         Course course = em.find(Course.class, idCourse);
@@ -311,7 +306,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return new AnswerDTO(113);
         }
     }
-
+    
     @Override
     public TimeBlockClassListDTO getAllTimeBlockClass() {
         Collection<TimeBlockClass> result;
@@ -323,7 +318,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         }
         return new TimeBlockClassListDTO(timeBlockClassDTO, new AnswerDTO(0));
     }
-
+    
     @Override
     public DayBlockClassListDTO getAllDayBlockClassDTO() {
         Collection<DayBlockClass> result;
@@ -335,7 +330,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         }
         return new DayBlockClassListDTO(timeBlockClassDTO, new AnswerDTO(0));
     }
-
+    
     @Override
     public BlockClassListDTO getAllBlockClassOfCourse(Long idCourse) {
         Query q = this.em.createNamedQuery("BlockClass.getBlockClassOfCourse");
@@ -352,7 +347,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         }
         return new BlockClassListDTO(listBlockClassDTO, new AnswerDTO(0));
     }
-
+    
     @Override
     public AnswerDTO configureAssistanceTimebox(CourseDTO course) {
         Course courseToUpdate = em.find(Course.class, course.getId());
@@ -364,12 +359,12 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return new AnswerDTO(0);
         }
     }
-
+    
     @Override
     public ListUserDTO getAllStudentsFromCourse(Long idCourse) {
         Collection<Student> resultQuery;
         Collection<UserDTO> result = new ArrayList<>();
-
+        
         Query q = this.em.createNamedQuery("Student.getAllStudentFromCourse");
         q.setParameter("idCourse", idCourse);
         try {
@@ -386,7 +381,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return null;
         }
     }
-
+    
     private ListUserDTO sqlResultToListUserDTO(Collection<UserDTO> result, ListUserDTO exitResult) {
         UserDTO userDTOTemp;
         Collection<UserDTO> listUserTemp = new ArrayList<>();
@@ -397,5 +392,117 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         exitResult.setListUser(listUserTemp);
         exitResult.setAnswerDTO(new AnswerDTO(0));
         return exitResult;
+    }
+    
+    //español: en esta funcion creamos la tabla de asistencia
+    @Override
+    public AssistanceListCourseDTO assistanceListCourse(Long idCourse) {
+        AssistanceListCourseDTO assistanceListCourse = new AssistanceListCourseDTO();        
+        assistanceListCourse.setListRow(new LinkedList<AssistanceListCourseRowDTO>());                
+        ListUserDTO listStudent = getAllStudentsFromCourse(idCourse);
+        List<BlockClass> listBlockClass = em.find(Course.class, idCourse).getListBlockClass();                        
+        assistanceListCourse.setListTitle(setAssistanceTitle(listBlockClass));        
+        assistanceListCourse.setListRow(setAssistanceRow(listStudent, listBlockClass, idCourse));                
+        return assistanceListCourse;
+    }
+    
+    //se crean los titulos, en caso que quieras pasar campos a los titulos de las columnas debes editar la clase AssistanceListCourseTitleDTO y agregar campos
+    private List<AssistanceListCourseTitleDTO> setAssistanceTitle(List<BlockClass> listBlockClass) {
+        List<AssistanceListCourseTitleDTO> assistanceTitleList = new ArrayList<>();        
+        AssistanceListCourseTitleDTO assistanceTitle = new AssistanceListCourseTitleDTO();
+        
+        assistanceTitle.setTitle("RUT");
+        assistanceTitle.setSubTitle("");
+        assistanceTitle.setId(0);        
+        assistanceTitleList.add(assistanceTitle);        
+        
+        assistanceTitle = new AssistanceListCourseTitleDTO();
+        assistanceTitle.setTitle("Nombre");
+        assistanceTitle.setSubTitle("");
+        assistanceTitle.setId(1);        
+        assistanceTitleList.add(assistanceTitle);                        
+        for (BlockClass it2 : listBlockClass) {
+            assistanceTitle = new AssistanceListCourseTitleDTO();
+            assistanceTitle.setTitle(dateFormat(it2.getDate()));            
+            assistanceTitle.setSubTitle(it2.getDayBlockClass().getAbbreviation()+" "+it2.getTimeBlockClass().getStartHour());
+            assistanceTitle.setId(assistanceTitleList.size());
+            assistanceTitleList.add(assistanceTitle);
+        }
+        return assistanceTitleList;
+    }
+    
+    //se crean las filas donde el primer campo es el rut y el segundo el nombre, el resto son la asistencia, si quieres colocar mas datos en las casillas edita AssistanceListCourseUnitDTO
+    private LinkedList<AssistanceListCourseRowDTO> setAssistanceRow(ListUserDTO listStudent, List<BlockClass> listBlockClass, Long idCourse){
+        LinkedList<AssistanceListCourseRowDTO> assistanceRowList = new LinkedList<>();
+        AssistanceListCourseRowDTO assistanceListCourseRow;
+        AssistanceListCourseUnitDTO unit;
+        for (UserDTO it : listStudent.getListUser()) {
+            assistanceListCourseRow = new AssistanceListCourseRowDTO();
+            //set rut
+            assistanceListCourseRow.setListUnit(new ArrayList<AssistanceListCourseUnitDTO>());            
+            unit = new AssistanceListCourseUnitDTO();
+            unit.setText(Integer.toString(it.getRut()));
+            unit.setTextRutName(true);            
+            assistanceListCourseRow.getListUnit().add(unit);
+            //set name
+            unit = new AssistanceListCourseUnitDTO();
+            unit.setText(it.getFirstName()+" "+it.getLastName());
+            unit.setTextRutName(true);            
+            assistanceListCourseRow.getListUnit().add(unit);
+            for (BlockClass it2 : listBlockClass) {
+                assistanceListCourseRow = assistanceStudentToCourse(idCourse, it.getId(), listBlockClass, assistanceListCourseRow);
+            }
+            assistanceRowList.add(assistanceListCourseRow);
+        }
+        return assistanceRowList;   
+   }
+    
+    
+    //busca los estudiantes por cursos  
+    private AssistanceListCourseRowDTO assistanceStudentToCourse(Long idCourse, Long idUser, List<BlockClass> listBlockClass, AssistanceListCourseRowDTO assistanceListCourseRow) {                
+        AssistanceListCourseUnitDTO unit;        
+        Query q;
+        q = em.createNamedQuery("Assistance.getAssistanceStudentToCourse");
+        q.setParameter("idCourse", idCourse);
+        q.setParameter("idUser", idUser);
+        LinkedList<Assistance> listAssistance = new LinkedList<>((Collection<Assistance>) q.getResultList());        
+        AssistanceState assistanceAbsent = em.find(AssistanceState.class, 1L);
+        for (BlockClass it : listBlockClass) {
+            Assistance assistance = findAssistanceToBlockClass(listAssistance, it);            
+            unit = new AssistanceListCourseUnitDTO();
+            unit.setTextAssistance(true);
+            if (assistance != null) {
+                unit.setText(assistance.getState().getName());
+                if (assistance.getState().getId() == 2L) {
+                    unit.setPresent(true);
+                }
+            } else {  
+                System.out.println("entro");
+                unit.setText("Ausente");
+                unit.setPresent(false);
+            }            
+            assistanceListCourseRow.getListUnit().add(unit);
+        }        
+        return assistanceListCourseRow;
+    }
+    
+    public static String dateFormat(Date date) {
+        if (null == date) {
+            return "";
+        } else {
+            String formato = "dd/MM/yyyy";
+            SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
+            return dateFormat.format(date);
+
+        }
+    }
+    
+    private Assistance findAssistanceToBlockClass(LinkedList<Assistance> listAssistance, BlockClass blockClass) {
+        for (Assistance it : listAssistance) {
+            if (blockClass.equals(it.getBlockClass())) {
+                return it;
+            }
+        }
+        return null;
     }
 }

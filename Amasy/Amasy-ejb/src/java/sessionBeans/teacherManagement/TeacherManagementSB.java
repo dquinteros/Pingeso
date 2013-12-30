@@ -186,6 +186,7 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         return new AnswerDTO(000);
     }
     
+    
     private boolean existEmail(String email) {
         Long count;
         Query q = em.createNamedQuery("User.countUserByEmail", User.class);

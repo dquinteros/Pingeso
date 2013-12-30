@@ -49,6 +49,8 @@ public class MenuLogicMB {
                 return "on-hover";
             case "/admin/studentMaintainer/editStudent.xhtml":
                 return "on-hover";
+            case "/admin/studentMaintainer/enrollStudentOnCourse.xhtml":
+                return "on-hover";
             default:
                 return "";
         }

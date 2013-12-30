@@ -22,7 +22,8 @@ import javax.persistence.Temporal;
  */
 @NamedQueries({
     @NamedQuery(name = "Assistance.findStudentAssistance", query = "SELECT COUNT(a) FROM Assistance a WHERE a.blockClass.id = :idBlockClass AND a.student.id = :idStudent AND a.student.user.userStatus = true"),
-    @NamedQuery(name = "Assistance.findAssistanceOfBlockIdClassAndIdStudent", query = "SELECT a FROM Assistance a WHERE a.blockClass.id = :idBlockClass AND a.student.id = :idStudent AND a.student.user.userStatus = true")
+    @NamedQuery(name = "Assistance.findAssistanceOfBlockIdClassAndIdStudent", query = "SELECT a FROM Assistance a WHERE a.blockClass.id = :idBlockClass AND a.student.id = :idStudent AND a.student.user.userStatus = true"),
+    @NamedQuery(name = "Assistance.getAssistanceStudentToCourse", query = "SELECT a FROM Assistance a WHERE a.blockClass.course.id = :idCourse AND a.student.user.id = :idUser AND a.student.user.userStatus = true")
 })
 @Entity
 public class Assistance implements Serializable {

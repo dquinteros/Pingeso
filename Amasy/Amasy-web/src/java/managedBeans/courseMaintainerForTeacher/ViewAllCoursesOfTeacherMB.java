@@ -64,6 +64,13 @@ public class ViewAllCoursesOfTeacherMB {
         UtilitiesMB.redirection("/faces/teacher/courses/workgroupManagement.xhtml?cid=".concat(this.courseMaintainerOfTeacherConversation.getConversation().getId().toString()));
     }
     
+    public void assistanceOfCourse(Long idCourse){
+        this.courseMaintainerOfTeacherConversation.beginConversation();
+        this.courseMaintainerOfTeacherConversation.setIdCourse(idCourse);
+        UtilitiesMB.redirection("/faces/teacher/courses/viewAssistanceOfCourse.xhtml?cid=".concat(this.courseMaintainerOfTeacherConversation.getConversation().getId().toString()));
+    }
+    
+    
     public LinkedList<CourseDTO> getCourseList() {
         return courseList;
     }

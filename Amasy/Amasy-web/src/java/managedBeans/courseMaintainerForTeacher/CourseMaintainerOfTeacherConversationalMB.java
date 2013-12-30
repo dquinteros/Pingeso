@@ -26,6 +26,7 @@ public class CourseMaintainerOfTeacherConversationalMB implements Serializable {
     
     private String courseName;
     private Long idCourse;
+    private Long idUser;
     
     public CourseMaintainerOfTeacherConversationalMB() {
     }
@@ -64,6 +65,14 @@ public class CourseMaintainerOfTeacherConversationalMB implements Serializable {
 
     public void setIdCourse(Long idCourse) {
         this.idCourse = idCourse;
+    }
+
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
     
 }

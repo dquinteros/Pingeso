@@ -12,6 +12,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import java.util.logging.Logger; 
 
 /**
  *
@@ -26,6 +27,7 @@ public class LoginMB {
      */
     private String userName;
     private String password;
+    private Logger log = Logger.getLogger(LoginMB.class.getName()); 
     
     /**
      *
@@ -48,6 +50,7 @@ public class LoginMB {
     public void login(){
         AnswerDTO res = varSession.login(userName, password);
         UtilitiesMB.showFeedback(res);
+        log.info("El usuario "+userName+" ingresó en el sistema" ); 
     }
    
     /**
@@ -55,9 +58,9 @@ public class LoginMB {
      */
     public void logout(){
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        externalContext.invalidateSession();
+        externalContext.invalidateSession();        
         varSession.setStartPage("");
-        varSession.setUser(null);
+        varSession.setUser(null);        
     }
     
     /**

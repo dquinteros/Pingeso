@@ -107,10 +107,14 @@ public class UtilitiesMB {
             case 127:
                 return "Alumno ya vinculado con el curso.";
             case 128:
-                return "Error al crear el vinculo cn los bloques de clase.";
+                return "Error al crear el vinculo con los bloques de clase.";
             case 129:
                 return "Error al configurar la ventana de tiempo para la toma de asistencia.";
             case 130:
+                return "Bloque horario ya registrado.";
+            case 131:
+                return "Bloques horarios ya registrados.";
+            case 132:
                 return "No se pueden eliminar más administradores del sistema. Minimo: 2.";
             default:
                 return "Error";
@@ -130,6 +134,10 @@ public class UtilitiesMB {
             case 123:
                 return "warning";
             case 127:
+                return "warning";
+            case 131:
+                return "warning";
+            case 132:
                 return "warning";
             default:
                 return "error";
