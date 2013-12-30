@@ -464,7 +464,8 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         q.setParameter("idCourse", idCourse);
         q.setParameter("idUser", idUser);
         LinkedList<Assistance> listAssistance = new LinkedList<>((Collection<Assistance>) q.getResultList());
-        LinkedList<BlockClass> listBlockClass = new LinkedList<>(em.find(Course.class, idCourse).getListBlockClass());
+        List<BlockClass> listBlockClass = em.find(Course.class, idCourse).getListBlockClass();
+        listBlockClass = sortBlockClassByDate(listBlockClass);
         LinkedList<AssistanceDTO> listAssistanceDTO = new LinkedList<>();
         AssistanceState assistanceAbsent = em.find(AssistanceState.class, 1L);
         for (BlockClass it : listBlockClass) {
@@ -481,6 +482,20 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         return assistanceListDTO;
     }
 
+    private List<BlockClass> sortBlockClassByDate(List<BlockClass> listClasses){
+        BlockClass aux;
+        for (int i = 0; i < listClasses.size(); i++) {
+            for (int j = 0; j < listClasses.size()-1; j++) {
+                if(listClasses.get(j+1).getDate().getTime()<listClasses.get(j).getDate().getTime()){
+                    aux = listClasses.get(j+1);
+                    listClasses.set(j+1, listClasses.get(j));
+                    listClasses.set(j, aux);                    
+                }
+            }
+        }
+        return listClasses;
+    }
+    
     private Assistance findAssistanceToBlockClass(LinkedList<Assistance> listAssistance, BlockClass blockClass) {
         for (Assistance it : listAssistance) {
             if (blockClass.equals(it.getBlockClass())) {

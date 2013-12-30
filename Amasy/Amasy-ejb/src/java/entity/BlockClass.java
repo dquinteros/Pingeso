@@ -29,7 +29,6 @@ import javax.persistence.Temporal;
 })
 @Entity
 public class BlockClass implements Serializable {
-
     @ManyToOne
     private DayBlockClass dayBlockClass;
     @ManyToOne
@@ -46,6 +45,10 @@ public class BlockClass implements Serializable {
     private String comment;
     @OneToMany(mappedBy = "blockClass")
     private List<Assistance> listAssistance;
+    
+    public BlockClass(){
+    
+    }
     
     public DayBlockClass getDayBlockClass() {
         return dayBlockClass;

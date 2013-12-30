@@ -31,6 +31,7 @@ import entity.Student;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -335,7 +336,8 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     public BlockClassListDTO getAllBlockClassOfCourse(Long idCourse) {
         Query q = this.em.createNamedQuery("BlockClass.getBlockClassOfCourse");
         q.setParameter("idCourse", idCourse);
-        Collection<BlockClass> result = (Collection<BlockClass>) q.getResultList();
+        List<BlockClass> result = (List<BlockClass>) q.getResultList();
+        result = sortBlockClassByDate(result);
         LinkedList<BlockClassDTO> listBlockClassDTO = new LinkedList<>();
         BlockClassDTO blockClass;
         for (BlockClass it : result) {
@@ -346,6 +348,20 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             listBlockClassDTO.add(blockClass);
         }
         return new BlockClassListDTO(listBlockClassDTO, new AnswerDTO(0));
+    }
+    
+    private List<BlockClass> sortBlockClassByDate(List<BlockClass> listClasses){
+        BlockClass aux;
+        for (int i = 0; i < listClasses.size(); i++) {
+            for (int j = 0; j < listClasses.size()-1; j++) {
+                if(listClasses.get(j+1).getDate().getTime()<listClasses.get(j).getDate().getTime()){
+                    aux = listClasses.get(j+1);
+                    listClasses.set(j+1, listClasses.get(j));
+                    listClasses.set(j, aux);                    
+                }
+            }
+        }
+        return listClasses;
     }
     
     @Override
@@ -400,7 +416,8 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         AssistanceListCourseDTO assistanceListCourse = new AssistanceListCourseDTO();        
         assistanceListCourse.setListRow(new LinkedList<AssistanceListCourseRowDTO>());                
         ListUserDTO listStudent = getAllStudentsFromCourse(idCourse);
-        List<BlockClass> listBlockClass = em.find(Course.class, idCourse).getListBlockClass();                        
+        List<BlockClass> listBlockClass = em.find(Course.class, idCourse).getListBlockClass();   
+        listBlockClass = sortBlockClassByDate(listBlockClass);
         assistanceListCourse.setListTitle(setAssistanceTitle(listBlockClass));        
         assistanceListCourse.setListRow(setAssistanceRow(listStudent, listBlockClass, idCourse));                
         return assistanceListCourse;
@@ -477,7 +494,6 @@ public class CourseManagementSB implements CourseManagementSBLocal {
                     unit.setPresent(true);
                 }
             } else {  
-                System.out.println("entro");
                 unit.setText("Ausente");
                 unit.setPresent(false);
             }            
@@ -485,6 +501,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         }        
         return assistanceListCourseRow;
     }
+    
     
     public static String dateFormat(Date date) {
         if (null == date) {
