@@ -8,21 +8,32 @@
 
     <ui:define name="content">
         <h:form id="form">  
-            <p:dataTable  id="student" var="student" value="#{viewAssistanceOfCourseMB.assistanceListCourse.listRow}">                
-                <p:columns value="#{viewAssistanceOfCourseMB.assistanceListCourse.listTitle}" var="column">  
+            <p:dataTable  id="student" var="student" value="#{viewAssistanceOfCourseMB.assistanceListCourse.listRow}" >                
+                <p:columns value="#{viewAssistanceOfCourseMB.assistanceListCourse.listTitle}" var="column" styleClass="center">  
+                    <p:growl for="growl" life="3000"/>
                     <f:facet name="header">  
-                        <h:outputLabel value="#{column.title}" style="display: block"/>
-                        <h:outputLabel value="#{column.subTitle}" style="display: block"/>                        
+                        #{column.title}
+                        <br/>
+                        #{column.subTitle}                                            
                     </f:facet>
-                    <p:panel visible="#{student.listUnit[column.id].textRutName}" style="border: none">
+
+                    <h:panelGroup rendered="#{!viewAssistanceOfCourseMB.isAssistance(student.listUnit[column.id].text)}">
                         #{student.listUnit[column.id].text}
-                    </p:panel>
-                    <p:panel visible="#{student.listUnit[column.id].textAssistance}" style="border: none">
-                        <p:selectBooleanCheckbox  id="assistance" value="#{student.listUnit[column.id].present}" disabled="true"/>  
-                        <p:tooltip for="assistance" value="#{student.listUnit[column.id].text}" showEffect="fade" hideEffect="fade" /> 
-                    </p:panel>                    
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{viewAssistanceOfCourseMB.isAssistance(student.listUnit[column.id].text)}">
+                        <p:selectBooleanCheckbox  id="assistance" value="#{student.listUnit[column.id].present}"  disabled="true"/>
+                        <p:overlayPanel id="assistancePanel" for="assistance" hideEffect="fade" dynamic="true"> 
+                            <p:selectOneMenu id="assistanceState" value="#{viewAssistanceOfCourseMB.assistanceState}">  
+                                <f:selectItem itemLabel="Cambiar Asistencia" itemValue="" />  
+                                <f:selectItem itemLabel="Ausente" itemValue="Ausente" />  
+                                <f:selectItem itemLabel="Justificado" itemValue="Justificado" />
+                                <p:ajax update=":form" process="@this" listener="#{viewAssistanceOfCourseMB.setAssistance(student.listUnit,student.listUnit[column.id].idBlockClass)}"/>  
+                            </p:selectOneMenu>                              
+                        </p:overlayPanel>
+                    </h:panelGroup>
                 </p:columns>                  
-            </p:dataTable>  
+            </p:dataTable> 
+
         </h:form>  
     </ui:define>
 </ui:composition>
