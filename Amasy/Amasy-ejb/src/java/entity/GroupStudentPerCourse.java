@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package entity;
 
 import java.io.Serializable;
@@ -10,23 +6,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Pingeso
  */
 @Entity
-public class Group implements Serializable {
+@NamedQueries( {
+    @NamedQuery(name="GroupStudentPerCourse.countGroupOfCourseByGroupName", query="SELECT COUNT(g) FROM GroupStudentPerCourse g WHERE g.name = :groupName AND g.course.id = :idCourse AND g.groupStatus = true"),
+    @NamedQuery(name="GroupStudentPerCourse.getGroupOfCourseByGroupName", query="SELECT g FROM GroupStudentPerCourse g WHERE g.name = :groupName AND g.course.id = :idCourse"),
+    @NamedQuery(name="GroupStudentPerCourse.getAllGroupsOfCourseByIdCourse",query="SELECT g FROM GroupStudentPerCourse g WHERE g.course.id = :idCourse AND g.groupStatus = true")
+})
+
+public class GroupStudentPerCourse implements Serializable {
+    @ManyToOne
+    private Course course;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;    
-    @OneToMany
+    private String name;
+    private boolean groupStatus;
+    
+    @ManyToMany(mappedBy = "listGroup")
     private List<Student> listStudent;
-    @OneToMany
-    private List<Course> listCourse;
 
     /**
      *
@@ -60,21 +67,13 @@ public class Group implements Serializable {
         this.listStudent = listStudent;
     }
 
-    /**
-     *
-     * @return
-     */
-    public List<Course> getListCourse() {
-        return listCourse;
+    public Course getCourse() {
+        return course;
     }
 
-    /**
-     *
-     * @param listCourse
-     */
-    public void setListCourse(List<Course> listCourse) {
-        this.listCourse = listCourse;
-    }        
+    public void setCourse(Course course) {
+        this.course = course;
+    }
     
     /**
      *
@@ -90,6 +89,14 @@ public class Group implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isGroupStatus() {
+        return groupStatus;
+    }
+
+    public void setGroupStatus(boolean groupStatus) {
+        this.groupStatus = groupStatus;
     }
 
     /**
@@ -111,10 +118,10 @@ public class Group implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Group)) {
+        if (!(object instanceof GroupStudentPerCourse)) {
             return false;
         }
-        Group other = (Group) object;
+        GroupStudentPerCourse other = (GroupStudentPerCourse) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

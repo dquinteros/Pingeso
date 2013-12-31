@@ -44,6 +44,9 @@ public class Student implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date enrollYear;
 
+    
+    @ManyToMany
+    private List<GroupStudentPerCourse> listGroup;
 
     @OneToMany(mappedBy = "student")
     private List<Assistance> assistance;
@@ -67,6 +70,14 @@ public class Student implements Serializable {
         this.user = user;
     }
 
+    public List<GroupStudentPerCourse> getListGroup() {
+        return listGroup;
+    }
+
+    public void setListGroup(List<GroupStudentPerCourse> listGroup) {
+        this.listGroup = listGroup;
+    }
+    
     /**
      *
      * @return
@@ -123,6 +134,16 @@ public class Student implements Serializable {
         this.enrollYear = incomeYear;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    
+    
     /**
      *
      * @return

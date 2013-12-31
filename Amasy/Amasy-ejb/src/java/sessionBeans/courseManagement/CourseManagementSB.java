@@ -16,7 +16,9 @@ import DTOs.BlockClassListDTO;
 import DTOs.CourseDTO;
 import DTOs.DayBlockClassDTO;
 import DTOs.DayBlockClassListDTO;
+import DTOs.GroupStudentPerCourseDTO;
 import DTOs.ListCourseDTO;
+import DTOs.ListGroupStudentPerCourseDTO;
 import DTOs.TimeBlockClassDTO;
 import DTOs.TimeBlockClassListDTO;
 import entity.Assistance;
@@ -27,6 +29,7 @@ import DTOs.ListUserDTO;
 import DTOs.UserDTO;
 import entity.BlockClass;
 import entity.Course;
+import entity.GroupStudentPerCourse;
 import entity.Student;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -521,5 +524,44 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             }
         }
         return null;
+    }
+    
+    @Override
+    public AnswerDTO createGroup(Long idCourse, String groupName){
+        Query q = em.createNamedQuery("GroupStudentPerCourse.countGroupOfCourseByGroupName");
+        q.setParameter("groupName", groupName);
+        q.setParameter("idCourse", idCourse);
+        Long count = (Long) q.getSingleResult();
+        if(count>0){
+            return new AnswerDTO(133);
+        }
+        GroupStudentPerCourse group = new GroupStudentPerCourse();
+        Course course = em.find(Course.class, idCourse);
+        group.setCourse(course);
+        group.setName(groupName);
+        course.getListGroup().add(group);
+        group.setGroupStatus(true);
+        persistInsert(group);
+        persistUpdate(course);
+        return new AnswerDTO(0);
+    }
+    
+    @Override
+    public ListGroupStudentPerCourseDTO getAllGroupsOfCourse(Long idCourse){
+        Query q = em.createNamedQuery("GroupStudentPerCourse.getAllGroupsOfCourseByIdCourse");
+        q.setParameter("idCourse", idCourse);
+        Collection<GroupStudentPerCourse> resultQuery = (Collection<GroupStudentPerCourse>) q.getResultList();
+        return new ListGroupStudentPerCourseDTO(resultQuery, new AnswerDTO(0));
+    }
+    
+    @Override
+    public AnswerDTO deleteGroup(String groupName, Long idCourse){
+        Query q = em.createNamedQuery("GroupStudentPerCourse.getGroupOfCourseByGroupName");
+        q.setParameter("groupName", groupName);
+        q.setParameter("idCourse", idCourse);
+        GroupStudentPerCourse group = (GroupStudentPerCourse) q.getSingleResult();
+        group.setGroupStatus(false);
+        persistUpdate(group);
+        return new AnswerDTO(0);
     }
 }
