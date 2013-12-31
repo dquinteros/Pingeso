@@ -10,16 +10,20 @@
         <h:form id="form">
             <p:growl for="growl" life="3000"/>
             <p:inputText id="groupName" value="#{workgroupsOfCourseMB.groupName}" required="true" requiredMessage="Se debe ingresar un nombre para el grupo"/>
-            <p:commandButton action="#{workgroupsOfCourseMB.createGroup()}" value="Agregar grupo" update="form"/>
+            <p:commandButton id="createWorkgroupsButton" action="#{workgroupsOfCourseMB.createGroup()}" title="Agregar grupo" update=":form2" icon="ui-icon-plusthick"/>
+            <p:tooltip for="createWorkgroupsButton" value="Agregar grupo" showEffect="fade" hideEffect="fade" />
             <p:message for="groupName" display="text" />
         </h:form>
         <h:form id="form2">
+            <p:growl for="growl" life="3000"/>
             <p:selectOneMenu id="deleteGroup" value="#{workgroupsOfCourseMB.selectedGroup}" required="true" requiredMessage="Elija el grupo a eliminar">
                 <f:selectItem itemLabel="Grupos" itemDisabled="true"/>
                 <f:selectItems value="#{workgroupsOfCourseMB.listGroupName}"/>
             </p:selectOneMenu>
-            <p:commandButton value="Eliminar grupo" action="#{workgroupsOfCourseMB.deleteGroup()}"/>
+            <p:commandButton id="deleteWorkgroupsButton" action="#{workgroupsOfCourseMB.deleteGroup()}" title="Eliminar grupo" update="form2" icon="ui-icon-closethick"/>
+            <p:tooltip for="deleteWorkgroupsButton" value="Eliminar grupo" showEffect="fade" hideEffect="fade" />
             <p:message for="deleteGroup" display="text" />
         </h:form>
+        <p:pickList value="#{workgroupsOfCourseMB.studentsWithoutGroupPL}" var="student" itemValue="#{student.firstName}" itemLabel="#{student.firstName} #{student.lastName}" showCheckbox="true"/>
     </ui:define>
 </ui:composition>

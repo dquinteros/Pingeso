@@ -5,18 +5,15 @@
 package sessionBeans.courseManagement;
 
 import DTOs.AnswerDTO;
-import DTOs.AssistanceDTO;
 import DTOs.AssistanceListCourseDTO;
 import DTOs.AssistanceListCourseRowDTO;
 import DTOs.AssistanceListCourseTitleDTO;
 import DTOs.AssistanceListCourseUnitDTO;
-import DTOs.AssistanceListDTO;
 import DTOs.BlockClassDTO;
 import DTOs.BlockClassListDTO;
 import DTOs.CourseDTO;
 import DTOs.DayBlockClassDTO;
 import DTOs.DayBlockClassListDTO;
-import DTOs.GroupStudentPerCourseDTO;
 import DTOs.ListCourseDTO;
 import DTOs.ListGroupStudentPerCourseDTO;
 import DTOs.TimeBlockClassDTO;
@@ -34,14 +31,12 @@ import entity.Student;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -58,7 +53,6 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import sessionBeans.TakeAttendanceSB;
-import sessionBeans.studentManagement.StudentManagementSBLocal;
 
 /**
  *
@@ -563,5 +557,34 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         group.setGroupStatus(false);
         persistUpdate(group);
         return new AnswerDTO(0);
+    }
+    
+    @Override
+    public ListUserDTO getAllStudentsWithGroup(Long idCourse){
+        Query q = em.createNamedQuery("GroupStudentPerCourse.getAllStudentsWithGroup");
+        q.setParameter("idCourse", idCourse);
+        Collection<UserDTO> resultList = (Collection<UserDTO>) q.getResultList();
+        return new ListUserDTO(resultList, new AnswerDTO(0));
+    }
+    
+    @Override
+    public ListUserDTO getAllStudentsWithoutGroup(Long idCourse){
+        ListUserDTO resultList = new ListUserDTO();
+        boolean flag = false;
+        resultList.setListUser(new ArrayList());
+        Course course = em.find(Course.class, idCourse);
+        List<Student> listStudent = course.getListStudent();
+        for (Student student : listStudent) {
+            flag = false;
+            for (GroupStudentPerCourse group : student.getListGroup()) {
+                if(group.getCourse().getId()==idCourse && group.isGroupStatus()){                    
+                    flag = true;
+                }
+            }
+            if(!flag){
+                resultList.getListUser().add(new UserDTO(student.getUser()));
+            }
+        }
+        return resultList;
     }
 }

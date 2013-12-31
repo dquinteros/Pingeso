@@ -58,4 +58,8 @@ public interface CourseManagementSBLocal {
     
     AnswerDTO deleteGroup(String groupName, Long idCourse);
     
+    ListUserDTO getAllStudentsWithGroup(Long idCourse);
+    
+    ListUserDTO getAllStudentsWithoutGroup(Long idCourse);
+    
 }
