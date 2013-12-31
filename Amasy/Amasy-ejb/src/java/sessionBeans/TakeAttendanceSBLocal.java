@@ -38,6 +38,8 @@ public interface TakeAttendanceSBLocal {
      * @param blockClass
      * @return
      */
-    public ResponseAssistanceDTO validateFingerprintBM(String fingerprint, BlockClass blockClass);
+    public ResponseAssistanceDTO validateFingerprintBM(String rut, BlockClass blockClass);
+
+    public ResponseAssistanceDTO setAssistance(String rut, Long idBlockClass,String state);
     
 }

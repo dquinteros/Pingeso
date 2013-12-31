@@ -476,10 +476,12 @@ public class CourseManagementSB implements CourseManagementSBLocal {
                 if (assistance.getState().getId() == 2L) {
                     unit.setPresent(true);
                 }
+                unit.setIdBlockClass(it.getId());
             } else {  
                 System.out.println("entro");
                 unit.setText("Ausente");
                 unit.setPresent(false);
+                unit.setIdBlockClass(it.getId());
             }            
             assistanceListCourseRow.getListUnit().add(unit);
         }        
