@@ -116,6 +116,8 @@ public class UtilitiesMB {
                 return "Bloques horarios ya registrados.";
             case 132:
                 return "No se pueden eliminar más administradores del sistema. Minimo: 2.";
+            case 133:
+                return "El grupo ya esta registrado para el curso";
             default:
                 return "Error";
         }
@@ -138,6 +140,8 @@ public class UtilitiesMB {
             case 131:
                 return "warning";
             case 132:
+                return "warning";
+            case 133:
                 return "warning";
             default:
                 return "error";

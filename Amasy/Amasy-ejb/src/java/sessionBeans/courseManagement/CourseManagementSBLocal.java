@@ -11,9 +11,12 @@ import DTOs.BlockClassListDTO;
 import DTOs.CourseDTO;
 import DTOs.DayBlockClassListDTO;
 import DTOs.ListCourseDTO;
+import DTOs.ListGroupStudentPerCourseDTO;
 import DTOs.TimeBlockClassListDTO;
 import DTOs.ListUserDTO;
+import entity.GroupStudentPerCourse;
 import java.util.LinkedList;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -48,4 +51,11 @@ public interface CourseManagementSBLocal {
     ListUserDTO getAllStudentsFromCourse(Long idCourse);    
 
     AssistanceListCourseDTO assistanceListCourse(Long idCourse);
+    
+    AnswerDTO createGroup(Long idCourse, String groupName);
+    
+    ListGroupStudentPerCourseDTO getAllGroupsOfCourse(Long idCourse);
+    
+    AnswerDTO deleteGroup(String groupName, Long idCourse);
+    
 }

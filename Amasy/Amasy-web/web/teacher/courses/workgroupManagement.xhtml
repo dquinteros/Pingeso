@@ -7,6 +7,19 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-        
+        <h:form id="form">
+            <p:growl for="growl" life="3000"/>
+            <p:inputText id="groupName" value="#{workgroupsOfCourseMB.groupName}" required="true" requiredMessage="Se debe ingresar un nombre para el grupo"/>
+            <p:commandButton action="#{workgroupsOfCourseMB.createGroup()}" value="Agregar grupo" update="form"/>
+            <p:message for="groupName" display="text" />
+        </h:form>
+        <h:form id="form2">
+            <p:selectOneMenu id="deleteGroup" value="#{workgroupsOfCourseMB.selectedGroup}" required="true" requiredMessage="Elija el grupo a eliminar">
+                <f:selectItem itemLabel="Grupos" itemDisabled="true"/>
+                <f:selectItems value="#{workgroupsOfCourseMB.listGroupName}"/>
+            </p:selectOneMenu>
+            <p:commandButton value="Eliminar grupo" action="#{workgroupsOfCourseMB.deleteGroup()}"/>
+            <p:message for="deleteGroup" display="text" />
+        </h:form>
     </ui:define>
 </ui:composition>

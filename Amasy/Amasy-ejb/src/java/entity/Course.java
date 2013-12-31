@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -25,6 +24,8 @@ import javax.persistence.OneToOne;
     @NamedQuery(name="Course.getAllCoursesOfTeacher", query="SELECT t.listCourse FROM Teacher t WHERE t.user.id = :idUser")
 })
 public class Course implements Serializable {
+    @OneToMany(mappedBy = "course")
+    private List<GroupStudentPerCourse> listGroup;
     @ManyToOne
     private Teacher teacher;
 
@@ -152,8 +153,15 @@ public class Course implements Serializable {
         this.minutesBeforeClassStart = minutesBeforeClassStart;
     }
 
-   
+    public List<GroupStudentPerCourse> getListGroup() {
+        return listGroup;
+    }
+
+    public void setListGroup(List<GroupStudentPerCourse> listGroup) {
+        this.listGroup = listGroup;
+    }
         
+    
     
     /**
      *

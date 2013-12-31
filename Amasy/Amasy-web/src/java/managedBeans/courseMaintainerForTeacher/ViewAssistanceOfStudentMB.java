@@ -9,7 +9,6 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import managedBeans.studentMaintainer.StudentMaintainerConversationalMB;
 import sessionBeans.studentManagement.StudentManagementSBLocal;
 
 /**
