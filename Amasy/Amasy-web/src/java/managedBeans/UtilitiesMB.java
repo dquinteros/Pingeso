@@ -120,6 +120,8 @@ public class UtilitiesMB {
                 return "El grupo ya esta registrado para el curso";
             case 134:
                 return "Alumno marcado como ausente";
+            case 135:
+                return "Debe escoger un grupo para eliminar";
             default:
                 return "Error";
         }
@@ -147,6 +149,8 @@ public class UtilitiesMB {
                 return "warning";
             case 134:
                 return "success";
+            case 135:
+                return "warning";
             default:
                 return "error";
              

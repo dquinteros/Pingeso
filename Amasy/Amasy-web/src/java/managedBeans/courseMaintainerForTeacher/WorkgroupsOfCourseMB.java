@@ -64,15 +64,13 @@ public class WorkgroupsOfCourseMB {
 
     public void deleteGroup() {
         AnswerDTO ans = courseManagementSB.deleteGroup(selectedGroup, idCourse);
-        if (ans.getIdError() == 0) {
-            listGroup = courseManagementSB.getAllGroupsOfCourse(idCourse).getListGroup();
-            listGroupName = createStringList(listGroup);
-            studentsWithoutGroup = courseManagementSB.getAllStudentsWithoutGroup(idCourse);
-            List<UserDTO> withoutGroup = (List<UserDTO>) studentsWithoutGroup.getListUser();
-            List<UserDTO> withoutGroupTarget = new ArrayList<>();
-            studentsWithoutGroupPL = new DualListModel<>(withoutGroup, withoutGroupTarget);
-            selectedGroup = null;
-        }
+        listGroup = courseManagementSB.getAllGroupsOfCourse(idCourse).getListGroup();
+        listGroupName = createStringList(listGroup);
+        studentsWithoutGroup = courseManagementSB.getAllStudentsWithoutGroup(idCourse);
+        List<UserDTO> withoutGroup = (List<UserDTO>) studentsWithoutGroup.getListUser();
+        List<UserDTO> withoutGroupTarget = new ArrayList<>();
+        studentsWithoutGroupPL = new DualListModel<>(withoutGroup, withoutGroupTarget);
+        selectedGroup = null;
         UtilitiesMB.showFeedback(ans);
     }
 
