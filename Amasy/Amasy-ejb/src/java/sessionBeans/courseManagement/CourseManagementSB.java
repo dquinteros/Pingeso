@@ -589,4 +589,48 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         }
         return resultList;
     }
+    
+    @Override
+    public List<UserDTO> getStudentsOfGroup(String groupName, Long idCourse){
+        Query q = em.createNamedQuery("GroupStudentPerCourse.getAllStudentsOfGroup");
+        q.setParameter("groupName", groupName);
+        q.setParameter("idCourse", idCourse);
+        List<UserDTO> returnList = new ArrayList();
+        Collection<Student> resultList = (Collection<Student>) q.getResultList();
+        for (Student student : resultList) {
+            returnList.add(new UserDTO(student.getUser()));
+        }
+        return returnList;
+    }
+    
+    @Override
+    public AnswerDTO updateGroup(List<Long> ListIdUser, String groupName, Long idCourse){
+        Query q = em.createNamedQuery("GroupStudentPerCourse.getGroupOfCourseByGroupName");
+        q.setParameter("groupName", groupName);
+        q.setParameter("idCourse", idCourse);
+        GroupStudentPerCourse group = (GroupStudentPerCourse) q.getSingleResult();
+        cleanGroupListUser(group);        
+        group = (GroupStudentPerCourse) q.getSingleResult();
+        
+        for (Long idUser : ListIdUser) {
+            System.out.println("idUser = "+idUser);
+            q = em.createNamedQuery("Student.findByIdUser");
+            q.setParameter("idUser", idUser);
+            Student student = (Student) q.getSingleResult();
+            student.getListGroup().add(group);            
+            group.getListStudent().add(student);
+            persistUpdate(student);            
+        }
+        persistUpdate(group); 
+        return new AnswerDTO(0);
+    }
+    
+    private void cleanGroupListUser(GroupStudentPerCourse group){
+        for (Student student : group.getListStudent()) {
+            student.getListGroup().remove(group);
+            persistUpdate(student);
+        }
+        group.getListStudent().clear();
+        persistUpdate(group);
+    }
 }

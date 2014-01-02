@@ -22,62 +22,69 @@ import sessionBeans.courseManagement.CourseManagementSBLocal;
 @Named(value = "workgroupsOfCourseMB")
 @RequestScoped
 public class WorkgroupsOfCourseMB {
+
     @EJB
     private CourseManagementSBLocal courseManagementSB;
-
-    @Inject 
+    @Inject
     private CourseMaintainerOfTeacherConversationalMB courseMaintainerOfTeacherConversation;
-    
     private Long idCourse;
     private String groupName;
     private List<GroupStudentPerCourseDTO> listGroup;
     private List<String> listGroupName;
     private String selectedGroup;
-    private ListUserDTO studentsWithGroup;
     private ListUserDTO studentsWithoutGroup;
-    private DualListModel<UserDTO> studentsWithGroupPL;
     private DualListModel<UserDTO> studentsWithoutGroupPL;
-    
+
     public WorkgroupsOfCourseMB() {
     }
-    
+
     @PostConstruct
-    void init(){
+    void init() {
         idCourse = courseMaintainerOfTeacherConversation.getIdCourse();
         listGroup = courseManagementSB.getAllGroupsOfCourse(idCourse).getListGroup();
         listGroupName = createStringList(listGroup);
-        studentsWithGroup = courseManagementSB.getAllStudentsWithGroup(idCourse);
         studentsWithoutGroup = courseManagementSB.getAllStudentsWithoutGroup(idCourse);
-        List<UserDTO> withGroup = (List<UserDTO>) studentsWithGroup.getListUser();
-        List<UserDTO> withGroupTarget = new ArrayList<>();
         List<UserDTO> withoutGroup = (List<UserDTO>) studentsWithoutGroup.getListUser();
         List<UserDTO> withoutGroupTarget = new ArrayList<>();
-        studentsWithGroupPL = new DualListModel<>(withGroup, withGroupTarget);
         studentsWithoutGroupPL = new DualListModel<>(withoutGroup, withoutGroupTarget);
     }
-    
-    public void createGroup(){
-        AnswerDTO ans = new AnswerDTO();
-        ans = courseManagementSB.createGroup(idCourse,groupName);
-        if(ans.getIdError()==0){
+
+    public void createGroup() {
+        AnswerDTO ans = courseManagementSB.createGroup(idCourse, groupName);
+        if (ans.getIdError() == 0) {
             listGroup = courseManagementSB.getAllGroupsOfCourse(idCourse).getListGroup();
             listGroupName = createStringList(listGroup);
+            groupName = "";
         }
         UtilitiesMB.showFeedback(ans);
     }
-    
-    public void deleteGroup(){
-        AnswerDTO ans = new AnswerDTO();
-        ans = courseManagementSB.deleteGroup(selectedGroup, idCourse);
-        if(ans.getIdError()==0){
+
+    public void deleteGroup() {
+        AnswerDTO ans = courseManagementSB.deleteGroup(selectedGroup, idCourse);
+        if (ans.getIdError() == 0) {
             listGroup = courseManagementSB.getAllGroupsOfCourse(idCourse).getListGroup();
             listGroupName = createStringList(listGroup);
+            studentsWithoutGroup = courseManagementSB.getAllStudentsWithoutGroup(idCourse);
+            List<UserDTO> withoutGroup = (List<UserDTO>) studentsWithoutGroup.getListUser();
+            List<UserDTO> withoutGroupTarget = new ArrayList<>();
+            studentsWithoutGroupPL = new DualListModel<>(withoutGroup, withoutGroupTarget);
+            selectedGroup = null;
         }
         UtilitiesMB.showFeedback(ans);
     }
-    
-    public void probandoOnTransfer(){
-        System.out.println("ON TRANSFEEEEEER !!!!!");
+
+    public void showStudentsOfGroup() {
+        studentsWithoutGroupPL.setTarget(courseManagementSB.getStudentsOfGroup(selectedGroup, idCourse));
+    }
+
+    public void updateGroup() {
+        List<Long> listIdUser = new ArrayList();
+        for (int i = 0; i < studentsWithoutGroupPL.getTarget().size(); i++) {
+            Object temp = studentsWithoutGroupPL.getTarget().get(i);
+            listIdUser.add(Long.parseLong(temp.toString()));
+        }
+        AnswerDTO ans = courseManagementSB.updateGroup(listIdUser, selectedGroup, idCourse);
+        UtilitiesMB.showFeedback(ans);
     }
 
     public Long getIdCourse() {
@@ -120,28 +127,12 @@ public class WorkgroupsOfCourseMB {
         this.selectedGroup = selectedGroup;
     }
 
-    public ListUserDTO getStudentsWithGroup() {
-        return studentsWithGroup;
-    }
-
-    public void setStudentsWithGroup(ListUserDTO studentsWithGroup) {
-        this.studentsWithGroup = studentsWithGroup;
-    }
-
     public ListUserDTO getStudentsWithoutGroup() {
         return studentsWithoutGroup;
     }
 
     public void setStudentsWithoutGroup(ListUserDTO studentsWithoutGroup) {
         this.studentsWithoutGroup = studentsWithoutGroup;
-    }
-
-    public DualListModel<UserDTO> getStudentsWithGroupPL() {
-        return studentsWithGroupPL;
-    }
-
-    public void setStudentsWithGroupPL(DualListModel<UserDTO> studentsWithGroupPL) {
-        this.studentsWithGroupPL = studentsWithGroupPL;
     }
 
     public DualListModel<UserDTO> getStudentsWithoutGroupPL() {
@@ -151,13 +142,12 @@ public class WorkgroupsOfCourseMB {
     public void setStudentsWithoutGroupPL(DualListModel<UserDTO> studentsWithoutGroupPL) {
         this.studentsWithoutGroupPL = studentsWithoutGroupPL;
     }
-    
-    private List<String> createStringList(List<GroupStudentPerCourseDTO> listGroup){
+
+    private List<String> createStringList(List<GroupStudentPerCourseDTO> listGroup) {
         List<String> list = new ArrayList();
         for (GroupStudentPerCourseDTO it : listGroup) {
             list.add(it.getName());
         }
         return list;
     }
-    
 }

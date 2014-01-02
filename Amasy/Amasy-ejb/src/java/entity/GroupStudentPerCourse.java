@@ -20,7 +20,8 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name="GroupStudentPerCourse.countGroupOfCourseByGroupName", query="SELECT COUNT(g) FROM GroupStudentPerCourse g WHERE g.name = :groupName AND g.course.id = :idCourse AND g.groupStatus = true"),
     @NamedQuery(name="GroupStudentPerCourse.getGroupOfCourseByGroupName", query="SELECT g FROM GroupStudentPerCourse g WHERE g.name = :groupName AND g.course.id = :idCourse AND g.groupStatus = true"),
     @NamedQuery(name="GroupStudentPerCourse.getAllGroupsOfCourseByIdCourse",query="SELECT g FROM GroupStudentPerCourse g WHERE g.course.id = :idCourse AND g.groupStatus = true"),
-    @NamedQuery(name="GroupStudentPerCourse.getAllStudentsWithGroup",query="SELECT g.listStudent FROM GroupStudentPerCourse g WHERE g.groupStatus = true AND g.course.id = :idCourse")
+    @NamedQuery(name="GroupStudentPerCourse.getAllStudentsWithGroup",query="SELECT g.listStudent FROM GroupStudentPerCourse g WHERE g.groupStatus = true AND g.course.id = :idCourse"),
+    @NamedQuery(name="GroupStudentPerCourse.getAllStudentsOfGroup",query="SELECT g.listStudent FROM GroupStudentPerCourse g WHERE g.groupStatus = true AND g.course.id = :idCourse AND g.name = :groupName")
 })
 
 public class GroupStudentPerCourse implements Serializable {

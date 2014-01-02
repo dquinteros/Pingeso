@@ -14,8 +14,7 @@ import DTOs.ListCourseDTO;
 import DTOs.ListGroupStudentPerCourseDTO;
 import DTOs.TimeBlockClassListDTO;
 import DTOs.ListUserDTO;
-import entity.GroupStudentPerCourse;
-import java.util.LinkedList;
+import DTOs.UserDTO;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -61,5 +60,9 @@ public interface CourseManagementSBLocal {
     ListUserDTO getAllStudentsWithGroup(Long idCourse);
     
     ListUserDTO getAllStudentsWithoutGroup(Long idCourse);
+    
+    List<UserDTO> getStudentsOfGroup(String groupName, Long idCourse);
+    
+    AnswerDTO updateGroup(List<Long> ListIdUser, String groupName, Long idCourse);
     
 }
