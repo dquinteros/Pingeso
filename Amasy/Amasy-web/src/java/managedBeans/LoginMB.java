@@ -50,7 +50,7 @@ public class LoginMB {
     public void login(){
         AnswerDTO res = varSession.login(userName, password);
         UtilitiesMB.showFeedback(res);
-        log.info("El usuario "+userName+" ingresó en el sistema" ); 
+        log.info("El usuario "+userName+"("+varSession.getUser().getRut()+")"+" ingresó en el sistema" ); 
     }
    
     /**

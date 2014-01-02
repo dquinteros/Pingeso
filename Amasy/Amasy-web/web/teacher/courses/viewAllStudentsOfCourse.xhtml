@@ -8,6 +8,7 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="content">
         <h:form id="form">  
+            <h3><h:outputText value="Configuración del curso: #{viewAllStudentsOfCourseMB.course.name}"/></h3>
             <p:dataTable  var="userDTO" value="#{viewAllStudentsOfCourseMB.users}" rowKey="#{userDTO.rut}" paginator="true" rows="10"  
                           filteredValue="#{viewAllStudentsOfCourseMB.filteredUsers}" id="userDTOTable" selection="#{viewAllStudentsOfCourseMB.selectedUser}" selectionMode="single" emptyMessage="El curso no cuenta con alumnos registrados">
                 <p:growl for="growl" life="3000"/>

@@ -7,6 +7,7 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
+        <h3><h:outputText value="Configuración del curso: #{configureCourseMB.course.name}"/></h3>
         <h:form id="form">  
             <p:dataTable  id="student" var="student" value="#{viewAssistanceOfCourseMB.assistanceListCourse.listRow}" >                
                 <p:columns value="#{viewAssistanceOfCourseMB.assistanceListCourse.listTitle}" var="column" styleClass="center">  
@@ -21,15 +22,12 @@
                         #{student.listUnit[column.id].text}
                     </h:panelGroup>
                     <h:panelGroup rendered="#{viewAssistanceOfCourseMB.isAssistance(student.listUnit[column.id].text)}">
-                        <p:selectBooleanCheckbox  id="assistance" value="#{student.listUnit[column.id].present}"  disabled="true"/>
-                        <p:overlayPanel id="assistancePanel" for="assistance" hideEffect="fade" dynamic="true"> 
-                            <p:selectOneMenu id="assistanceState" value="#{viewAssistanceOfCourseMB.assistanceState}">  
-                                <f:selectItem itemLabel="Cambiar Asistencia" itemValue="" />  
-                                <f:selectItem itemLabel="Ausente" itemValue="Ausente" />  
-                                <f:selectItem itemLabel="Justificado" itemValue="Justificado" />
-                                <p:ajax update=":form" process="@this" listener="#{viewAssistanceOfCourseMB.setAssistance(student.listUnit,student.listUnit[column.id].idBlockClass)}"/>  
-                            </p:selectOneMenu>                              
-                        </p:overlayPanel>
+                        
+                        
+                        <p:selectBooleanCheckbox  id="assistance" value="#{student.listUnit[column.id].present}" >
+                            <p:ajax update=":form" listener="#{viewAssistanceOfCourseMB.setAssistance(student.listUnit,student.listUnit[column.id].idBlockClass, student.listUnit[column.id].text)}"/>
+                        </p:selectBooleanCheckbox>  
+                        <p:tooltip for="assistance" value="#{student.listUnit[column.id].text}" showEffect="fade" hideEffect="fade" /> 
                     </h:panelGroup>
                 </p:columns>                  
             </p:dataTable> 

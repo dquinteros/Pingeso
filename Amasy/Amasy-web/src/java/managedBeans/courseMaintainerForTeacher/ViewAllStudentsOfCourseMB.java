@@ -32,6 +32,7 @@ public class ViewAllStudentsOfCourseMB {
     private List<UserDTO> users;
     private List<UserDTO> filteredUsers;
     private Long idCourse;
+    private CourseDTO course;
 
     public ViewAllStudentsOfCourseMB() {
     }
@@ -39,6 +40,7 @@ public class ViewAllStudentsOfCourseMB {
     @PostConstruct
     void init() {
         idCourse = courseMaintainerOfTeacherConversation.getIdCourse();
+        course = courseManagementSB.getCourseById(courseMaintainerOfTeacherConversation.getIdCourse());
         getStudents();
     }
 
@@ -47,8 +49,8 @@ public class ViewAllStudentsOfCourseMB {
         users = new LinkedList<>(ans.getListUser());
         UtilitiesMB.showFeedback(ans.getAnswerDTO());
     }
-    
-    public void assistanceOfStudent(Long idStudent){
+
+    public void assistanceOfStudent(Long idStudent) {
         this.courseMaintainerOfTeacherConversation.beginConversation();
         this.courseMaintainerOfTeacherConversation.setIdCourse(idCourse);
         this.courseMaintainerOfTeacherConversation.setIdUser(idStudent);
@@ -93,5 +95,13 @@ public class ViewAllStudentsOfCourseMB {
 
     public void setUsers(List<UserDTO> users) {
         this.users = users;
+    }
+
+    public CourseDTO getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseDTO course) {
+        this.course = course;
     }
 }

@@ -2,6 +2,7 @@ package managedBeans.courseMaintainerForTeacher;
 
 import DTOs.AssistanceDTO;
 import DTOs.AssistanceListDTO;
+import DTOs.CourseDTO;
 import DTOs.NewUserDTO;
 import java.util.LinkedList;
 import javax.annotation.PostConstruct;
@@ -29,6 +30,7 @@ public class ViewAssistanceOfStudentMB {
     private AssistanceListDTO assistanceListDTO;
     private LinkedList<AssistanceDTO> assistanceList;
     private LinkedList<AssistanceDTO> filteredAssistance;
+    private CourseDTO course;
 
     public ViewAssistanceOfStudentMB() {
     }
@@ -76,5 +78,13 @@ public class ViewAssistanceOfStudentMB {
 
     public void setFilteredAssistance(LinkedList<AssistanceDTO> filteredAssistance) {
         this.filteredAssistance = filteredAssistance;
+    }
+
+    public CourseDTO getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseDTO course) {
+        this.course = course;
     }
 }

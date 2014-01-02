@@ -4,6 +4,7 @@
  */
 package sessionBeans;
 
+import DTOs.CourseDTO;
 import DTOs.ResponseAssistanceDTO;
 import DTOs.UserAssistantBlockClassDTO;
 import entity.BlockClass;
@@ -41,5 +42,7 @@ public interface TakeAttendanceSBLocal {
     public ResponseAssistanceDTO validateFingerprintBM(String rut, BlockClass blockClass);
 
     public ResponseAssistanceDTO setAssistance(String rut, Long idBlockClass,String state);
+
+    CourseDTO getCourseByIdBlockClass(Long idBlockClass);
     
 }

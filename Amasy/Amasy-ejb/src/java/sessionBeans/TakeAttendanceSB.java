@@ -5,6 +5,7 @@
 package sessionBeans;
 
 import DTOs.AnswerDTO;
+import DTOs.CourseDTO;
 import DTOs.ResponseAssistanceDTO;
 import DTOs.UserAssistantBlockClassDTO;
 import DTOs.UserDTO;
@@ -51,7 +52,7 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
     @PersistenceContext(unitName = "Amasy-ejbPU")
     private EntityManager em;
     @Resource
-    UserTransaction ut;    
+    UserTransaction ut;
 
     /**
      *
@@ -283,12 +284,13 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
         response = FingerprintManagementSB.userIdentify(fingerprint, listFingerprint, listIdUser);
         return response;
     }
-    
-    private Long getUserByRut(String rut){
-         Query q = em.createNamedQuery("User.findByRut",User.class);
-            q.setParameter("rut",rut);
-            User user = (User) q.getSingleResult();
-            return user.getId();
+
+    private Long getUserByRut(String rut) {
+        System.out.println(rut);
+        Query q = em.createNamedQuery("User.findByRut", User.class);
+        q.setParameter("rut", Integer.parseInt(rut));
+        User user = (User) q.getSingleResult();
+        return user.getId();
     }
 
     private boolean addStudentAssistance(Student student, BlockClass blockClass, boolean state) {
@@ -311,21 +313,17 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
             q.setParameter("idStudent", student.getId());
             Assistance assistanceAux = (Assistance) q.getSingleResult();
             Assistance assistance = em.find(Assistance.class, assistanceAux.getId());
-            if (assistance.getState().getId() == 1L) {
-                AssistanceState assistanceState;
-                if (state) {
-                    assistanceState = em.find(AssistanceState.class, 3L);
-                } else {
-                    assistanceState = em.find(AssistanceState.class, 1L);
-                }
-                assistance.setState(assistanceState);
-                System.out.println("asdf " + assistance.getState().getName());
-                persistUpdate(assistanceState);
-                System.out.println("asdf " + assistance.getState().getName());
-                return true;
+
+            AssistanceState assistanceState;
+            if (state) {                
+                assistanceState = em.find(AssistanceState.class, 3L);
             } else {
-                return false;
+                assistanceState = em.find(AssistanceState.class, 1L);
             }
+            assistance.setState(assistanceState);
+            System.out.println("hola "+state+"   asd"+assistance.getId());
+            persistUpdate(assistance);
+            return true;
         }
     }
 
@@ -333,10 +331,15 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
         if (!existAssistance(student, blockClass)) {
             AssistanceState assistanceState = em.find(AssistanceState.class, 2L);
             Assistance assistance = new Assistance();
+
             assistance.setBlockClass(blockClass);
+
             assistance.setStudent(student);
+
             assistance.setState(assistanceState);
+
             persistInsert(assistance);
+
             return true;
         } else {
             Query q = em.createNamedQuery("Assistance.findAssistanceOfBlockIdClassAndIdStudent");
@@ -344,12 +347,11 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
             q.setParameter("idStudent", student.getId());
             Assistance assistanceAux = (Assistance) q.getSingleResult();
             Assistance assistance = em.find(Assistance.class, assistanceAux.getId());
-            if (assistance.getState().getId() == 1L) {
+            if (assistance.getState()
+                    .getId() == 1L) {
                 AssistanceState assistanceState = em.find(AssistanceState.class, 2L);
                 assistance.setState(assistanceState);
-                System.out.println("asdf " + assistance.getState().getName());
-                persistUpdate(assistanceState);
-                System.out.println("asdf " + assistance.getState().getName());
+                persistUpdate(assistance);
                 return true;
             } else {
                 return false;
@@ -394,4 +396,12 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
             return null;
         }
     }
+
+    @Override
+    public CourseDTO getCourseByIdBlockClass(Long idBlockClass) {
+        Course course = em.find(BlockClass.class, idBlockClass).getCourse();
+        return new CourseDTO(course);
+    }
+    
+    
 }

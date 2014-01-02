@@ -84,7 +84,6 @@ public class AllocateBlockclassesoToCourseMB {
         Long hour = Long.parseLong(split[0]) * 60L * 60L * 1000L;
         date = new Date(date.getTime() + hour + minute);
         for (DateTimeBlockClassCourse it : listDateTimeBlockClassCourse) {
-            System.out.println(it.getDate().getTime() + " " + date.getTime());
             if (it.getDate().getTime() == date.getTime()) {
                 return true;
             }

@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -35,9 +34,11 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import sessionBeans.TakeAttendanceSB;
+import javax.annotation.Resource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -267,14 +268,17 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
             text += "Contraseña: "+password;
             String messageText = text;
             message.setText(messageText);
-            message.setHeader("X-Mailer", "amasysRealm@gmail.cl");
+            message.setHeader("X-Mailer", "amasys@usach.cl");
             message.setSentDate(timeStamp);
             // Send message
+            Transport.send(message);
             System.out.println("Mail sent to " + recipient + ".");
         } catch (MessagingException ex) {
+            ex.printStackTrace();
             System.out.println("Error in ConfirmerBean for " + recipient);
         }
         return false;
+
     }
     
     
