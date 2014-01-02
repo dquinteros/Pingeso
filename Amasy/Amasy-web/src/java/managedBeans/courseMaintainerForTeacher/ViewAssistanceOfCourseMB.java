@@ -6,6 +6,7 @@ package managedBeans.courseMaintainerForTeacher;
 
 import DTOs.AssistanceListCourseDTO;
 import DTOs.AssistanceListCourseUnitDTO;
+import DTOs.CourseDTO;
 import DTOs.ResponseAssistanceDTO;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ import javax.inject.Inject;
 import managedBeans.UtilitiesMB;
 import sessionBeans.TakeAttendanceSBLocal;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
-import java.util.logging.Logger; 
+import java.util.logging.Logger;
 import managedBeans.LoginSessionMB;
 
 /**
@@ -42,8 +43,10 @@ public class ViewAssistanceOfCourseMB {
     private AssistanceListCourseDTO assistanceListCourse;
     private String assistanceState;
     private Map<String, String> assistanceStates = new HashMap<String, String>();
-    private Logger log = Logger.getLogger(ViewAssistanceOfCourseMB.class.getName()); 
-    @Inject LoginSessionMB varSession; 
+    private Logger log = Logger.getLogger(ViewAssistanceOfCourseMB.class.getName());
+    @Inject
+    LoginSessionMB varSession;
+    private CourseDTO course;
 
     public ViewAssistanceOfCourseMB() {
         assistanceStates.put("Ausente", "Ausente");
@@ -53,6 +56,7 @@ public class ViewAssistanceOfCourseMB {
 
     @PostConstruct
     void Init() {
+        course = courseManagementSB.getCourseById(courseMaintainerOfTeacherConversation.getIdCourse());
         idCourse = courseMaintainerOfTeacherConversation.getIdCourse();
         assistanceListCourse = courseManagementSB.assistanceListCourse(idCourse);
 
@@ -113,10 +117,10 @@ public class ViewAssistanceOfCourseMB {
                     break;
             }
             UtilitiesMB.showFeedback(responseAssistance.getAnswer(), message);
-        }        
+        }
         assistanceListCourse = courseManagementSB.assistanceListCourse(idCourse);
-        
-        log.info("El usuario "+varSession.getUser().getFirstName()+" "+varSession.getUser().getLastName()+"("+varSession.getUser().getRut()+")"+" cambió a asistencia de "+((AssistanceListCourseUnitDTO)row.get(1)).getText()+"("+((AssistanceListCourseUnitDTO)row.get(0)).getText()+")");
+
+        log.info("El usuario " + varSession.getUser().getFirstName() + " " + varSession.getUser().getLastName() + "(" + varSession.getUser().getRut() + ")" + " cambió a asistencia de " + ((AssistanceListCourseUnitDTO) row.get(1)).getText() + "(" + ((AssistanceListCourseUnitDTO) row.get(0)).getText() + ")");
     }
 
     public String getAssistanceState() {
@@ -141,5 +145,13 @@ public class ViewAssistanceOfCourseMB {
 
     public void setTakeAttendanceSB(TakeAttendanceSBLocal takeAttendanceSB) {
         this.takeAttendanceSB = takeAttendanceSB;
+    }
+
+    public CourseDTO getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseDTO course) {
+        this.course = course;
     }
 }

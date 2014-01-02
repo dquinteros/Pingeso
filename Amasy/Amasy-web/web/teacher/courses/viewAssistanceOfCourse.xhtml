@@ -7,6 +7,7 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
+        <h3><h:outputText value="Configuración del curso: #{configureCourseMB.course.name}"/></h3>
         <h:form id="form">  
             <p:dataTable  id="student" var="student" value="#{viewAssistanceOfCourseMB.assistanceListCourse.listRow}" >                
                 <p:columns value="#{viewAssistanceOfCourseMB.assistanceListCourse.listTitle}" var="column" styleClass="center">  

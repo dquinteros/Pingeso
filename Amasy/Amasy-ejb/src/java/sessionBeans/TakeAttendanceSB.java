@@ -5,6 +5,7 @@
 package sessionBeans;
 
 import DTOs.AnswerDTO;
+import DTOs.CourseDTO;
 import DTOs.ResponseAssistanceDTO;
 import DTOs.UserAssistantBlockClassDTO;
 import DTOs.UserDTO;
@@ -395,4 +396,12 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
             return null;
         }
     }
+
+    @Override
+    public CourseDTO getCourseByIdBlockClass(Long idBlockClass) {
+        Course course = em.find(BlockClass.class, idBlockClass).getCourse();
+        return new CourseDTO(course);
+    }
+    
+    
 }

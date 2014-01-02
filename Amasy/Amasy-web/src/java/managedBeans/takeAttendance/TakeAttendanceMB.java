@@ -4,6 +4,7 @@
  */
 package managedBeans.takeAttendance;
 
+import DTOs.CourseDTO;
 import DTOs.ResponseAssistanceDTO;
 import entity.BlockClass;
 import java.util.ArrayList;
@@ -17,77 +18,76 @@ import DTOs.UserAssistantBlockClassDTO;
 import javax.faces.event.ActionEvent;
 import sessionBeans.TakeAttendanceSBLocal;
 
-
 /**
  *
  * @author Pingeso
  */
 @Named(value = "takeAttendanceMB")
 @RequestScoped
-public class TakeAttendanceMB{
+public class TakeAttendanceMB {
 
     @EJB
     private TakeAttendanceSBLocal TakeAttendanceSB;
     private ArrayList<UserAssistantBlockClassDTO> listStudents;
     private BlockClass blockClass;
     private String fingerprint;
-    
-    @Inject 
+    private CourseDTO course;
+    @Inject
     private TakeAttendanceConversationMB takeAttendanceConversation;
-    
+
     /**
      *
      */
     public TakeAttendanceMB() {
-        
     }
-    
+
     /**
      *
      */
     @PostConstruct
-    public void init() {      
-        if(takeAttendanceConversation.getIdClass()!=-1){
-            blockClass = TakeAttendanceSB.getIdBlockClassForTakeAttendance(this.takeAttendanceConversation.getIdClass());            
+    public void init() {
+        if (takeAttendanceConversation.getIdClass() != -1) {
+            blockClass = TakeAttendanceSB.getIdBlockClassForTakeAttendance(this.takeAttendanceConversation.getIdClass());
             takeAttendanceConversation.setBlockClass(blockClass);
-            if(blockClass!=null){   
-                listStudents = TakeAttendanceSB.listOfStudentsPerCourseList(this.takeAttendanceConversation.getIdClass(), blockClass.getId());            
-            }else{
+            if (blockClass != null) {
+                course = TakeAttendanceSB.getCourseByIdBlockClass(takeAttendanceConversation.getIdClass());
+                listStudents = TakeAttendanceSB.listOfStudentsPerCourseList(this.takeAttendanceConversation.getIdClass(), blockClass.getId());
+            } else {
                 UtilitiesMB.redirection("/faces/teacher/takeAttendance/viewCourseList.xhtml");
-            }            
-        }else{
+            }
+        } else {
             UtilitiesMB.redirection("/faces/teacher/takeAttendance/viewCourseList.xhtml");
-        }        
+        }
     }
-    
+
     /**
      *
      * @param actionEvent
      */
-    public void sendFingerprint(ActionEvent actionEvent) {        
+    public void sendFingerprint(ActionEvent actionEvent) {
         ResponseAssistanceDTO responseAssistance = TakeAttendanceSB.validateFingerprintBM(fingerprint, blockClass);
-        String message="";
-        switch(responseAssistance.getAnswer().getIdError()){
+        String message = "";
+        switch (responseAssistance.getAnswer().getIdError()) {
             case 115:
                 updateAssistance(responseAssistance);
                 message = responseAssistance.getUserDTO().getFirstName() + responseAssistance.getUserDTO().getLastName();
-            break;
+                break;
             case 116:
                 message = responseAssistance.getUserDTO().getFirstName() + responseAssistance.getUserDTO().getLastName();
-            break;
-        }       
-        UtilitiesMB.showFeedback(responseAssistance.getAnswer(),message);
+                break;
+        }
+        UtilitiesMB.showFeedback(responseAssistance.getAnswer(), message);
     }
 
-    private void updateAssistance(ResponseAssistanceDTO responseAssistance){
-        for(int i=0; i<listStudents.size(); i++){
-            if(listStudents.get(i).getUser().getId()==responseAssistance.getUserDTO().getId()){
+    private void updateAssistance(ResponseAssistanceDTO responseAssistance) {
+        for (int i = 0; i < listStudents.size(); i++) {
+            if (listStudents.get(i).getUser().getId() == responseAssistance.getUserDTO().getId()) {
                 listStudents.get(i).setPresent(true);
                 break;
             }
         }
     }
-    
+
     /**
      *
      * @return
@@ -168,9 +168,11 @@ public class TakeAttendanceMB{
         this.fingerprint = fingerprint;
     }
 
+    public CourseDTO getCourse() {
+        return course;
+    }
 
-    
-    
-    
-    
+    public void setCourse(CourseDTO course) {
+        this.course = course;
+    }
 }
