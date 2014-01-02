@@ -552,6 +552,9 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     
     @Override
     public AnswerDTO deleteGroup(String groupName, Long idCourse){
+        if(groupName == null){
+            return new AnswerDTO(135);
+        }
         Query q = em.createNamedQuery("GroupStudentPerCourse.getGroupOfCourseByGroupName");
         q.setParameter("groupName", groupName);
         q.setParameter("idCourse", idCourse);
