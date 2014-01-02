@@ -9,6 +9,7 @@ import DTOs.UserDTO;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -29,7 +30,7 @@ public class LoginSessionMB extends UtilitiesMB implements Serializable{
      */
     private UserDTO user;
     private String startPage;
-    
+    private Logger log = Logger.getLogger(LoginSessionMB.class.getName()); 
     @EJB
     private UserManagementSBLocal userManagementSB;
     
@@ -96,8 +97,9 @@ public class LoginSessionMB extends UtilitiesMB implements Serializable{
     public void logout() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.invalidateSession();
+        log.info("El usuario "+user.getUserName()+"("+user.getRut()+")"+" ingresó en el sistema" ); 
         startPage = null;
-        user = null;
+        user = null;                
         UtilitiesMB.redirection("/faces/login.xhtml");
     }
     

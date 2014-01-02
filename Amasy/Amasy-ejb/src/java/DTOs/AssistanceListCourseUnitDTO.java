@@ -20,6 +20,7 @@ public class AssistanceListCourseUnitDTO {
     private boolean textAssistance;
     private boolean textRutName;
     private Long idBlockClass;
+    private String assistanceState;
 
     public String getText() {
         return text;
@@ -61,5 +62,11 @@ public class AssistanceListCourseUnitDTO {
         this.idBlockClass = idBlockClass;
     }
 
-   
+    public String getAssistanceState() {
+        return assistanceState;
+    }
+
+    public void setAssistanceState(String assistanceState) {
+        this.assistanceState = assistanceState;
+    }
 }

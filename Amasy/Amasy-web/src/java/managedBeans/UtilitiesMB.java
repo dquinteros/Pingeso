@@ -215,7 +215,6 @@ public class UtilitiesMB {
             String formato = "dd/MM/yyyy";
             SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
             return dateFormat.format(date);
-
         }
     }
 }

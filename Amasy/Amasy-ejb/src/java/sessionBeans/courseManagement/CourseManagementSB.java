@@ -487,7 +487,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             unit.setTextAssistance(true);
             if (assistance != null) {
                 unit.setText(assistance.getState().getName());
-                if (assistance.getState().getId() == 2L) {
+                if (assistance.getState().getId() != 1L) {
                     unit.setPresent(true);
                 }
                 unit.setIdBlockClass(it.getId());

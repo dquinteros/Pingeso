@@ -29,7 +29,7 @@ public class DateTimeBlockClassCourse {
         day = getDateName(date);
         String hour = ""+date.getHours();
         String minute;
-        if(date.getHours()<10){
+        if(date.getMinutes()<10){
             minute = "0"+date.getMinutes();
         }else{
             minute = ""+date.getMinutes();
