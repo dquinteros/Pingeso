@@ -118,6 +118,8 @@ public class UtilitiesMB {
                 return "No se pueden eliminar más administradores del sistema. Minimo: 2.";
             case 133:
                 return "El grupo ya esta registrado para el curso";
+            case 134:
+                return "Alumno marcado como ausente";
             default:
                 return "Error";
         }
@@ -143,6 +145,8 @@ public class UtilitiesMB {
                 return "warning";
             case 133:
                 return "warning";
+            case 134:
+                return "success";
             default:
                 return "error";
              

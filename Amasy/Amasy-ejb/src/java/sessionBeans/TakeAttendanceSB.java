@@ -257,7 +257,11 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
             student = findStundetByUserId(user.getId());
             responseAssistanceDTO = new ResponseAssistanceDTO(userDTO);
             if (addStudentAssistance(student, blockClass, st)) {
-                responseAssistanceDTO.setAnswer(new AnswerDTO(115));
+                if(st){
+                    responseAssistanceDTO.setAnswer(new AnswerDTO(115));
+                }else{
+                    responseAssistanceDTO.setAnswer(new AnswerDTO(134));
+                }                
             } else {
                 responseAssistanceDTO.setAnswer(new AnswerDTO(116));
             }
