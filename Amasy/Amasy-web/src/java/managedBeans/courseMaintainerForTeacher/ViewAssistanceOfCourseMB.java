@@ -5,23 +5,17 @@
 package managedBeans.courseMaintainerForTeacher;
 
 import DTOs.AssistanceListCourseDTO;
-import DTOs.AssistanceListCourseRowDTO;
-import DTOs.AssistanceListCourseTitleDTO;
 import DTOs.AssistanceListCourseUnitDTO;
 import DTOs.ResponseAssistanceDTO;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import managedBeans.LoginSessionMB;
 import managedBeans.UtilitiesMB;
-import sessionBeans.TakeAttendanceSB;
 import sessionBeans.TakeAttendanceSBLocal;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
 
