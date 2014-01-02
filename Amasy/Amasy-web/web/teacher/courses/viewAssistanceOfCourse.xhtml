@@ -17,15 +17,12 @@
                         <br/>
                         #{column.subTitle}                                            
                     </f:facet>
-
                     <h:panelGroup rendered="#{!viewAssistanceOfCourseMB.isAssistance(student.listUnit[column.id].text)}">
                         #{student.listUnit[column.id].text}
                     </h:panelGroup>
                     <h:panelGroup rendered="#{viewAssistanceOfCourseMB.isAssistance(student.listUnit[column.id].text)}">
-                        
-                        
-                        <p:selectBooleanCheckbox  id="assistance" value="#{student.listUnit[column.id].present}" >
-                            <p:ajax update=":form" listener="#{viewAssistanceOfCourseMB.setAssistance(student.listUnit,student.listUnit[column.id].idBlockClass, student.listUnit[column.id].text)}"/>
+                        <p:selectBooleanCheckbox  id="assistance" value="#{student.listUnit[column.id].present}" >                            
+                            <p:ajax update=":form" listener="#{viewAssistanceOfCourseMB.setAssistance(student.listUnit,student.listUnit[column.id].idBlockClass, student.listUnit[column.id].text)}"/>                            
                         </p:selectBooleanCheckbox>  
                         <p:tooltip for="assistance" value="#{student.listUnit[column.id].text}" showEffect="fade" hideEffect="fade" /> 
                     </h:panelGroup>

@@ -127,7 +127,7 @@ public class TakeAttendanceSB implements TakeAttendanceSBLocal {
                     q.setParameter("idStudent", iter.getId());
                     q.setParameter("idBlockClass", blockClass);
                     assistance = (Assistance) q.getSingleResult();
-                    if (assistance.getState().getId() == 2) {
+                    if (assistance.getState().getId() != 1) {
                         takeAttendanceDataUserTemp = new UserAssistantBlockClassDTO();
                         takeAttendanceDataUserTemp.TakeAttendanceDataUser(new UserDTO(iter.getUser()), true);
                         listTakeAttendanceDataUser.add(takeAttendanceDataUserTemp);

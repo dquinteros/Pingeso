@@ -236,6 +236,7 @@ public class AdminManagementSB implements AdminManagementSBLocal {
         newUser.setPassword(MD5(password));
 
         newUser.setUserType(usertype);
+        (new mail.Mail()).sendMessageCreateUser(newUser.getEmail(), newUser.getUserName(), password);
         //senEmail(newUser.getEmail(), newUser.getUserName() ,password);
         
         return newUser;

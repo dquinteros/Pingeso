@@ -243,12 +243,12 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
 
         newUser.setUserType(ut);
         
-        senEmail(newUser.getEmail(), newUser.getUserName() ,password);
-        
+        //sendEmail(newUser.getEmail(), newUser.getUserName() ,password);
+        (new mail.Mail()).sendMessageCreateUser(newUser.getEmail(), newUser.getUserName(), password);
         return newUser;
     }
 
-    private boolean senEmail(String recipient, String userName, String password){
+    private boolean sendEmail(String recipient, String userName, String password){
         try {
             Message message = new MimeMessage(session);
             message.setFrom();
