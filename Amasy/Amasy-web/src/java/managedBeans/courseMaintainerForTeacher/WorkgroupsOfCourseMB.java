@@ -1,6 +1,7 @@
 package managedBeans.courseMaintainerForTeacher;
 
 import DTOs.AnswerDTO;
+import DTOs.CourseDTO;
 import DTOs.GroupStudentPerCourseDTO;
 import DTOs.ListUserDTO;
 import DTOs.UserDTO;
@@ -34,6 +35,7 @@ public class WorkgroupsOfCourseMB {
     private String selectedGroup;
     private ListUserDTO studentsWithoutGroup;
     private DualListModel<UserDTO> studentsWithoutGroupPL;
+    private CourseDTO course;
 
     public WorkgroupsOfCourseMB() {
     }
@@ -41,6 +43,7 @@ public class WorkgroupsOfCourseMB {
     @PostConstruct
     void init() {
         idCourse = courseMaintainerOfTeacherConversation.getIdCourse();
+        course = courseManagementSB.getCourseById(idCourse);
         listGroup = courseManagementSB.getAllGroupsOfCourse(idCourse).getListGroup();
         listGroupName = createStringList(listGroup);
         studentsWithoutGroup = courseManagementSB.getAllStudentsWithoutGroup(idCourse);
@@ -143,6 +146,14 @@ public class WorkgroupsOfCourseMB {
         this.studentsWithoutGroupPL = studentsWithoutGroupPL;
     }
 
+    public CourseDTO getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseDTO course) {
+        this.course = course;
+    }
+    
     private List<String> createStringList(List<GroupStudentPerCourseDTO> listGroup) {
         List<String> list = new ArrayList();
         for (GroupStudentPerCourseDTO it : listGroup) {
