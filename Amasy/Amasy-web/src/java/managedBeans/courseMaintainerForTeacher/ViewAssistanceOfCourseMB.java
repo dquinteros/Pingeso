@@ -11,6 +11,7 @@ import DTOs.ResponseAssistanceDTO;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -95,32 +96,36 @@ public class ViewAssistanceOfCourseMB {
                 }
             }
         }
-        System.out.println(rut);
-        if (assistance.equals("Ausente")) {
-            assisState = "Justificado";
-        } else if (assistance.equals("Justificado")) {
-            assisState = "Ausente";
-        } else if (assistance.equals("Presente")) {
-            assisState = "Ausente";
+        switch (assistance) {
+            case "Ausente":
+                assisState = "Justificado";
+                break;
+            case "Justificado":
+                assisState = "Ausente";
+                break;
+            case "Presente":
+                assisState = "Ausente";
+                break;
         }
-        System.out.println("assistance=" + assistance);
-        System.out.println(assisState);
         if (!assisState.equals("")) {
             ResponseAssistanceDTO responseAssistance = takeAttendanceSB.setAssistance(rut, idBlockClass, assisState);
             String message = "";
             switch (responseAssistance.getAnswer().getIdError()) {
                 case 115:
-                    message = responseAssistance.getUserDTO().getFirstName() + responseAssistance.getUserDTO().getLastName();
+                    message = responseAssistance.getUserDTO().getFirstName() +" " + responseAssistance.getUserDTO().getLastName();
                     break;
                 case 116:
-                    message = responseAssistance.getUserDTO().getFirstName() + responseAssistance.getUserDTO().getLastName();
+                    message = responseAssistance.getUserDTO().getFirstName() +" " + responseAssistance.getUserDTO().getLastName();
+                    break;
+                case 134:
+                    message = responseAssistance.getUserDTO().getFirstName() +" " +responseAssistance.getUserDTO().getLastName();
                     break;
             }
             UtilitiesMB.showFeedback(responseAssistance.getAnswer(), message);
         }
         assistanceListCourse = courseManagementSB.assistanceListCourse(idCourse);
 
-        log.info("El usuario " + varSession.getUser().getFirstName() + " " + varSession.getUser().getLastName() + "(" + varSession.getUser().getRut() + ")" + " cambió a asistencia de " + ((AssistanceListCourseUnitDTO) row.get(1)).getText() + "(" + ((AssistanceListCourseUnitDTO) row.get(0)).getText() + ")");
+        log.log(Level.INFO,"El usuario {0} {1}({2}" + ")" + " cambi\u00f3 a asistencia de {3}({4})", new Object[]{varSession.getUser().getFirstName(), varSession.getUser().getLastName(), varSession.getUser().getRut(), ((AssistanceListCourseUnitDTO) row.get(1)).getText(), ((AssistanceListCourseUnitDTO) row.get(0)).getText()});
     }
 
     public String getAssistanceState() {
