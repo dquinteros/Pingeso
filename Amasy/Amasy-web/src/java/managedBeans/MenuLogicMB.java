@@ -420,4 +420,61 @@ public class MenuLogicMB {
             return "";
         }
     }
+    
+    public String isUniversityView(String view) {
+        switch (view) {
+            case "/admin/universityMaintainer/viewAllUniversity.xhtml":
+                return "on-hover";
+            case "/admin/universityMaintainer/addUniversity.xhtml":
+                return "on-hover";
+            case "/admin/universityMaintainer/editUniversity.xhtml":
+                return "on-hover";
+            default:
+                return "";
+        }
+    }
+    
+    /**
+     *
+     * @param view
+     * @return
+     */
+    public String isNotUniversityView(String view) {
+        switch (view) {
+            case "/admin/universityMaintainer/viewAllUniversity.xhtml":
+                return "";
+            case "/admin/universityMaintainer/addUniversity.xhtml":
+                return "";
+            case "/admin/universityMaintainer/editUniversity.xhtml":
+                return "";
+            default:
+                return "hidden";
+        }
+    }
+    
+     /**
+     *
+     * @param view
+     * @return
+     */
+    public String isViewUniversity(String view) {
+        if ("/admin/universityMaintainer/viewAllUniversity.xhtml".equals(view)) {
+            return "on-hover";
+        } else {
+            return "";
+        }
+    }
+    
+        /**
+     *
+     * @param view
+     * @return
+     */
+    public String isAddUniversity(String view) {
+        if ("/admin/universityMaintainer/addUniversity.xhtml".equals(view)) {
+            return "on-hover";
+        } else {
+            return "";
+        }
+    }
 }
