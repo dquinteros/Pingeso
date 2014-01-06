@@ -8,8 +8,8 @@
 
 
     <ui:define name="content">
-        
-        
+
+
         <h:form id="form">
             <h3>Agregar nuevo curso</h3>
             <p:growl for="growl" life="3000"/>
@@ -17,18 +17,19 @@
                 <h:outputText value="Nombre: *" />  
                 <p:inputText id="name" required="true" value="#{addCourseMB.newCourse.name}" requiredMessage="Nombre obligatorio">                    
                 </p:inputText>
-                <p:message for="name" display="text" id="asdf"/>
-                
+                <p:message for="name" display="text" id="asdf"/>                
                 <h:outputText value="Nivel: *" />  
                 <p:inputText id="level" required="true" value="#{addCourseMB.newCourse.level}" requiredMessage="Nivel obligatorio" validatorMessage="El nivel solo puede ser numérico">
                     <f:validateRegex for="level" pattern="[0-9]*"/>
                 </p:inputText>
-                <p:message for="level" display="text" /> 
-                
+                <p:message for="level" display="text" />
+                <h:outputText value="Profesor: *" />  
+                <p:selectOneMenu id="teacher" value="#{addCourseMB.selectedIdUser}">
+                    <f:selectItem itemLabel="---" itemValue=""/>
+                    <f:selectItems itemValue="#{teacher.id}" itemLabel="#{teacher.firstName} #{teacher.lastName}(#{teacher.rut})" var="teacher" value="#{addCourseMB.userList}"/>  
+                </p:selectOneMenu>  
             </h:panelGrid>  
             <p:commandButton id="submitButton" value="Crear curso" update="form" action="#{addCourseMB.insertNewCourse()}"/>  
         </h:form> 
-
     </ui:define>
-
 </ui:composition>

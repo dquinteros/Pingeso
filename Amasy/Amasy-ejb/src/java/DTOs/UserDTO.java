@@ -31,6 +31,7 @@ public class UserDTO implements Serializable {
     private int rut;
     private String userType;
     private String nameUniversity;
+    private Long idUniversity;
 
     /**
      *
@@ -196,6 +197,14 @@ public class UserDTO implements Serializable {
      */
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public Long getIdUniversity() {
+        return idUniversity;
+    }
+
+    public void setIdUniversity(Long idUniversity) {
+        this.idUniversity = idUniversity;
     }
 
     /**

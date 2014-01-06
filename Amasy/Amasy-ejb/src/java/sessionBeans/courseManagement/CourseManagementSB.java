@@ -28,6 +28,8 @@ import entity.BlockClass;
 import entity.Course;
 import entity.GroupStudentPerCourse;
 import entity.Student;
+import entity.Teacher;
+import entity.User;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -161,12 +163,16 @@ public class CourseManagementSB implements CourseManagementSBLocal {
      * @return
      */
     @Override    
-    public AnswerDTO insertNewCourse(CourseDTO courseDTO) {
+    public AnswerDTO insertNewCourse(CourseDTO courseDTO, Long idUser) {        
         AnswerDTO existCourseName = validateCourseRegistry(courseDTO);
         if (existCourseName.getIdError() != 0) {
             return existCourseName;
         }
         Course course = newCourse(courseDTO);
+        if(idUser!=null){
+            Teacher teacher = em.find(User.class, idUser).getTeacher();
+            course.setTeacher(teacher);
+        }        
         persistInsert(course);
         return new AnswerDTO(0);
     }

@@ -33,6 +33,8 @@ import javax.persistence.OneToOne;
 public class User implements Serializable {
 
     @OneToOne(mappedBy = "user")
+    private Teacher teacher;
+    @OneToOne(mappedBy = "user")
     private Student student;
     private static final long serialVersionUID = 1L;
     @Id
@@ -250,6 +252,14 @@ public class User implements Serializable {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     /**

@@ -23,12 +23,12 @@ import sessionBeans.teacherManagement.TeacherManagementSBLocal;
 @Named(value = "addCourseMB")
 @RequestScoped
 public class AddCourseMB {
+
     @EJB
     private TeacherManagementSBLocal teacherManagementSB;
     @EJB
     private CourseManagementSBLocal courseManagementSB;
-    
-  
+    private Long selectedIdUser;
     private CourseDTO newCourse;
     private LinkedList<UserDTO> userList;
     private UserDTO user;
@@ -38,7 +38,7 @@ public class AddCourseMB {
      */
     public AddCourseMB() {
     }
-    
+
     /**
      *
      */
@@ -46,19 +46,20 @@ public class AddCourseMB {
     public void init() {
         newCourse = new CourseDTO();
         userList = teacherManagementSB.getAllTeacher();
+        System.out.println("userList = " + userList.size());
     }
-    
+
     /**
      *
      */
-    public void insertNewCourse(){
+    public void insertNewCourse() {
         AnswerDTO r = new AnswerDTO();
         newCourse.setLevel(newCourse.getLevel());
-        r = courseManagementSB.insertNewCourse(newCourse);
-        UtilitiesMB.showFeedback(r); 
+        r = courseManagementSB.insertNewCourse(newCourse, selectedIdUser);
+        UtilitiesMB.showFeedback(r);
     }
-    
-        /**
+
+    /**
      *
      * @return
      */
@@ -89,5 +90,12 @@ public class AddCourseMB {
     public void setUser(UserDTO user) {
         this.user = user;
     }
-    
+
+    public Long getSelectedIdUser() {
+        return selectedIdUser;
+    }
+
+    public void setSelectedIdUser(Long selectedIdUser) {
+        this.selectedIdUser = selectedIdUser;
+    }
 }

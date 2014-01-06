@@ -27,7 +27,7 @@ public interface CourseManagementSBLocal {
 
     ListCourseDTO getAllCourse();
 
-    AnswerDTO insertNewCourse(CourseDTO userDTO);
+    AnswerDTO insertNewCourse(CourseDTO courseDTO, Long idUser);
 
     CourseDTO getCourseByName(String courseName);
 

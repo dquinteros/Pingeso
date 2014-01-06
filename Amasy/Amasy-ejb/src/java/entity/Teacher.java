@@ -21,10 +21,11 @@ import javax.persistence.OneToOne;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name="Teacher.getAllTeacherUserInfo", query="SELECT u.user FROM Teacher u WHERE u.user.userStatus = true")
-    //@NamedQuery(name="Teacher.getStundentAttendanceFromCourse", query="SELECT c.listStudent FROM Course c WHERE c.id = :course")
+    @NamedQuery(name = "Teacher.getAllTeacherUserInfo", query = "SELECT u.user FROM Teacher u WHERE u.user.userStatus = true")
+//@NamedQuery(name="Teacher.getStundentAttendanceFromCourse", query="SELECT c.listStudent FROM Course c WHERE c.id = :course")
 })
 public class Teacher implements Serializable {
+
     @OneToOne
     private Course course;
     @OneToOne
@@ -33,11 +34,8 @@ public class Teacher implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @OneToOne
     private User user;
-    
-
     @OneToMany(mappedBy = "teacher")
     private List<Course> listCourse;
 
@@ -55,9 +53,8 @@ public class Teacher implements Serializable {
      */
     public void setListCourse(List<Course> listCourse) {
         this.listCourse = listCourse;
-    }        
-    
-    
+    }
+
     /**
      *
      * @return
@@ -73,8 +70,7 @@ public class Teacher implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-    
-    
+
     /**
      *
      * @return
@@ -107,8 +103,6 @@ public class Teacher implements Serializable {
         this.justifiedAudit = justifiedAudit;
     }
 
-    
-    
     /**
      *
      * @return
@@ -146,5 +140,4 @@ public class Teacher implements Serializable {
     public String toString() {
         return "entity.Teacher[ id=" + id + " ]";
     }
-    
 }
