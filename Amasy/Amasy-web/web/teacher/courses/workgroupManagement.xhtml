@@ -6,8 +6,8 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
-        <h3><h:outputText value="Grupos del curso: #{workgroupsOfCourseMB.course.name}"/></h3>
-        <h:form id="form">
+        <h3 style="text-align: center"><h:outputText value="Grupos del curso #{workgroupsOfCourseMB.course.name}"/></h3>
+        <h:form id="form" style="margin: 20px auto 20px 20px;">
             <p:growl for="growl" life="3000"/>
             <h:panelGrid id="grid" columns="5" cellpadding="4">
                 <h:outputText value="Escriba el nombre del grupo que desea crear: " />
@@ -17,7 +17,7 @@
                 <p:message for="groupName" display="text" />
             </h:panelGrid>
         </h:form>
-        <h:form id="form2">
+        <h:form id="form2" style="margin: 20px auto auto 20px;">
             <p:growl for="growl" life="3000"/>
             <h:panelGrid id="grid" columns="5" cellpadding="4">
                 <h:outputText value="Seleccione uno de los grupos del curso: "  style="padding-right: 43px"/>
@@ -30,8 +30,11 @@
                 <p:tooltip for="deleteWorkgroupsButton" value="Eliminar grupo" showEffect="fade" hideEffect="fade" />
                 <p:message for="deleteGroup" display="text" />
             </h:panelGrid>
-            <h:panelGrid id="grid2" columns="3" cellpadding="4">
-                <p:pickList id="picklist" value="#{workgroupsOfCourseMB.studentsWithoutGroupPL}" var="student" itemValue="#{student.id}" itemLabel="#{student.firstName} #{student.lastName}" showCheckbox="true"/>
+            <h:panelGrid id="grid2" columns="3" cellpadding="4" style="margin-top: 20px">
+                <p:pickList id="picklist" value="#{workgroupsOfCourseMB.studentsWithoutGroupPL}" var="student" itemValue="#{student.id}" itemLabel="#{student.firstName} #{student.lastName}" showCheckbox="true">
+                    <f:facet name="sourceCaption">Estudiantes sin grupos</f:facet>  
+                    <f:facet name="targetCaption">Estudiantes del grupo</f:facet>  
+                </p:pickList>
                 <p:commandButton id="updateGroup" icon="ui-icon-disk" title="Actualizar grupo" action="#{workgroupsOfCourseMB.updateGroup()}" update=":form"/>
                 <p:tooltip for="updateGroup" value="Actualizar grupo" showEffect="fade" hideEffect="fade" />
             </h:panelGrid>

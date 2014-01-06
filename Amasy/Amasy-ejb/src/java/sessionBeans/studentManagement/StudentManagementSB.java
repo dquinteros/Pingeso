@@ -123,7 +123,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     @SuppressWarnings("empty-statement")
     public LinkedList<UserDTO> getAllStudent() {
         Collection<User> result;
-        LinkedList<UserDTO> exitResult = new LinkedList<UserDTO>();
+        LinkedList<UserDTO> exitResult = new LinkedList<>();
         Query q = this.em.createNamedQuery("Student.getAllStudentUserInfo");
         try {
             result = (Collection<User>) q.getResultList();
@@ -138,6 +138,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         UserDTO studentDTOTemp;
         for (User iter : result) {
             studentDTOTemp = new UserDTO(iter);
+            studentDTOTemp.setNameUniversity(iter.getStudent().getUniversity().getName());
             exitResult.add(studentDTOTemp);
         }
         return exitResult;

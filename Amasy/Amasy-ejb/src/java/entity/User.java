@@ -13,6 +13,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -31,6 +32,8 @@ import javax.persistence.NamedQuery;
 })
 public class User implements Serializable {
 
+    @OneToOne(mappedBy = "user")
+    private Student student;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -239,6 +242,14 @@ public class User implements Serializable {
      */
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     /**

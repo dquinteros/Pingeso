@@ -15,7 +15,10 @@
                 </f:facet>  
                 <p:column headerText="Curso" sortBy="name" filterBy="name" id="name">  
                     #{courseDTO.name}
-                </p:column>  
+                </p:column>
+                <p:column headerText="Universidad" sortBy="nameUniversity" filterBy="nameUniversity" id="nameUniversity">  
+                    #{courseDTO.nameUniversity}
+                </p:column>
                 <p:column headerText="Nivel" sortBy="level" filterBy="level" id="level">  
                     #{courseDTO.level}
                 </p:column>                    
@@ -29,7 +32,6 @@
                     <p:commandButton id="assistanceButton" icon="ui-icon-clipboard" title="Grupos de trabajo" action="#{viewAllCoursesOfTeacherMB.assistanceOfCourse(courseDTO.id)}"/>
                     <p:tooltip for="assistanceButton" value="Ver asistencia del curso" showEffect="fade" hideEffect="fade" />                    
                 </p:column>
-
             </p:dataTable>
         </h:form>         
     </ui:define>

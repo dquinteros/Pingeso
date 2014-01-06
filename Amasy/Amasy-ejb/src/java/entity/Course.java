@@ -17,18 +17,20 @@ import javax.persistence.OneToMany;
  * @author Pingeso
  */
 @Entity
-@NamedQueries( {
-    @NamedQuery(name="Course.getAllStudentsOfCourse", query="SELECT e FROM Student e WHERE e.user.userStatus = true"),
-    @NamedQuery(name="Course.getAllCourses", query="SELECT c FROM Course c"),
-    @NamedQuery(name="Course.countCourseByName", query="SELECT COUNT(c) FROM Course c WHERE c.name = :name"),
-    @NamedQuery(name="Course.getAllCoursesOfTeacher", query="SELECT t.listCourse FROM Teacher t WHERE t.user.id = :idUser")
+@NamedQueries({
+    @NamedQuery(name = "Course.getAllStudentsOfCourse", query = "SELECT e FROM Student e WHERE e.user.userStatus = true"),
+    @NamedQuery(name = "Course.getAllCourses", query = "SELECT c FROM Course c"),
+    @NamedQuery(name = "Course.countCourseByName", query = "SELECT COUNT(c) FROM Course c WHERE c.name = :name"),
+    @NamedQuery(name = "Course.getAllCoursesOfTeacher", query = "SELECT t.listCourse FROM Teacher t WHERE t.user.id = :idUser")
 })
 public class Course implements Serializable {
+
+    @ManyToOne
+    private University university;
     @OneToMany(mappedBy = "course")
     private List<GroupStudentPerCourse> listGroup;
     @ManyToOne
     private Teacher teacher;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,17 +39,11 @@ public class Course implements Serializable {
     private String level;
     private int minutesAfterClassStart;
     private int minutesBeforeClassStart;
-    
-
-    
     @OneToMany(mappedBy = "course")
     private List<BlockClass> listBlockClass;
-    
     @ManyToMany(mappedBy = "listCourse")
     private List<Student> listStudent;
-        
 
-    
     /**
      *
      * @return
@@ -62,8 +58,8 @@ public class Course implements Serializable {
      */
     public void setListBlockClass(List<BlockClass> listBlockClass) {
         this.listBlockClass = listBlockClass;
-    }        
-    
+    }
+
     /**
      *
      * @return
@@ -80,22 +76,21 @@ public class Course implements Serializable {
         this.id = id;
     }
 
-     /**
+    /**
      *
      * @return
      */
     public List<Student> getListStudent() {
-         return listStudent;
-     }
- 
-     /**
+        return listStudent;
+    }
+
+    /**
      *
      * @param listStudent
      */
     public void setListStudent(List<Student> listStudent) {
-         this.listStudent = listStudent;
-     }
- 
+        this.listStudent = listStudent;
+    }
 
     /**
      *
@@ -160,9 +155,15 @@ public class Course implements Serializable {
     public void setListGroup(List<GroupStudentPerCourse> listGroup) {
         this.listGroup = listGroup;
     }
-        
-    
-    
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
+    }
+
     /**
      *
      * @return
@@ -200,5 +201,4 @@ public class Course implements Serializable {
     public String toString() {
         return "entity.Course[ id=" + id + " ]";
     }
-    
 }

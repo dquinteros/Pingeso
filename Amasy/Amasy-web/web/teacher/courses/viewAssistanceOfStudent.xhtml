@@ -13,28 +13,25 @@
             <h:outputLabel value="Rut: #{viewAssistanceOfStudentMB.newUserDTO.rut}" />  
             <h:outputLabel value="Nombre de usuario: #{viewAssistanceOfStudentMB.newUserDTO.userName}" />  
             <h:outputLabel value="Correo electronico: #{viewAssistanceOfStudentMB.newUserDTO.email}" /> 
-        </h:panelGrid>   
-        
-        <p:dataTable  var="assistance" value="#{viewAssistanceOfStudentMB.assistanceList}" paginator="true" rows="10"  
-                      filteredValue="#{viewAssistanceOfStudentMB.filteredAssistance}" id="userDTOTable" emptyMessage="El curso no tiene bloques horarios">
+        </h:panelGrid>        
+        <p:dataTable  var="assistance" value="#{viewAssistanceOfStudentMB.assistanceList}" rowKey="#{assistance.dateString}" paginator="true" rows="10"  
+                      id="userDTOTable" emptyMessage="El curso no tiene bloques horarios">
             <p:growl for="growl" life="3000"/>
             <f:facet name="header">  
                 Lista de assistencia
             </f:facet>  
-            <p:column headerText="Fecha" sortBy="firstName" filterBy="firstName" id="date">  
+            <p:column headerText="Fecha" id="dateString">  
                 #{assistance.dateString}
             </p:column>  
-            <p:column headerText="Día" sortBy="firstName" filterBy="firstName" id="day">  
+            <p:column headerText="Día" id="day">  
                 #{assistance.dayBlockClassDTO.day}
             </p:column>  
-            <p:column headerText="Hora" sortBy="firstName" filterBy="firstName" id="startHour">  
+            <p:column headerText="Hora" id="startHour">  
                 #{assistance.timeBlockClassDTO.startHour}
             </p:column>  
-            <p:column headerText="Estado" sortBy="firstName" filterBy="firstName" id="state">  
+            <p:column headerText="Estado" id="state">  
                 #{assistance.state}
-            </p:column>  
-            
-        </p:dataTable>
-        
+            </p:column>              
+        </p:dataTable>        
     </ui:define>
 </ui:composition>

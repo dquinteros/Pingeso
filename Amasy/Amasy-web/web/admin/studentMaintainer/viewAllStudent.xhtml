@@ -21,6 +21,9 @@
                 <f:facet name="header">  
                     Lista de alumnos
                 </f:facet>  
+                <p:column headerText="Universidad" sortBy="nameUniversity" filterBy="nameUniversity" id="nameUniversity">  
+                    #{userDTO.nameUniversity}
+                </p:column>  
                 <p:column headerText="Nombre" sortBy="firstName" filterBy="firstName" id="firstName">  
                     #{userDTO.firstName}
                 </p:column>  
@@ -53,6 +56,8 @@
                     <f:facet name="header">  
                         <p:outputLabel value=""/>  
                     </f:facet>  
+                    <h:outputText value="Universidad:" />  
+                    <h:outputText value="#{viewAllStudentMB.selectedStudent.nameUniversity}" id="nameUniversity"/>  
                     <h:outputText value="Rut:" />  
                     <h:outputText value="#{viewAllStudentMB.selectedStudent.rut}" id="rut"/>
                     <h:outputText value="Nombre:" />  

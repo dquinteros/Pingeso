@@ -139,8 +139,8 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         Collection<CourseDTO> listCourseTemp = new ArrayList<>();
         for (Course iter : result) {
             courseDTOTemp = new CourseDTO(iter);
-            listCourseTemp.add(courseDTOTemp);
-            
+            courseDTOTemp.setNameUniversity(iter.getUniversity().getName());
+            listCourseTemp.add(courseDTOTemp);            
         }
         exitResult.setListCourse(listCourseTemp);
         exitResult.setAnswerDTO(new AnswerDTO(0));
@@ -608,6 +608,9 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     
     @Override
     public AnswerDTO updateGroup(List<Long> ListIdUser, String groupName, Long idCourse){
+        if(groupName == null){
+            return new AnswerDTO(136);
+        }
         Query q = em.createNamedQuery("GroupStudentPerCourse.getGroupOfCourseByGroupName");
         q.setParameter("groupName", groupName);
         q.setParameter("idCourse", idCourse);

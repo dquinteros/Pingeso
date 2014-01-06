@@ -17,10 +17,10 @@ import sessionBeans.UserManagementSBLocal;
  */
 @Stateless
 @LocalBean
-public class UserDTO implements Serializable{
+public class UserDTO implements Serializable {
+
     @EJB
     private UserManagementSBLocal userManagementSB;
-
     private Long id;
     private String userName;
     private String firstName;
@@ -30,6 +30,7 @@ public class UserDTO implements Serializable{
     private String cellPhone;
     private int rut;
     private String userType;
+    private String nameUniversity;
 
     /**
      *
@@ -196,18 +197,16 @@ public class UserDTO implements Serializable{
     public void setUserType(String userType) {
         this.userType = userType;
     }
-    
- 
+
     /**
      *
      * @param user
      * @return
      */
-    public Object getRowKey(UserDTO user) {  
+    public Object getRowKey(UserDTO user) {
         return user.getRut();
-    } 
+    }
 
-    
     /**
      *
      * @param string
@@ -216,5 +215,12 @@ public class UserDTO implements Serializable{
     public UserDTO getRowData(String string) {
         return userManagementSB.findUserByRut(Integer.parseInt(string));
     }
-    
+
+    public String getNameUniversity() {
+        return nameUniversity;
+    }
+
+    public void setNameUniversity(String nameUniversity) {
+        this.nameUniversity = nameUniversity;
+    }
 }

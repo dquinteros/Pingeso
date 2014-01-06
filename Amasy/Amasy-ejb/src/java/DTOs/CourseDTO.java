@@ -23,6 +23,7 @@ public class CourseDTO {
     private String level;
     private int minutesAfterClassStart;
     private int minutesBeforeClassStart;
+    private String nameUniversity;
 
     /**
      *
@@ -35,14 +36,13 @@ public class CourseDTO {
         this.minutesAfterClassStart = course.getMinutesAfterClassStart();
         this.minutesBeforeClassStart = course.getMinutesBeforeClassStart();
     }
-    
+
     /**
      *
      */
     public CourseDTO() {
     }
-    
-    
+
     /**
      *
      * @return
@@ -99,6 +99,11 @@ public class CourseDTO {
         this.minutesBeforeClassStart = minutesBeforeClassStart;
     }
 
-  
+    public String getNameUniversity() {
+        return nameUniversity;
+    }
 
+    public void setNameUniversity(String nameUniversity) {
+        this.nameUniversity = nameUniversity;
+    }
 }

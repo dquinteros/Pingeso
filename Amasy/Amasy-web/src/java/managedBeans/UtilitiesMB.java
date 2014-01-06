@@ -122,6 +122,8 @@ public class UtilitiesMB {
                 return "Alumno marcado como ausente";
             case 135:
                 return "Debe escoger un grupo para eliminar";
+            case 136:
+                return "Debe escoger un grupo para asignar integrantes";                                   
             default:
                 return "Error";
         }

@@ -32,9 +32,11 @@ import javax.persistence.Temporal;
 })
 @Entity
 public class Student implements Serializable {
+
+    @ManyToOne
+    private University university;
     @ManyToOne
     private Course course;
-
     @ManyToMany
     private List<Course> listCourse;
     private static final long serialVersionUID = 1L;
@@ -43,16 +45,13 @@ public class Student implements Serializable {
     private Long id;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date enrollYear;
-
-    
     @ManyToMany
     private List<GroupStudentPerCourse> listGroup;
-
     @OneToMany(mappedBy = "student")
     private List<Assistance> assistance;
+    
     @OneToOne
     private User user;
-    
 
     /**
      *
@@ -77,7 +76,7 @@ public class Student implements Serializable {
     public void setListGroup(List<GroupStudentPerCourse> listGroup) {
         this.listGroup = listGroup;
     }
-    
+
     /**
      *
      * @return
@@ -142,8 +141,6 @@ public class Student implements Serializable {
         this.course = course;
     }
 
-    
-    
     /**
      *
      * @return
@@ -158,6 +155,14 @@ public class Student implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
     }
 
     /**

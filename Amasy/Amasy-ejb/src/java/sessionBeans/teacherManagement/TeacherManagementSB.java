@@ -12,9 +12,7 @@ import entity.User;
 import entity.UserType;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.DateFormat;
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,12 +33,6 @@ import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import sessionBeans.TakeAttendanceSB;
 import javax.annotation.Resource;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 
 /**
@@ -49,10 +41,7 @@ import javax.mail.internet.MimeMessage;
  */
 @Stateless
 @TransactionManagement(TransactionManagementType.BEAN)
-public class TeacherManagementSB implements TeacherManagementSBLocal {
-    @Resource(name="mail/AmasyDB")
-    private Session session;
-    
+public class TeacherManagementSB implements TeacherManagementSBLocal {   
     @PersistenceContext(unitName = "Amasy-ejbPU")
     private EntityManager em;
     @Resource
@@ -248,38 +237,6 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         return newUser;
     }
 
-    private boolean sendEmail(String recipient, String userName, String password){
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom();
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient, false));
-            message.setSubject("Registro Amasy");
-            DateFormat dateFormatter = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT);
-            Date timeStamp = new Date();
-            String text="";
-            text += "Estimado profesor.";
-            text += "\n\n";
-            text += "Usted ha sido registrado exitosamente en el sistema Amasy.";
-            text += "\n";
-            text += "Sus datos de ingreso son: ";
-            text += "\n";
-            text += "Nombre de usuario: "+userName;
-            text += "\n";
-            text += "Contraseña: "+password;
-            String messageText = text;
-            message.setText(messageText);
-            message.setHeader("X-Mailer", "amasys@usach.cl");
-            message.setSentDate(timeStamp);
-            // Send message
-            Transport.send(message);
-            System.out.println("Mail sent to " + recipient + ".");
-        } catch (MessagingException ex) {
-            ex.printStackTrace();
-            System.out.println("Error in ConfirmerBean for " + recipient);
-        }
-        return false;
-
-    }
     
     
     private String newPass(String emailRut) {

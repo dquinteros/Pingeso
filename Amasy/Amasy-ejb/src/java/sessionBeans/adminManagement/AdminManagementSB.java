@@ -50,8 +50,6 @@ import sessionBeans.TakeAttendanceSB;
 @TransactionManagement(TransactionManagementType.BEAN)
 public class AdminManagementSB implements AdminManagementSBLocal {
     
-    @Resource(name="mail/AmasyDB")
-    private Session session;
     @PersistenceContext(unitName = "Amasy-ejbPU")
     private EntityManager em;
     @Resource
@@ -242,38 +240,6 @@ public class AdminManagementSB implements AdminManagementSBLocal {
         return newUser;
     }
 
-    private boolean senEmail(String recipient, String userName, String password){
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom();
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient, false));
-            message.setSubject("Registro Amasy");
-            DateFormat dateFormatter = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT);
-            Date timeStamp = new Date();
-            String text="";
-            text += "Estimado administrador.";
-            text += "\n\n";
-            text += "Usted ha sido registrado exitosamente en el sistema Amasy.";
-            text += "\n";
-            text += "Sus datos de ingreso son: ";
-            text += "\n";
-            text += "Nombre de usuario: "+userName;
-            text += "\n";
-            text += "Contraseña: "+password;
-            String messageText = text;
-            message.setText(messageText);
-            message.setHeader("X-Mailer", "amasys@usach.cl");
-            message.setSentDate(timeStamp);
-            // Send message
-            Transport.send(message);
-            System.out.println("Mail sent to " + recipient + ".");
-        } catch (MessagingException ex) {
-            ex.printStackTrace();
-            System.out.println("Error in ConfirmerBean for " + recipient);
-        }
-        return false;
-
-    }
     
     private String newPass(String emailRut) {
         emailRut = MD5(emailRut+MD5(emailRut));
