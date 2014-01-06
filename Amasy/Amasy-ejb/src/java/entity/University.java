@@ -10,13 +10,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
  *
  * @author Pingeso
  */
+@NamedQueries({
+    @NamedQuery(name = "University.getAllUniversities", query = "SELECT u From University u")
+})
 @Entity
 public class University implements Serializable {
 

@@ -14,31 +14,38 @@
             <p:menuitem value="Profesores" styleClass="#{menuLogicMB.isTeacherView(view.viewId)}" url="/faces/admin/teacherMaintainer/viewAllTeacher.xhtml" />
             <p:menuitem value="Cursos" styleClass="#{menuLogicMB.isCourseViewAdmin(view.viewId)}" url="/faces/admin/courseMaintainer/viewAllCourse.xhtml" />
             <p:menuitem value="Administradores" styleClass="#{menuLogicMB.isAdminView(view.viewId)}" url="/faces/admin/adminMaintainer/viewAllAdmin.xhtml" />
+            <p:menuitem value="Universidades" styleClass="#{menuLogicMB.isUniversityView(view.viewId)}" url="/faces/admin/universityMaintainer/viewAllUniversity.xhtml" />
         </p:menubar>
     </ui:define>
     <ui:define name="west">
         <p:menu styleClass="#{menuLogicMB.isNotStudentView(view.viewId)} menuLateral">
             <p:submenu label="Mantendor">
                 <p:menuitem value="Ver Alumnos" styleClass="#{menuLogicMB.isViewStudent(view.viewId)}" outcome="/faces/admin/studentMaintainer/viewAllStudent.xhtml"/> 
-                <p:menuitem value="Agregar alumno" styleClass="#{menuLogicMB.isAddStudent(view.viewId)}" outcome="/faces/admin/studentMaintainer/addStudent.xhtml"/>                
+                <p:menuitem value="Agregar Alumno" styleClass="#{menuLogicMB.isAddStudent(view.viewId)}" outcome="/faces/admin/studentMaintainer/addStudent.xhtml"/>                
             </p:submenu>
         </p:menu>
         <p:menu styleClass="#{menuLogicMB.isNotTeacherView(view.viewId)} menuLateral">
             <p:submenu  label="Mantenedor">
                 <p:menuitem value="Ver Profesores" styleClass="#{menuLogicMB.isViewTeacher(view.viewId)}" outcome="/faces/admin/teacherMaintainer/viewAllTeacher.xhtml"/> 
-                <p:menuitem value="Agregar Profesores" styleClass="#{menuLogicMB.isAddTeacher(view.viewId)}" outcome="/faces/admin/teacherMaintainer/addTeacher.xhtml"/>                
+                <p:menuitem value="Agregar Profesor" styleClass="#{menuLogicMB.isAddTeacher(view.viewId)}" outcome="/faces/admin/teacherMaintainer/addTeacher.xhtml"/>                
             </p:submenu>
         </p:menu>
             <p:menu styleClass="#{menuLogicMB.isNotCourseViewAdmin(view.viewId)} menuLateral">
             <p:submenu  label="Mantenedor">
                 <p:menuitem value="Ver Cursos" styleClass="#{menuLogicMB.isViewCourseAdmin(view.viewId)}" outcome="/faces/admin/courseMaintainer/viewAllCourse.xhtml"/> 
-                <p:menuitem value="Agregar Cursos" styleClass="#{menuLogicMB.isAddCourseAdmin(view.viewId)}" outcome="/faces/admin/courseMaintainer/addCourse.xhtml"/> 
+                <p:menuitem value="Agregar Curso" styleClass="#{menuLogicMB.isAddCourseAdmin(view.viewId)}" outcome="/faces/admin/courseMaintainer/addCourse.xhtml"/> 
             </p:submenu>
         </p:menu>
         <p:menu styleClass="#{menuLogicMB.isNotAdminView(view.viewId)} menuLateral">
             <p:submenu  label="Mantenedor">
                 <p:menuitem value="Ver Administradores" styleClass="#{menuLogicMB.isViewAdmin(view.viewId)}" outcome="/faces/admin/adminMaintainer/viewAllAdmin.xhtml"/> 
-                <p:menuitem value="Agregar Administradores" styleClass="#{menuLogicMB.isAddAdmin(view.viewId)}" outcome="/faces/admin/adminMaintainer/addAdmin.xhtml"/> 
+                <p:menuitem value="Agregar Administrador" styleClass="#{menuLogicMB.isAddAdmin(view.viewId)}" outcome="/faces/admin/adminMaintainer/addAdmin.xhtml"/> 
+            </p:submenu>
+        </p:menu>
+        <p:menu styleClass="#{menuLogicMB.isNotUniversityView(view.viewId)} menuLateral">
+            <p:submenu  label="Mantenedor">
+                <p:menuitem value="Ver Universidades" styleClass="#{menuLogicMB.isViewUniversity(view.viewId)}" outcome="/faces/admin/universityMaintainer/viewAllUniversity.xhtml"/> 
+                <p:menuitem value="Agregar Universidad" styleClass="#{menuLogicMB.isAddUniversity(view.viewId)}" outcome="/faces/admin/universityMaintainer/addUniversity.xhtml"/> 
             </p:submenu>
         </p:menu>
     </ui:define>
