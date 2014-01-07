@@ -15,13 +15,13 @@ public class UniversityDTO {
     private Long id;
     private String name;
     private int rut;
-    private String direction;
+    private String address;
 
     public UniversityDTO() {
     }
     
     public UniversityDTO(University university) {
-        this.direction = university.getDirection();
+        this.address = university.getAddress();
         this.id = university.getId();
         this.name = university.getName();
         this.rut = university.getRut();
@@ -51,12 +51,12 @@ public class UniversityDTO {
         this.rut = rut;
     }
 
-    public String getDirection() {
-        return direction;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 }

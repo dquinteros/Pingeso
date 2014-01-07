@@ -46,15 +46,8 @@ public class AddAdminMB {
             if(newAdmin.getRut().contains("K")) newAdmin.setRut(newAdmin.getRut().replace("K",""));
             else newAdmin.setRut(newAdmin.getRut().substring(0, newAdmin.getRut().length()-1));
             r = adminManagementSB.insertNewAdmin(newAdmin);
-        }else{
-            r.setIdError(110);
-            //Aqui hay que hacer que diga que el rut no es valido, en la vista
-        }
-        System.out.println(r.getIdError());
+        }else r.setIdError(110);
         UtilitiesMB.showFeedback(r);
-        //FacesContext fc = FacesContext.getCurrentInstance();
-        //FacesContext.getCurrentInstance().getMessages("asdf")
-        //fc.addMessage(, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Hola"," Hubo un error"));
     }
     
     private String parseRut(String rut) {

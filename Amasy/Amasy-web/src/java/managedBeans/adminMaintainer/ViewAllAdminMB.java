@@ -45,7 +45,6 @@ public class ViewAllAdminMB {
     }
     
     public void editAdmin(Long idUser){
-        System.out.println(idUser);
         this.adminMaintainerConversation.beginConversation();
         this.adminMaintainerConversation.setIdUser(idUser);
         UtilitiesMB.redirection("/faces/admin/adminMaintainer/editAdmin.xhtml?cid=".concat(this.adminMaintainerConversation.getConversation().getId().toString()));

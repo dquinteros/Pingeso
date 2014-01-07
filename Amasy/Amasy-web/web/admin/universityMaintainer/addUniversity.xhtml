@@ -7,7 +7,25 @@
                 xmlns:f="http://java.sun.com/jsf/core">
     
     <ui:define name="content">
-        
+        <h3>Agregar nueva universidad</h3>
+        <h:form id="form">
+            <p:growl for="growl" life="3000"/>
+            <h:panelGrid id="grid" columns="3" cellpadding="4">
+                <h:outputText value="Nombre: *" />  
+                <p:inputText id="name" required="true" value="#{addUniversityMB.newUniversity.name}" requiredMessage="Nombre obligatorio">                    
+                </p:inputText>
+                <p:message for="name" display="text" id="asdf"/>                               
+                
+                <h:outputText value="Rut: *" />  
+                <p:inputText id="rut" required="true" value="#{addUniversityMB.rutTemp}" requiredMessage="Rut obligatorio"/>  
+                <p:message for="rut" display="text"/>  
+                
+                <h:outputText value="Dirección: *" />  
+                <p:inputText id="address" required="true" value="#{addUniversityMB.newUniversity.address}" requiredMessage="Dirección obligatoria"/>
+                <p:message for="address" display="text"/>  
+            </h:panelGrid>
+            <p:commandButton id="submitButton" value="Crear universidad " update="form" action="#{addUniversityMB.insertNewUniversity()}"/>
+        </h:form>
     </ui:define>
     
 </ui:composition>

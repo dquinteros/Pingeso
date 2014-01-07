@@ -10,8 +10,7 @@
         <h:form id="form">  
             <p:growl for="growl" life="3000"/>
             <p:dataTable  var="universityDTO" value="#{viewAllUniversityMB.universityList.listUniversity}" rowKey="#{universityDTO.rut}" paginator="true" rows="10"  
-                          filteredValue="#{viewAllUniversityMB.filteredUniversities}" id="universityDTOTable" selection="#{viewAllUniversityMB.selectedUniversity}" selectionMode="single">
-                <p:ajax event="rowSelect" update=":form:display" oncomplete="universityDialog.show()" />  
+                          filteredValue="#{viewAllUniversityMB.filteredUniversities}" id="universityDTOTable" emptyMessage="No se encuentran universidades"> 
                 <f:facet name="header">  
                     Lista de universidades
                 </f:facet>  
@@ -20,32 +19,17 @@
                 </p:column>  
                 <p:column headerText="Rut" sortBy="rut" filterBy="rut" id="rut">
                     #{universityDTO.rut}  
-                </p:column>                     
-
-                <p:column styleClass="center" headerText="Eliminar/Editar">
-                    <p:commandButton id="editAdminButton" icon="ui-icon-pencil" title="Editar"/>
-                    <p:tooltip for="editAdminButton" value="Editar" showEffect="fade" hideEffect="fade"/> 
-                    
-                    <p:commandButton id="submitButton" icon="ui-icon-closethick" title="Eliminar" update=":form"/>
-                    <p:tooltip for="submitButton" value="Eliminar" showEffect="fade" hideEffect="fade" /> 
-                    
+                </p:column>                    
+                <p:column headerText="Dirección" sortBy="address" filterBy="address" id="address">
+                    #{universityDTO.address}  
                 </p:column>
-
+                <p:column styleClass="center" headerText="Eliminar/Editar">
+                    <p:commandButton id="editAdminButton" icon="ui-icon-pencil" title="Editar" action="#{viewAllUniversityMB.editAdmin(universityDTO.id)}"/>
+                    <p:tooltip for="editAdminButton" value="Editar" showEffect="fade" hideEffect="fade"/>                     
+                    <p:commandButton id="submitButton" icon="ui-icon-closethick" title="Eliminar" update=":form" action="#{viewAllUniversityMB.deleteUniversity(universityDTO.id)}"/>
+                    <p:tooltip for="submitButton" value="Eliminar" showEffect="fade" hideEffect="fade" />                     
+                </p:column>
             </p:dataTable>  
-            <p:dialog header="Datos universidad" widgetVar="universityDialog" resizable="false"  
-                      showEffect="explode" hideEffect="explode"  styleClass="headerDialog">  
-                <h:panelGrid id="display" columns="2" cellpadding="4">  
-                    <f:facet name="header">  
-                        <p:outputLabel value=""/>  
-                    </f:facet>
-                    <h:outputText value="Rut:" />  
-                    <h:outputText value="#{viewAllUniversityMB.selectedUniversity.rut}" id="rut"/>
-                    <h:outputText value="Nombre:" />  
-                    <h:outputText value="#{viewAllUniversityMB.selectedUniversity.name}" id="name"/>  
-                    <h:outputText value="Dirección:" />  
-                    <h:outputText value="#{viewAllUniversityMB.selectedUniversity.direction}" id="direction"/>  
-                </h:panelGrid>  
-            </p:dialog>  
         </h:form>
     </ui:define>
     

@@ -12,9 +12,7 @@ import entity.User;
 import entity.UserType;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.DateFormat;
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,12 +22,6 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -280,16 +272,12 @@ public class AdminManagementSB implements AdminManagementSBLocal {
         Long count = (Long) q.getSingleResult();
         System.out.println("Cantidad de administradores: "+count);
         if(count > 2){
-            System.out.println(id);
             User u = em.find(User.class, id);
             if (u == null) {
-                System.out.println("nulo");
                 return new AnswerDTO(120);
             } else if (u.isUserStatus() == false) {
-                System.out.println("ya cambiado");
                 return new AnswerDTO(121);
             } else {
-                System.out.println("Bien");
                 u.setUserStatus(false);
                 persistUpdate(u);
             }

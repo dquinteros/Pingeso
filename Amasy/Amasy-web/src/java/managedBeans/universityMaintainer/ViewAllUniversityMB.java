@@ -4,13 +4,17 @@
  */
 package managedBeans.universityMaintainer;
 
+import DTOs.AnswerDTO;
 import DTOs.ListUniversityDTO;
 import DTOs.UniversityDTO;
+import java.util.Collection;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import managedBeans.UtilitiesMB;
 import sessionBeans.universityManagement.UniversityManagementSBLocal;
 
 /**
@@ -22,6 +26,9 @@ import sessionBeans.universityManagement.UniversityManagementSBLocal;
 public class ViewAllUniversityMB {
     @EJB
     private UniversityManagementSBLocal universityManagementSB;
+    
+    @Inject 
+    private UniversityMaintainerConversationalMB universityMaintainerConversation;
 
     private ListUniversityDTO universityList;
     private UniversityDTO selectedUniversity;
@@ -38,6 +45,18 @@ public class ViewAllUniversityMB {
     public void getUniversity(){       
         universityList = universityManagementSB.getAllUniversity();
     }
+    
+    public void editAdmin(Long idUniversity){
+        this.universityMaintainerConversation.beginConversation();
+        this.universityMaintainerConversation.setIdUniversity(idUniversity);
+        UtilitiesMB.redirection("/faces/admin/universityMaintainer/editUniversity.xhtml?cid=".concat(this.universityMaintainerConversation.getConversation().getId().toString()));
+    }
+    
+    public void deleteUniversity(Long idUniversity){        
+        AnswerDTO ans = universityManagementSB.deleteUniversity(idUniversity);
+        init();
+        UtilitiesMB.showFeedback(ans);
+   }
 
     public ListUniversityDTO getUniversityList() {
         return universityList;
@@ -54,6 +73,7 @@ public class ViewAllUniversityMB {
     public void setSelectedUniversity(UniversityDTO selectedUniversity) {
         this.selectedUniversity = selectedUniversity;
     }
+
 
     public List<UniversityDTO> getFilteredUniversities() {
         return filteredUniversities;

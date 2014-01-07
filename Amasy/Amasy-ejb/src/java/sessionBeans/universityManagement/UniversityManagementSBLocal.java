@@ -4,7 +4,9 @@
  */
 package sessionBeans.universityManagement;
 
+import DTOs.AnswerDTO;
 import DTOs.ListUniversityDTO;
+import DTOs.UniversityDTO;
 import DTOs.UserDTO;
 import java.util.LinkedList;
 import javax.ejb.Local;
@@ -17,5 +19,13 @@ import javax.ejb.Local;
 public interface UniversityManagementSBLocal {
     
     ListUniversityDTO getAllUniversity();
+    
+    AnswerDTO insertNewUniversity(UniversityDTO university, String rutTemp);
+    
+    UniversityDTO getUniversityById(Long universityId);
+    
+    AnswerDTO updateUniversity(UniversityDTO newUniversity, Long universityId);
+    
+    AnswerDTO deleteUniversity(Long id);
     
 }

@@ -12,9 +12,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import managedBeans.UtilitiesMB;
-import managedBeans.teacherMaintainer.TeacherMaintainerConversationalMB;
 import sessionBeans.adminManagement.AdminManagementSBLocal;
-import sessionBeans.teacherManagement.TeacherManagementSBLocal;
 
 /**
  *
@@ -43,18 +41,13 @@ public class EditAdminMB {
      */
     @PostConstruct
     public void init() {
-        System.out.println(adminMaintainerConversation.getIdUser());
         adminId = adminMaintainerConversation.getIdUser();
         newUserDTO = adminManagementSB.getAdminById(adminId);
     }
     
     public void editCurrentAdmin(){
         r = adminManagementSB.updateAdmin(newUserDTO, adminId);
-        if(r.getIdError()==0){
-            UtilitiesMB.showFeedback(r);        
-        }else{
-            UtilitiesMB.showFeedback(r);        
-        }        
+        UtilitiesMB.showFeedback(r);
     }
     
     /**

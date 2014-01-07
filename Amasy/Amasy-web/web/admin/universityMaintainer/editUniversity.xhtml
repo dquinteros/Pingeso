@@ -7,7 +7,26 @@
                 xmlns:f="http://java.sun.com/jsf/core">
     
     <ui:define name="content">
-        
+        <h3>Editar administrador</h3>
+        <h:form id="form">
+            <p:growl for="growl" life="3000"/>
+            <h:panelGrid id="grid" columns="3" cellpadding="4">
+                
+                <h:outputText value="Rut: *" />  
+                <p:inputText id="rut" value="#{editUniversityMB.newUniversity.rut}" disabled="true"/>
+                <p:message for="rut"/>
+                
+                <h:outputText value="Nombre: *" />  
+                <p:inputText id="name" value="#{editUniversityMB.newUniversity.name}"/>
+                <p:message for="name"/>
+                
+                <h:outputText value="Dirección: *" />  
+                <p:inputText id="address" value="#{editUniversityMB.newUniversity.address}"/>
+                <p:message for="address"/>
+                
+            </h:panelGrid>
+            <p:commandButton id="submitButton" value="Guardar cambios" update="form" action="#{editUniversityMB.editCurrentUniversity()}"/>  
+        </h:form>
     </ui:define>
     
 </ui:composition>

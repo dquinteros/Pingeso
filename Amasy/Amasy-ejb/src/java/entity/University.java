@@ -19,7 +19,8 @@ import javax.persistence.OneToMany;
  * @author Pingeso
  */
 @NamedQueries({
-    @NamedQuery(name = "University.getAllUniversities", query = "SELECT u From University u")
+    @NamedQuery(name = "University.getAllUniversities", query = "SELECT u From University u WHERE u.universityStatus = true"),
+    @NamedQuery(name = "University.countUniversitiesByName", query = "SELECT COUNT(u) FROM University u WHERE u.name = :name AND u.universityStatus = true")
 })
 @Entity
 public class University implements Serializable {
@@ -30,7 +31,9 @@ public class University implements Serializable {
     private Long id;
     private String name;
     private int rut;
-    private String direction;
+    private String address;
+    private boolean universityStatus;
+    
     @OneToMany(mappedBy = "university")
     private List<Course> listCourse;
     @OneToMany(mappedBy = "university")
@@ -60,12 +63,12 @@ public class University implements Serializable {
         this.rut = rut;
     }
 
-    public String getDirection() {
-        return direction;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public List<Course> getListCourse() {
@@ -82,6 +85,14 @@ public class University implements Serializable {
 
     public void setListStudent(List<Student> listStudent) {
         this.listStudent = listStudent;
+    }
+
+    public boolean isUniversityStatus() {
+        return universityStatus;
+    }
+
+    public void setUniversityStatus(boolean universityStatus) {
+        this.universityStatus = universityStatus;
     }
 
     @Override

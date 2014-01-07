@@ -123,7 +123,13 @@ public class UtilitiesMB {
             case 135:
                 return "Debe escoger un grupo para eliminar";
             case 136:
-                return "Debe escoger un grupo para asignar integrantes";                                   
+                return "Debe escoger un grupo para asignar integrantes";
+            case 137:
+                return "Error con el registro de la universidad";
+            case 138:
+                return "El nombre de la universidad ya existe";
+            case 139:
+                return "No se pudo actualizar los datos de la universidad";
             default:
                 return "Error";
         }
@@ -152,6 +158,8 @@ public class UtilitiesMB {
             case 134:
                 return "success";
             case 135:
+                return "warning";
+            case 138:
                 return "warning";
             default:
                 return "error";
