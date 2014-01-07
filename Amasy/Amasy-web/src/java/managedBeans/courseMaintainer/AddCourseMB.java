@@ -6,6 +6,7 @@ package managedBeans.courseMaintainer;
 
 import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
+import DTOs.ListUniversityDTO;
 import DTOs.UserDTO;
 import java.util.LinkedList;
 import javax.annotation.PostConstruct;
@@ -15,6 +16,7 @@ import javax.enterprise.context.RequestScoped;
 import managedBeans.UtilitiesMB;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
 import sessionBeans.teacherManagement.TeacherManagementSBLocal;
+import sessionBeans.universityManagement.UniversityManagementSBLocal;
 
 /**
  *
@@ -25,6 +27,8 @@ import sessionBeans.teacherManagement.TeacherManagementSBLocal;
 public class AddCourseMB {
 
     @EJB
+    private UniversityManagementSBLocal universityManagementSB;
+    @EJB
     private TeacherManagementSBLocal teacherManagementSB;
     @EJB
     private CourseManagementSBLocal courseManagementSB;
@@ -32,6 +36,8 @@ public class AddCourseMB {
     private CourseDTO newCourse;
     private LinkedList<UserDTO> userList;
     private UserDTO user;
+    private ListUniversityDTO listUniversityDTO;
+    private Long selectedIdUniversity;
 
     /**
      * Creates a new instance of AddCourseMB
@@ -46,7 +52,7 @@ public class AddCourseMB {
     public void init() {
         newCourse = new CourseDTO();
         userList = teacherManagementSB.getAllTeacher();
-        System.out.println("userList = " + userList.size());
+        listUniversityDTO = universityManagementSB.getAllUniversity();
     }
 
     /**
@@ -55,7 +61,7 @@ public class AddCourseMB {
     public void insertNewCourse() {
         AnswerDTO r = new AnswerDTO();
         newCourse.setLevel(newCourse.getLevel());
-        r = courseManagementSB.insertNewCourse(newCourse, selectedIdUser);
+        r = courseManagementSB.insertNewCourse(newCourse, selectedIdUser, selectedIdUniversity);
         UtilitiesMB.showFeedback(r);
     }
 
@@ -97,5 +103,21 @@ public class AddCourseMB {
 
     public void setSelectedIdUser(Long selectedIdUser) {
         this.selectedIdUser = selectedIdUser;
+    }
+
+    public ListUniversityDTO getListUniversityDTO() {
+        return listUniversityDTO;
+    }
+
+    public void setListUniversityDTO(ListUniversityDTO listUniversityDTO) {
+        this.listUniversityDTO = listUniversityDTO;
+    }
+
+    public Long getSelectedIdUniversity() {
+        return selectedIdUniversity;
+    }
+
+    public void setSelectedIdUniversity(Long selectedIdUniversity) {
+        this.selectedIdUniversity = selectedIdUniversity;
     }
 }

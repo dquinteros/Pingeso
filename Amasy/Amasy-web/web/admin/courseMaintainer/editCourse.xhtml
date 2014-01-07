@@ -14,12 +14,26 @@
                 <p:inputText id="name" required="true" value="#{editCourseMB.currentCourseDTO.name}" requiredMessage="Nombre obligatorio">                    
                 </p:inputText>
                 <p:message for="name" display="text" id="asdf"/>
-                
+
                 <h:outputText value="Nivel: *" />  
                 <p:inputText id="level" required="true" value="#{editCourseMB.currentCourseDTO.level}" requiredMessage="Nivel obligatorio" validatorMessage="El nivel solo puede ser numérico">
                     <f:validateRegex for="level" pattern="[0-9]*"/>
                 </p:inputText>
                 <p:message for="level" display="text" />                                                                   
+
+                <h:outputText value="Universidad: *" />  
+                <p:selectOneMenu id="university" required="true" value="#{editCourseMB.selectedIdUniversity}" requiredMessage="Universidad obligatoria">
+                    <f:selectItem itemLabel="---" itemValue=""/>
+                    <f:selectItems itemValue="#{university.id}" itemLabel="#{university.name}(#{university.rut})" var="university" value="#{addCourseMB.listUniversityDTO.listUniversity}"/>  
+                </p:selectOneMenu>
+                <p:message for="university" display="text" />
+
+                <h:outputText value="Profesor: *" />  
+                <p:selectOneMenu id="teacher" value="#{editCourseMB.selectedIdUser}">
+                    <f:selectItem itemLabel="---" itemValue=""/>
+                    <f:selectItems itemValue="#{teacher.id}" itemLabel="#{teacher.firstName} #{teacher.lastName}(#{teacher.rut})" var="teacher" value="#{addCourseMB.userList}"/>  
+                </p:selectOneMenu>  
+
             </h:panelGrid>  
             <p:commandButton id="submitButton" value="Editar curso" update="form" action="#{editCourseMB.editCurrentCourse()}"/>  
         </h:form> 

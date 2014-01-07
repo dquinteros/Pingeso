@@ -23,11 +23,19 @@
                     <f:validateRegex for="level" pattern="[0-9]*"/>
                 </p:inputText>
                 <p:message for="level" display="text" />
+                
+                <h:outputText value="Universidad: *" />  
+                <p:selectOneMenu id="university" required="true" value="#{addCourseMB.selectedIdUniversity}" requiredMessage="Universidad obligatoria">
+                    <f:selectItem itemLabel="---" itemValue=""/>
+                    <f:selectItems itemValue="#{university.id}" itemLabel="#{university.name}(#{university.rut})" var="university" value="#{addCourseMB.listUniversityDTO.listUniversity}"/>  
+                </p:selectOneMenu>
+                <p:message for="university" display="text" />
+                
                 <h:outputText value="Profesor: *" />  
                 <p:selectOneMenu id="teacher" value="#{addCourseMB.selectedIdUser}">
                     <f:selectItem itemLabel="---" itemValue=""/>
                     <f:selectItems itemValue="#{teacher.id}" itemLabel="#{teacher.firstName} #{teacher.lastName}(#{teacher.rut})" var="teacher" value="#{addCourseMB.userList}"/>  
-                </p:selectOneMenu>  
+                </p:selectOneMenu>                
             </h:panelGrid>  
             <p:commandButton id="submitButton" value="Crear curso" update="form" action="#{addCourseMB.insertNewCourse()}"/>  
         </h:form> 

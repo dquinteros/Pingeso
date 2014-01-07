@@ -29,6 +29,7 @@ import entity.Course;
 import entity.GroupStudentPerCourse;
 import entity.Student;
 import entity.Teacher;
+import entity.University;
 import entity.User;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -142,6 +143,10 @@ public class CourseManagementSB implements CourseManagementSBLocal {
         for (Course iter : result) {
             courseDTOTemp = new CourseDTO(iter);
             courseDTOTemp.setNameUniversity(iter.getUniversity().getName());
+            if(iter.getTeacher()!=null){
+                courseDTOTemp.setTeacher(new UserDTO(iter.getTeacher().getUser()));
+            }                        
+            courseDTOTemp.setNameUniversity(iter.getUniversity().getName());
             listCourseTemp.add(courseDTOTemp);            
         }
         exitResult.setListCourse(listCourseTemp);
@@ -163,7 +168,7 @@ public class CourseManagementSB implements CourseManagementSBLocal {
      * @return
      */
     @Override    
-    public AnswerDTO insertNewCourse(CourseDTO courseDTO, Long idUser) {        
+    public AnswerDTO insertNewCourse(CourseDTO courseDTO, Long idUser, Long idUniversity) {        
         AnswerDTO existCourseName = validateCourseRegistry(courseDTO);
         if (existCourseName.getIdError() != 0) {
             return existCourseName;
@@ -173,6 +178,8 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             Teacher teacher = em.find(User.class, idUser).getTeacher();
             course.setTeacher(teacher);
         }        
+        University university = em.find(University.class, idUniversity);
+        course.setUniversity(university);
         persistInsert(course);
         return new AnswerDTO(0);
     }
@@ -235,7 +242,13 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     @Override
     public CourseDTO getCourseById(Long courseId) {
         Course course = em.find(Course.class, courseId);
-        return new CourseDTO(course);
+        CourseDTO courseDTO = new CourseDTO(course);
+        if(course.getTeacher()!=null){
+            courseDTO.setTeacher(new UserDTO(course.getTeacher().getUser()));            
+        }
+        courseDTO.setNameUniversity(course.getUniversity().getName());
+        courseDTO.setIdUniversity(course.getUniversity().getId());
+        return courseDTO;
     }
     
     @Override
@@ -300,10 +313,18 @@ public class CourseManagementSB implements CourseManagementSBLocal {
     }
     
     @Override
-    public AnswerDTO updateCourse(CourseDTO courseDTO, Long idCourse) {
+    public AnswerDTO updateCourse(CourseDTO courseDTO, Long idCourse, Long idUniversity, Long idUser) {
         Course course = em.find(Course.class, idCourse);
+        University university = em.find(University.class, idUniversity);
         course.setName(courseDTO.getName());
         course.setLevel(courseDTO.getLevel());
+        course.setUniversity(university);
+        if(idUser!=null){
+            Teacher teacher = em.find(User.class, idUser).getTeacher();
+            course.setTeacher(teacher);
+        }else{
+            course.setTeacher(null);
+        }
         if (persistUpdate(course)) {
             return new AnswerDTO(0);
         } else {

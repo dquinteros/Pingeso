@@ -5,6 +5,7 @@
 package DTOs;
 
 import entity.Course;
+import entity.User;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -24,6 +25,8 @@ public class CourseDTO {
     private int minutesAfterClassStart;
     private int minutesBeforeClassStart;
     private String nameUniversity;
+    private UserDTO teacher;
+    private Long idUniversity;
 
     /**
      *
@@ -35,6 +38,24 @@ public class CourseDTO {
         this.level = course.getLevel();
         this.minutesAfterClassStart = course.getMinutesAfterClassStart();
         this.minutesBeforeClassStart = course.getMinutesBeforeClassStart();
+        this.teacher = new UserDTO();
+        this.teacher.setFirstName("");
+        this.teacher.setLastName("");
+    }
+
+    public CourseDTO(Course course, User teacher) {
+        this.id = course.getId();
+        this.name = course.getName();
+        this.level = course.getLevel();
+        this.minutesAfterClassStart = course.getMinutesAfterClassStart();
+        this.minutesBeforeClassStart = course.getMinutesBeforeClassStart();
+        if (teacher != null) {
+            this.teacher = new UserDTO(teacher);
+        } else {
+            this.teacher = new UserDTO();
+            this.teacher.setFirstName("");
+            this.teacher.setLastName("");
+        }
     }
 
     /**
@@ -105,5 +126,21 @@ public class CourseDTO {
 
     public void setNameUniversity(String nameUniversity) {
         this.nameUniversity = nameUniversity;
+    }
+
+    public UserDTO getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(UserDTO teacher) {
+        this.teacher = teacher;
+    }
+
+    public Long getIdUniversity() {
+        return idUniversity;
+    }
+
+    public void setIdUniversity(Long idUniversity) {
+        this.idUniversity = idUniversity;
     }
 }

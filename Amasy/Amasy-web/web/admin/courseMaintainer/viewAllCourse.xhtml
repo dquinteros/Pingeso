@@ -14,12 +14,20 @@
                 <f:facet name="header">  
                     Lista de cursos
                 </f:facet>  
+                <p:column headerText="Universidad" sortBy="nameUniversity" filterBy="nameUniversity" id="nameUniversity">  
+                    #{courseDTO.nameUniversity}
+                </p:column>  
                 <p:column headerText="Curso" sortBy="name" filterBy="name" id="name">  
                     #{courseDTO.name}
                 </p:column>  
                 <p:column headerText="Nivel" sortBy="level" filterBy="level" id="level" styleClass="center">  
                     #{courseDTO.level}  
                 </p:column>                    
+                <p:column headerText="Profesor(RUT)" sortBy="teacher.rut" filterBy="teacher.rut" id="rut">  
+                    <p:panel visible="#{courseDTO.teacher.rut!=0}" style="border: none">
+                        #{courseDTO.teacher.lastName}(#{courseDTO.teacher.rut})
+                    </p:panel>                     
+                </p:column>  
                 <p:column styleClass="center" headerText="Acciones">
                     <p:commandButton id="editCourseButton" icon="ui-icon-pencil" action="#{viewAllCourseMB.editCourse(courseDTO.id)}"/>
                     <p:tooltip for="editCourseButton" value="Editar" showEffect="fade" hideEffect="fade"/>

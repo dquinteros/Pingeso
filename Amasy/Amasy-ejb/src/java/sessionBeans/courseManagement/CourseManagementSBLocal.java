@@ -27,7 +27,7 @@ public interface CourseManagementSBLocal {
 
     ListCourseDTO getAllCourse();
 
-    AnswerDTO insertNewCourse(CourseDTO courseDTO, Long idUser);
+    AnswerDTO insertNewCourse(CourseDTO courseDTO, Long idUser, Long idUniversity);
 
     CourseDTO getCourseByName(String courseName);
 
@@ -37,7 +37,7 @@ public interface CourseManagementSBLocal {
 
     AnswerDTO allocateBlockclassesoToCourse(Long idCourse, BlockClassDTO blockClassDTO);
 
-    AnswerDTO updateCourse(CourseDTO courseDTO, Long courseId);
+    AnswerDTO updateCourse(CourseDTO courseDTO, Long courseId, Long idUniversity, Long idUser);
 
     TimeBlockClassListDTO getAllTimeBlockClass();
 
