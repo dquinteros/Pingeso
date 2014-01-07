@@ -28,8 +28,6 @@ public class Teacher implements Serializable {
 
     @OneToOne
     private Course course;
-    @OneToOne
-    private JustifiedAudit justifiedAudit;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -93,14 +91,6 @@ public class Teacher implements Serializable {
 
     public void setCourse(Course course) {
         this.course = course;
-    }
-
-    public JustifiedAudit getJustifiedAudit() {
-        return justifiedAudit;
-    }
-
-    public void setJustifiedAudit(JustifiedAudit justifiedAudit) {
-        this.justifiedAudit = justifiedAudit;
     }
 
     /**

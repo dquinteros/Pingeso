@@ -11,11 +11,13 @@ import DTOs.AssistanceDTO;
 import DTOs.AssistanceListDTO;
 import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
+import DTOs.UniversityDTO;
 import entity.Assistance;
 import entity.AssistanceState;
 import entity.BlockClass;
 import entity.Course;
 import entity.Student;
+import entity.University;
 import entity.User;
 import entity.UserType;
 import java.security.MessageDigest;
@@ -160,11 +162,34 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         String roll = "Alumno";
         User user = newUser(userDTO, password, roll);
         Student newStudent = new Student();
-        newStudent.setIncomeYear(enrollYear);
-        persistInsert(user);
+        newStudent.setIncomeYear(enrollYear);        
         newStudent.setUser(user);
-        persistInsert(newStudent);
+        University university = em.find(University.class, userDTO.getUniversityDTO().getId());
+        newStudent.setUniversity(university);
+        user.setStudent(newStudent);
+        university.getListStudent().add(newStudent);        
+        persistanceInsertNewStudent(user, newStudent, university);
         return new AnswerDTO(0);
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    private boolean persistanceInsertNewStudent(User user, Student student, University university){
+        try {
+            ut.begin(); // Start a new transaction
+            try {
+                em.persist(user);
+                em.persist(student);
+                em.merge(university);
+                ut.commit(); // Commit the transaction
+                return true;
+            } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException e) {
+                ut.rollback(); // Rollback the transaction
+                return false;
+            }
+        } catch (NotSupportedException | SystemException ex) {
+            Logger.getLogger(TakeAttendanceSB.class.getName()).log(Level.SEVERE, null, ex); // Rollback the transaction
+            return false;
+        }
     }
 
     /**
@@ -199,6 +224,7 @@ public class StudentManagementSB implements StudentManagementSBLocal {
     public NewUserDTO getStudentById(long userId) {
         User user = em.find(User.class, userId);
         NewUserDTO newUser = new NewUserDTO(user);
+        newUser.setUniversityDTO(new UniversityDTO(user.getStudent().getUniversity()));
         return newUser;
     }
 

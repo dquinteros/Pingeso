@@ -36,8 +36,6 @@ public class Assistance implements Serializable {
     
     @ManyToOne
     private Student student;
-    @OneToOne
-    private JustifiedAudit justifiedAudit;
     private static final long serialVersionUID = 1L;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date date;
@@ -91,15 +89,7 @@ public class Assistance implements Serializable {
     public void setStudent(Student student) {
         this.student = student;
     }
-
-    public JustifiedAudit getJustifiedAudit() {
-        return justifiedAudit;
-    }
-
-    public void setJustifiedAudit(JustifiedAudit justifiedAudit) {
-        this.justifiedAudit = justifiedAudit;
-    }
-
+    
     public BlockClass getBlockClass() {
         return blockClass;
     }

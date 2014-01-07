@@ -56,18 +56,14 @@ public class EnrollStudentOnCourseMB {
     private void init() {
         idUser = studentMaintainerConversation.getIdUser();
         getAllCourseFromStudent();
+        newUserDTO = studentManagementSB.getStudentById(idUser);
     }
 
     private void getAllCourseFromStudent() {
         ListCourseDTO listCourseDTO = studentManagementSB.getCoursesFromStudent(idUser);
         listCourseFromStudent = new LinkedList<>(listCourseDTO.getListCourse());
-
-
-        listCourseDTO = courseManagementSB.getAllCourse();
-        listCourseFromAll = new LinkedList<>(listCourseDTO.getListCourse());
-
-        newUserDTO = studentManagementSB.getStudentById(idUser);
-
+        listCourseDTO = courseManagementSB.getAllCourseOfStudentInUniversity(idUser);
+        listCourseFromAll = new LinkedList<>(listCourseDTO.getListCourse());        
     }
 
     public void enrollStudentOnCourse(Long idCourse) {

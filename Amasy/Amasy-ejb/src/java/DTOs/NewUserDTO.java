@@ -15,6 +15,7 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class NewUserDTO {
+
     private String userName;
     private String firstName;
     private String lastName;
@@ -24,28 +25,27 @@ public class NewUserDTO {
     private String fingerprint;
     private String rut;
     private String userType;
-    
+    private UniversityDTO universityDTO;
+
     /**
      *
      */
-    public NewUserDTO(){
-        
+    public NewUserDTO() {
     }
-    
+
     /**
      *
      * @param user
      */
-    public NewUserDTO(User user){
-        rut=String.valueOf(user.getRut());
-        userName=user.getUserName();
-        email=user.getEmail();
-        firstName=user.getFirstName();
-        lastName=user.getLastName();
-        cellPhone=user.getCellPhone();
-        homePhone=user.getHomePhone();
+    public NewUserDTO(User user) {
+        rut = String.valueOf(user.getRut());
+        userName = user.getUserName();
+        email = user.getEmail();
+        firstName = user.getFirstName();
+        lastName = user.getLastName();
+        cellPhone = user.getCellPhone();
+        homePhone = user.getHomePhone();
     }
-    
 
     /**
      *
@@ -189,6 +189,13 @@ public class NewUserDTO {
      */
     public void setUserType(String userType) {
         this.userType = userType;
-    }    
-    
+    }
+
+    public UniversityDTO getUniversityDTO() {
+        return universityDTO;
+    }
+
+    public void setUniversityDTO(UniversityDTO universityDTO) {
+        this.universityDTO = universityDTO;
+    }
 }
