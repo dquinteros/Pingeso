@@ -65,4 +65,6 @@ public interface CourseManagementSBLocal {
     
     AnswerDTO updateGroup(List<Long> ListIdUser, String groupName, Long idCourse);
     
+    ListCourseDTO getAllCourseOfStudentInUniversity(Long idUser);
+    
 }

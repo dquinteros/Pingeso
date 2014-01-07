@@ -5,13 +5,16 @@
 package managedBeans.studentMaintainer;
 
 import DTOs.AnswerDTO;
+import DTOs.ListUniversityDTO;
 import DTOs.NewUserDTO;
+import DTOs.UniversityDTO;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import managedBeans.UtilitiesMB;
 import sessionBeans.studentManagement.StudentManagementSBLocal;
+import sessionBeans.universityManagement.UniversityManagementSBLocal;
 
 /**
  *
@@ -22,9 +25,13 @@ import sessionBeans.studentManagement.StudentManagementSBLocal;
 public class AddStudentMB {
 
     @EJB
+    private UniversityManagementSBLocal universityManagementSB;
+    @EJB
     private StudentManagementSBLocal studentManagementSB;
     private NewUserDTO newStudent;
     private String rutParaValidar;
+    private ListUniversityDTO listUniversityDTO;
+    private Long selectedIdUniversity;
 
     /**
      * Creates a new instance of addStudentMB
@@ -38,6 +45,7 @@ public class AddStudentMB {
     @PostConstruct
     public void init() {
         newStudent = new NewUserDTO();
+        listUniversityDTO = universityManagementSB.getAllUniversity();
     }
 
     /**
@@ -52,16 +60,15 @@ public class AddStudentMB {
             } else {
                 newStudent.setRut(newStudent.getRut().substring(0, newStudent.getRut().length() - 1));
             }
+            UniversityDTO universityDTO = new UniversityDTO();
+            universityDTO.setId(selectedIdUniversity);
+            newStudent.setUniversityDTO(universityDTO);
             r = studentManagementSB.insertNewStudent(newStudent, null);
         } else {
             r.setIdError(110);
-            //Aqui hay que hacer que diga que el rut no es valido, en la vista
         }
         System.out.println(r.getIdError());
         UtilitiesMB.showFeedback(r);
-        //FacesContext fc = FacesContext.getCurrentInstance();
-        //FacesContext.getCurrentInstance().getMessages("asdf")
-        //fc.addMessage(, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Hola"," Hubo un error"));
     }
 
     private String parseRut(String rut) {
@@ -111,5 +118,21 @@ public class AddStudentMB {
      */
     public void setNewStudent(NewUserDTO newStudent) {
         this.newStudent = newStudent;
+    }
+
+    public ListUniversityDTO getListUniversityDTO() {
+        return listUniversityDTO;
+    }
+
+    public void setListUniversityDTO(ListUniversityDTO listUniversityDTO) {
+        this.listUniversityDTO = listUniversityDTO;
+    }
+
+    public Long getSelectedIdUniversity() {
+        return selectedIdUniversity;
+    }
+
+    public void setSelectedIdUniversity(Long selectedIdUniversity) {
+        this.selectedIdUniversity = selectedIdUniversity;
     }
 }

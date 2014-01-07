@@ -6,19 +6,16 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-
     <ui:define name="content">
         <h:outputStylesheet library="css" name="enrolleStudentOnCourse.css" />
         <h3 id="title-inf-student">Información del estudiante estudiante</h3>
- 
         <h:panelGrid id="grid" columns="2" cellpadding="10" cellspacing="10" columnClasses="panelGridInfoStudent">   
             <h:outputLabel value="Nombre: #{enrollStudentOnCourseMB.newUserDTO.firstName} #{enrollStudentOnCourseMB.newUserDTO.lastName}" />  
             <h:outputLabel value="Rut: #{enrollStudentOnCourseMB.newUserDTO.rut}" />  
             <h:outputLabel value="Nombre de usuario: #{enrollStudentOnCourseMB.newUserDTO.userName}" />  
             <h:outputLabel value="Correo electronico: #{enrollStudentOnCourseMB.newUserDTO.email}" /> 
-        </h:panelGrid>                    
-        
-        
+            <h:outputLabel value="Universidad: #{enrollStudentOnCourseMB.newUserDTO.universityDTO.name}" /> 
+        </h:panelGrid>                            
         <h3 id="title-enrolle-student">Inscripción de cursos</h3>
         <h:form id="form">              
             <div id="div-enroll-content-left">             

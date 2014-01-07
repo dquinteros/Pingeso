@@ -11,6 +11,12 @@
         <h:form id="form">
             <p:growl for="growl" life="3000"/>
             <h:panelGrid id="grid" columns="3" cellpadding="4">
+                <h:outputText value="Universidad: *" />  
+                <p:selectOneMenu id="university" required="true" value="#{editStudentMB.selectedIdUniversity}" requiredMessage="Universidad obligatoria" disabled="true">
+                    <f:selectItem itemLabel="---" itemValue=""/>
+                    <f:selectItems itemValue="#{university.id}" itemLabel="#{university.name}(#{university.rut})" var="university" value="#{editStudentMB.listUniversityDTO.listUniversity}"/>  
+                </p:selectOneMenu>
+                <p:message for="university" display="text" />
                 
                 <h:outputText value="Rut: *" />  
                 <p:inputText id="defaulth" value="#{editStudentMB.newUserDTO.rut}" disabled="true"/>

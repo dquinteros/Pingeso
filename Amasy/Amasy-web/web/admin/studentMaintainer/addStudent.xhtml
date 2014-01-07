@@ -14,6 +14,13 @@
             <h3>Agregar nuevo estudiante</h3>
             <p:growl for="growl" life="3000"/>
             <h:panelGrid id="grid" columns="3" cellpadding="4">
+                <h:outputText value="Universidad: *" />  
+                <p:selectOneMenu id="university" required="true" value="#{addStudentMB.selectedIdUniversity}" requiredMessage="Universidad obligatoria">
+                    <f:selectItem itemLabel="---" itemValue=""/>
+                    <f:selectItems itemValue="#{university.id}" itemLabel="#{university.name}(#{university.rut})" var="university" value="#{addStudentMB.listUniversityDTO.listUniversity}"/>  
+                </p:selectOneMenu>
+                <p:message for="university" display="text" />
+                
                 <h:outputText value="Nombre: *" />  
                 <p:inputText id="firstName" required="true" value="#{addStudentMB.newStudent.firstName}" requiredMessage="Nombre obligatorio">                    
                 </p:inputText>
