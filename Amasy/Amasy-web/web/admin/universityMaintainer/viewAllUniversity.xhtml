@@ -23,7 +23,7 @@
                 <p:column headerText="Dirección" sortBy="address" filterBy="address" id="address">
                     #{universityDTO.address}  
                 </p:column>
-                <p:column styleClass="center" headerText="Eliminar/Editar">
+                <p:column styleClass="center" headerText="Acciones">
                     <p:commandButton id="editAdminButton" icon="ui-icon-pencil" title="Editar" action="#{viewAllUniversityMB.editAdmin(universityDTO.id)}"/>
                     <p:tooltip for="editAdminButton" value="Editar" showEffect="fade" hideEffect="fade"/>                     
                     <p:commandButton id="submitButton" icon="ui-icon-closethick" title="Eliminar" update=":form" action="#{viewAllUniversityMB.deleteUniversity(universityDTO.id)}"/>
