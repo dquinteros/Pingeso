@@ -9,7 +9,7 @@
     <ui:define name="content">
         <h:form id="form">  
             <p:dataTable  var="courseDTO" value="#{viewAllCourseMB.courseList}" rowKey="#{courseDTO.name}" paginator="true" rows="10"  
-                          filteredValue="#{viewAllCourseMB.filteredCourses}" id="courseDTOTable" selection="#{viewAllCourseMB.selectedCourse}" selectionMode="single">
+                          filteredValue="#{viewAllCourseMB.filteredCourses}" id="courseDTOTable">
                 <p:growl for="growl" life="3000"/>
                 <f:facet name="header">  
                     Lista de cursos
