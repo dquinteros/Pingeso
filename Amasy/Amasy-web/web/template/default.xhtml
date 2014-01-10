@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    
+
     <f:view contentType="text/html">
         <h:head>            
             <f:facet name="first">
@@ -23,7 +23,24 @@
                         <p:commandButton id="myProfile" icon="ui-icon-person" style="float:right; margin: 15px 15px 0px 0px; z-index:1000" action="#{profileMB.viewProfile()}"/>
                         <p:tooltip for="myProfile" value="Mi Perfil" showEffect="fade" hideEffect="fade"/>
                     </h:form>
-                    <ui:insert name="north"></ui:insert>
+                    <ui:insert name="north">
+
+                        <p:menubar id="menuPrincipal">
+                            <p:menuitem value="Inicio" style="#{menuLogicMB.profileView('Profesor',profileMB.userDTO.userType)}" url="/faces/teacher/index.xhtml" styleClass="#{menuLogicMB.isIndex(view.viewId)}"/> 
+                            <p:menuitem value="Cursos" style="#{menuLogicMB.profileView('Profesor',profileMB.userDTO.userType)}"  url="/faces/teacher/courses/viewAllCoursesOfTeacher.xhtml" styleClass="#{menuLogicMB.isCourseViewTeacher(view.viewId)}"/> 
+                            <p:menuitem value="Tomar asistencia" style="#{menuLogicMB.profileView('Profesor',profileMB.userDTO.userType)}" url="/faces/teacher/takeAttendance/viewCourseList.xhtml" styleClass="#{menuLogicMB.isTakeAttendanceViewTeacher(view.viewId)}"/> 
+                            
+                            <p:menuitem value="Inicio" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/index.xhtml" styleClass="#{menuLogicMB.isIndex(view.viewId)}" />
+                            <p:menuitem value="Estudiantes" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}"  url="/faces/admin/studentMaintainer/viewAllStudent.xhtml" styleClass="#{menuLogicMB.isStudentView(view.viewId)}"/>
+                            <p:menuitem value="Profesores" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/teacherMaintainer/viewAllTeacher.xhtml" styleClass="#{menuLogicMB.isTeacherView(view.viewId)}"/>
+                            <p:menuitem value="Cursos" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/courseMaintainer/viewAllCourse.xhtml" styleClass="#{menuLogicMB.isCourseViewAdmin(view.viewId)}"/>
+                            <p:menuitem value="Administradores" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/adminMaintainer/viewAllAdmin.xhtml" styleClass="#{menuLogicMB.isAdminView(view.viewId)}"/>
+                            <p:menuitem value="Universidades" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/universityMaintainer/viewAllUniversity.xhtml" styleClass="#{menuLogicMB.isUniversityView(view.viewId)}"/>
+                            
+                            <p:menuitem value="Inicio" style="#{menuLogicMB.profileView('Alumno',profileMB.userDTO.userType)}" url="/faces/student/index.xhtml" styleClass="#{menuLogicMB.isIndex(view.viewId)}" />
+                        </p:menubar>
+
+                    </ui:insert>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" size="30" id="footer">

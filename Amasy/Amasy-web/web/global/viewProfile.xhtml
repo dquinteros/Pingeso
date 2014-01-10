@@ -6,20 +6,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:define name="north">
-        <p:menubar id="menuPrincipal">
-            <p:menuitem value="Inicio" style="#{menuLogicMB.profileView('Profesor',profileMB.userDTO.userType)}" url="/faces/teacher/index.xhtml" /> 
-            <p:menuitem value="Cursos" style="#{menuLogicMB.profileView('Profesor',profileMB.userDTO.userType)}"  url="/faces/teacher/courses/viewAllCoursesOfTeacher.xhtml" /> 
-            <p:menuitem value="Tomar asistencia" style="#{menuLogicMB.profileView('Profesor',profileMB.userDTO.userType)}" url="/faces/teacher/takeAttendance/viewCourseList.xhtml" /> 
-            <p:menuitem value="Inicio" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/index.xhtml" />
-            <p:menuitem value="Estudiantes" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}"  url="/faces/admin/studentMaintainer/viewAllStudent.xhtml"/>
-            <p:menuitem value="Profesores" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/teacherMaintainer/viewAllTeacher.xhtml" />
-            <p:menuitem value="Cursos" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/courseMaintainer/viewAllCourse.xhtml" />
-            <p:menuitem value="Administradores" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/adminMaintainer/viewAllAdmin.xhtml" />
-            <p:menuitem value="Universidades" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/universityMaintainer/viewAllUniversity.xhtml" />
-            <p:menuitem value="Inicio" style="#{menuLogicMB.profileView('Alumno',profileMB.userDTO.userType)}" url="/faces/student/index.xhtml" />
-        </p:menubar>
-    </ui:define>
+
 
     <ui:define name="content">
         <h2 style="text-align: center"><h:outputText value="Perfil de #{profileMB.userDTO.firstName}" ></h:outputText></h2>

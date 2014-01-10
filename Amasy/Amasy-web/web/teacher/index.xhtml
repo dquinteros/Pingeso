@@ -9,13 +9,6 @@
         Profesor - Amasy
     </ui:define>
 
-    <ui:define name="north">
-        <p:menubar id="menuPrincipal">
-            <p:menuitem value="Inicio" styleClass="#{menuLogicMB.isIndex(view.viewId)}" url="/faces/teacher/index.xhtml" /> 
-            <p:menuitem value="Cursos" styleClass="#{menuLogicMB.isCourseViewTeacher(view.viewId)}"  url="/faces/teacher/courses/viewAllCoursesOfTeacher.xhtml" /> 
-            <p:menuitem value="Tomar asistencia" styleClass="#{menuLogicMB.isTakeAttendanceViewTeacher(view.viewId)}" url="/faces/teacher/takeAttendance/viewCourseList.xhtml" /> 
-        </p:menubar>
-    </ui:define>
 
     <ui:define name="west">
         <p:menu styleClass="#{menuLogicMB.isNotCourseViewTeacher(view.viewId)} menuLateral" >
