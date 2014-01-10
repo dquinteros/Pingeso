@@ -10,18 +10,6 @@
     </ui:define>
 
 
-    <ui:define name="west">
-        <p:menu styleClass="#{menuLogicMB.isNotCourseViewTeacher(view.viewId)} menuLateral" >
-            <p:submenu label="Cursos">     
-                <p:menuitem value="Lista de cursos" styleClass="#{menuLogicMB.isViewListCourseTeacher(view.viewId)}" outcome="/teacher/courses/viewAllCoursesOfTeacher.xhtml"/> 
-            </p:submenu>
-        </p:menu>
-        <p:menu styleClass="#{menuLogicMB.isNotTakeAttendanceTeacher(view.viewId)} menuLateral">
-            <p:submenu  label="Asistencia">
-                <p:menuitem value="Tomar asistencia" styleClass="#{menuLogicMB.isTakeAttendanceTeacher(view.viewId)}" outcome="/teacher/takeAttendance/viewCourseList.xhtml"/>             
-            </p:submenu>
-        </p:menu>
-    </ui:define>
 
 
     <ui:define name="center">

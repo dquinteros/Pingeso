@@ -30,14 +30,14 @@
                             <p:menuitem value="Cursos" style="#{menuLogicMB.profileView('Profesor',profileMB.userDTO.userType)}"  url="/faces/teacher/courses/viewAllCoursesOfTeacher.xhtml" styleClass="#{menuLogicMB.isCourseViewTeacher(view.viewId)}"/> 
                             <p:menuitem value="Profesores" style="#{menuLogicMB.profileView('Profesor',profileMB.userDTO.userType)}" url="/faces/teacher/teacher/viewAllTeacher.xhtml" styleClass="#{menuLogicMB.isViewAllTeacher(view.viewId)}"/> 
                             <p:menuitem value="Tomar asistencia" style="#{menuLogicMB.profileView('Profesor',profileMB.userDTO.userType)}" url="/faces/teacher/takeAttendance/viewCourseList.xhtml" styleClass="#{menuLogicMB.isTakeAttendanceViewTeacher(view.viewId)}"/> 
-                            
+
                             <p:menuitem value="Inicio" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/index.xhtml" styleClass="#{menuLogicMB.isIndex(view.viewId)}" />
                             <p:menuitem value="Estudiantes" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}"  url="/faces/admin/studentMaintainer/viewAllStudent.xhtml" styleClass="#{menuLogicMB.isStudentView(view.viewId)}"/>
                             <p:menuitem value="Profesores" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/teacherMaintainer/viewAllTeacher.xhtml" styleClass="#{menuLogicMB.isTeacherView(view.viewId)}"/>
                             <p:menuitem value="Cursos" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/courseMaintainer/viewAllCourse.xhtml" styleClass="#{menuLogicMB.isCourseViewAdmin(view.viewId)}"/>
                             <p:menuitem value="Administradores" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/adminMaintainer/viewAllAdmin.xhtml" styleClass="#{menuLogicMB.isAdminView(view.viewId)}"/>
                             <p:menuitem value="Universidades" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/universityMaintainer/viewAllUniversity.xhtml" styleClass="#{menuLogicMB.isUniversityView(view.viewId)}"/>
-                            
+
                             <p:menuitem value="Inicio" style="#{menuLogicMB.profileView('Alumno',profileMB.userDTO.userType)}" url="/faces/student/index.xhtml" styleClass="#{menuLogicMB.isIndex(view.viewId)}" />
                         </p:menubar>
 
@@ -48,8 +48,50 @@
                     <h:outputText id="footer-text-container" value ="&#169; 2013 Made of Data. All Rights Reserved."/>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175">                
-                    <ui:insert name="west"></ui:insert>                    
+                <p:layoutUnit position="west" size="175">  
+                    <p:menu style="#{menuLogicMB.profileView('Profesor',profileMB.userDTO.userType)}" styleClass="#{menuLogicMB.isNotCourseViewTeacher(view.viewId)} menuLateral" >
+                        <p:submenu label="Cursos">     
+                            <p:menuitem value="Lista de cursos" styleClass="#{menuLogicMB.isViewListCourseTeacher(view.viewId)}" outcome="/teacher/courses/viewAllCoursesOfTeacher.xhtml"/> 
+                        </p:submenu>
+                    </p:menu>
+                    <p:menu style="#{menuLogicMB.profileView('Profesor',profileMB.userDTO.userType)}" styleClass="#{menuLogicMB.isNotTakeAttendanceTeacher(view.viewId)} menuLateral">
+                        <p:submenu  label="Asistencia">
+                            <p:menuitem value="Tomar asistencia" styleClass="#{menuLogicMB.isTakeAttendanceTeacher(view.viewId)}" outcome="/teacher/takeAttendance/viewCourseList.xhtml"/>             
+                        </p:submenu>
+                    </p:menu>
+                                                                                
+                    <p:menu style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" styleClass="#{menuLogicMB.isNotStudentView(view.viewId)} menuLateral">
+                        <p:submenu label="Mantendor">
+                            <p:menuitem value="Ver Alumnos" styleClass="#{menuLogicMB.isViewStudent(view.viewId)}" outcome="/faces/admin/studentMaintainer/viewAllStudent.xhtml"/> 
+                            <p:menuitem value="Agregar Alumno" styleClass="#{menuLogicMB.isAddStudent(view.viewId)}" outcome="/faces/admin/studentMaintainer/addStudent.xhtml"/>                
+                        </p:submenu>
+                    </p:menu>
+                    <p:menu style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" styleClass="#{menuLogicMB.isNotTeacherView(view.viewId)} menuLateral">
+                        <p:submenu  label="Mantenedor">
+                            <p:menuitem value="Ver Profesores" styleClass="#{menuLogicMB.isViewTeacher(view.viewId)}" outcome="/faces/admin/teacherMaintainer/viewAllTeacher.xhtml"/> 
+                            <p:menuitem value="Agregar Profesor" styleClass="#{menuLogicMB.isAddTeacher(view.viewId)}" outcome="/faces/admin/teacherMaintainer/addTeacher.xhtml"/>                
+                        </p:submenu>
+                    </p:menu>
+                    <p:menu style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" styleClass="#{menuLogicMB.isNotCourseViewAdmin(view.viewId)} menuLateral">
+                        <p:submenu  label="Mantenedor">
+                            <p:menuitem value="Ver Cursos" styleClass="#{menuLogicMB.isViewCourseAdmin(view.viewId)}" outcome="/faces/admin/courseMaintainer/viewAllCourse.xhtml"/> 
+                            <p:menuitem value="Agregar Curso" styleClass="#{menuLogicMB.isAddCourseAdmin(view.viewId)}" outcome="/faces/admin/courseMaintainer/addCourse.xhtml"/> 
+                        </p:submenu>
+                    </p:menu>
+                    <p:menu style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" styleClass="#{menuLogicMB.isNotAdminView(view.viewId)} menuLateral">
+                        <p:submenu  label="Mantenedor">
+                            <p:menuitem value="Ver Administradores" styleClass="#{menuLogicMB.isViewAdmin(view.viewId)}" outcome="/faces/admin/adminMaintainer/viewAllAdmin.xhtml"/> 
+                            <p:menuitem value="Agregar Administrador" styleClass="#{menuLogicMB.isAddAdmin(view.viewId)}" outcome="/faces/admin/adminMaintainer/addAdmin.xhtml"/> 
+                        </p:submenu>
+                    </p:menu>
+                    <p:menu style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" styleClass="#{menuLogicMB.isNotUniversityView(view.viewId)} menuLateral">
+                        <p:submenu  label="Mantenedor">
+                            <p:menuitem value="Ver Universidades" styleClass="#{menuLogicMB.isViewUniversity(view.viewId)}" outcome="/faces/admin/universityMaintainer/viewAllUniversity.xhtml"/> 
+                            <p:menuitem value="Agregar Universidad" styleClass="#{menuLogicMB.isAddUniversity(view.viewId)}" outcome="/faces/admin/universityMaintainer/addUniversity.xhtml"/> 
+                        </p:submenu>
+                    </p:menu>
+
+
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center" id="center">

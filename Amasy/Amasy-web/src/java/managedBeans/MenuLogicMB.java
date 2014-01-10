@@ -381,7 +381,11 @@ public class MenuLogicMB {
                 return "";
             case "/admin/courseMaintainer/editCourse.xhtml":
                 return "";
+            case "/teacher/courses/viewAssistanceOfCourse.xhtml":
+                return "";
             case "/admin/courseMaintainer/allocateBlockclassesoToCourse.xhtml":
+                return "";
+            case "/teacher/courses/viewAllStudentsOfCourse.xhtml":
                 return "";
             default:
                 return "hidden";
