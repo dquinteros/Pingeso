@@ -28,6 +28,21 @@
             <description/>
             <url-pattern>/faces/teacher/*</url-pattern>
         </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>takeattendance</web-resource-name>
+            <description/>
+            <url-pattern>/faces/teacher/courses/viewAssistanceOfCourse.xhtml</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>view all student of course</web-resource-name>
+            <description/>
+            <url-pattern>/faces/teacher/courses/viewAllStudentsOfCourse.xhtml</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>view assistance of student</web-resource-name>
+            <description/>
+            <url-pattern>/faces/teacher/courses/viewAssistanceOfStudent.xhtml</url-pattern>
+        </web-resource-collection>
         <auth-constraint>
             <description/>
             <role-name>Profesor</role-name>
@@ -39,6 +54,21 @@
             <web-resource-name>web admin</web-resource-name>
             <description/>
             <url-pattern>/faces/admin/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>takeattendance</web-resource-name>
+            <description/>
+            <url-pattern>/faces/teacher/courses/viewAssistanceOfCourse.xhtml</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>view all student of course</web-resource-name>
+            <description/>
+            <url-pattern>/faces/teacher/courses/viewAllStudentsOfCourse.xhtml</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>view assistance of student</web-resource-name>
+            <description/>
+            <url-pattern>/faces/teacher/courses/viewAssistanceOfStudent.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>

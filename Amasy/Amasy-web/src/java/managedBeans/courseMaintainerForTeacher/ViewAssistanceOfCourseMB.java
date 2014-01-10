@@ -49,18 +49,17 @@ public class ViewAssistanceOfCourseMB {
     LoginSessionMB varSession;
     private CourseDTO course;
 
-    public ViewAssistanceOfCourseMB() {
-        assistanceStates.put("Ausente", "Ausente");
-        assistanceStates.put("Justificado", "Justificado");
-
-    }
-
     @PostConstruct
     void Init() {
         course = courseManagementSB.getCourseById(courseMaintainerOfTeacherConversation.getIdCourse());
         idCourse = courseMaintainerOfTeacherConversation.getIdCourse();
         assistanceListCourse = courseManagementSB.assistanceListCourse(idCourse);
 
+    }
+
+    public ViewAssistanceOfCourseMB() {
+        assistanceStates.put("Ausente", "Ausente");
+        assistanceStates.put("Justificado", "Justificado");
     }
 
     public AssistanceListCourseDTO getAssistanceListCourse() {
@@ -112,20 +111,20 @@ public class ViewAssistanceOfCourseMB {
             String message = "";
             switch (responseAssistance.getAnswer().getIdError()) {
                 case 115:
-                    message = responseAssistance.getUserDTO().getFirstName() +" " + responseAssistance.getUserDTO().getLastName();
+                    message = responseAssistance.getUserDTO().getFirstName() + " " + responseAssistance.getUserDTO().getLastName();
                     break;
                 case 116:
-                    message = responseAssistance.getUserDTO().getFirstName() +" " + responseAssistance.getUserDTO().getLastName();
+                    message = responseAssistance.getUserDTO().getFirstName() + " " + responseAssistance.getUserDTO().getLastName();
                     break;
                 case 134:
-                    message = responseAssistance.getUserDTO().getFirstName() +" " +responseAssistance.getUserDTO().getLastName();
+                    message = responseAssistance.getUserDTO().getFirstName() + " " + responseAssistance.getUserDTO().getLastName();
                     break;
             }
             UtilitiesMB.showFeedback(responseAssistance.getAnswer(), message);
         }
         assistanceListCourse = courseManagementSB.assistanceListCourse(idCourse);
 
-        log.log(Level.INFO,"El usuario {0} {1}({2}" + ")" + " cambi\u00f3 a asistencia de {3}({4})", new Object[]{varSession.getUser().getFirstName(), varSession.getUser().getLastName(), varSession.getUser().getRut(), ((AssistanceListCourseUnitDTO) row.get(1)).getText(), ((AssistanceListCourseUnitDTO) row.get(0)).getText()});
+        log.log(Level.INFO, "El usuario {0} {1}({2}" + ")" + " cambi\u00f3 a asistencia de {3}({4})", new Object[]{varSession.getUser().getFirstName(), varSession.getUser().getLastName(), varSession.getUser().getRut(), ((AssistanceListCourseUnitDTO) row.get(1)).getText(), ((AssistanceListCourseUnitDTO) row.get(0)).getText()});
     }
 
     public String getAssistanceState() {

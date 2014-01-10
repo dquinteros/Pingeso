@@ -72,4 +72,6 @@ public interface StudentManagementSBLocal {
     ListCourseDTO getCoursesFromStudent(Long idUser);
 
     AssistanceListDTO getAssistanceStudent(Long idCourse, Long idUser);
+
+    ListCourseDTO getCourseOfStudent(Long idStudent);
 }

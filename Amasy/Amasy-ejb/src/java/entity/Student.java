@@ -35,8 +35,6 @@ public class Student implements Serializable {
 
     @ManyToOne
     private University university;
-    @ManyToOne
-    private Course course;
     @ManyToMany
     private List<Course> listCourse;
     private static final long serialVersionUID = 1L;
@@ -133,13 +131,6 @@ public class Student implements Serializable {
         this.enrollYear = incomeYear;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
 
     /**
      *

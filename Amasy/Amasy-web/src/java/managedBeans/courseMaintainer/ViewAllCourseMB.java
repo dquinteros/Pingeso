@@ -14,6 +14,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import managedBeans.UtilitiesMB;
+import managedBeans.courseMaintainerForTeacher.CourseMaintainerOfTeacherConversationalMB;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
 
 /**
@@ -23,13 +24,15 @@ import sessionBeans.courseManagement.CourseManagementSBLocal;
 @Named(value = "viewAllCourseMB")
 @RequestScoped
 public class ViewAllCourseMB {
+
     @EJB
     private CourseManagementSBLocal courseManagementSB;
-    @Inject 
+    @Inject
     private CourseMaintainerConversationalMB courseMaintainerConversation;
     private CourseDTO selectedCourse;
     private List<CourseDTO> filteredCourses;
-    
+    @Inject
+    private CourseMaintainerOfTeacherConversationalMB courseMaintainerOfTeacherConversation;
     private ListCourseDTO courseListDTO;
     private LinkedList<CourseDTO> courseList; //Depreciated
 
@@ -38,16 +41,44 @@ public class ViewAllCourseMB {
      */
     public ViewAllCourseMB() {
     }
-    
+
     @PostConstruct
-    void init(){
+    void init() {
         getCourse();
     }
-    
+
+    /**
+     *
+     * @param idCourse
+     */
+    public void editCourse(Long idCourse) {
+        this.courseMaintainerConversation.beginConversation();
+        this.courseMaintainerConversation.setIdCourse(idCourse);
+        UtilitiesMB.redirection("/faces/admin/courseMaintainer/editCourse.xhtml?cid=".concat(this.courseMaintainerConversation.getConversation().getId().toString()));
+    }
+
+    public void addBlockCourse(Long idCourse) {
+        this.courseMaintainerConversation.beginConversation();
+        this.courseMaintainerConversation.setIdCourse(idCourse);
+        UtilitiesMB.redirection("/faces/admin/courseMaintainer/allocateBlockclassesoToCourse.xhtml?cid=".concat(this.courseMaintainerConversation.getConversation().getId().toString()));
+    }
+
+    public void studentsOfCourse(Long idCourse) {
+        this.courseMaintainerOfTeacherConversation.beginConversation();
+        this.courseMaintainerOfTeacherConversation.setIdCourse(idCourse);
+        UtilitiesMB.redirection("/faces/teacher/courses/viewAllStudentsOfCourse.xhtml?cid=".concat(this.courseMaintainerOfTeacherConversation.getConversation().getId().toString()));
+    }
+
+    public void assistanceOfCourse(Long idCourse) {
+        this.courseMaintainerOfTeacherConversation.beginConversation();
+        this.courseMaintainerOfTeacherConversation.setIdCourse(idCourse);
+        UtilitiesMB.redirection("/faces/teacher/courses/viewAssistanceOfCourse.xhtml?cid=".concat(this.courseMaintainerOfTeacherConversation.getConversation().getId().toString()));
+    }
+
     /**
      *
      */
-    public void getCourse(){        
+    public void getCourse() {
         courseListDTO = courseManagementSB.getAllCourse();
         courseList = new LinkedList<>(courseListDTO.getListCourse());
     }
@@ -91,21 +122,4 @@ public class ViewAllCourseMB {
     public void setCourseList(LinkedList<CourseDTO> courseList) {
         this.courseList = courseList;
     }
-    
-        /**
-     *
-     * @param idCourse
-     */
-    public void editCourse(Long idCourse){
-        this.courseMaintainerConversation.beginConversation();
-        this.courseMaintainerConversation.setIdCourse(idCourse);
-        UtilitiesMB.redirection("/faces/admin/courseMaintainer/editCourse.xhtml?cid=".concat(this.courseMaintainerConversation.getConversation().getId().toString()));
-    }
-   
-    public void addBlockCourse(Long idCourse){
-        this.courseMaintainerConversation.beginConversation();
-        this.courseMaintainerConversation.setIdCourse(idCourse);
-        UtilitiesMB.redirection("/faces/admin/courseMaintainer/allocateBlockclassesoToCourse.xhtml?cid=".concat(this.courseMaintainerConversation.getConversation().getId().toString()));
-    }
-    
 }
