@@ -683,4 +683,20 @@ public class CourseManagementSB implements CourseManagementSBLocal {
             return null;
         }
     }
+    
+    @Override
+    @SuppressWarnings("empty-statement")
+    public ListCourseDTO getAllCoursesOfStudent(Long idUser){
+        Collection<Course> result;
+        ListCourseDTO exitResult = new ListCourseDTO();
+        Query q = this.em.createNamedQuery("Student.getListCourseFromUser");
+        q.setParameter("idUser", idUser);
+        try {
+            result = (Collection<Course>) q.getResultList();
+            return sqlResultToCourseList(result, exitResult);
+        } catch (NoResultException nre) {
+            System.out.println(nre);
+            return null;
+        }
+    }
 }

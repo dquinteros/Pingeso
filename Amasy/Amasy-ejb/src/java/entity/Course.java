@@ -21,7 +21,7 @@ import javax.persistence.OneToMany;
     @NamedQuery(name = "Course.getAllStudentsOfCourse", query = "SELECT e FROM Student e WHERE e.user.userStatus = true"),
     @NamedQuery(name = "Course.getAllCourses", query = "SELECT c FROM Course c WHERE c.university.universityStatus = true"),
     @NamedQuery(name = "getAllCourseOfStudentInUniversity", query = "SELECT c FROM Course c WHERE c.university.id = :idUniversity"),
-    @NamedQuery(name = "Course.countCourseByName", query = "SELECT COUNT(c) FROM Course c WHERE c.name = :name"),
+    @NamedQuery(name = "Course.countCourseByName", query = "SELECT COUNT(c) FROM Course c WHERE c.name = :name AND c.university.universityStatus = true"),
     @NamedQuery(name = "Course.getAllCoursesOfTeacher", query = "SELECT t.listCourse FROM Teacher t WHERE t.user.id = :idUser")
 })
 public class Course implements Serializable {
