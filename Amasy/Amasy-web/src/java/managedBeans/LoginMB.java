@@ -49,7 +49,7 @@ public class LoginMB {
      */
     public void login(){
         AnswerDTO res = varSession.login(userName, password);
-        UtilitiesMB.showFeedback(res);
+        System.out.println("RESPUESTA: "+res.getIdError());
         log.info("El usuario "+userName+"("+varSession.getUser().getRut()+")"+" ingresó en el sistema" ); 
     }
    

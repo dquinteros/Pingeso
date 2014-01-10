@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template/default.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="title">Alumno - Amasy</ui:define>
+
+    <ui:define name="north">
+        <p:menubar id="menuPrincipal">
+            <p:menuitem value="Inicio" styleClass="#{menuLogicMB.isIndex(view.viewId)}" url="/faces/student/index.xhtml" />
+        </p:menubar>
+    </ui:define>
+    <ui:define name="west">
+        
+    </ui:define>
+
+
+    <ui:define name="center">
+        <ui:insert name="center">            
+        </ui:insert>    
+    </ui:define>
+    
+    <ui:define name="content">
+        <h3><h:outputText value="Bienvenido(a) al menu de alumnos, #{utilitiesMB.welcomeUserMessage()}"/></h3>
+    </ui:define>
+    
+</ui:composition>

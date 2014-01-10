@@ -19,7 +19,9 @@
 
                 <p:layoutUnit position="north" size="100" id="header">
                     <h:form id="logout">
-                        <p:commandButton value="Cerrar Sesión" style="float:right; margin: 15px 15px 0px 0px; z-index:1000" action="#{loginMB.logout()}"/>                        
+                        <p:commandButton value="Cerrar Sesión" style="float:right; margin: 15px 15px 0px 0px; z-index:1000" action="#{loginMB.logout()}"/>
+                        <p:commandButton id="myProfile" icon="ui-icon-person" style="float:right; margin: 15px 15px 0px 0px; z-index:1000" action="#{profileMB.viewProfile()}"/>
+                        <p:tooltip for="myProfile" value="Mi Perfil" showEffect="fade" hideEffect="fade"/>
                     </h:form>
                     <ui:insert name="north"></ui:insert>
                 </p:layoutUnit>
