@@ -56,6 +56,13 @@ public class ViewAllStudentsOfCourseMB {
         this.courseMaintainerOfTeacherConversation.setIdUser(idStudent);
         UtilitiesMB.redirection("/faces/teacher/courses/viewAssistanceOfStudent.xhtml?cid=".concat(this.courseMaintainerOfTeacherConversation.getConversation().getId().toString()));
     }
+    
+    public void courseOfStudent(Long idStudent) {
+        this.courseMaintainerOfTeacherConversation.beginConversation();
+        this.courseMaintainerOfTeacherConversation.setIdCourse(idCourse);
+        this.courseMaintainerOfTeacherConversation.setIdUser(idStudent);
+        UtilitiesMB.redirection("/faces/teacher/courses/courseOfStudent.xhtml?cid=".concat(this.courseMaintainerOfTeacherConversation.getConversation().getId().toString()));
+    }
 
     public ListUserDTO getUserListDTO() {
         return userListDTO;

@@ -66,6 +66,8 @@ public class MenuLogicMB {
                 return "on-hover";
             case "/teacher/courses/viewAssistanceOfStudent.xhtml":
                 return "on-hover";
+            case "/teacher/courses/courseOfStudent.xhtml":
+                return "on-hover";                
             case "/teacher/courses/workgroupManagement.xhtml":
                 return "on-hover";
             case "/teacher/courses/viewAssistanceOfCourse.xhtml":
@@ -246,6 +248,8 @@ public class MenuLogicMB {
             case "/teacher/courses/viewAllStudentsOfCourse.xhtml":
                 return "";
             case "/teacher/courses/viewAssistanceOfStudent.xhtml":
+                return "";
+            case "/teacher/courses/courseOfStudent.xhtml":
                 return "";
             case "/teacher/courses/workgroupManagement.xhtml":
                 return "";

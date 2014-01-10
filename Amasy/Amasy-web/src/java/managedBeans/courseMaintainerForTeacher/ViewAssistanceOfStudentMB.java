@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import sessionBeans.courseManagement.CourseManagementSBLocal;
 import sessionBeans.studentManagement.StudentManagementSBLocal;
 
 /**
@@ -24,6 +25,8 @@ public class ViewAssistanceOfStudentMB {
     private StudentManagementSBLocal studentManagementSB;
     @Inject
     private CourseMaintainerOfTeacherConversationalMB courseMaintainerOfTeacherConversation;
+    @EJB
+    private CourseManagementSBLocal courseManagementSB;
     private Long idUser;
     private Long idCourse;
     private NewUserDTO newUserDTO;
@@ -39,6 +42,7 @@ public class ViewAssistanceOfStudentMB {
     private void init() {
         idUser = courseMaintainerOfTeacherConversation.getIdUser();
         idCourse = courseMaintainerOfTeacherConversation.getIdCourse();
+        course = courseManagementSB.getCourseById(courseMaintainerOfTeacherConversation.getIdCourse());
         getDataOfStudent();
         assistanceListDTO = studentManagementSB.getAssistanceStudent(idCourse, idUser);
         assistanceList = assistanceListDTO.getListAssistanceDTO();

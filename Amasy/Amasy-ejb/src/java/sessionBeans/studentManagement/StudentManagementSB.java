@@ -531,7 +531,31 @@ public class StudentManagementSB implements StudentManagementSBLocal {
         }
         return null;
     }
+    
+    @Override
+    public ListCourseDTO getCourseOfStudent(Long idUser){
+        Collection<Course> listCourse = em.find(User.class, idUser).getStudent().getListCourse();
+        Collection<CourseDTO> listCourseDTO = new ArrayList();
+        ListCourseDTO response = new ListCourseDTO();
+        return sqlResultToCourseList(listCourse, response);
+    }
 
+    private ListCourseDTO sqlResultToCourseList(Collection<Course> result, ListCourseDTO exitResult) {
+        CourseDTO courseDTOTemp;
+        Collection<CourseDTO> listCourseTemp = new ArrayList<>();
+        for (Course iter : result) {
+            courseDTOTemp = new CourseDTO(iter);
+            courseDTOTemp.setNameUniversity(iter.getUniversity().getName());
+            if(iter.getTeacher()!=null){
+                courseDTOTemp.setTeacher(new UserDTO(iter.getTeacher().getUser()));
+            }                        
+            courseDTOTemp.setNameUniversity(iter.getUniversity().getName());
+            listCourseTemp.add(courseDTOTemp);            
+        }
+        exitResult.setListCourse(listCourseTemp);
+        exitResult.setAnswerDTO(new AnswerDTO(0));
+        return exitResult;
+    }
     /**
      *
      * @return
