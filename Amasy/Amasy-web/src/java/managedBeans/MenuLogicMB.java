@@ -32,6 +32,8 @@ public class MenuLogicMB {
                 return "on-hover";
             case "/teacher/index.xhtml":
                 return "on-hover";
+            case "/student/index.xhtml":
+                return "on-hover";
             default: return "";
         }        
     }
@@ -476,5 +478,10 @@ public class MenuLogicMB {
         } else {
             return "";
         }
+    }
+    
+    public String profileView(String user, String targetUser){
+        if(user.equals(targetUser)) return "";
+        else return "display: none";
     }
 }

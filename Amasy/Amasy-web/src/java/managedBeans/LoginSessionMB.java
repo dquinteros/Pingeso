@@ -109,7 +109,7 @@ public class LoginSessionMB extends UtilitiesMB implements Serializable{
                 break;
             case "Administrador": startPage = "/faces/admin/index.xhtml";
                 break;
-            case "Alumno":;
+            case "Alumno": startPage = "/faces/student/index.xhtml";
                 break;
         }
     }
