@@ -53,7 +53,6 @@ public class ViewAllTeacherMB {
      * @param idUser
      */
     public void editTeacher(Long idUser){
-        System.out.println(idUser);
         this.teacherMaintainerConversation.beginConversation();
         this.teacherMaintainerConversation.setIdUser(idUser);
         UtilitiesMB.redirection("/faces/admin/teacherMaintainer/editTeacher.xhtml?cid=".concat(this.teacherMaintainerConversation.getConversation().getId().toString()));
@@ -75,6 +74,12 @@ public class ViewAllTeacherMB {
         }
         UtilitiesMB.showFeedback(ans);
    }
+    
+    public void courseOfTeacher(Long idUser){
+        this.teacherMaintainerConversation.beginConversation();
+        this.teacherMaintainerConversation.setIdUser(idUser);
+        UtilitiesMB.redirection("/faces/admin/teacherMaintainer/courseOfTeacher.xhtml?cid=".concat(this.teacherMaintainerConversation.getConversation().getId().toString()));
+    }
 
     /**
      *

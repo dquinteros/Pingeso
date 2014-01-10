@@ -79,6 +79,17 @@ public class MenuLogicMB {
         }
     }
     
+    public String isViewAllTeacher(String view){
+        switch (view) {
+            case "/teacher/teacher/viewAllTeacher.xhtml":
+                return "on-hover";                
+            case "/admin/teacherMaintainer/courseOfTeacher.xhtml":
+                return "on-hover";                
+            default:
+                return "";
+        }        
+    }
+    
     public String isTakeAttendanceViewTeacher(String view){
         switch (view) {
             case "/teacher/takeAttendance/viewCourseList.xhtml":
@@ -157,6 +168,10 @@ public class MenuLogicMB {
         switch (view) {
             case "/admin/teacherMaintainer/viewAllTeacher.xhtml":
                 return "on-hover";
+            
+            case "/admin/teacherMaintainer/courseOfTeacher.xhtml":
+                return "on-hover";
+            
             case "/admin/teacherMaintainer/addTeacher.xhtml":
                 return "on-hover";
             case "/admin/teacherMaintainer/editTeacher.xhtml":
@@ -174,6 +189,8 @@ public class MenuLogicMB {
     public String isNotTeacherView(String view) {
         switch (view) {
             case "/admin/teacherMaintainer/viewAllTeacher.xhtml":
+                return "";
+            case "/admin/teacherMaintainer/courseOfTeacher.xhtml":
                 return "";
             case "/admin/teacherMaintainer/addTeacher.xhtml":
                 return "";

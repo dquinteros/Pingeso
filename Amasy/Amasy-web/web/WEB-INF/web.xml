@@ -48,6 +48,11 @@
             <description/>
             <url-pattern>/faces/teacher/courses/courseOfStudent.xhtml</url-pattern>
         </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>course of teacher</web-resource-name>
+            <description/>
+            <url-pattern>/faces/admin/teacherMaintainer/courseOfTeacher.xhtml</url-pattern>
+        </web-resource-collection>
         <auth-constraint>
             <description/>
             <role-name>Profesor</role-name>
@@ -79,6 +84,11 @@
             <web-resource-name>course of student</web-resource-name>
             <description/>
             <url-pattern>/faces/teacher/courses/courseOfStudent.xhtml</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>course of teacher</web-resource-name>
+            <description/>
+            <url-pattern>/faces/admin/teacherMaintainer/courseOfTeacher.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>

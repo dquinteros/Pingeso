@@ -5,6 +5,7 @@
 package sessionBeans.teacherManagement;
 
 import DTOs.AnswerDTO;
+import DTOs.ListCourseDTO;
 import DTOs.NewUserDTO;
 import DTOs.UserDTO;
 import java.util.LinkedList;
@@ -51,5 +52,7 @@ public interface TeacherManagementSBLocal {
      * @return
      */
     AnswerDTO deleteTeacher(Long id);
+    
+    ListCourseDTO getCourseOfTeacher(Long idUser);
     
 }

@@ -40,7 +40,6 @@ public class EditTeacherMB {
      */
     @PostConstruct
     public void init() {
-        System.out.println(teacherMaintainerConversation.getIdUser());
         teacherId = teacherMaintainerConversation.getIdUser();
         newUserDTO=teacherManagementSB.getTeacherById(teacherId);
     }
