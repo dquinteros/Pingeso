@@ -27,6 +27,8 @@ import javax.persistence.OneToMany;
 public class Course implements Serializable {
 
     @ManyToOne
+    private Semester semester;
+    @ManyToOne
     private University university;
     @OneToMany(mappedBy = "course")
     private List<GroupStudentPerCourse> listGroup;
@@ -91,6 +93,14 @@ public class Course implements Serializable {
      */
     public void setListStudent(List<Student> listStudent) {
         this.listStudent = listStudent;
+    }
+
+    public Semester getSemester() {
+        return semester;
+    }
+
+    public void setSemester(Semester semester) {
+        this.semester = semester;
     }
 
     /**

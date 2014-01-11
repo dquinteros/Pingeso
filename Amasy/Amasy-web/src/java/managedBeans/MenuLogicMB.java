@@ -273,7 +273,9 @@ public class MenuLogicMB {
             case "/teacher/courses/workgroupManagement.xhtml":
                 return "";
             case "/teacher/courses/viewAssistanceOfCourse.xhtml":
-                return "";                
+                return "";
+            case "/student/course/viewAllCourses.xhtml":
+                return "";
             default:
                 return "hidden";
         }
@@ -369,6 +371,8 @@ public class MenuLogicMB {
 
     public String isViewListCourseTeacher(String view){
         if ("/teacher/courses/viewAllCoursesOfTeacher.xhtml".equals(view)) {
+            return "on-hover";
+        } else if ("/student/course/viewAllCourses.xhtml".equals(view)) {
             return "on-hover";
         } else {
             return "";
@@ -539,7 +543,10 @@ public class MenuLogicMB {
     public String isViewCourseStudent(String view) {
         if ("/student/course/viewAllCourses.xhtml".equals(view)) {
             return "on-hover";
-        } else {
+        } else if("/teacher/courses/viewAssistanceOfStudent.xhtml".equals(view)){
+            return "on-hover";
+        }
+        else{
             return "";
         }
     }
