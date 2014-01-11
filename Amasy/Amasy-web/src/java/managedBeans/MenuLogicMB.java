@@ -273,7 +273,9 @@ public class MenuLogicMB {
             case "/teacher/courses/workgroupManagement.xhtml":
                 return "";
             case "/teacher/courses/viewAssistanceOfCourse.xhtml":
-                return "";                
+                return "";
+            case "/student/course/viewAllCourses.xhtml":
+                return "";
             default:
                 return "hidden";
         }
@@ -349,6 +351,8 @@ public class MenuLogicMB {
 
     public String isViewListCourseTeacher(String view){
         if ("/teacher/courses/viewAllCoursesOfTeacher.xhtml".equals(view)) {
+            return "on-hover";
+        } else if ("/student/course/viewAllCourses.xhtml".equals(view)) {
             return "on-hover";
         } else {
             return "";

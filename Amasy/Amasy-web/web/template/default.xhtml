@@ -91,6 +91,12 @@
                             <p:menuitem value="Agregar Universidad" styleClass="#{menuLogicMB.isAddUniversity(view.viewId)}" outcome="/faces/admin/universityMaintainer/addUniversity.xhtml"/> 
                         </p:submenu>
                     </p:menu>
+                    
+                    <p:menu style="#{menuLogicMB.profileView('Alumno',profileMB.userDTO.userType)}" styleClass="#{menuLogicMB.isNotCourseViewTeacher(view.viewId)} menuLateral" >
+                        <p:submenu label="Cursos">     
+                            <p:menuitem value="Lista de cursos" styleClass="#{menuLogicMB.isViewListCourseTeacher(view.viewId)}" outcome="/student/course/viewAllCourses.xhtml"/> 
+                        </p:submenu>
+                    </p:menu>
 
 
                 </p:layoutUnit>
