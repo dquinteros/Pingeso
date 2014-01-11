@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,6 +26,9 @@ import javax.persistence.OneToMany;
 @Entity
 public class University implements Serializable {
 
+    
+    @OneToMany(mappedBy = "university")
+    private List<Semester> listSemester;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +37,6 @@ public class University implements Serializable {
     private int rut;
     private String address;
     private boolean universityStatus;
-    
     @OneToMany(mappedBy = "university")
     private List<Course> listCourse;
     @OneToMany(mappedBy = "university")
@@ -69,6 +72,14 @@ public class University implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Semester> getListSemester() {
+        return listSemester;
+    }
+
+    public void setListSemester(List<Semester> listSemester) {
+        this.listSemester = listSemester;
     }
 
     public List<Course> getListCourse() {
