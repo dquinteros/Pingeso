@@ -296,6 +296,17 @@ public class MenuLogicMB {
                 return "hidden";
         }
     }
+    
+    public String isNotViewAllTeacher(String view){
+        switch (view) {
+            case "/teacher/teacher/viewAllTeacher.xhtml":
+               return "";
+            case "/admin/teacherMaintainer/courseOfTeacher.xhtml":
+               return "";
+            default:
+                return "hidden";
+        }
+    }
 
     /**
      *
@@ -309,6 +320,15 @@ public class MenuLogicMB {
             return "";
         }
     }
+    
+    public String isViewAllTeacherForTeacher(String view) {
+        if ("/teacher/teacher/viewAllTeacher.xhtml".equals(view)) {
+            return "on-hover";
+        } else {
+            return "";
+        }
+    }
+    
     
     /**
      *
