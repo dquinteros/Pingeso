@@ -39,6 +39,7 @@
                             <p:menuitem value="Universidades" style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" url="/faces/admin/universityMaintainer/viewAllUniversity.xhtml" styleClass="#{menuLogicMB.isUniversityView(view.viewId)}"/>
                             
                             <p:menuitem value="Inicio" style="#{menuLogicMB.profileView('Alumno',profileMB.userDTO.userType)}" url="/faces/student/index.xhtml" styleClass="#{menuLogicMB.isIndex(view.viewId)}" />
+                            <p:menuitem value="Mis Cursos" style="#{menuLogicMB.profileView('Alumno',profileMB.userDTO.userType)}" url="/faces/student/course/viewAllCourses.xhtml" styleClass="#{menuLogicMB.isViewCourseStudent(view.viewId)}"/>
                         </p:menubar>
 
                     </ui:insert>

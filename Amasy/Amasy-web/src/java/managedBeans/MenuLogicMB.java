@@ -515,7 +515,10 @@ public class MenuLogicMB {
     public String isViewCourseStudent(String view) {
         if ("/student/course/viewAllCourses.xhtml".equals(view)) {
             return "on-hover";
-        } else {
+        } else if("/teacher/courses/viewAssistanceOfStudent.xhtml".equals(view)){
+            return "on-hover";
+        }
+        else{
             return "";
         }
     }
