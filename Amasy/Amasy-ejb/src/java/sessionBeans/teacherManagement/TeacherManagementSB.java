@@ -8,7 +8,6 @@ import DTOs.AnswerDTO;
 import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
 import DTOs.NewUserDTO;
-import DTOs.UniversityDTO;
 import DTOs.UserDTO;
 import entity.Course;
 import entity.Teacher;

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../student/index.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <h2 style="text-align: center"><h:outputText value="Informacion del profesor(a): #{viewInformationOfTeacherMB.teacher.firstName}" ></h:outputText></h2>
+        <h:form style="margin-left: 10px">
+            <h:outputText value="Nombre: " style="font-weight:bold;"/>#{viewInformationOfTeacherMB.teacher.firstName} #{viewInformationOfTeacherMB.teacher.lastName} <br /><br />
+            <h:outputText value="Rut: " style="font-weight:bold;"/>#{viewInformationOfTeacherMB.teacher.rut} <br /><br />
+            <h:outputText value="Correo: " style="font-weight:bold;"/>#{viewInformationOfTeacherMB.teacher.email} <br /><br />
+            <h:outputText value="Telefono de casa: " style="font-weight:bold;"/>#{viewInformationOfTeacherMB.teacher.homePhone} <br /><br />
+            <h:outputText value="Telefono celular: " style="font-weight:bold;"/>#{viewInformationOfTeacherMB.teacher.cellPhone} <br /><br />
+        </h:form>
+    </ui:define>
+    
+</ui:composition>    

@@ -31,6 +31,8 @@
                 <p:column styleClass="center" headerText="Acciones">
                     <p:commandButton id="assistanceButton" icon="ui-icon-clipboard" title="Ver la asistencia" action="#{viewAllCoursesMB.assistanceOfStudent(courseDTO.id)}"/>
                     <p:tooltip for="assistanceButton" value="Ver la asistencia" showEffect="fade" hideEffect="fade" /> 
+                    <p:commandButton id="teacherInfoButton" icon="ui-icon-contact" title="Ver informacion del profesor" action="#{viewAllCoursesMB.viewInformationOfTeacher(courseDTO.teacher.id)}"/>
+                    <p:tooltip for="teacherInfoButton" value="Ver informacion del profesor" showEffect="fade" hideEffect="fade" /> 
                 </p:column>
             </p:dataTable>
         </h:form>         

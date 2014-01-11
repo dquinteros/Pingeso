@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package managedBeans.courseMaintainer;
+package managedBeans.coursesForStudent;
 
 import javax.inject.Named;
 import javax.enterprise.context.ConversationScoped;
@@ -14,20 +10,17 @@ import javax.inject.Inject;
  *
  * @author Pingeso
  */
-@Named(value = "courseMaintainerConversationalMB")
+@Named(value = "coursesForStudentConversationalMB")
 @ConversationScoped
-public class CourseMaintainerConversationalMB implements Serializable {
-
+public class CoursesForStudentConversationalMB implements Serializable {
     @Inject
     Conversation conversation;
-    /**
-     * Creates a new instance of CourseMaintainerConversationalMB
-     */
-    private Long idCourse;
-
-    public CourseMaintainerConversationalMB() {
+    
+    private Long idTeacher;
+    
+    public CoursesForStudentConversationalMB() {
     }
-
+    
     public void beginConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
@@ -44,11 +37,16 @@ public class CourseMaintainerConversationalMB implements Serializable {
         return conversation;
     }
 
-    public Long getIdCourse() {
-        return idCourse;
+    public void setConversation(Conversation conversation) {
+        this.conversation = conversation;
     }
 
-    public void setIdCourse(Long idCourse) {
-        this.idCourse = idCourse;
+    public Long getIdTeacher() {
+        return idTeacher;
     }
+
+    public void setIdTeacher(Long idTeacher) {
+        this.idTeacher = idTeacher;
+    }
+    
 }

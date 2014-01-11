@@ -11,7 +11,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import managedBeans.LoginSessionMB;
 import managedBeans.UtilitiesMB;
-import managedBeans.courseMaintainer.CourseMaintainerConversationalMB;
 import managedBeans.courseMaintainerForTeacher.CourseMaintainerOfTeacherConversationalMB;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
 
@@ -27,6 +26,8 @@ public class ViewAllCoursesMB {
     
     @Inject
     private CourseMaintainerOfTeacherConversationalMB courseMaintainerOfTeacherConversation;
+    @Inject
+    private CoursesForStudentConversationalMB coursesForStudentConversation;
     
     @Inject 
     LoginSessionMB varSession;
@@ -53,6 +54,12 @@ public class ViewAllCoursesMB {
         this.courseMaintainerOfTeacherConversation.setIdCourse(idCourse);
         this.courseMaintainerOfTeacherConversation.setIdUser(varSession.getUser().getId());
         UtilitiesMB.redirection("/faces/teacher/courses/viewAssistanceOfStudent.xhtml?cid=".concat(this.courseMaintainerOfTeacherConversation.getConversation().getId().toString()));
+    }
+    
+    public void viewInformationOfTeacher(Long idTeacher){
+        this.coursesForStudentConversation.beginConversation();
+        this.coursesForStudentConversation.setIdTeacher(idTeacher);
+        UtilitiesMB.redirection("/faces/student/course/viewInformationOfTeacher.xhtml?cid=".concat(this.coursesForStudentConversation.getConversation().getId().toString()));
     }
 
     public ListCourseDTO getCourseListDTO() {
