@@ -301,10 +301,16 @@ public class MenuLogicMB {
             case "/admin/courseMaintainer/viewAllCourse.xhtml":
                 return "on-hover";
             case "/admin/courseMaintainer/addCourse.xhtml":
-                return "on-hover";
+                return "on-hover";            
             case "/admin/courseMaintainer/editCourse.xhtml":
                 return "on-hover";
             case "/admin/courseMaintainer/allocateBlockclassesoToCourse.xhtml":
+                return "on-hover";
+            case "/teacher/courses/viewAllStudentsOfCourse.xhtml":
+                return "on-hover";
+            case "/teacher/courses/viewAssistanceOfStudent.xhtml":
+                return "on-hover";
+            case "/teacher/courses/viewAssistanceOfCourse.xhtml":
                 return "on-hover";
             default:
                 return "";

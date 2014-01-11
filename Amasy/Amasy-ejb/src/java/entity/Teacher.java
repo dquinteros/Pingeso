@@ -26,8 +26,6 @@ import javax.persistence.OneToOne;
 })
 public class Teacher implements Serializable {
 
-    @OneToOne
-    private Course course;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,14 +81,6 @@ public class Teacher implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
     }
 
     /**

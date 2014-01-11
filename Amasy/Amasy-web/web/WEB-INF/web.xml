@@ -43,6 +43,11 @@
             <description/>
             <url-pattern>/faces/teacher/courses/viewAssistanceOfStudent.xhtml</url-pattern>
         </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>course of student</web-resource-name>
+            <description/>
+            <url-pattern>/faces/teacher/courses/courseOfStudent.xhtml</url-pattern>
+        </web-resource-collection>
         <auth-constraint>
             <description/>
             <role-name>Profesor</role-name>
@@ -69,6 +74,11 @@
             <web-resource-name>view assistance of student</web-resource-name>
             <description/>
             <url-pattern>/faces/teacher/courses/viewAssistanceOfStudent.xhtml</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>course of student</web-resource-name>
+            <description/>
+            <url-pattern>/faces/teacher/courses/courseOfStudent.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
