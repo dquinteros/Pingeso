@@ -59,6 +59,11 @@
                             <p:menuitem value="Tomar asistencia" styleClass="#{menuLogicMB.isTakeAttendanceTeacher(view.viewId)}" outcome="/teacher/takeAttendance/viewCourseList.xhtml"/>             
                         </p:submenu>
                     </p:menu>
+                    <p:menu style="#{menuLogicMB.profileView('Profesor',profileMB.userDTO.userType)}" styleClass="#{menuLogicMB.isNotViewAllTeacher(view.viewId)} menuLateral">
+                        <p:submenu  label="Profesores">
+                            <p:menuitem value="Lista de profesores" styleClass="#{menuLogicMB.isViewAllTeacherForTeacher(view.viewId)}" outcome="/teacher/teacher/viewAllTeacher.xhtml"/>
+                        </p:submenu>
+                    </p:menu>
                                                                                 
                     <p:menu style="#{menuLogicMB.profileView('Administrador',profileMB.userDTO.userType)}" styleClass="#{menuLogicMB.isNotStudentView(view.viewId)} menuLateral">
                         <p:submenu label="Mantendor">
