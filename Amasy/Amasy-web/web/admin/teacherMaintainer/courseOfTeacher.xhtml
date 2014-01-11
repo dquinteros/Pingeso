@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../index.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">        
+        <h:panelGrid id="grid" columns="2" cellpadding="10" cellspacing="10" columnClasses="panelGridInfoStudent">   
+            <h:outputLabel value="Nombre: #{courseOfTeacherMB.newUserDTO.firstName} #{courseOfTeacherMB.newUserDTO.lastName}" />  
+            <h:outputLabel value="Rut: #{courseOfTeacherMB.newUserDTO.rut}" />  
+            <h:outputLabel value="Nombre de usuario: #{courseOfTeacherMB.newUserDTO.userName}" />  
+            <h:outputLabel value="Correo electronico: #{courseOfTeacherMB.newUserDTO.email}" /> 
+        </h:panelGrid>
+
+        <p:dataTable  var="courseDTO" value="#{courseOfTeacherMB.courseList}" rowKey="#{courseDTO.name}" paginator="true" rows="10"  
+                      filteredValue="#{courseOfTeacherMB.filteredCourses}" id="courseDTOTable">
+            <p:growl for="growl" life="3000"/>
+            <f:facet name="header">  
+                Lista de cursos
+            </f:facet>  
+            <p:column headerText="Universidad" sortBy="nameUniversity" filterBy="nameUniversity" id="nameUniversity">  
+                #{courseDTO.nameUniversity}
+            </p:column>  
+            <p:column headerText="Curso" sortBy="name" filterBy="name" id="name">  
+                #{courseDTO.name}
+            </p:column>  
+            <p:column headerText="Nivel" sortBy="level" filterBy="level" id="level" styleClass="center">  
+                #{courseDTO.level}  
+            </p:column>                                         
+        </p:dataTable>
+    </ui:define>
+
+</ui:composition>

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../../admin/index.xhtml"
+                template="./../../teacher/index.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
@@ -28,20 +28,10 @@
                 <p:column  headerText="Email" sortBy="email" filterBy="email" id="email">  
                     #{userDTO.email}  
                 </p:column>                      
-
                 <p:column styleClass="center" headerText="Acciones">
-
                     <p:commandButton id="courseButton" icon="ui-icon-note" update=":form" action="#{viewAllTeacherMB.courseOfTeacher(userDTO.id)}"/>                      
                     <p:tooltip for="courseButton" value="Lista de cursos del profesor" showEffect="fade" hideEffect="fade" /> 
-
-                    <p:commandButton id="editTeacherButton" icon="ui-icon-pencil" title="Editar" action="#{viewAllTeacherMB.editTeacher(userDTO.id)}"/>
-                    <p:tooltip for="editTeacherButton" value="Editar profesor" showEffect="fade" hideEffect="fade" /> 
-
-                    <p:commandButton id="submitButton" icon="ui-icon-closethick" title="Eliminar" update=":form" action="#{viewAllTeacherMB.deleteTeacher(userDTO.id)}"/>                      
-                    <p:tooltip for="submitButton" value="Eliminar profesor" showEffect="fade" hideEffect="fade" /> 
-
                 </p:column>
-
             </p:dataTable>  
             <p:dialog header="Datos profesor" widgetVar="teacherDialog" resizable="false"  
                       showEffect="explode" hideEffect="explode"  styleClass="headerDialog">  

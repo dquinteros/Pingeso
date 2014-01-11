@@ -5,13 +5,18 @@
 package sessionBeans.teacherManagement;
 
 import DTOs.AnswerDTO;
+import DTOs.CourseDTO;
+import DTOs.ListCourseDTO;
 import DTOs.NewUserDTO;
+import DTOs.UniversityDTO;
 import DTOs.UserDTO;
+import entity.Course;
 import entity.Teacher;
 import entity.User;
 import entity.UserType;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -330,5 +335,30 @@ public class TeacherManagementSB implements TeacherManagementSBLocal {
         }
         return new AnswerDTO(000);
     }
+    
+    @Override
+    public ListCourseDTO getCourseOfTeacher(Long idUser){
+        Collection<Course> listCourse = em.find(User.class, idUser).getTeacher().getListCourse();
+        Collection<CourseDTO> listCourseDTO = new ArrayList();
+        ListCourseDTO response = new ListCourseDTO();
+        return sqlResultToCourseList(listCourse, response);
+    }
+
+    private ListCourseDTO sqlResultToCourseList(Collection<Course> result, ListCourseDTO exitResult) {
+        CourseDTO courseDTOTemp;
+        Collection<CourseDTO> listCourseTemp = new ArrayList<>();
+        for (Course iter : result) {
+            courseDTOTemp = new CourseDTO(iter);
+            courseDTOTemp.setNameUniversity(iter.getUniversity().getName());
+            if(iter.getTeacher()!=null){
+                courseDTOTemp.setTeacher(new UserDTO(iter.getTeacher().getUser()));
+            }                        
+            courseDTOTemp.setNameUniversity(iter.getUniversity().getName());
+            listCourseTemp.add(courseDTOTemp);            
+        }
+        exitResult.setListCourse(listCourseTemp);
+        exitResult.setAnswerDTO(new AnswerDTO(0));
+        return exitResult;
+    }    
     
 }
