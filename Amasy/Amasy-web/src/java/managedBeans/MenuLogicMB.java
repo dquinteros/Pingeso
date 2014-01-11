@@ -488,4 +488,12 @@ public class MenuLogicMB {
         if(user.equals(targetUser)) return "";
         else return "display: none";
     }
+    
+    public String isViewCourseStudent(String view) {
+        if ("/student/course/viewAllCourses.xhtml".equals(view)) {
+            return "on-hover";
+        } else {
+            return "";
+        }
+    }
 }

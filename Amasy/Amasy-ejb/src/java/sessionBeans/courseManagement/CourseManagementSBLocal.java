@@ -67,4 +67,6 @@ public interface CourseManagementSBLocal {
     
     ListCourseDTO getAllCourseOfStudentInUniversity(Long idUser);
     
+    ListCourseDTO getAllCoursesOfStudent(Long idUser);
+    
 }
