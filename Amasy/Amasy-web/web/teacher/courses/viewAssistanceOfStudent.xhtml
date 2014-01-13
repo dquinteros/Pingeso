@@ -7,31 +7,25 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="content">
-        <h3><h:outputText value="Configuración del curso: #{viewAssistanceOfStudentMB.course.name}"/></h3>
-        <h:panelGrid id="grid" columns="2" cellpadding="10" cellspacing="10" columnClasses="panelGridInfoStudent">   
-            <h:outputLabel value="Nombre: #{viewAssistanceOfStudentMB.newUserDTO.firstName} #{viewAssistanceOfStudentMB.newUserDTO.lastName}" />  
-            <h:outputLabel value="Rut: #{viewAssistanceOfStudentMB.newUserDTO.rut}" />  
-            <h:outputLabel value="Nombre de usuario: #{viewAssistanceOfStudentMB.newUserDTO.userName}" />  
-            <h:outputLabel value="Correo electronico: #{viewAssistanceOfStudentMB.newUserDTO.email}" /> 
-        </h:panelGrid>        
+        <h3><p:commandButton id="volver" style="margin: auto 5px" icon="ui-icon-arrowthick-1-w" action="#{viewAssistanceOfStudentMB.goToPreviousView()}"></p:commandButton><h:outputText style="margin-left: 10px" value="Asistencia del alumno: #{viewAssistanceOfStudentMB.newUserDTO.firstName} #{viewAssistanceOfStudentMB.newUserDTO.lastName}"/></h3>       
         <p:dataTable  var="assistance" value="#{viewAssistanceOfStudentMB.assistanceList}" rowKey="#{assistance.dateString}" paginator="true" rows="10"  
-                      id="userDTOTable" emptyMessage="El curso no tiene bloques horarios">
+                      id="userDTOTable" emptyMessage="El alumno no registra asistencias">
             <p:growl for="growl" life="3000"/>
-            <f:facet name="header">  
-                Lista de assistencia
-            </f:facet>  
+            <f:facet name="header">
+                Lista de asistencia
+            </f:facet>
             <p:column headerText="Fecha" id="dateString">  
                 #{assistance.dateString}
-            </p:column>  
+            </p:column>
             <p:column headerText="Día" id="day">  
                 #{assistance.dayBlockClassDTO.day}
             </p:column>  
             <p:column headerText="Hora" id="startHour">  
                 #{assistance.timeBlockClassDTO.startHour}
-            </p:column>  
+            </p:column>
             <p:column headerText="Estado" id="state">  
                 #{assistance.state}
-            </p:column>              
+            </p:column>
         </p:dataTable>        
     </ui:define>
 </ui:composition>

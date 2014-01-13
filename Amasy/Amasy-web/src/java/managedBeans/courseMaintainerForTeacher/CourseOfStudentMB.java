@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import managedBeans.UtilitiesMB;
 import sessionBeans.courseManagement.CourseManagementSBLocal;
 import sessionBeans.studentManagement.StudentManagementSBLocal;
 
@@ -50,6 +51,10 @@ public class CourseOfStudentMB {
         courseList = new ArrayList(listCourseDTO.getListCourse());
         newUserDTO = studentManagementSB.getStudentById(idUser);
         course = courseManagementSB.getCourseById(courseMaintainerOfTeacherConversation.getIdCourse());
+    }
+    
+    public void goToPreviousView(){
+        UtilitiesMB.redirection("/faces/teacher/courses/viewAllStudentsOfCourse.xhtml?cid=".concat(this.courseMaintainerOfTeacherConversation.getConversation().getId().toString()));
     }
 
     public List<CourseDTO> getCourseList() {

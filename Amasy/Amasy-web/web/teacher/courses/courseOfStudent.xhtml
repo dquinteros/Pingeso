@@ -7,17 +7,10 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-        <h3><h:outputText value="Configuración del curso: #{courseOfStudentMB.course.name}"/></h3>
-        <h:panelGrid id="grid" columns="2" cellpadding="10" cellspacing="10" columnClasses="panelGridInfoStudent">   
-            <h:outputLabel value="Nombre: #{courseOfStudentMB.newUserDTO.firstName} #{courseOfStudentMB.newUserDTO.lastName}" />  
-            <h:outputLabel value="Rut: #{courseOfStudentMB.newUserDTO.rut}" />  
-            <h:outputLabel value="Nombre de usuario: #{courseOfStudentMB.newUserDTO.userName}" />  
-            <h:outputLabel value="Correo electronico: #{courseOfStudentMB.newUserDTO.email}" /> 
-        </h:panelGrid>   
-
-        
+        <h3><p:commandButton id="volver" style="margin: auto 5px" icon="ui-icon-arrowthick-1-w" action="#{courseOfStudentMB.goToPreviousView()}"></p:commandButton><h:outputText value="Cursos del alumno: #{courseOfStudentMB.newUserDTO.firstName} #{courseOfStudentMB.newUserDTO.lastName}"/></h3>
+        <p:tooltip for="volver" value="Volver" showEffect="fade" hideEffect="fade"/>
          <p:dataTable  var="courseDTO" value="#{courseOfStudentMB.courseList}" rowKey="#{courseDTO.name}" paginator="true" rows="10"  
-                          filteredValue="#{courseOfStudentMB.filteredCourses}" id="courseDTOTable">
+                       filteredValue="#{courseOfStudentMB.filteredCourses}" id="courseDTOTable" emptyMessage="El alumno no tiene cursos registrados">
                 <p:growl for="growl" life="3000"/>
                 <f:facet name="header">  
                     Lista de cursos

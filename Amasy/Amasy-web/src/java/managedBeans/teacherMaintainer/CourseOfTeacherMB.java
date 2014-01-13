@@ -8,13 +8,13 @@ import DTOs.CourseDTO;
 import DTOs.ListCourseDTO;
 import DTOs.NewUserDTO;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import sessionBeans.studentManagement.StudentManagementSBLocal;
 import sessionBeans.teacherManagement.TeacherManagementSBLocal;
 
 /**
@@ -31,9 +31,9 @@ public class CourseOfTeacherMB {
     private TeacherMaintainerConversationalMB teacherMaintainerConversation;
     private Long idUser;
     private ListCourseDTO listCourseDTO;
-    private List<CourseDTO> courseList;
+    private LinkedList<CourseDTO> courseList;
     private NewUserDTO newUserDTO;
-    private CourseDTO filteredCourses;
+    private List<CourseDTO> filteredCourses;
 
     /**
      * Creates a new instance of CourseOfTeacherMB
@@ -45,15 +45,15 @@ public class CourseOfTeacherMB {
     public void init() {
         idUser = teacherMaintainerConversation.getIdUser();
         listCourseDTO = teacherManagementSB.getCourseOfTeacher(idUser);
-        courseList = new ArrayList(listCourseDTO.getListCourse());
+        courseList = new LinkedList(listCourseDTO.getListCourse());
         newUserDTO = teacherManagementSB.getTeacherById(idUser);
     }
 
-    public List<CourseDTO> getCourseList() {
+    public LinkedList<CourseDTO> getCourseList() {
         return courseList;
     }
 
-    public void setCourseList(List<CourseDTO> courseList) {
+    public void setCourseList(LinkedList<CourseDTO> courseList) {
         this.courseList = courseList;
     }
 
@@ -65,11 +65,20 @@ public class CourseOfTeacherMB {
         this.newUserDTO = newUserDTO;
     }
 
-    public CourseDTO getFilteredCourses() {
+    public ListCourseDTO getListCourseDTO() {
+        return listCourseDTO;
+    }
+
+    public void setListCourseDTO(ListCourseDTO listCourseDTO) {
+        this.listCourseDTO = listCourseDTO;
+    }
+
+    public List<CourseDTO> getFilteredCourses() {
         return filteredCourses;
     }
 
-    public void setFilteredCourses(CourseDTO filteredCourses) {
+    public void setFilteredCourses(List<CourseDTO> filteredCourses) {
         this.filteredCourses = filteredCourses;
     }
+    
 }
